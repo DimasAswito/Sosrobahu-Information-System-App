@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">Sosrobahu Factory App</string>
+    <string name="app_name">Factory App</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_pesanan">Pesanan</string>
+    <string name="title_riwayatStok">Riwayat</string>
+    <string name="title_harga">Harga</string>
+    <string name="title_pengaturan">Pengaturan</string>
+
 </resources>

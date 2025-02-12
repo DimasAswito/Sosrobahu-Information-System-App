@@ -7,13 +7,23 @@
         android:title="@string/title_home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:id="@+id/navigation_pesanan"
+        android:icon="@drawable/baseline_shopping_cart_24"
+        android:title="@string/title_pesanan" />
 
     <item
-        android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:id="@+id/navigation_riwayat"
+        android:icon="@drawable/baseline_history_24"
+        android:title="@string/title_riwayatStok" />
+
+    <item
+        android:id="@+id/navigation_harga"
+        android:icon="@drawable/baseline_attach_money_24"
+        android:title="@string/title_harga" />
+
+    <item
+        android:id="@+id/navigation_pengaturan"
+        android:icon="@drawable/baseline_settings_24"
+        android:title="@string/title_pengaturan" />
 
 </menu>

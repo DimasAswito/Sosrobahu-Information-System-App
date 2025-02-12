@@ -12,14 +12,27 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.polije.sosrobahufactoryapp.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_pesanan"
+        android:name="com.polije.sosrobahufactoryapp.ui.pesanan.PesananFragment"
+        android:label="@string/title_pesanan"
+        tools:layout="@layout/fragment_pesanan" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.polije.sosrobahufactoryapp.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:id="@+id/navigation_riwayat"
+        android:name="com.polije.sosrobahufactoryapp.ui.riwayatRestok.RiwayatFragment"
+        android:label="@string/title_riwayatStok"
+        tools:layout="@layout/fragment_riwayat" />
+
+    <fragment
+        android:id="@+id/navigation_harga"
+        android:name="com.polije.sosrobahufactoryapp.ui.hargaProduk.HargaProdukFragment"
+        android:label="@string/title_harga"
+        tools:layout="@layout/fragment_harga_produk" />
+
+    <fragment
+        android:id="@+id/navigation_pengaturan"
+        android:name="com.polije.sosrobahufactoryapp.ui.pengaturan.PengaturanFragment"
+        android:label="@string/title_pengaturan"
+        tools:layout="@layout/fragment_pengaturan" />
+
 </navigation>

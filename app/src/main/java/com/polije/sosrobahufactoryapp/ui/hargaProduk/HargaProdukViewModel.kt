@@ -1,13 +1,12 @@
-package com.polije.sosrobahufactoryapp.ui.notifications
+package com.polije.sosrobahufactoryapp.ui.hargaProduk
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class NotificationsViewModel : ViewModel() {
-
+class HargaProdukViewModel : ViewModel() {
     private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+        value = "This is Harga Produk Fragment"
     }
     val text: LiveData<String> = _text
 }
