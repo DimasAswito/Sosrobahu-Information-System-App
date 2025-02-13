@@ -63,7 +63,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/md_theme_onPrimaryFixedVariant"
+                android:background="@color/md_theme_onPrimaryContainer"
                 android:padding="16dp"
                 android:paddingTop="16dp"
                 android:gravity="center"
@@ -93,12 +93,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Data 1"
+                            android:text="Total Produk Terjual"
                             android:textStyle="bold"
+                            android:textAlignment="center"
                             android:textSize="12sp"/>
 
                         <TextView
-                            android:id="@+id/ph_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -133,11 +133,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="data 2"
+                            android:text="Total Pendapatan Bulan Ini"
+                            android:textAlignment="center"
                             android:textSize="12sp"
                             android:textStyle="bold"/>
                         <TextView
-                            android:id="@+id/suhuAir_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -170,13 +170,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
-                            android:text="Data 3"
+                            android:text="Jumlah Distributor Aktif"
+                            android:textAlignment="center"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/turbidity_value"
-                            android:layout_width="wrap_content"
+                                android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
                             android:textSize="24sp"
@@ -286,6 +286,6 @@
                     android:textColor="@android:color/holo_green_dark" />
             </LinearLayout>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>0
+    </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

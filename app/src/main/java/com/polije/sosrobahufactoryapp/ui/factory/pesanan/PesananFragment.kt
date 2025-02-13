@@ -4,39 +4,45 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentPesananBinding
+import com.polije.sosrobahufactoryapp.model.Pesanan
 
 class PesananFragment : Fragment() {
 
-    private var _binding: FragmentPesananBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private lateinit var pesananAdapter: PesananAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var searchView: SearchView
+    private lateinit var btnFilter: ImageView
+    private var pesananList = mutableListOf<Pesanan>()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        val pesananViewModel =
-            ViewModelProvider(this).get(PesananViewModel::class.java)
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_pesanan, container, false)
+        recyclerView = view.findViewById(R.id.recyclerViewPesanan)
+        searchView = view.findViewById(R.id.searchView)
+        btnFilter = view.findViewById(R.id.btnFilter)
 
-        _binding = FragmentPesananBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        // Dummy Data
+        pesananList = mutableListOf(
+            Pesanan("Distributor A", "2024-02-11", 500000, "Diproses"),
+            Pesanan("Distributor B", "2024-02-10", 750000, "Selesai"),
+            Pesanan("Distributor C", "2024-02-09", 300000, "Diproses")
+        )
 
-        val textView: TextView = binding.textPesanan
-        pesananViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
-    }
+        pesananAdapter = PesananAdapter(pesananList)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = pesananAdapter
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        return view
     }
 }
