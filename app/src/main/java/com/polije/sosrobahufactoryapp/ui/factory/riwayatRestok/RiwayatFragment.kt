@@ -7,36 +7,36 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentRiwayatBinding
+import com.polije.sosrobahufactoryapp.model.RiwayatRestok
 
 class RiwayatFragment : Fragment() {
 
-    private var _binding: FragmentRiwayatBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var riwayatAdapter: RiwayatRestokAdapter
+    private var riwayatList = mutableListOf<RiwayatRestok>()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val riwayatViewModel =
-            ViewModelProvider(this).get(RiwayatViewModel::class.java)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_riwayat, container, false)
+        recyclerView = view.findViewById(R.id.recyclerViewRiwayat)
 
-        _binding = FragmentRiwayatBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        // Dummy Data
+        riwayatList = mutableListOf(
+            RiwayatRestok("Produk A", "10 Februari 2025", 50, R.drawable.logo),
+            RiwayatRestok("Produk B", "8 Februari 2025", 30, R.drawable.logo),
+            RiwayatRestok("Produk C", "5 Februari 2025", 70, R.drawable.logo),
+            RiwayatRestok("Produk D", "3 Februari 2025", 40, R.drawable.logo)
+        )
 
-        val textView: TextView = binding.textNotifications
-        riwayatViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
-        return root
-    }
+        riwayatAdapter = RiwayatRestokAdapter(riwayatList)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = riwayatAdapter
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        return view
     }
 }
