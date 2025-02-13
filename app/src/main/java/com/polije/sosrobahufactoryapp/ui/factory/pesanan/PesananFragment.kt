@@ -1,5 +1,6 @@
 package com.polije.sosrobahufactoryapp.ui.factory.pesanan
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,7 @@ class PesananFragment : Fragment() {
     private lateinit var searchView: SearchView
     private lateinit var btnFilter: ImageView
     private var pesananList = mutableListOf<Pesanan>()
+    private var filteredList = mutableListOf<Pesanan>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,14 +37,51 @@ class PesananFragment : Fragment() {
         // Dummy Data
         pesananList = mutableListOf(
             Pesanan("Distributor A", "2024-02-11", 500000, "Diproses"),
-            Pesanan("Distributor B", "2024-02-10", 750000, "Selesai"),
-            Pesanan("Distributor C", "2024-02-09", 300000, "Diproses")
+            Pesanan("Distributor C", "2024-02-09", 300000, "Diproses"),
+            Pesanan("Distributor B", "2024-02-10", 750000, "Selesai")
         )
 
-        pesananAdapter = PesananAdapter(pesananList)
+        filteredList.addAll(pesananList) // Default tampilkan semua data
+
+        pesananAdapter = PesananAdapter(filteredList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = pesananAdapter
 
+        btnFilter.setOnClickListener {
+            showFilterDialog()
+        }
+
         return view
+    }
+
+    private fun showFilterDialog() {
+        val options = arrayOf("Urut berdasarkan Tanggal", "Urut berdasarkan Nama", "Tampilkan Semua")
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Filter Pesanan")
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> sortPesananByTanggal()
+                    1 -> sortPesananByNama()
+                    2 -> resetPesanan()
+                }
+            }
+            .show()
+    }
+
+    private fun sortPesananByTanggal() {
+        filteredList.sortBy { it.tanggal }
+        pesananAdapter.notifyDataSetChanged()
+    }
+
+    private fun sortPesananByNama() {
+        filteredList.sortBy { it.distributor }
+        pesananAdapter.notifyDataSetChanged()
+    }
+
+    private fun resetPesanan() {
+        filteredList.clear()
+        filteredList.addAll(pesananList)
+        pesananAdapter.notifyDataSetChanged()
     }
 }
