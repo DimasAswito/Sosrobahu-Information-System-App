@@ -1,4 +1,4 @@
-package com.polije.sosrobahufactoryapp.ui.pengaturan
+package com.polije.sosrobahufactoryapp.ui.factory.pengaturan
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

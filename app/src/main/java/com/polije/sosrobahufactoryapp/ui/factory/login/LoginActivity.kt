@@ -1,4 +1,4 @@
-package com.polije.sosrobahufactoryapp.ui.login
+package com.polije.sosrobahufactoryapp.ui.factory.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -20,6 +20,8 @@ class LoginActivity : AppCompatActivity() {
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
+
 
         binding.loginButton.setOnClickListener {
             val username = binding.usernameEditText.text.toString()

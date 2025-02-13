@@ -1,6 +1,5 @@
-package com.polije.sosrobahufactoryapp.ui.hargaProduk
+package com.polije.sosrobahufactoryapp.ui.factory.pengaturan
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,14 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
-import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.databinding.FragmentHargaProdukBinding
 import com.polije.sosrobahufactoryapp.databinding.FragmentPengaturanBinding
-import com.polije.sosrobahufactoryapp.ui.pengaturan.PengaturanViewModel
+import com.polije.sosrobahufactoryapp.databinding.FragmentPesananBinding
+import com.polije.sosrobahufactoryapp.ui.factory.pesanan.PesananViewModel
 
-class HargaProdukFragment : Fragment() {
+class PengaturanFragment : Fragment() {
 
-    private var _binding: FragmentHargaProdukBinding? = null
+    private var _binding: FragmentPengaturanBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,14 +24,14 @@ class HargaProdukFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val HargaProdukViewModel =
-            ViewModelProvider(this).get(HargaProdukViewModel::class.java)
+        val pengaturanViewModel =
+            ViewModelProvider(this).get(PengaturanViewModel::class.java)
 
-        _binding = FragmentHargaProdukBinding.inflate(inflater, container, false)
+        _binding = FragmentPengaturanBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHargaProduk
-        HargaProdukViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textPengaturan
+        pengaturanViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root

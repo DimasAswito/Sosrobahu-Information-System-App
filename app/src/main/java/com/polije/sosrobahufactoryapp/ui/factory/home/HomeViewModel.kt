@@ -1,4 +1,4 @@
-package com.polije.sosrobahufactoryapp.ui.home
+package com.polije.sosrobahufactoryapp.ui.factory.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
