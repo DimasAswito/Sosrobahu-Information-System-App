@@ -143,4 +143,6 @@
 
     <color name="green">#4CAF50</color>
     <color name="yellow">#FF9800</color>
+    <color name="red">#FF3E3E</color>
+
 </resources>
