@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.polije.sosrobahufactoryapp.ui.factory.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_laporanBulananFragment"
+            app:destination="@id/laporanBulananFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_pesanan"
@@ -33,6 +37,36 @@
         android:id="@+id/navigation_pengaturan"
         android:name="com.polije.sosrobahufactoryapp.ui.factory.pengaturan.PengaturanFragment"
         android:label="@string/title_pengaturan"
-        tools:layout="@layout/fragment_pengaturan" />
+        tools:layout="@layout/fragment_pengaturan" >
+        <action
+            android:id="@+id/action_navigation_pengaturan_to_rekeningFactoryFragment"
+            app:destination="@id/rekeningFactoryFragment" />
+        <action
+            android:id="@+id/action_navigation_pengaturan_to_listDistributorFragment"
+            app:destination="@id/listDistributorFragment" />
+        <action
+            android:id="@+id/action_navigation_pengaturan_to_addDistributorFragment"
+            app:destination="@id/addDistributorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rekeningFactoryFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.factory.pengaturan.RekeningFactoryFragment"
+        android:label="fragment_rekening_factory"
+        tools:layout="@layout/fragment_rekening_factory" />
+    <fragment
+        android:id="@+id/listDistributorFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.factory.pengaturan.ListDistributorFragment"
+        android:label="fragment_list_distributor"
+        tools:layout="@layout/fragment_list_distributor" />
+    <fragment
+        android:id="@+id/addDistributorFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.factory.pengaturan.AddDistributorFragment"
+        android:label="fragment_add_distributor"
+        tools:layout="@layout/fragment_add_distributor" />
+    <fragment
+        android:id="@+id/laporanBulananFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.factory.home.LaporanBulananFragment"
+        android:label="fragment_laporan_bulanan"
+        tools:layout="@layout/fragment_laporan_bulanan" />
 
 </navigation>

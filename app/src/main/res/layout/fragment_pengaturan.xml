@@ -151,6 +151,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/containerListDistributor" />
 
         <LinearLayout
+            android:id="@+id/containerAddDistributor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
