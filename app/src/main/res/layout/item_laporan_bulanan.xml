@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Nama Distributor -->
+        <TextView
+            android:id="@+id/tvDistributorName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Nama Distributor"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvTotalHarga"
+            app:layout_constraintHorizontal_bias="0" />
+
+        <!-- Total Harga di sisi kanan -->
+        <TextView
+            android:id="@+id/tvTotalHarga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rp 0"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Detail: Tanggal Pemesanan dan Jumlah -->
+        <TextView
+            android:id="@+id/tanggal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Tanggal: 01/01/2025"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/tvDistributorName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+        <TextView
+            android:id="@+id/jumlah"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Jumlah: 10"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/tanggal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

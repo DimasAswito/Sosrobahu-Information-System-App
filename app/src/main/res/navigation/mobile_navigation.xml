@@ -67,6 +67,14 @@
         android:id="@+id/laporanBulananFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.factory.home.LaporanBulananFragment"
         android:label="fragment_laporan_bulanan"
-        tools:layout="@layout/fragment_laporan_bulanan" />
+        tools:layout="@layout/fragment_laporan_bulanan" >
+        <action
+            android:id="@+id/action_laporanBulananFragment_to_detailLaporanFragment"
+            app:destination="@id/detailLaporanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailLaporanFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.factory.home.DetailLaporanFragment"
+        android:label="DetailLaporanFragment" />
 
 </navigation>

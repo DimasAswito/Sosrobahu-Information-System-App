@@ -1,13 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.factory.home.LaporanBulananFragment">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+    <!-- Search Bar -->
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchViewlaporanbulanan"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:queryHint="Cari laporan..."
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/filterButtonLaporanBulanan"
+        app:layout_constraintHorizontal_weight="1" />
 
-</FrameLayout>
+    <!-- Filter Button (Icon tiga garis) -->
+    <ImageView
+        android:id="@+id/filterButtonLaporanBulanan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Pilih Bulan"
+        android:padding="8dp"
+        android:src="@drawable/baseline_filter_list_24"
+        app:layout_constraintBottom_toBottomOf="@+id/searchViewlaporanbulanan"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- RecyclerView untuk laporan bulanan -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewLaporan"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/searchViewlaporanbulanan"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
