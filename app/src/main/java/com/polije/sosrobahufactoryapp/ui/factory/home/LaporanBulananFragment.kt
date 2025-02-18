@@ -1,7 +1,6 @@
 package com.polije.sosrobahufactoryapp.ui.factory.home
 
 import android.app.AlertDialog
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,7 +10,7 @@ import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.polije.sosrobahufactoryapp.MainActivity
+import com.polije.sosrobahufactoryapp.ui.factory.FactoryActivity
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.model.LaporanBulanan
 
@@ -98,12 +97,12 @@ class LaporanBulananFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        (activity as? MainActivity)?.hideBottomNav()
+        (activity as? FactoryActivity)?.hideBottomNav()
     }
 
     override fun onPause() {
         super.onPause()
-        (activity as? MainActivity)?.showBottomNav()
+        (activity as? FactoryActivity)?.showBottomNav()
     }
 }
 

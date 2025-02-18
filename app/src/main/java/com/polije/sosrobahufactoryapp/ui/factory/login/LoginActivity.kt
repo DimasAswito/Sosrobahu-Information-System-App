@@ -3,12 +3,8 @@ package com.polije.sosrobahufactoryapp.ui.factory.login
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.polije.sosrobahufactoryapp.MainActivity
-import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.ui.factory.FactoryActivity
 import com.polije.sosrobahufactoryapp.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -28,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
             val password = binding.passwordEditText.text.toString()
 
             if (username.isNotEmpty() && password.isNotEmpty()) {
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, FactoryActivity::class.java)
                 startActivity(intent)
                 finish()
             } else {

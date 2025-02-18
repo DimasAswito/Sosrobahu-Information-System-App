@@ -1,4 +1,4 @@
-package com.polije.sosrobahufactoryapp
+package com.polije.sosrobahufactoryapp.ui.factory
 
 import android.os.Bundle
 import android.view.View
@@ -7,9 +7,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class FactoryActivity : AppCompatActivity() {
 
     fun hideBottomNav() {
         binding.navView.visibility = View.GONE
