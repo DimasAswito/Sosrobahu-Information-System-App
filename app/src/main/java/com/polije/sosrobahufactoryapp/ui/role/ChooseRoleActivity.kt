@@ -19,5 +19,13 @@ class ChooseRoleActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
+
+        binding.cvDistributor.setOnClickListener {
+            val intent = Intent(
+                this,
+                com.polije.sosrobahufactoryapp.ui.distributor.login.LoginActivity::class.java
+            )
+            startActivity(intent)
+        }
     }
 }
