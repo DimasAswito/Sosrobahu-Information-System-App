@@ -5,7 +5,7 @@
     <string name="title_riwayatStok">Riwayat</string>
     <string name="title_harga">Harga</string>
     <string name="title_pengaturan">Pengaturan</string>
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

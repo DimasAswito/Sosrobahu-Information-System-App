@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.gridlayout.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:columnCount="2"
+    app:rowCount="2"
+    android:padding="8dp"
+    android:background="#EEEEEE">
+
+    <!-- CardView 1 (Kiri Atas) -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvSales"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:background="#FF5733"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_column="0"
+        app:layout_columnWeight="1"
+        app:layout_row="0"
+        app:layout_rowWeight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Login Sebagai Sales"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- CardView 2 (Kanan Atas) -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvAgen"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:background="#33FF57"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_column="1"
+        app:layout_columnWeight="1"
+        app:layout_row="0"
+        app:layout_rowWeight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Login Sebagai Agen"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- CardView 3 (Kiri Bawah) -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvDistributor"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:background="#3357FF"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_column="0"
+        app:layout_columnWeight="1"
+        app:layout_row="1"
+        app:layout_rowWeight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="8dp"
+                android:text="Login Sebagai Distributor"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- CardView 4 (Kanan Bawah) -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvPabrik"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:background="#F1C40F"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_column="1"
+        app:layout_columnWeight="1"
+        app:layout_row="1"
+        app:layout_rowWeight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Login Sebagai Pabrik"
+                android:textAlignment="center"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.gridlayout.widget.GridLayout>
