@@ -36,18 +36,23 @@ class FactoryActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
 
         val navController = navHost.navController
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home,
-                R.id.navigation_pesanan,
-                R.id.navigation_riwayat,
-                R.id.navigation_harga,
-                R.id.navigation_pengaturan
-            )
-        )
-//        setupActionBarWithNavController(navController, appBarConfiguration)
+
         navView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (!setOf(
+                    R.id.navigation_home,
+                    R.id.navigation_pesanan,
+                    R.id.navigation_riwayat,
+                    R.id.navigation_harga,
+                    R.id.navigation_pengaturan
+                ).contains(destination.id)
+            ) {
+                binding.navView.visibility = View.GONE
+            } else {
+
+                binding.navView.visibility = View.VISIBLE
+            }
+        }
     }
 }

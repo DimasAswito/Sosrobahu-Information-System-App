@@ -13,7 +13,13 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".ui.distributor.login.LoginActivity"
+            android:name=".ui.sales.login.SalesLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.agen.login.AgenLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.distributor.login.DistributorLoginActivity"
             android:exported="false" />
         <activity
             android:name=".ui.distributor.DistributorActivity"
@@ -28,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.factory.login.LoginActivity"
+            android:name=".ui.factory.login.FactoryLoginActivity"
             android:exported="true" />
         <activity
             android:name=".ui.factory.FactoryActivity"

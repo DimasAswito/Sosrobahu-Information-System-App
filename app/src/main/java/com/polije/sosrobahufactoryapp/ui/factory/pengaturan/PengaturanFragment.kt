@@ -7,14 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentPengaturanBinding
-import com.polije.sosrobahufactoryapp.databinding.FragmentPesananBinding
-import com.polije.sosrobahufactoryapp.ui.factory.login.LoginActivity
-import com.polije.sosrobahufactoryapp.ui.factory.pesanan.PesananViewModel
+import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginActivity
 
 class PengaturanFragment : Fragment() {
 
@@ -63,7 +59,7 @@ class PengaturanFragment : Fragment() {
             .setTitle("Konfirmasi Logout")
             .setMessage("Apakah anda yakin untuk Log out?")
             .setPositiveButton("Ya") { _, _ ->
-                val intent = Intent(requireContext(), LoginActivity::class.java)
+                val intent = Intent(requireContext(), FactoryLoginActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }

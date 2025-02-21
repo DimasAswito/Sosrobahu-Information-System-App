@@ -4,17 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.polije.sosrobahufactoryapp.databinding.ActivityLoginFactoryBinding
 import com.polije.sosrobahufactoryapp.ui.factory.FactoryActivity
-import com.polije.sosrobahufactoryapp.databinding.ActivityLoginBinding
 
-class LoginActivity : AppCompatActivity() {
+class FactoryLoginActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityLoginFactoryBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityLoginFactoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
 
@@ -25,6 +25,9 @@ class LoginActivity : AppCompatActivity() {
 
             if (username.isNotEmpty() && password.isNotEmpty()) {
                 val intent = Intent(this, FactoryActivity::class.java)
+                    .apply {
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                    }
                 startActivity(intent)
                 finish()
             } else {
