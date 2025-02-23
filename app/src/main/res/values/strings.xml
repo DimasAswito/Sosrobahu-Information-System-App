@@ -10,5 +10,23 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="bank_name">Nama Bank</string>
+    <string name="account_number">Nomor Rekening</string>
+    <string name="enter_number">Masukkan Nomor Rekening</string>
+    <string name="in_the_name_of">Atas nama</string>
+    <string name="add_distributor_account">Tambah Akun Distributor</string>
+    <string name="fullname">Nama Lengkap</string>
+    <string name="telephone_number">No. Telpon</string>
+    <string name="ktp">KTP</string>
+    <string name="select_file">Pilih File</string>
+    <string name="save">Simpan</string>
+
+    <string-array name="bank_list">
+        <item>Bank Mandiri</item>
+        <item>Bank BCA</item>
+        <item>Bank BNI</item>
+        <item>Bank BRI</item>
+        <item>Bank CIMB Niaga</item>
+    </string-array>
 
 </resources>
