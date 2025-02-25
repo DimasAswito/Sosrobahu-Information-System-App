@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
@@ -43,7 +44,7 @@ class PesananFragment : Fragment() {
 
         filteredList.addAll(pesananList) // Default tampilkan semua data
 
-        pesananAdapter = PesananAdapter(filteredList)
+        pesananAdapter = PesananAdapter(filteredList, findNavController())
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = pesananAdapter
 
@@ -53,6 +54,7 @@ class PesananFragment : Fragment() {
 
         return view
     }
+
 
     private fun showFilterDialog() {
         val options = arrayOf("Urut berdasarkan Tanggal", "Urut berdasarkan Nama", "Tampilkan Semua")
