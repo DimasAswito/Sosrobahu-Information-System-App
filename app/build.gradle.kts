@@ -57,4 +57,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.mpandroidchart)
+    implementation (libs.glide)
 }

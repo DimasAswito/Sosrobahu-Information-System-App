@@ -21,7 +21,16 @@
             android:id="@+id/navigation_pesanan"
             android:name="com.polije.sosrobahufactoryapp.ui.factory.pesanan.PesananFragment"
             android:label="@string/title_pesanan"
-            tools:layout="@layout/fragment_pesanan" />
+            tools:layout="@layout/fragment_pesanan" >
+            <action
+                android:id="@+id/action_navigation_pesanan_to_detailPesananFragment"
+                app:destination="@id/detailPesananFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/detailPesananFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.pesanan.DetailPesananFragment"
+            android:label="fragment_detail_pesanan"
+            tools:layout="@layout/fragment_detail_pesanan" />
         <fragment
             android:id="@+id/navigation_riwayat"
             android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.RiwayatFragment"

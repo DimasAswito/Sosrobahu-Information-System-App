@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- Judul Halaman -->
+    <TextView
+        android:id="@+id/tvTitleDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DETAIL TRANSAKSI"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center" />
+
+    <!-- CardView untuk Informasi Transaksi -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardTransaksi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitleDetail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Nama Distributor -->
+            <TextView
+                android:id="@+id/tvDistributorDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Distributor: -"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+
+            <!-- Tanggal Pemesanan -->
+            <TextView
+                android:id="@+id/tvTanggalDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tanggal Pemesanan: -"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"/>
+
+            <!-- Jumlah Barang -->
+            <TextView
+                android:id="@+id/tvJumlahDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jumlah Barang: 0"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"/>
+
+            <!-- Status Pembayaran -->
+            <TextView
+                android:id="@+id/tvStatusPembayaran"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status Pembayaran: -"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"/>
+
+            <!-- Tombol Bukti Pembayaran -->
+            <Button
+                android:id="@+id/btnBuktiPembayaran"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lihat Bukti Pembayaran"
+                android:layout_marginTop="8dp" />
+
+            <!-- Gambar Bukti Pembayaran -->
+            <ImageView
+                android:id="@+id/imgBuktiPembayaran"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- CardView untuk Rincian Tagihan -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardTagihan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/cardTransaksi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvTotalHargaDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total: Rp 0"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Tombol Cetak -->
+    <Button
+        android:id="@+id/CetakLaporanButton"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="8dp"
+        android:text="Cetak"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardTagihan" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
