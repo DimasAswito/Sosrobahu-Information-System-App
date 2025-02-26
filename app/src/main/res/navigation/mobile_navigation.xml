@@ -40,7 +40,11 @@
             android:id="@+id/navigation_harga"
             android:name="com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.HargaProdukFragment"
             android:label="@string/title_harga"
-            tools:layout="@layout/fragment_harga_produk" />
+            tools:layout="@layout/fragment_harga_produk" >
+            <action
+                android:id="@+id/action_navigation_harga_to_detailHargaFragment"
+                app:destination="@id/detailHargaFragment" />
+        </fragment>
         <fragment
             android:id="@+id/navigation_pengaturan"
             android:name="com.polije.sosrobahufactoryapp.ui.factory.pengaturan.PengaturanFragment"
@@ -84,6 +88,10 @@
             android:id="@+id/detailLaporanFragment"
             android:name="com.polije.sosrobahufactoryapp.ui.factory.home.DetailLaporanFragment"
             android:label="DetailLaporanFragment" />
+        <fragment
+            android:id="@+id/detailHargaFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.DetailHargaFragment"
+            android:label="DetailHargaFragment" />
     </navigation>
 
 </navigation>

@@ -1,10 +1,12 @@
 package com.polije.sosrobahufactoryapp.ui.factory.hargaProduk
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.model.Produk
@@ -31,11 +33,22 @@ class ProdukAdapter(private var produkList: List<Produk>) :
         holder.imgProduk.setImageResource(produk.gambar)
         holder.txtNama.text = produk.nama
         holder.txtHarga.text = produk.harga
+
+        // Tambahkan onClickListener untuk navigasi ke DetailHargaFragment
+        holder.itemView.setOnClickListener {
+            val bundle = Bundle().apply {
+                putString("namaProduk", produk.nama)
+                putString("hargaProduk", produk.harga)
+                putInt("gambarProduk", produk.gambar)
+            }
+
+            // Pindah ke DetailHargaFragment tanpa nav_graph.xml
+            it.findNavController().navigate(R.id.action_navigation_harga_to_detailHargaFragment, bundle)
+        }
     }
 
     override fun getItemCount(): Int = filteredList.size
 
-    // Tambahkan fungsi filter
     fun filter(query: String) {
         filteredList = if (query.isEmpty()) {
             produkList
@@ -45,4 +58,5 @@ class ProdukAdapter(private var produkList: List<Produk>) :
         notifyDataSetChanged()
     }
 }
+
 
