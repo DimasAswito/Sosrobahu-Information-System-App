@@ -12,7 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.polije.sosrobahufactoryapp.R
 
-class DetailHargaFragment : Fragment() {
+class DetailHargaFragment : Fragment(), EditHargaBottomSheet.OnHargaUpdatedListener {
 
     private lateinit var imgProduk: ImageView
     private lateinit var txtNamaProduk: TextView
@@ -30,20 +30,23 @@ class DetailHargaFragment : Fragment() {
         txtHargaProduk = view.findViewById(R.id.txtDetailHargaProduk)
         btnEditHarga = view.findViewById(R.id.btnEditHarga)
 
-        // Ambil data dari Bundle
         val nama = arguments?.getString("namaProduk")
         val harga = arguments?.getString("hargaProduk")
         val gambar = arguments?.getInt("gambarProduk")
 
-        // Tampilkan data di UI
         txtNamaProduk.text = nama
         txtHargaProduk.text = harga
         gambar?.let { imgProduk.setImageResource(it) }
 
         btnEditHarga.setOnClickListener {
-            Toast.makeText(requireContext(), "Edit Harga", Toast.LENGTH_SHORT).show()
+            val bottomSheet = EditHargaBottomSheet()
+            bottomSheet.show(childFragmentManager, "EditHargaBottomSheet")
         }
 
         return view
+    }
+
+    override fun onHargaUpdated(hargaBaru: String) {
+        txtHargaProduk.text = hargaBaru
     }
 }
