@@ -44,6 +44,9 @@
             <action
                 android:id="@+id/action_navigation_harga_to_detailHargaFragment"
                 app:destination="@id/detailHargaFragment" />
+            <action
+                android:id="@+id/action_navigation_harga_to_tambahProdukFragment"
+                app:destination="@id/tambahProdukFragment" />
         </fragment>
         <fragment
             android:id="@+id/navigation_pengaturan"
@@ -92,6 +95,10 @@
             android:id="@+id/detailHargaFragment"
             android:name="com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.DetailHargaFragment"
             android:label="DetailHargaFragment" />
+        <fragment
+            android:id="@+id/tambahProdukFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.TambahProdukFragment"
+            android:label="TambahProdukFragment" />
     </navigation>
 
 </navigation>

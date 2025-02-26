@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -42,8 +43,16 @@ class HargaProdukFragment : Fragment() {
         recyclerView.adapter = produkAdapter
 
         fabTambahProduk.setOnClickListener {
-            Toast.makeText(requireContext(), "Tambah Produk", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_navigation_harga_to_tambahProdukFragment)
         }
+        fabTambahProduk.setOnClickListener {
+            val fragment = TambahProdukFragment()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.nav_host_fragment_activity_main, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
+
 
         // Tambahkan listener untuk SearchView
         searchViewProduk.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
