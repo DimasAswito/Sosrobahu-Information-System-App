@@ -39,6 +39,9 @@
             <action
                 android:id="@+id/action_navigation_riwayat_to_detailRestokFragment"
                 app:destination="@id/detailRestokFragment" />
+            <action
+                android:id="@+id/action_navigation_riwayat_to_pilihProdukRestokFragment"
+                app:destination="@id/pilihProdukRestokFragment" />
         </fragment>
         <fragment
             android:id="@+id/navigation_harga"
@@ -107,6 +110,24 @@
             android:id="@+id/detailRestokFragment"
             android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.detailRestok.DetailRestokFragment"
             android:label="DetailRestokFragment" />
+        <fragment
+            android:id="@+id/pilihProdukRestokFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.PilihProdukRestokFragment"
+            android:label="fragment_pilih_produk_restok"
+            tools:layout="@layout/fragment_pilih_produk_restok" >
+            <action
+                android:id="@+id/action_pilihProdukRestokFragment_to_tambahRestokFragment"
+                app:destination="@id/tambahRestokFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/tambahRestokFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.tambahRestok.TambahRestokFragment"
+            android:label="fragment_tambah_restok"
+            tools:layout="@layout/fragment_tambah_restok" >
+            <action
+                android:id="@+id/action_tambahRestokFragment_to_navigation_riwayat"
+                app:destination="@id/navigation_riwayat" />
+        </fragment>
     </navigation>
 
 </navigation>

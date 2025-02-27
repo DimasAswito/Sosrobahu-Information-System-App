@@ -1,17 +1,14 @@
 package com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.model.RiwayatRestok
-import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.detailRestok.DetailRestokFragment
 
 class RiwayatRestokAdapter(private val riwayatList: List<RiwayatRestok>) :
     RecyclerView.Adapter<RiwayatRestokAdapter.ViewHolder>() {
@@ -30,15 +27,16 @@ class RiwayatRestokAdapter(private val riwayatList: List<RiwayatRestok>) :
 
 
                     // Menjalankan navigasi
-                    itemView.findNavController().navigate(R.id.action_navigation_riwayat_to_detailRestokFragment)
+                    itemView.findNavController()
+                        .navigate(R.id.action_navigation_riwayat_to_detailRestokFragment)
                 }
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_riwayat_restok, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_riwayat_restok, parent, false)
         return ViewHolder(view)
     }
 
