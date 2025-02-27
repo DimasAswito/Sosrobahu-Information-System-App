@@ -15,15 +15,9 @@ class AddDistributorViewModel : ViewModel() {
     val addDistributorState = _addDistributorState.asStateFlow()
 
     val isValid: StateFlow<Boolean> = _addDistributorState
-
         .map { state ->
-            state.fullName.isNotBlank() &&
-                    state.userName.isNotBlank() &&
-                    state.password.isNotBlank() &&
-                    state.phoneNumber.isNotBlank() &&
-                    state.NIK.isNotBlank()
-        }
-        .stateIn(viewModelScope, SharingStarted.Lazily, false)
+            state.fullName.isNotBlank() && state.userName.isNotBlank() && state.password.isNotBlank() && state.phoneNumber.isNotBlank() && state.NIK.isNotBlank()
+        }.stateIn(viewModelScope, SharingStarted.Lazily, false)
 
     fun onFullNameChanged(fullName: String) {
         _addDistributorState.update {
