@@ -35,7 +35,11 @@
             android:id="@+id/navigation_riwayat"
             android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.RiwayatFragment"
             android:label="@string/title_riwayatStok"
-            tools:layout="@layout/fragment_riwayat" />
+            tools:layout="@layout/fragment_riwayat" >
+            <action
+                android:id="@+id/action_navigation_riwayat_to_detailRestokFragment"
+                app:destination="@id/detailRestokFragment" />
+        </fragment>
         <fragment
             android:id="@+id/navigation_harga"
             android:name="com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.HargaProdukFragment"
@@ -99,6 +103,10 @@
             android:id="@+id/tambahProdukFragment"
             android:name="com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.tambahProduk.TambahProdukFragment"
             android:label="TambahProdukFragment" />
+        <fragment
+            android:id="@+id/detailRestokFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.detailRestok.DetailRestokFragment"
+            android:label="DetailRestokFragment" />
     </navigation>
 
 </navigation>
