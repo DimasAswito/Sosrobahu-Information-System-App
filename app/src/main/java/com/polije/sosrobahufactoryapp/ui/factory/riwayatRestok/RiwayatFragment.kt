@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.databinding.FragmentRiwayatBinding
 import com.polije.sosrobahufactoryapp.model.RiwayatRestok
+import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component.RiwayatRestokAdapter
 
 class RiwayatFragment : Fragment() {
 

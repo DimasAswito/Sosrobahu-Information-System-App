@@ -6,16 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.databinding.FragmentPesananBinding
 import com.polije.sosrobahufactoryapp.model.Pesanan
+import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.PesananAdapter
 
 class PesananFragment : Fragment() {
 

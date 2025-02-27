@@ -1,4 +1,4 @@
-package com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok
+package com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component
 
 import android.view.LayoutInflater
 import android.view.View

@@ -1,4 +1,4 @@
-package com.polije.sosrobahufactoryapp.ui.factory.home
+package com.polije.sosrobahufactoryapp.ui.factory.home.laporanBulanan
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.ui.factory.FactoryActivity
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.model.LaporanBulanan
+import com.polije.sosrobahufactoryapp.ui.factory.home.component.LaporanBulananAdapter
 
 class LaporanBulananFragment : Fragment() {
 

@@ -1,8 +1,6 @@
-package com.polije.sosrobahufactoryapp.ui.factory.pesanan
+package com.polije.sosrobahufactoryapp.ui.factory.pesanan.component
 
 import android.os.Bundle
-import android.provider.Settings.Global.putInt
-import android.provider.Settings.Global.putString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

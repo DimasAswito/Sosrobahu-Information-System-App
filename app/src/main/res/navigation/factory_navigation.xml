@@ -28,7 +28,7 @@
         </fragment>
         <fragment
             android:id="@+id/detailPesananFragment"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.pesanan.DetailPesananFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan.DetailPesananFragment"
             android:label="fragment_detail_pesanan"
             tools:layout="@layout/fragment_detail_pesanan" />
         <fragment
@@ -80,7 +80,7 @@
             tools:layout="@layout/fragment_add_distributor" />
         <fragment
             android:id="@+id/laporanBulananFragment"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.home.LaporanBulananFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.home.laporanBulanan.LaporanBulananFragment"
             android:label="fragment_laporan_bulanan"
             tools:layout="@layout/fragment_laporan_bulanan">
             <action
@@ -89,7 +89,7 @@
         </fragment>
         <fragment
             android:id="@+id/detailLaporanFragment"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.home.DetailLaporanFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.home.detailLaporan.DetailLaporanFragment"
             android:label="DetailLaporanFragment" />
         <fragment
             android:id="@+id/detailHargaFragment"
