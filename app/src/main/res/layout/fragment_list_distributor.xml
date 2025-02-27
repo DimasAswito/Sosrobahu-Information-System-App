@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.factory.pengaturan.ListDistributorFragment">
+    tools:context=".ui.factory.pengaturan.listDistributor.ListDistributorFragment">
 
     <TextView
         android:layout_width="match_parent"

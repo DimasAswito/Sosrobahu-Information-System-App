@@ -1,11 +1,7 @@
-package com.polije.sosrobahufactoryapp.ui.factory.hargaProduk
+package com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.tambahProduk
 
-import android.app.Activity
-import android.content.Intent
 import android.net.Uri
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +14,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.ui.factory.FactoryActivity
 
 class TambahProdukFragment : Fragment() {
 
@@ -67,14 +62,14 @@ class TambahProdukFragment : Fragment() {
         pickImageLauncher.launch("image/*") // Buka media picker
     }
 
-    override fun onResume() {
-        super.onResume()
-        (activity as? FactoryActivity)?.hideBottomNav()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        (activity as? FactoryActivity)?.showBottomNav()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        (activity as? FactoryActivity)?.hideBottomNav()
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        (activity as? FactoryActivity)?.showBottomNav()
+//    }
 }
 

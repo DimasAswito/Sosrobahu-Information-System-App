@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -13,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.model.Produk
+import com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.component.ProdukAdapter
 
 class HargaProdukFragment : Fragment() {
 
@@ -25,6 +25,7 @@ class HargaProdukFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.fragment_harga_produk, container, false)
         recyclerView = view.findViewById(R.id.recyclerViewHarga)
         searchViewProduk = view.findViewById(R.id.searchViewProduk)
@@ -45,13 +46,6 @@ class HargaProdukFragment : Fragment() {
         fabTambahProduk.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_harga_to_tambahProdukFragment)
         }
-        fabTambahProduk.setOnClickListener {
-            val fragment = TambahProdukFragment()
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.nav_host_fragment_activity_main, fragment)
-                .addToBackStack(null)
-                .commit()
-        }
 
 
         // Tambahkan listener untuk SearchView
@@ -67,5 +61,9 @@ class HargaProdukFragment : Fragment() {
         })
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 }

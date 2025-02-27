@@ -1,4 +1,4 @@
- package com.polije.sosrobahufactoryapp.ui.factory.pengaturan
+ package com.polije.sosrobahufactoryapp.ui.factory.pengaturan.listDistributor
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle

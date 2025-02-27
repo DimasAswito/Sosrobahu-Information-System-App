@@ -1,6 +1,5 @@
-package com.polije.sosrobahufactoryapp.ui.factory.hargaProduk
+package com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.detail
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.component.EditHargaBottomSheet
 
 class DetailHargaFragment : Fragment(), EditHargaBottomSheet.OnHargaUpdatedListener {
 

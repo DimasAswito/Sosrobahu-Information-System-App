@@ -1,4 +1,4 @@
-package com.polije.sosrobahufactoryapp.ui.factory.pengaturan
+package com.polije.sosrobahufactoryapp.ui.factory.pengaturan.rekening
 
 import androidx.lifecycle.ViewModel
 

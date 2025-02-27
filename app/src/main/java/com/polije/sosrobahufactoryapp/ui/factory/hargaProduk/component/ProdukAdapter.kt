@@ -1,4 +1,4 @@
-package com.polije.sosrobahufactoryapp.ui.factory.hargaProduk
+package com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.component
 
 import android.os.Bundle
 import android.view.LayoutInflater

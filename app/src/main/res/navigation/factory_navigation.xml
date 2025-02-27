@@ -65,17 +65,17 @@
         </fragment>
         <fragment
             android:id="@+id/rekeningFactoryFragment"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.pengaturan.RekeningFactoryFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.pengaturan.rekening.RekeningFactoryFragment"
             android:label="fragment_rekening_factory"
             tools:layout="@layout/fragment_rekening_factory" />
         <fragment
             android:id="@+id/listDistributorFragment"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.pengaturan.ListDistributorFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.pengaturan.listDistributor.ListDistributorFragment"
             android:label="fragment_list_distributor"
             tools:layout="@layout/fragment_list_distributor" />
         <fragment
             android:id="@+id/addDistributorFragment"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.pengaturan.AddDistributorFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.pengaturan.tambahAkun.AddDistributorFragment"
             android:label="fragment_add_distributor"
             tools:layout="@layout/fragment_add_distributor" />
         <fragment
@@ -93,11 +93,11 @@
             android:label="DetailLaporanFragment" />
         <fragment
             android:id="@+id/detailHargaFragment"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.DetailHargaFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.detail.DetailHargaFragment"
             android:label="DetailHargaFragment" />
         <fragment
             android:id="@+id/tambahProdukFragment"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.TambahProdukFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.tambahProduk.TambahProdukFragment"
             android:label="TambahProdukFragment" />
     </navigation>
 

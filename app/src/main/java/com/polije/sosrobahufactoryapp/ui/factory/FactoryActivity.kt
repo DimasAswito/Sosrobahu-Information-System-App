@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.polije.sosrobahufactoryapp.R
@@ -40,7 +39,7 @@ class FactoryActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (!setOf(
+            if (setOf(
                     R.id.navigation_home,
                     R.id.navigation_pesanan,
                     R.id.navigation_riwayat,
@@ -48,10 +47,10 @@ class FactoryActivity : AppCompatActivity() {
                     R.id.navigation_pengaturan
                 ).contains(destination.id)
             ) {
-                binding.navView.visibility = View.GONE
+                showBottomNav()
             } else {
 
-                binding.navView.visibility = View.VISIBLE
+                hideBottomNav()
             }
         }
     }

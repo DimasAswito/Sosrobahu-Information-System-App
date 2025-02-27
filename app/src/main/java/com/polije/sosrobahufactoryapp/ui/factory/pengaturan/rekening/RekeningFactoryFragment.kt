@@ -1,4 +1,4 @@
-package com.polije.sosrobahufactoryapp.ui.factory.pengaturan
+package com.polije.sosrobahufactoryapp.ui.factory.pengaturan.rekening
 
 import androidx.fragment.app.viewModels
 import android.os.Bundle
@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.polije.sosrobahufactoryapp.R
 
-class AddDistributorFragment : Fragment() {
+class RekeningFactoryFragment : Fragment() {
 
     companion object {
-        fun newInstance() = AddDistributorFragment()
+        fun newInstance() = RekeningFactoryFragment()
     }
 
-    private val viewModel: AddDistributorViewModel by viewModels()
+    private val viewModel: RekeningFactoryViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +26,6 @@ class AddDistributorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_add_distributor, container, false)
+        return inflater.inflate(R.layout.fragment_rekening_factory, container, false)
     }
 }
