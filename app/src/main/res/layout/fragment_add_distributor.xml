@@ -69,7 +69,7 @@
             android:id="@+id/edNIK"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
+            android:inputType="number"
             android:focusable="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,10 +80,10 @@
       />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/save"
-        android:backgroundTint="@android:color/holo_green_dark"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="16dp"/>
+       />
 </LinearLayout>

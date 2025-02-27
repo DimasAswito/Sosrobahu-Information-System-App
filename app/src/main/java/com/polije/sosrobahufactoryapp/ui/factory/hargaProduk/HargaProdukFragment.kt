@@ -6,50 +6,44 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.model.Produk
+import com.polije.sosrobahufactoryapp.databinding.FragmentHargaProdukBinding
 import com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.component.ProdukAdapter
 
 class HargaProdukFragment : Fragment() {
 
-    private lateinit var produkAdapter: ProdukAdapter
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var searchViewProduk: SearchView
-    private lateinit var fabTambahProduk: FloatingActionButton
-    private var produkList = mutableListOf<Produk>()
+    private var _binding: FragmentHargaProdukBinding? = null
+    private val binding get() = _binding!!
+
+    private val viewModel by viewModels<HargaProdukViewModel>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentHargaProdukBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        val view = inflater.inflate(R.layout.fragment_harga_produk, container, false)
-        recyclerView = view.findViewById(R.id.recyclerViewHarga)
-        searchViewProduk = view.findViewById(R.id.searchViewProduk)
-        fabTambahProduk = view.findViewById(R.id.fabTambahProduk)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
 
         // Dummy data produk
-        produkList = mutableListOf(
-            Produk("Produk A", "Rp 10.000", R.drawable.logo),
-            Produk("Produk B", "Rp 20.000", R.drawable.logo),
-            Produk("Produk C", "Rp 15.000", R.drawable.logo),
-            Produk("Produk D", "Rp 30.000", R.drawable.logo)
-        )
 
-        produkAdapter = ProdukAdapter(produkList)
-        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-        recyclerView.adapter = produkAdapter
 
-        fabTambahProduk.setOnClickListener {
+        val produkAdapter = ProdukAdapter(viewModel.produkList.value)
+        binding.recyclerViewHarga.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.recyclerViewHarga.adapter = produkAdapter
+
+        binding.fabTambahProduk.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_harga_to_tambahProdukFragment)
         }
 
-
-        // Tambahkan listener untuk SearchView
-        searchViewProduk.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        binding.searchViewProduk.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
@@ -59,11 +53,5 @@ class HargaProdukFragment : Fragment() {
                 return true
             }
         })
-
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 }

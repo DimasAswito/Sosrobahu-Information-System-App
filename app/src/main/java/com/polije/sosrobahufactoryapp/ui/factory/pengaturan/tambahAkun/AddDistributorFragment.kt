@@ -6,10 +6,13 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.textfield.TextInputEditText
 import com.polije.sosrobahufactoryapp.databinding.FragmentAddDistributorBinding
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class AddDistributorFragment : Fragment() {
 
@@ -31,21 +34,34 @@ class AddDistributorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.edFullName.addTextChangedListener()
+        binding.edFullName.textChangedListener(viewModel::onFullNameChanged)
+        binding.edUsername.textChangedListener(viewModel::onUsernameChanged)
+        binding.edPassword.textChangedListener(viewModel::onPasswordChanged)
+        binding.edPhoneNumber.textChangedListener(viewModel::onPhoneNumberChanged)
+        binding.edNIK.textChangedListener(viewModel::onNIKChanged)
+
+        lifecycleScope.launch {
+            viewModel.isValid.collectLatest { state ->
+                binding.btnSave.isEnabled = state
+            }
+        }
     }
 
-    object edFullNameTextWatcher: TextWatcher{
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            TODO("Not yet implemented")
-        }
 
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            TODO("Not yet implemented")
-        }
+    private fun TextInputEditText.textChangedListener(function: (String) -> Unit) {
+        this.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
-        override fun afterTextChanged(s: Editable?) {
+            }
 
-        }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                function(s.toString())
+            }
+        })
     }
+
 }
