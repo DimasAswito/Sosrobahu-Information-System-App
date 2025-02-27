@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
 import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.ui.factory.FactoryActivity
 
 class TambahProdukFragment : Fragment() {
 
@@ -64,6 +65,16 @@ class TambahProdukFragment : Fragment() {
 
     private fun openMediaPicker() {
         pickImageLauncher.launch("image/*") // Buka media picker
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as? FactoryActivity)?.hideBottomNav()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        (activity as? FactoryActivity)?.showBottomNav()
     }
 }
 
