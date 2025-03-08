@@ -37,7 +37,9 @@ class PesananFragment : Fragment() {
         pesananList = mutableListOf(
             Pesanan("Distributor A", "2024-02-11", 500000, "Diproses"),
             Pesanan("Distributor C", "2024-02-09", 300000, "Diproses"),
-            Pesanan("Distributor B", "2024-02-10", 750000, "Selesai")
+            Pesanan("Distributor B", "2024-02-10", 750000, "Selesai"),
+            Pesanan("Distributor D", "2024-02-08", 400000, "Ditolak")
+
         )
 
         filteredList.addAll(pesananList) // Default tampilkan semua data

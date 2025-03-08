@@ -35,7 +35,8 @@ class PesananAdapter(private val listPesanan: List<Pesanan>, private val navCont
         // Atur status dengan warna
         holder.tvStatus.text = pesanan.status
         holder.tvStatus.isSelected = pesanan.status == "Selesai"
-        holder.tvStatus.setBackgroundResource(R.drawable.status_background) 
+        holder.tvStatus.isActivated = pesanan.status == "Ditolak"
+        holder.tvStatus.setBackgroundResource(R.drawable.status_background)
 
 
         // Klik item untuk navigasi ke DetailPesananFragment dengan Bundle

@@ -27,21 +27,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
+            android:layout_gravity="center_vertical"
             android:paddingStart="8dp">
-
-            <TextView
-                android:id="@+id/txtNamaProduk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nama Produk"
-                android:textStyle="bold"
-                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/txtTanggalRestok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tanggal Restok"/>
+                android:text="Tanggal Restok"
+                android:textStyle="bold"
+                android:textSize="16sp"/>
 
             <TextView
                 android:id="@+id/txtJumlahProduk"
