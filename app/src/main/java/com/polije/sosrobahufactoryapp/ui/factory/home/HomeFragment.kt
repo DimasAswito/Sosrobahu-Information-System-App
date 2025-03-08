@@ -37,17 +37,10 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
         setupBarChart()
-        setupLineChart()
 
         binding.barChart.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_laporanBulananFragment)
         }
-
-        // 2. Tangani klik LineChart
-        binding.lineChart.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_home_to_laporanBulananFragment)
-        }
-
 
         return root
     }
@@ -90,44 +83,7 @@ class HomeFragment : Fragment() {
         binding.barChart.invalidate() // Refresh
     }
 
-    private fun setupLineChart() {
-        // Penjualan bulanan (karton) dengan nilai random
-        val lineEntries = months.indices.map { index ->
-            // Contoh random antara 1 - 100 karton
-            val randomPenjualan = (1..100).random().toFloat()
-            Entry(index.toFloat(), randomPenjualan)
-        }
 
-        val lineDataSet = LineDataSet(lineEntries, "Penjualan Bulanan (Karton)")
-        lineDataSet.color = Color.RED
-        lineDataSet.setCircleColor(Color.RED)
-        // Hilangkan nilai di atas titik
-        lineDataSet.setDrawValues(false)
-
-        val lineData = LineData(lineDataSet)
-        binding.lineChart.data = lineData
-
-        // Format sumbu X dengan nama bulan
-        binding.lineChart.xAxis.apply {
-            valueFormatter = IndexAxisValueFormatter(months)
-            granularity = 1f
-            position = XAxis.XAxisPosition.BOTTOM
-        }
-
-        // Hilangkan sumbu kanan (tulisan di kanan)
-        binding.lineChart.axisRight.isEnabled = false
-
-        // Pindahkan legend ke tengah bawah
-        binding.lineChart.legend.apply {
-            verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
-            horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
-        }
-
-        // Hilangkan description default
-        binding.lineChart.description.isEnabled = false
-
-        binding.lineChart.invalidate() // Refresh
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
