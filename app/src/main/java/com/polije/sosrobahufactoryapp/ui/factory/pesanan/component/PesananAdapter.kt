@@ -15,7 +15,7 @@ class PesananAdapter(private val listPesanan: List<Pesanan>, private val navCont
 
     class PesananViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvDistributor: TextView = itemView.findViewById(R.id.tvDistributor)
-        val tvTanggal: TextView = itemView.findViewById(R.id.tvTanggal)
+//        val tvTanggal: TextView = itemView.findViewById(R.id.tvTanggal)
         val tvTotalHarga: TextView = itemView.findViewById(R.id.tvTotalHarga)
         val tvStatus: TextView = itemView.findViewById(R.id.tvStatus)
     }
@@ -29,17 +29,14 @@ class PesananAdapter(private val listPesanan: List<Pesanan>, private val navCont
     override fun onBindViewHolder(holder: PesananViewHolder, position: Int) {
         val pesanan = listPesanan[position]
         holder.tvDistributor.text = pesanan.distributor
-        holder.tvTanggal.text = pesanan.tanggal
+//        holder.tvTanggal.text = pesanan.tanggal
         holder.tvTotalHarga.text = "Rp ${pesanan.totalHarga}"
 
         // Atur status dengan warna
-        if (pesanan.status == "Selesai") {
-            holder.tvStatus.text = "Selesai"
-            holder.tvStatus.setBackgroundResource(R.color.green)
-        } else {
-            holder.tvStatus.text = "Diproses"
-            holder.tvStatus.setBackgroundResource(R.color.yellow)
-        }
+        holder.tvStatus.text = pesanan.status
+        holder.tvStatus.isSelected = pesanan.status == "Selesai"
+        holder.tvStatus.setBackgroundResource(R.drawable.status_background) 
+
 
         // Klik item untuk navigasi ke DetailPesananFragment dengan Bundle
         holder.itemView.setOnClickListener {

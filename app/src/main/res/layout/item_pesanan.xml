@@ -12,8 +12,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp"
+        android:padding="12dp"
         android:gravity="center_vertical">
+
+        <!-- Gambar Kiri -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:cardCornerRadius="100dp"
+            android:layout_marginEnd="8dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/user"
+                android:scaleType="centerCrop"/>
+        </com.google.android.material.card.MaterialCardView>
+
 
         <!-- Informasi Pesanan -->
         <LinearLayout
@@ -28,23 +43,15 @@
                 android:layout_height="wrap_content"
                 android:text="Nama Distributor"
                 android:textStyle="bold"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tvTanggal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tanggal Pemesanan"
-                android:textSize="14sp"
-                android:textColor="@android:color/darker_gray" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/tvTotalHarga"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Harga"
+                android:text="Rp 850.000"
                 android:textSize="14sp"
-                android:textColor="@android:color/holo_green_dark" />
+                android:textColor="@color/md_theme_tertiaryContainer_mediumContrast" />
         </LinearLayout>
 
         <!-- Status Pesanan -->
@@ -54,9 +61,10 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="12dp"
             android:paddingVertical="6dp"
-            android:text="Diproses"
-            android:textSize="14sp"
-            android:textColor="@android:color/white"
+            android:text="Selesai"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:textColor="@android:color/black"
             android:background="@drawable/status_background"
             android:gravity="center"
             android:layout_marginStart="8dp" />

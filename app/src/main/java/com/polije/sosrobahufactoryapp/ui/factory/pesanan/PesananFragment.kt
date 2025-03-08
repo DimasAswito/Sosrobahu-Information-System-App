@@ -30,8 +30,8 @@ class PesananFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_pesanan, container, false)
         recyclerView = view.findViewById(R.id.recyclerViewPesanan)
-        searchView = view.findViewById(R.id.searchView)
-        btnFilter = view.findViewById(R.id.btnFilter)
+        searchView = view.findViewById(R.id.searchPesananFactory)
+//        btnFilter = view.findViewById(R.id.btnFilter)
 
         // Dummy Data
         pesananList = mutableListOf(
@@ -46,9 +46,9 @@ class PesananFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = pesananAdapter
 
-        btnFilter.setOnClickListener {
-            showFilterDialog()
-        }
+//        btnFilter.setOnClickListener {
+//            showFilterDialog()
+//        }
 
         return view
     }
