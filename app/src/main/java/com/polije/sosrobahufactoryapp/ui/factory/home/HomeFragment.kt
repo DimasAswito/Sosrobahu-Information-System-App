@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -37,6 +38,10 @@ class HomeFragment : Fragment() {
 //        binding.barChart.setOnClickListener {
 //            findNavController().navigate(R.id.action_navigation_home_to_laporanBulananFragment)
 //        }
+
+        binding.tvlihatProdukTerlaris.setOnClickListener {
+            findNavController().navigate(R.id.action_navigation_home_to_topProductFragment)
+        }
 
         return root
     }

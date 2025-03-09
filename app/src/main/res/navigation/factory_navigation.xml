@@ -16,6 +16,9 @@
             <action
                 android:id="@+id/action_navigation_home_to_laporanBulananFragment"
                 app:destination="@id/laporanBulananFragment" />
+            <action
+                android:id="@+id/action_navigation_home_to_topProductFragment"
+                app:destination="@id/topProductFragment" />
         </fragment>
         <fragment
             android:id="@+id/navigation_pesanan"
@@ -128,6 +131,11 @@
                 android:id="@+id/action_tambahRestokFragment_to_navigation_riwayat"
                 app:destination="@id/navigation_riwayat" />
         </fragment>
+        <fragment
+            android:id="@+id/topProductFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.home.produkTerlaris.TopProductFragment"
+            android:label="fragment_top_product"
+            tools:layout="@layout/fragment_top_product" />
     </navigation>
 
 </navigation>
