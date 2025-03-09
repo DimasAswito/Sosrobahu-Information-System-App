@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.model.RiwayatRestok
+import com.polije.sosrobahufactoryapp.model.restock_pabrik
 
-class RiwayatRestokAdapter(private val riwayatList: List<RiwayatRestok>) :
+class RiwayatRestokAdapter(private val riwayatList: List<restock_pabrik>) :
     RecyclerView.Adapter<RiwayatRestokAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -41,11 +41,11 @@ class RiwayatRestokAdapter(private val riwayatList: List<RiwayatRestok>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val riwayat = riwayatList[position]
-        holder.imgProduk.setImageResource(riwayat.gambar)
-//        holder.txtNamaProduk.text = riwayat.namaProduk
-        holder.txtTanggalRestok.text = riwayat.tanggalRestok
-        holder.txtJumlahProduk.text = "Jumlah Produk: ${riwayat.jumlahProduk}"
+//        val riwayat = riwayatList[position]
+//        holder.imgProduk.setImageResource(riwayat.gambar)
+////        holder.txtNamaProduk.text = riwayat.namaProduk
+//        holder.txtTanggalRestok.text = riwayat.tanggalRestok
+//        holder.txtJumlahProduk.text = "Jumlah Produk: ${riwayat.jumlahProduk}"
     }
 
     override fun getItemCount(): Int = riwayatList.size

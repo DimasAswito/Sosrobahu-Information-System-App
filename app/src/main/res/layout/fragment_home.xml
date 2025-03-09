@@ -62,42 +62,47 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:padding="16dp">
 
-                        <!-- Gambar (Kiri) -->
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginEnd="12dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/stok" />
-
-                        <!-- Teks (Kanan) -->
-                        <LinearLayout
+                        <!-- Judul di atas -->
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:text="Total Stok Tersedia"
+                            android:layout_gravity="center"
+                            android:textColor="@android:color/black"
+                            android:textSize="14sp"
+                            android:layout_marginBottom="8dp" />
+
+                        <!-- Linear Horizontal (Gambar + Teks) -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <!-- Gambar (Kiri) -->
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginEnd="12dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/stok" />
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Total Stok Tersedia"
-                                android:textColor="@android:color/black"
-                                android:textSize="12sp" />
-
-                            <TextView
+                                android:id="@+id/stokTersedia"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textColor="@android:color/black"
-                                android:textSize="20sp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
 
 
                 <!--                &lt;!&ndash; Second CardView &ndash;&gt;-->
@@ -142,45 +147,49 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="4dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:padding="16dp">
 
-                        <!-- Gambar (Kiri) -->
-                        <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginEnd="12dp"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/omset" />
-
-                        <!-- Teks (Kanan) -->
-                        <LinearLayout
+                        <!-- Judul di atas -->
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:text="Omset Keseluruhan"
+                            android:layout_gravity="center"
+                            android:textColor="@android:color/black"
+                            android:textSize="14sp"
+                            android:layout_marginBottom="8dp" />
+
+                        <!-- Linear Horizontal (Gambar + Teks) -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <!-- Gambar (Kiri) -->
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginEnd="12dp"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/omset" />
 
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Omset Bulan Ini"
-                                android:textColor="@android:color/black"
-                                android:textSize="12sp" />
-
-                            <TextView
+                                android:id="@+id/omsetBulan"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
                                 android:textColor="@android:color/black"
-                                android:textSize="18sp"
+                                android:textSize="14sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
@@ -196,12 +205,13 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
             app:layout_constraintTop_toBottomOf="@+id/distributoraktif">
 
             <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/barChart"
+                android:id="@+id/barChartPendapatanBulanan"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:padding="16dp" />
@@ -242,9 +252,10 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/jumlahDistributor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="300 distributor"
+                        android:text=" - distributor"
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -278,6 +289,17 @@
         <!--            android:padding="16dp" />-->
         <!--    </androidx.cardview.widget.CardView>-->
 
+        <TextView
+            android:id="@+id/tvProdukTerlaris"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:textStyle="bold"
+            android:text="Produk Terlaris"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/barChartCard" />
+
         <!-- CardView untuk Produk Terlaris -->
         <androidx.cardview.widget.CardView
             android:id="@+id/topProductCard"
@@ -288,7 +310,7 @@
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp"
             app:layout_constraintBottom_toBottomOf="@android:id/navigationBarBackground"
-            app:layout_constraintTop_toBottomOf="@+id/barChartCard">
+            app:layout_constraintTop_toBottomOf="@+id/tvProdukTerlaris">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -298,14 +320,19 @@
                 android:padding="8dp">
 
                 <!-- Gambar Produk -->
-                <ImageView
-                    android:id="@+id/topProductImage"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/rounded_background"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/logo" />
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    app:cardCornerRadius="8dp"
+                    android:layout_marginEnd="8dp">
+
+                    <ImageView
+                        android:id="@+id/topProductImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/logo"
+                        android:scaleType="centerCrop"/>
+                </com.google.android.material.card.MaterialCardView>
 
                 <!-- Informasi Produk -->
                 <LinearLayout

@@ -25,8 +25,7 @@ class PesananFragment : Fragment() {
     private var filteredList = mutableListOf<Pesanan>()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_pesanan, container, false)
         recyclerView = view.findViewById(R.id.recyclerViewPesanan)
@@ -57,18 +56,17 @@ class PesananFragment : Fragment() {
 
 
     private fun showFilterDialog() {
-        val options = arrayOf("Urut berdasarkan Tanggal", "Urut berdasarkan Nama", "Tampilkan Semua")
+        val options =
+            arrayOf("Urut berdasarkan Tanggal", "Urut berdasarkan Nama", "Tampilkan Semua")
 
-        AlertDialog.Builder(requireContext())
-            .setTitle("Filter Pesanan")
+        AlertDialog.Builder(requireContext()).setTitle("Filter Pesanan")
             .setItems(options) { _, which ->
                 when (which) {
                     0 -> sortPesananByTanggal()
                     1 -> sortPesananByNama()
                     2 -> resetPesanan()
                 }
-            }
-            .show()
+            }.show()
     }
 
     private fun sortPesananByTanggal() {

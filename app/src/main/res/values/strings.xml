@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Factory App</string>
+    <string name="app_name">Sosrobahu</string>
     <string name="title_home">Home</string>
     <string name="title_pesanan">Pesanan</string>
     <string name="title_riwayatStok">Riwayat</string>
@@ -20,6 +20,79 @@
     <string name="ktp">KTP</string>
     <string name="select_file">Pilih File</string>
     <string name="save">Simpan</string>
+
+
+    <string-array name="master_barang">
+        <item>1,Sosrobahu Kopi Hitam,120000,@drawable/produk1,50</item>
+        <item>2,Sosrobahu D &amp; H,130000,@drawable/produk2,40</item>
+        <item>3,Sosrobahu Kupu Biru,125000,@drawable/produk3,30</item>
+        <item>4,Sosrobahu Premium,110000,@drawable/produk4,60</item>
+        <item>5,Sosrobahu Original,150000,@drawable/produk5,20</item>
+        <item>6,Sosrobahu Mangga Alpukat,150000,@drawable/produk6,20</item>
+    </string-array>
+
+    <!-- Data Order Distributor -->
+    <string-array name="order_distributor">
+        <item>1,101,5,600000,2025-10-09 10:00:00,A,0,2025-03-09 10:05:00,2025-03-09 10:10:00</item>
+        <item>2,102,3,390000,2025-03-09 11:00:00,B,1,2025-03-09 11:05:00,2025-03-09 11:10:00</item>
+        <item>3,103,8,960000,2025-05-09 12:00:00,C,0,2025-03-09 12:05:00,2025-03-09 12:10:00</item>
+        <item>4,104,2,260000,2025-09-09 13:00:00,D,2,2025-03-09 13:05:00,2025-03-09 13:10:00</item>
+        <item>5,105,6,720000,2025-01-09 14:00:00,E,1,2025-03-09 14:05:00,2025-03-09 14:10:00</item>
+        <item>6,106,4,480000,2025-07-09 15:00:00,F,0,2025-03-09 15:05:00,2025-03-09 15:10:00</item>
+        <item>7,107,7,840000,2025-02-09 16:00:00,G,1,2025-03-09 16:05:00,2025-03-09 16:10:00</item>
+    </string-array>
+
+    <!-- Data Order Detail Distributor -->
+    <string-array name="order_detail_distributor">
+        <item>1,1,201,101,1,2,240000,2025-03-09 10:05:00,2025-03-09 10:10:00</item>
+        <item>2,1,201,101,2,3,360000,2025-03-09 10:05:00,2025-03-09 10:10:00</item>
+        <item>3,2,202,102,3,3,390000,2025-03-09 11:05:00,2025-03-09 11:10:00</item>
+        <item>4,3,203,103,4,4,480000,2025-03-09 12:05:00,2025-03-09 12:10:00</item>
+        <item>5,3,203,103,5,4,480000,2025-03-09 12:05:00,2025-03-09 12:10:00</item>
+    </string-array>
+
+    <!-- Data Restock Pabrik -->
+    <string-array name="restock_pabrik">
+        <item>1,201,500,2025-03-09 08:00:00,2025-03-09 08:05:00,2025-03-09 08:10:00</item>
+        <item>2,202,300,2025-03-09 09:00:00,2025-03-09 09:05:00,2025-03-09 09:10:00</item>
+        <item>3,203,700,2025-03-09 10:00:00,2025-03-09 10:05:00,2025-03-09 10:10:00</item>
+        <item>4,204,450,2025-03-09 11:00:00,2025-03-09 11:05:00,2025-03-09 11:10:00</item>
+        <item>5,205,600,2025-03-09 12:00:00,2025-03-09 12:05:00,2025-03-09 12:10:00</item>
+        <item>6,206,800,2025-03-09 13:00:00,2025-03-09 13:05:00,2025-03-09 13:10:00</item>
+        <item>7,207,350,2025-03-09 14:00:00,2025-03-09 14:05:00,2025-03-09 14:10:00</item>
+    </string-array>
+
+    <!-- Data Restock Detail Pabrik -->
+    <string-array name="restock_detail_pabrik">
+        <item>1,1,201,301,250,2025-03-09 08:05:00,2025-03-09 08:10:00</item>
+        <item>2,1,201,302,250,2025-03-09 08:05:00,2025-03-09 08:10:00</item>
+        <item>3,2,202,303,300,2025-03-09 09:05:00,2025-03-09 09:10:00</item>
+        <item>4,3,203,304,400,2025-03-09 10:05:00,2025-03-09 10:10:00</item>
+        <item>5,3,203,305,300,2025-03-09 10:05:00,2025-03-09 10:10:00</item>
+        <item>6,4,204,301,450,2025-03-09 11:05:00,2025-03-09 11:10:00</item>
+        <item>7,5,205,302,600,2025-03-09 12:05:00,2025-03-09 12:10:00</item>
+        <item>8,6,206,303,400,2025-03-09 13:05:00,2025-03-09 13:10:00</item>
+        <item>9,6,206,304,400,2025-03-09 13:05:00,2025-03-09 13:10:00</item>
+        <item>10,7,207,305,350,2025-03-09 14:05:00,2025-03-09 14:10:00</item>
+    </string-array>
+
+    <!-- Data Barang Distributor -->
+    <string-array name="tbl_barang_distributor">
+        <item>1,301,101,125000,30,2025-03-09 08:00:00,2025-03-09 08:05:00</item>
+        <item>2,302,102,130000,25,2025-03-09 09:00:00,2025-03-09 09:05:00</item>
+        <item>3,303,103,128000,40,2025-03-09 10:00:00,2025-03-09 10:05:00</item>
+        <item>4,304,104,132000,35,2025-03-09 11:00:00,2025-03-09 11:05:00</item>
+        <item>5,305,105,127000,28,2025-03-09 12:00:00,2025-03-09 12:05:00</item>
+        <item>6,306,106,129500,32,2025-03-09 13:00:00,2025-03-09 13:05:00</item>
+    </string-array>
+
+    <!-- Data User Distributor -->
+    <string-array name="user_distributor">
+        <item>1,Andi Saputra,andi_s,pass123,081234567890,1,2,@drawable/ktp_andi,BCA,1234567890,Jawa Barat,Jl. Merdeka No.10,2025-03-09 08:00:00,2025-03-09 08:05:00</item>
+        <item>2,Budi Santoso,budi_s,pass456,082345678901,1,2,@drawable/ktp_budi,BNI,2345678901,Jawa Tengah,Jl. Pahlawan No.20,2025-03-09 09:00:00,2025-03-09 09:05:00</item>
+        <item>3,Cahyo Prasetyo,cahyo_p,pass789,083456789012,0,1,@drawable/ktp_cahyo,BRI,3456789012,Jawa Timur,Jl. Diponegoro No.30,2025-03-09 10:00:00,2025-03-09 10:05:00</item>
+        <item>4,Dewi Lestari,dewi_l,pass321,084567890123,1,2,@drawable/ktp_dewi,Mandiri,4567890123,DKI Jakarta,Jl. Sudirman No.40,2025-03-09 11:00:00,2025-03-09 11:05:00</item>
+    </string-array>
 
     <string-array name="bank_list">
         <item>Bank Mandiri</item>
