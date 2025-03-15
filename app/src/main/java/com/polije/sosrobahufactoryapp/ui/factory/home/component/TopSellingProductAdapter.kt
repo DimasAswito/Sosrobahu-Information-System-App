@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.model.TopSellingProduct
+import com.polije.sosrobahufactoryapp.toRupiah
 
 class TopSellingProductAdapter(private val productList: List<TopSellingProduct>) :
     RecyclerView.Adapter<TopSellingProductAdapter.ViewHolder>() {
@@ -29,7 +30,7 @@ class TopSellingProductAdapter(private val productList: List<TopSellingProduct>)
         val product = productList[position]
         holder.tvRank.text = "${product.rank}."
         holder.tvProductName.text = product.name
-        holder.tvRevenue.text = "Rp ${product.revenue}"
+        holder.tvRevenue.text = product.revenue.toRupiah()
 
         val imageResId = holder.itemView.context.resources.getIdentifier(
             product.image, "drawable", holder.itemView.context.packageName

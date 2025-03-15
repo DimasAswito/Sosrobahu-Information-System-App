@@ -21,6 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -29,6 +30,14 @@
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/logoutPabrikButton"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -293,11 +302,13 @@
             android:id="@+id/tvProdukTerlaris"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="16dp"
             android:layout_marginHorizontal="16dp"
-            android:textStyle="bold"
+            android:layout_marginVertical="16dp"
             android:text="Produk Terlaris"
-            android:textSize="16sp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/barChartCard" />
 
         <!-- CardView untuk Produk Terlaris -->
@@ -354,6 +365,7 @@
                         android:id="@+id/topProductRevenue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
                         android:text="Rp 10.000.000"
                         android:textColor="@color/md_theme_tertiaryContainer_highContrast"
                         android:textSize="14sp" />

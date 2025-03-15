@@ -36,6 +36,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -59,4 +60,9 @@ dependencies {
 
     implementation(libs.mpandroidchart)
     implementation (libs.glide)
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation (libs.gson)
+    implementation (libs.okhttp)
+    implementation (libs.logging.interceptor)
 }

@@ -1,12 +1,16 @@
 package com.polije.sosrobahufactoryapp.ui.factory.home
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
@@ -15,19 +19,32 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.R.id
+import com.polije.sosrobahufactoryapp.toRupiah
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeBinding
+import com.polije.sosrobahufactoryapp.ui.factory.FactoryViewModel
+import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginActivity
+import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginViewModel
 import java.util.Calendar
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private lateinit var viewModel: FactoryLoginViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(requireActivity(), FactoryViewModel.Factory(requireContext()))
+            .get(FactoryLoginViewModel::class.java)
 
         calculateStock()
         calculateRevenue()
@@ -35,15 +52,22 @@ class HomeFragment : Fragment() {
         setupBarChartPendapatan()
         displayTopSellingProduct()
 
-//        binding.barChart.setOnClickListener {
-//            findNavController().navigate(R.id.action_navigation_home_to_laporanBulananFragment)
-//        }
+        // Pastikan logoutPabrikButton digunakan setelah onViewCreated()
+        binding.logoutPabrikButton.setOnClickListener {
+            viewModel.logout()
+            Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
+            navigateToLogin()
+        }
 
         binding.tvlihatProdukTerlaris.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_home_to_topProductFragment)
         }
+    }
 
-        return root
+    private fun navigateToLogin() {
+        val intent = Intent(requireContext(), FactoryLoginActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     //    untuk bagian total stok tersedia
@@ -75,7 +99,7 @@ class HomeFragment : Fragment() {
                 .sumOf { it.split(",")[3].toInt() } // Menjumlahkan kolom total
 
         // Tampilkan hasilnya di TextView
-        binding.omsetBulan.text = "Rp " + totalRevenue.toString()
+        binding.omsetBulan.text = totalRevenue.toRupiah()
     }
 
     //    Untuk bagian total user distributor
@@ -217,7 +241,7 @@ class HomeFragment : Fragment() {
 
                 // Set data ke UI
                 binding.topProductName.text = productName
-                binding.topProductRevenue.text = "Rp " + (totalRevenue ?: 0).toString()
+                binding.topProductRevenue.text = totalRevenue?.toRupiah()
 
                 // Load gambar dari drawable
                 val imageResId =

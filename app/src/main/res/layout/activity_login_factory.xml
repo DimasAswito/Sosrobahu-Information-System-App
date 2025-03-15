@@ -108,7 +108,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/loginButton"
+            android:id="@+id/loginButtonPabrik"
             android:layout_width="0dp"
             android:layout_height="64dp"
             android:layout_marginStart="32dp"
