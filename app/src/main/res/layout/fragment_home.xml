@@ -101,7 +101,7 @@
                                 android:src="@drawable/stok" />
 
                             <TextView
-                                android:id="@+id/stokTersedia"
+                                android:id="@+id/stokPabrikTersedia"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
@@ -193,7 +193,7 @@
                                 android:src="@drawable/omset" />
 
                             <TextView
-                                android:id="@+id/omsetBulan"
+                                android:id="@+id/omsetPabrik"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0"
@@ -359,19 +359,36 @@
                         android:text="Nama Produk"
                         android:textSize="16sp"
                         android:textStyle="bold" />
+                </LinearLayout>
 
+                <!-- Stok Produk -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="32dp">
 
                     <TextView
-                        android:id="@+id/topProductRevenue"
+                        android:id="@+id/topProductStockLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="Rp 10.000.000"
-                        android:textColor="@color/md_theme_tertiaryContainer_highContrast"
-                        android:textSize="14sp" />
+                        android:text="Stok"
+                        android:textSize="14sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/topProductStock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="-"
+                        android:textSize="16sp"/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
 
         <TextView
             android:id="@+id/tvlihatProdukTerlaris"
@@ -380,7 +397,7 @@
             android:layout_marginVertical="16dp"
             android:gravity="center_horizontal"
             android:textStyle="bold"
-            android:text="Lihat produk terlaris lainnya"
+            android:text="Lihat Stok produk Lainnya"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@+id/topProductCard" />
 

@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginVertical="16dp"
-            android:text="Peringkat\n Produk Terlaris"
+            android:text="Stok\n Setiap Produk"
             android:textAlignment="center"
             android:textColor="@color/md_theme_tertiaryFixedDim"
             android:textSize="30sp"
