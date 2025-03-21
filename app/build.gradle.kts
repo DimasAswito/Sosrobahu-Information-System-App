@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id ("kotlin-parcelize")
+    id("kotlin-parcelize")
+    alias(libs.plugins.kotlinSerialization)
 }
 
 android {
@@ -56,15 +57,17 @@ dependencies {
     implementation(libs.androidx.legacy.support.v4)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.gridlayout)
+    implementation(libs.koin.android)
+    implementation(libs.converter.kotlinx.serialization)
+    implementation(libs.androidx.datastore.preferences)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
+    implementation(libs.kotlinx.coroutines.android)
     implementation(libs.mpandroidchart)
-    implementation (libs.glide)
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
-    implementation (libs.gson)
-    implementation (libs.okhttp)
-    implementation (libs.logging.interceptor)
+    implementation(libs.glide)
+    implementation(libs.retrofit)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 }

@@ -1,28 +1,22 @@
 package com.polije.sosrobahufactoryapp.ui.factory.login
 
 
-import androidx.lifecycle.lifecycleScope
-import com.polije.sosrobahufactoryapp.ui.factory.FactoryActivity
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.polije.sosrobahufactoryapp.databinding.ActivityLoginFactoryBinding
-import com.polije.sosrobahufactoryapp.ui.factory.FactoryViewModel
+import com.polije.sosrobahufactoryapp.ui.factory.FactoryActivity
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FactoryLoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginFactoryBinding
-    private val viewModel by viewModels<FactoryLoginViewModel> {
-        FactoryViewModel.Factory(this)
-    }
+    private val viewModel: FactoryLoginViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,14 +25,9 @@ class FactoryLoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        if (viewModel.getToken() != null) {
-            navigateToHome()
-            return
-        }
-
         lifecycleScope.launch {
             viewModel.loginResult.collectLatest { result ->
-                if (result == "success") {
+                if (result != null) {
                     navigateToHome()
                 }
             }

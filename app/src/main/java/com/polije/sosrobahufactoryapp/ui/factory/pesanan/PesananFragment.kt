@@ -1,5 +1,6 @@
 package com.polije.sosrobahufactoryapp.ui.factory.pesanan
 
+import Pesanan
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.model.Pesanan
 import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.PesananAdapter
 
 class PesananFragment : Fragment() {
@@ -34,10 +34,10 @@ class PesananFragment : Fragment() {
 
         // Dummy Data
         pesananList = mutableListOf(
-            Pesanan("Distributor A", "2024-02-11", 500000, "Diproses"),
-            Pesanan("Distributor C", "2024-02-09", 300000, "Diproses"),
-            Pesanan("Distributor B", "2024-02-10", 750000, "Selesai"),
-            Pesanan("Distributor D", "2024-02-08", 400000, "Ditolak")
+//            Pesanan("Distributor A", "2024-02-11", 500000,"", 0),
+//            Pesanan("Distributor C", "2024-02-09", 300000, "Diproses"),
+//            Pesanan("Distributor B", "2024-02-10", 750000, "Selesai"),
+//            Pesanan("Distributor D", "2024-02-08", 400000, "Ditolak")
 
         )
 
@@ -75,7 +75,7 @@ class PesananFragment : Fragment() {
     }
 
     private fun sortPesananByNama() {
-        filteredList.sortBy { it.distributor }
+        filteredList.sortBy { it.idUserDistributor }
         pesananAdapter.notifyDataSetChanged()
     }
 

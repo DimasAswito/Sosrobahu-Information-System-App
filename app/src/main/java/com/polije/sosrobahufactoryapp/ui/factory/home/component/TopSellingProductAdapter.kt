@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.model.TopSellingProduct
-import com.polije.sosrobahufactoryapp.toRupiah
+import com.polije.sosrobahufactoryapp.utils.toRupiah
 
 class TopSellingProductAdapter(private val productList: List<TopSellingProduct>) :
     RecyclerView.Adapter<TopSellingProductAdapter.ViewHolder>() {

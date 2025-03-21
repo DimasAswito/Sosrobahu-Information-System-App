@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.github.mikephil.charting.components.Legend
@@ -18,20 +19,21 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.api.ApiConfig.BASE_URL_PRODUK
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeBinding
-import com.polije.sosrobahufactoryapp.toRupiah
-import com.polije.sosrobahufactoryapp.ui.factory.FactoryViewModel
+import com.polije.sosrobahufactoryapp.utils.toRupiah
 import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginActivity
 import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.Calendar
+import androidx.core.graphics.toColorInt
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: FactoryLoginViewModel
-    private lateinit var homeViewModel: HomeViewModel
+    private val homeViewModel: HomeViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -43,18 +45,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity(), FactoryViewModel.Factory(requireContext()))
-            .get(FactoryLoginViewModel::class.java)
-
-        homeViewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
-        ).get(HomeViewModel::class.java)
-
         observeViewModel()
 
         binding.logoutPabrikButton.setOnClickListener {
-            viewModel.logout()
+
             Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
             navigateToLogin()
         }
@@ -65,31 +59,36 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        homeViewModel.dashboardPabrik.observe(viewLifecycleOwner) { data ->
-            data?.let {
-                binding.stokPabrikTersedia.text = "${it.finalStockKarton} karton"
-                binding.omsetPabrik.text = it.totalPendapatan.toRupiah()
-                binding.jumlahDistributor.text = "${it.totalDistributor} Distributor"
+        lifecycleScope.launch {
+
+        homeViewModel.state.collectLatest { state ->
+            if (state.dashboardPabrik != null){
+                binding.stokPabrikTersedia.text = "${state.dashboardPabrik.finalStockKarton} karton"
+                binding.omsetPabrik.text = state.dashboardPabrik.totalPendapatan
+                binding.jumlahDistributor.text = "${state.dashboardPabrik.totalDistributor} Distributor"
+
+
+                binding.topProductName.text = state.dashboardPabrik.topProductName
+//                binding.topProductStock.text = "${state.dashboardPabrik.}"
+//                val imageUrl = "$BASE_URL_PRODUK${it.image}"
+//                Glide.with(requireContext()).load(imageUrl).into(binding.topProductImage)
+
+                setupBarChartPendapatan(state.pendapatanBulanan.mapValues { it.value.totalOmset.toFloat() })
+            }
+
+            if (state.errorMessage != null){
+                Toast.makeText(requireContext(), state.errorMessage, Toast.LENGTH_LONG).show()
             }
         }
 
-        homeViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            errorMessage?.let {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
-            }
-        }
-
-        homeViewModel.pendapatanBulanan.observe(viewLifecycleOwner) { pendapatanMap ->
-            setupBarChartPendapatan(pendapatanMap)
-        }
-
-        homeViewModel.topProduct.observe(viewLifecycleOwner) { topProduct ->
-            topProduct?.let {
-                binding.topProductName.text = it.name
-                binding.topProductStock.text = "${it.stock}"
-                val imageUrl = "$BASE_URL_PRODUK${it.image}"
-                Glide.with(requireContext()).load(imageUrl).into(binding.topProductImage)
-            }
+//        homeViewModel.topProduct.observe(viewLifecycleOwner) { topProduct ->
+//            topProduct?.let {
+//                binding.topProductName.text = it.name
+//                binding.topProductStock.text = "${it.stock}"
+//                val imageUrl = "$BASE_URL_PRODUK${it.image}"
+//                Glide.with(requireContext()).load(imageUrl).into(binding.topProductImage)
+//            }
+//        }
         }
     }
 
@@ -112,7 +111,7 @@ class HomeFragment : Fragment() {
         }
 
         val barDataSet = BarDataSet(barEntries, "Pendapatan Bulanan (Rp)")
-        barDataSet.color = Color.parseColor("#E4C36C")
+        barDataSet.color = "#E4C36C".toColorInt()
         barDataSet.setDrawValues(false)
 
         val barData = BarData(barDataSet)

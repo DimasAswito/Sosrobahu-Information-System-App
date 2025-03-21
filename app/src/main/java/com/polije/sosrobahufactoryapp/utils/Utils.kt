@@ -1,4 +1,4 @@
-package com.polije.sosrobahufactoryapp
+package com.polije.sosrobahufactoryapp.utils
 
 import java.text.NumberFormat
 import java.util.Locale
