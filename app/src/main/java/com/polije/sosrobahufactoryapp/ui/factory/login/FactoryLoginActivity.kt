@@ -42,15 +42,17 @@ class FactoryLoginActivity : AppCompatActivity() {
                 when (state) {
                     is LoginState.Idle -> {
                         binding.progressBar.visibility = View.GONE
-                        binding.loginButtonPabrik.isEnabled = true
+
                     }
                     is LoginState.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
                         binding.loginButtonPabrik.isEnabled = false
                     }
                     is LoginState.Success -> {
+
                         binding.progressBar.visibility = View.GONE
                         binding.loginButtonPabrik.isEnabled = false
+                        navigateToHome()
                     }
                     is LoginState.Error -> {
                         binding.progressBar.visibility = View.GONE
@@ -63,9 +65,7 @@ class FactoryLoginActivity : AppCompatActivity() {
 
 
 
-        lifecycleScope.launch {
 
-        }
 
 
     }

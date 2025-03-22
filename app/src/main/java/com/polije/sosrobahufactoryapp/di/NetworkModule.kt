@@ -32,7 +32,7 @@ val networkModule = module {
 
     single {
         Retrofit.Builder()
-            .baseUrl("https://0efb-103-189-201-82.ngrok-free.app/api/")
+            .baseUrl("https://0061-103-189-201-82.ngrok-free.app/")
             .client(get())
             .addConverterFactory(get())
 
