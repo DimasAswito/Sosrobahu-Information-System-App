@@ -1,5 +1,6 @@
 package com.polije.sosrobahufactoryapp.ui.factory.home
 
+import PesananPerBulan
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -64,7 +65,7 @@ class HomeFragment : Fragment() {
         homeViewModel.state.collectLatest { state ->
             if (state.dashboardPabrik != null){
                 binding.stokPabrikTersedia.text = "${state.dashboardPabrik.finalStockKarton} karton"
-                binding.omsetPabrik.text = state.dashboardPabrik.totalPendapatan
+                binding.omsetPabrik.text = Integer.parseInt(state.dashboardPabrik.totalPendapatan).toRupiah()
                 binding.jumlahDistributor.text = "${state.dashboardPabrik.totalDistributor} Distributor"
 
 
@@ -72,8 +73,8 @@ class HomeFragment : Fragment() {
 //                binding.topProductStock.text = "${state.dashboardPabrik.}"
 //                val imageUrl = "$BASE_URL_PRODUK${it.image}"
 //                Glide.with(requireContext()).load(imageUrl).into(binding.topProductImage)
-
-                setupBarChartPendapatan(state.pendapatanBulanan.mapValues { it.value.totalOmset.toFloat() })
+                val pendapatanBulanan = convertToMonthlyRevenueMap(state.pendapatanBulanan)
+                setupBarChartPendapatan(pendapatanBulanan)
             }
 
             if (state.errorMessage != null){
@@ -133,6 +134,23 @@ class HomeFragment : Fragment() {
 
         binding.barChartPendapatanBulanan.description.isEnabled = false
         binding.barChartPendapatanBulanan.invalidate() // Refresh Chart
+    }
+
+    fun convertToMonthlyRevenueMap(pesananPerBulan: Map<String, PesananPerBulan>): Map<String, Float> {
+        val monthNames = listOf(
+            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        )
+
+        return pesananPerBulan.mapNotNull { (yearMonth, data) ->
+            val parts = yearMonth.split("-") // Pisahkan "YYYY-MM"
+            if (parts.size == 2) {
+                val monthIndex = parts[1].toIntOrNull()?.minus(1) // Bulan di Java/Kotlin mulai dari 0
+                monthIndex?.let { monthNames[it] to data.totalOmset.toFloat() }
+            } else {
+                null // Jika format tidak sesuai, abaikan data
+            }
+        }.toMap()
     }
 
     override fun onDestroyView() {

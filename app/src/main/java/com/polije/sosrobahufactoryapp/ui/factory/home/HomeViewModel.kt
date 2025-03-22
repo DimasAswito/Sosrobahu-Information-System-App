@@ -13,7 +13,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
-class HomeViewModel(val dashboardUseCase: DashboardUseCase,val tokenUseCase: TokenUseCase) : ViewModel() {
+class HomeViewModel(val dashboardUseCase: DashboardUseCase, val tokenUseCase: TokenUseCase) :
+    ViewModel() {
 
     private val _state = MutableStateFlow(DashboardPabrikState())
     val state: StateFlow<DashboardPabrikState> = _state.asStateFlow()
@@ -23,23 +24,40 @@ class HomeViewModel(val dashboardUseCase: DashboardUseCase,val tokenUseCase: Tok
     }
 
     fun getDashboardPabrik() {
-
+        _state.update { it.copy(isLoading = true) }
         viewModelScope.launch {
 
             val token = tokenUseCase.getToken()
             if (token == null) {
                 _state.update { it.copy(errorMessage = "Token tidak ditemukan, silakan login ulang.") }
+                _state.update { it.copy(isLoading = false) }
                 return@launch
             } else {
 
                 try {
                     val response = dashboardUseCase.invoke()
-                    when (response){
-                        is DataResult.Error -> _state.update { it.copy(errorMessage = response.error) }
-                        is DataResult.Success -> _state.update { it.copy(dashboardPabrik = response.data, pendapatanBulanan = response.data.pesananPerbulan) }
+                    when (response) {
+                        is DataResult.Error -> _state.update {
+                            it.copy(
+                                errorMessage = response.error,
+                                isLoading = false
+                            )
+                        }
+
+                        is DataResult.Success -> _state.update {
+                            it.copy(
+                                dashboardPabrik = response.data,
+                                pendapatanBulanan = response.data.pesananPerbulan, isLoading = false
+                            )
+                        }
                     }
                 } catch (e: Exception) {
-                    _state.update { it.copy(errorMessage = "Error: ${e.message}")}
+                    _state.update {
+                        it.copy(
+                            errorMessage = "Error: ${e.message}",
+                            isLoading = false
+                        )
+                    }
                 }
             }
         }

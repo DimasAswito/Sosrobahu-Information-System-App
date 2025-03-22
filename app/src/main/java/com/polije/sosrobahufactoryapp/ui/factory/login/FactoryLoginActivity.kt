@@ -3,9 +3,10 @@ package com.polije.sosrobahufactoryapp.ui.factory.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
 import com.polije.sosrobahufactoryapp.databinding.ActivityLoginFactoryBinding
 import com.polije.sosrobahufactoryapp.ui.factory.FactoryActivity
@@ -25,22 +26,48 @@ class FactoryLoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        binding.usernameEditText.doAfterTextChanged { text -> viewModel.onUsernameChanged(text.toString()) }
+        binding.passwordEditText.doAfterTextChanged { text -> viewModel.onPasswordChanged(text.toString()) }
+
+        binding.loginButtonPabrik.setOnClickListener {
+            viewModel.login()
+        }
+
         lifecycleScope.launch {
-            viewModel.loginResult.collectLatest { result ->
-                if (result != null) {
-                    navigateToHome()
+            viewModel.isValid.collectLatest { binding.loginButtonPabrik.isEnabled = it }
+        }
+
+        lifecycleScope.launch {
+            viewModel.loginState.collectLatest { state ->
+                when (state) {
+                    is LoginState.Idle -> {
+                        binding.progressBar.visibility = View.GONE
+                        binding.loginButtonPabrik.isEnabled = true
+                    }
+                    is LoginState.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                        binding.loginButtonPabrik.isEnabled = false
+                    }
+                    is LoginState.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        binding.loginButtonPabrik.isEnabled = false
+                    }
+                    is LoginState.Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(this@FactoryLoginActivity, "Login Failed: ${state.message}", Toast.LENGTH_SHORT).show()
+                        binding.loginButtonPabrik.isEnabled = true
+                    }
                 }
             }
         }
 
-        binding.passwordEditText.addTextChangedListener(textWatcher)
-        binding.usernameEditText.addTextChangedListener(textWatcher)
 
-        binding.loginButtonPabrik.setOnClickListener {
-            val username = binding.usernameEditText.text.toString()
-            val password = binding.passwordEditText.text.toString()
-            viewModel.login(username, password)
+
+        lifecycleScope.launch {
+
         }
+
+
     }
 
     private fun navigateToHome() {
@@ -51,14 +78,5 @@ class FactoryLoginActivity : AppCompatActivity() {
         finish()
     }
 
-    private val textWatcher = object : TextWatcher {
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        override fun afterTextChanged(s: Editable?) {
-            val username = binding.usernameEditText.text.toString()
-            val password = binding.passwordEditText.text.toString()
-            binding.loginButtonPabrik.isEnabled = username.isNotEmpty() && password.isNotEmpty()
-        }
-    }
 }
 
