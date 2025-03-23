@@ -2,17 +2,15 @@ package com.polije.sosrobahufactoryapp.ui.factory.home
 
 import PesananPerBulan
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -21,14 +19,12 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeBinding
-import com.polije.sosrobahufactoryapp.utils.toRupiah
 import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginActivity
-import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginViewModel
+import com.polije.sosrobahufactoryapp.utils.toRupiah
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.Calendar
-import androidx.core.graphics.toColorInt
 
 class HomeFragment : Fragment() {
 
@@ -62,25 +58,49 @@ class HomeFragment : Fragment() {
     private fun observeViewModel() {
         lifecycleScope.launch {
 
-        homeViewModel.state.collectLatest { state ->
-            if (state.dashboardPabrik != null){
-                binding.stokPabrikTersedia.text = "${state.dashboardPabrik.finalStockKarton} karton"
-                binding.omsetPabrik.text = Integer.parseInt(state.dashboardPabrik.totalPendapatan).toRupiah()
-                binding.jumlahDistributor.text = "${state.dashboardPabrik.totalDistributor} Distributor"
+            homeViewModel.state.collectLatest { state ->
+                when (state) {
+                    is HomeState.Failure -> {
+                        Toast.makeText(requireContext(), state.errorMessage, Toast.LENGTH_LONG)
+                            .show()
+                    }
+
+                    HomeState.Initial -> {
+                        binding.progressBar2.visibility = View.GONE
+                    }
 
 
-                binding.topProductName.text = state.dashboardPabrik.topProductName
-//                binding.topProductStock.text = "${state.dashboardPabrik.}"
+                    HomeState.Loading -> {
+                        binding.progressBar2.visibility = View.VISIBLE
+                    }
+
+                    is HomeState.Success -> {
+                        binding.progressBar2.visibility = View.GONE
+                        binding.stokPabrikTersedia.text =
+                            getString(R.string.karton, state.dashboardPabrik.finalStockKarton)
+
+                        binding.omsetPabrik.text =
+                            getString(
+                                R.string.totalPendapatan,
+                                Integer.parseInt(state.dashboardPabrik.totalPendapatan).toRupiah()
+                            )
+
+
+
+                        binding.jumlahDistributor.text =
+                            getString(R.string.distributor, state.dashboardPabrik.totalDistributor)
+
+
+
+                        binding.topProductName.text = state.dashboardPabrik.topProductName
+                        //                binding.topProductStock.text = "${state.dashboardPabrik.}"
 //                val imageUrl = "$BASE_URL_PRODUK${it.image}"
 //                Glide.with(requireContext()).load(imageUrl).into(binding.topProductImage)
-                val pendapatanBulanan = convertToMonthlyRevenueMap(state.pendapatanBulanan)
-                setupBarChartPendapatan(pendapatanBulanan)
+                        val pendapatanBulanan = convertToMonthlyRevenueMap(state.pendapatanBulanan)
+                        setupBarChartPendapatan(pendapatanBulanan)
+                    }
+                }
             }
-
-            if (state.errorMessage != null){
-                Toast.makeText(requireContext(), state.errorMessage, Toast.LENGTH_LONG).show()
-            }
-        }
 
 //        homeViewModel.topProduct.observe(viewLifecycleOwner) { topProduct ->
 //            topProduct?.let {
@@ -145,7 +165,8 @@ class HomeFragment : Fragment() {
         return pesananPerBulan.mapNotNull { (yearMonth, data) ->
             val parts = yearMonth.split("-") // Pisahkan "YYYY-MM"
             if (parts.size == 2) {
-                val monthIndex = parts[1].toIntOrNull()?.minus(1) // Bulan di Java/Kotlin mulai dari 0
+                val monthIndex =
+                    parts[1].toIntOrNull()?.minus(1) // Bulan di Java/Kotlin mulai dari 0
                 monthIndex?.let { monthNames[it] to data.totalOmset.toFloat() }
             } else {
                 null // Jika format tidak sesuai, abaikan data

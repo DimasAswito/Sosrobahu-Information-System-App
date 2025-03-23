@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.model.restock_pabrik
+import com.polije.sosrobahufactoryapp.data.model.restock_pabrik
 
 class RiwayatRestokAdapter(private val riwayatList: List<restock_pabrik>) :
     RecyclerView.Adapter<RiwayatRestokAdapter.ViewHolder>() {

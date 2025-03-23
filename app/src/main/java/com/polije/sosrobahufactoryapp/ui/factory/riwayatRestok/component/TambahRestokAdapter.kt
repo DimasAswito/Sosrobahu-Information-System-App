@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.model.ProdukRestok
+import com.polije.sosrobahufactoryapp.data.model.ProdukRestok
 import java.util.Calendar
 
 class TambahRestokAdapter(private val produkList: List<ProdukRestok>) :

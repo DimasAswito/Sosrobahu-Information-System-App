@@ -1,20 +1,17 @@
 package com.polije.sosrobahufactoryapp.ui.factory.pesanan.component
 
-import Pesanan
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.NavController
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.data.model.DataItem
 
-class PesananAdapter(
-    private val listPesanan: List<Pesanan>,
-    private val navController: NavController
-) :
-    RecyclerView.Adapter<PesananAdapter.PesananViewHolder>() {
+class PesananAdapter() :
+    PagingDataAdapter<DataItem, PesananAdapter.PesananViewHolder>(PesananMasukDiffCallBack()) {
 
     class PesananViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvDistributor: TextView = itemView.findViewById(R.id.tvDistributor)
@@ -31,16 +28,22 @@ class PesananAdapter(
     }
 
     override fun onBindViewHolder(holder: PesananViewHolder, position: Int) {
-        val pesanan = listPesanan[position]
-//        holder.tvDistributor.text = pesanan.distributor
-////        holder.tvTanggal.text = pesanan.tanggal
-//        holder.tvTotalHarga.text = "Rp ${pesanan.totalHarga}"
+        val pesanan = getItem(position)
+        holder.tvDistributor.text = pesanan?.namaDistributor
+//        holder.tvTanggal.text = pesanan.tanggal
+        holder.tvTotalHarga.text = "Rp ${pesanan?.total ?: 0}"
 //
-//        // Atur status dengan warna
-//        holder.tvStatus.text = pesanan.status
-//        holder.tvStatus.isSelected = pesanan.status == "Selesai"
-//        holder.tvStatus.isActivated = pesanan.status == "Ditolak"
-//        holder.tvStatus.setBackgroundResource(R.drawable.status_background)
+        val status = when (pesanan?.statusPemesanan){
+            0 -> "Diproses"
+            1 -> "Selesai"
+            2 -> "Ditolak"
+            else -> {""}
+        }
+        // Atur status dengan warna
+        holder.tvStatus.text = status
+        holder.tvStatus.isSelected = status == "Selesai"
+        holder.tvStatus.isActivated = status == "Ditolak"
+        holder.tvStatus.setBackgroundResource(R.drawable.status_background)
 //
 //
 //        // Klik item untuk navigasi ke DetailPesananFragment dengan Bundle
@@ -53,9 +56,28 @@ class PesananAdapter(
 //            }
 //            navController.navigate(R.id.action_navigation_pesanan_to_detailPesananFragment, bundle)
 //        }
+
+
     }
 
-    override fun getItemCount() = listPesanan.size
+    companion object {
+        class PesananMasukDiffCallBack : DiffUtil.ItemCallback<DataItem>() {
+            override fun areItemsTheSame(
+                oldItem: DataItem,
+                newItem: DataItem
+            ): Boolean {
+                return oldItem.idOrder == newItem.idOrder
+            }
+
+            override fun areContentsTheSame(
+                oldItem: DataItem,
+                newItem: DataItem
+            ): Boolean {
+                return oldItem.idOrder == newItem.idOrder
+            }
+
+        }
+    }
 }
 
 

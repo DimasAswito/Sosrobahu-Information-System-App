@@ -1,6 +1,5 @@
 package com.polije.sosrobahufactoryapp.ui.factory.home.produkTerlaris
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,7 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentTopProductBinding
-import com.polije.sosrobahufactoryapp.model.TopSellingProduct
+import com.polije.sosrobahufactoryapp.data.model.TopSellingProduct
 import com.polije.sosrobahufactoryapp.ui.factory.home.component.TopSellingProductAdapter
 
 class TopProductFragment : Fragment() {

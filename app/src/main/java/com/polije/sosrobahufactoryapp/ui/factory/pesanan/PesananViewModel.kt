@@ -1,13 +1,11 @@
 package com.polije.sosrobahufactoryapp.ui.factory.pesanan
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
+import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.PesananMasukUseCase
 
-class PesananViewModel : ViewModel() {
+class PesananViewModel(val pesananMasukUseCase: PesananMasukUseCase) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is Pesanan Fragment"
-    }
-    val text: LiveData<String> = _text
+    fun getPesananMasuk() = pesananMasukUseCase.invoke().cachedIn(viewModelScope)
 }

@@ -33,7 +33,7 @@ class FactoryLoginViewModel(private val loginUseCase: LoginUseCase) : ViewModel(
 
     fun login() {
         viewModelScope.launch {
-            _loginState.value = LoginState.Loading
+            _loginState.update { LoginState.Loading }
             val data = loginUseCase.invoke(
                 _factoryLoginInput.value.username,
                 _factoryLoginInput.value.password
@@ -41,10 +41,11 @@ class FactoryLoginViewModel(private val loginUseCase: LoginUseCase) : ViewModel(
             when (data) {
                 is DataResult.Error -> {
 
-                    _loginState.value = LoginState.Error(data.Message)
+                    _loginState.update { LoginState.Error(data.Message) }
                 }
+
                 is DataResult.Success -> {
-                    _loginState.value = LoginState.Success(true)
+                    _loginState.update { LoginState.Success(true) }
                 }
             }
         }

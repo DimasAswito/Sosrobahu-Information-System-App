@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.ui.factory.FactoryActivity
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.model.LaporanBulanan
+import com.polije.sosrobahufactoryapp.data.model.LaporanBulanan
 import com.polije.sosrobahufactoryapp.ui.factory.home.component.LaporanBulananAdapter
 
 class LaporanBulananFragment : Fragment() {

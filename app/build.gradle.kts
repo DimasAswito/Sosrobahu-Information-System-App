@@ -60,6 +60,7 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.converter.kotlinx.serialization)
     implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.paging.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

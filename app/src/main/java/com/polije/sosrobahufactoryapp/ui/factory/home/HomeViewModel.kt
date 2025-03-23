@@ -7,30 +7,36 @@ import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.DashboardUseCase
 import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.TokenUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.WhileSubscribed
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Calendar
+import kotlin.time.Duration.Companion.seconds
 
 class HomeViewModel(val dashboardUseCase: DashboardUseCase, val tokenUseCase: TokenUseCase) :
     ViewModel() {
 
-    private val _state = MutableStateFlow(DashboardPabrikState())
-    val state: StateFlow<DashboardPabrikState> = _state.asStateFlow()
+    private val _state = MutableStateFlow<HomeState>(HomeState.Initial)
+    val state = _state
+        .onStart {
+            getDashboardPabrik()
+        }
+        .stateIn(
+            viewModelScope,
+            started = SharingStarted.WhileSubscribed(5.seconds),
+            initialValue = HomeState.Initial
+        )
 
-    init {
-        getDashboardPabrik()
-    }
 
     fun getDashboardPabrik() {
-        _state.update { it.copy(isLoading = true) }
         viewModelScope.launch {
-
+            _state.update { HomeState.Loading }
             val token = tokenUseCase.getToken()
             if (token == null) {
-                _state.update { it.copy(errorMessage = "Token tidak ditemukan, silakan login ulang.") }
-                _state.update { it.copy(isLoading = false) }
+                _state.update { HomeState.Failure("Token Tidak Berlaku") }
                 return@launch
             } else {
 
@@ -38,25 +44,24 @@ class HomeViewModel(val dashboardUseCase: DashboardUseCase, val tokenUseCase: To
                     val response = dashboardUseCase.invoke()
                     when (response) {
                         is DataResult.Error -> _state.update {
-                            it.copy(
+                            HomeState.Failure(
                                 errorMessage = response.error,
-                                isLoading = false
                             )
                         }
 
                         is DataResult.Success -> _state.update {
-                            it.copy(
+                            HomeState.Success(
                                 dashboardPabrik = response.data,
-                                pendapatanBulanan = response.data.pesananPerbulan, isLoading = false
+                                pendapatanBulanan = response.data.pesananPerbulan
                             )
                         }
                     }
                 } catch (e: Exception) {
                     _state.update {
-                        it.copy(
+                        HomeState.Failure(
                             errorMessage = "Error: ${e.message}",
-                            isLoading = false
-                        )
+
+                            )
                     }
                 }
             }

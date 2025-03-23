@@ -1,7 +1,7 @@
 package com.polije.sosrobahufactoryapp.domain.pabrik.usecase
 
 import com.polije.sosrobahufactoryapp.domain.pabrik.repositiory.PabrikRepository
-import com.polije.sosrobahufactoryapp.model.LoginResponse
+import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.utils.DataResult
 
 class LoginUseCase(private val pabrikRepository: PabrikRepository) {

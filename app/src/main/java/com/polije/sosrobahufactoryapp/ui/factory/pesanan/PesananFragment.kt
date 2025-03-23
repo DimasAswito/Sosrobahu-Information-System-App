@@ -9,11 +9,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.PesananAdapter
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PesananFragment : Fragment() {
 
@@ -23,6 +27,8 @@ class PesananFragment : Fragment() {
     private lateinit var btnFilter: ImageView
     private var pesananList = mutableListOf<Pesanan>()
     private var filteredList = mutableListOf<Pesanan>()
+
+    private val pesananViewModel : PesananViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -43,9 +49,15 @@ class PesananFragment : Fragment() {
 
         filteredList.addAll(pesananList) // Default tampilkan semua data
 
-        pesananAdapter = PesananAdapter(filteredList, findNavController())
+        pesananAdapter = PesananAdapter()
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = pesananAdapter
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            pesananViewModel.getPesananMasuk().collectLatest { pesananMasuk ->
+                pesananAdapter.submitData(pesananMasuk)
+            }
+        }
 
 //        btnFilter.setOnClickListener {
 //            showFilterDialog()

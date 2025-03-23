@@ -1,4 +1,4 @@
-package com.polije.sosrobahufactoryapp.model
+package com.polije.sosrobahufactoryapp.data.model
 
 data class LaporanBulanan(
     val distributor: String,

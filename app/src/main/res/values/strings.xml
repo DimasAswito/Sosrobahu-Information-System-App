@@ -20,6 +20,9 @@
     <string name="ktp">KTP</string>
     <string name="select_file">Pilih File</string>
     <string name="save">Simpan</string>
+    <string name="karton">%d Karton</string>
+    <string name="totalPendapatan">Rp. %s</string>
+    <string name="distributor">%d Distributor</string>
 
 
     <string-array name="master_barang">

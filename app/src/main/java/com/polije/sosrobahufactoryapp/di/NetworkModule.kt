@@ -17,7 +17,7 @@ val networkModule = module {
         OkHttpClient
             .Builder()
             .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
+                level = HttpLoggingInterceptor.Level.HEADERS
             })
             .readTimeout(60, TimeUnit.SECONDS)
             .connectTimeout(60, TimeUnit.SECONDS)
@@ -32,7 +32,7 @@ val networkModule = module {
 
     single {
         Retrofit.Builder()
-            .baseUrl("https://0061-103-189-201-82.ngrok-free.app/")
+            .baseUrl("https://6e7a-103-189-201-82.ngrok-free.app/api/")
             .client(get())
             .addConverterFactory(get())
 

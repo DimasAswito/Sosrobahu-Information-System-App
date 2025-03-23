@@ -49,7 +49,6 @@ class FactoryLoginActivity : AppCompatActivity() {
                         binding.loginButtonPabrik.isEnabled = false
                     }
                     is LoginState.Success -> {
-
                         binding.progressBar.visibility = View.GONE
                         binding.loginButtonPabrik.isEnabled = false
                         navigateToHome()

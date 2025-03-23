@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.model.restock_pabrik
+import com.polije.sosrobahufactoryapp.data.model.restock_pabrik
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component.RiwayatRestokAdapter
 
 class RiwayatFragment : Fragment() {

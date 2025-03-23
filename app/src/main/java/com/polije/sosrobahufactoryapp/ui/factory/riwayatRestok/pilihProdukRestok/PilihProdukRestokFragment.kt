@@ -10,8 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.model.Produk
-import com.polije.sosrobahufactoryapp.model.ProdukRestok
+import com.polije.sosrobahufactoryapp.data.model.Produk
+import com.polije.sosrobahufactoryapp.data.model.ProdukRestok
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component.PilihProdukAdapter
 
 class PilihProdukRestokFragment : Fragment() {

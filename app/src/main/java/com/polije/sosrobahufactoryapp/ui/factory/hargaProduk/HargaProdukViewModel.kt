@@ -2,7 +2,7 @@ package com.polije.sosrobahufactoryapp.ui.factory.hargaProduk
 
 import androidx.lifecycle.ViewModel
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.model.Produk
+import com.polije.sosrobahufactoryapp.data.model.Produk
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

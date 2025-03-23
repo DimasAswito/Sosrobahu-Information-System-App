@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.model.Produk
+import com.polije.sosrobahufactoryapp.data.model.Produk
 
 class ProdukAdapter(private var produkList: List<Produk>) :
     RecyclerView.Adapter<ProdukAdapter.ViewHolder>() {
