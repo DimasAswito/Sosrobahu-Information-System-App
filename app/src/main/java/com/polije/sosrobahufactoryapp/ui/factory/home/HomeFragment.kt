@@ -89,9 +89,6 @@ class HomeFragment : Fragment() {
 
                         binding.jumlahDistributor.text =
                             getString(R.string.distributor, state.dashboardPabrik.totalDistributor)
-
-
-
                         binding.topProductName.text = state.dashboardPabrik.topProductName
                         //                binding.topProductStock.text = "${state.dashboardPabrik.}"
 //                val imageUrl = "$BASE_URL_PRODUK${it.image}"

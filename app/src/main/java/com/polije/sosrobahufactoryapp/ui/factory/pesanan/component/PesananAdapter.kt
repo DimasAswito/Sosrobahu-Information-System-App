@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.DataItem
+import com.polije.sosrobahufactoryapp.utils.toRupiah
 
-class PesananAdapter() :
+class PesananAdapter(val onItemClickListener: OnItemClickListener) :
     PagingDataAdapter<DataItem, PesananAdapter.PesananViewHolder>(PesananMasukDiffCallBack()) {
 
     class PesananViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -29,33 +30,38 @@ class PesananAdapter() :
 
     override fun onBindViewHolder(holder: PesananViewHolder, position: Int) {
         val pesanan = getItem(position)
-        holder.tvDistributor.text = pesanan?.namaDistributor
+        if (pesanan != null) {
+
+            holder.tvDistributor.text = pesanan?.namaDistributor
 //        holder.tvTanggal.text = pesanan.tanggal
-        holder.tvTotalHarga.text = "Rp ${pesanan?.total ?: 0}"
+            holder.tvTotalHarga.text = holder.itemView.context.getString(
+                R.string.totalPendapatan,
+                pesanan.total?.toRupiah() ?: "0"
+            )
+
 //
-        val status = when (pesanan?.statusPemesanan){
-            0 -> "Diproses"
-            1 -> "Selesai"
-            2 -> "Ditolak"
-            else -> {""}
-        }
-        // Atur status dengan warna
-        holder.tvStatus.text = status
-        holder.tvStatus.isSelected = status == "Selesai"
-        holder.tvStatus.isActivated = status == "Ditolak"
-        holder.tvStatus.setBackgroundResource(R.drawable.status_background)
+            val status = when (pesanan?.statusPemesanan) {
+                0 -> "Diproses"
+                1 -> "Selesai"
+                2 -> "Ditolak"
+                else -> {
+                    ""
+                }
+            }
+            // Atur status dengan warna
+            holder.tvStatus.text = status
+            holder.tvStatus.isSelected = status == "Selesai"
+            holder.tvStatus.isActivated = status == "Ditolak"
+            holder.tvStatus.setBackgroundResource(R.drawable.status_background)
 //
 //
 //        // Klik item untuk navigasi ke DetailPesananFragment dengan Bundle
-//        holder.itemView.setOnClickListener {
-//            val bundle = Bundle().apply {
-//                putString("distributor", pesanan.distributor)
-//                putString("tanggal", pesanan.tanggal)
-//                putInt("totalHarga", pesanan.totalHarga)
-//                putString("status", pesanan.status)
-//            }
-//            navController.navigate(R.id.action_navigation_pesanan_to_detailPesananFragment, bundle)
-//        }
+            holder.itemView.setOnClickListener {
+                onItemClickListener.onItemClick(pesanan)
+
+            }
+
+        }
 
 
     }
@@ -77,6 +83,10 @@ class PesananAdapter() :
             }
 
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(pesanan: DataItem)
     }
 }
 

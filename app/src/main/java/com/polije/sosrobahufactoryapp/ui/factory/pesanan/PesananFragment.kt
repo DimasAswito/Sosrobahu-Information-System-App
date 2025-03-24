@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.data.model.DataItem
 import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.PesananAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -49,12 +50,18 @@ class PesananFragment : Fragment() {
 
         filteredList.addAll(pesananList) // Default tampilkan semua data
 
-        pesananAdapter = PesananAdapter()
+        pesananAdapter = PesananAdapter(object : PesananAdapter.OnItemClickListener {
+            override fun onItemClick(pesanan: DataItem) {
+                val action = PesananFragmentDirections.actionNavigationPesananToDetailPesananFragment(pesanan)
+                findNavController().navigate(action)
+            }
+
+        })
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = pesananAdapter
 
         viewLifecycleOwner.lifecycleScope.launch {
-            pesananViewModel.getPesananMasuk().collectLatest { pesananMasuk ->
+            pesananViewModel.getPesananMasuk.collectLatest { pesananMasuk ->
                 pesananAdapter.submitData(pesananMasuk)
             }
         }

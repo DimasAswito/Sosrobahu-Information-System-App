@@ -1,5 +1,6 @@
 package com.polije.sosrobahufactoryapp.di
 
+import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.data.pabrik.source.remote.PabrikDatasource
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -32,7 +33,7 @@ val networkModule = module {
 
     single {
         Retrofit.Builder()
-            .baseUrl("https://6e7a-103-189-201-82.ngrok-free.app/api/")
+            .baseUrl(BuildConfig.BASE_URL)
             .client(get())
             .addConverterFactory(get())
 

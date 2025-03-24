@@ -55,6 +55,8 @@ koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = 
 converter-kotlinx-serialization = { group = "com.squareup.retrofit2", name = "converter-kotlinx-serialization", version.ref = "converterKotlinxSerialization" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferences" }
 androidx-paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "pagingRuntime" }
+safeArgs = { group = "androidx.navigation" , name = "navigation-safe-args-gradle-plugin", version.ref = "navigationFragmentKtx" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

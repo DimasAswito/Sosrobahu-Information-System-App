@@ -27,13 +27,18 @@
             tools:layout="@layout/fragment_pesanan" >
             <action
                 android:id="@+id/action_navigation_pesanan_to_detailPesananFragment"
-                app:destination="@id/detailPesananFragment" />
+                app:destination="@id/detailPesananFragment" >
+            </action>
         </fragment>
         <fragment
             android:id="@+id/detailPesananFragment"
             android:name="com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan.DetailPesananFragment"
             android:label="fragment_detail_pesanan"
-            tools:layout="@layout/fragment_detail_pesanan" />
+            tools:layout="@layout/fragment_detail_pesanan" >
+            <argument
+                android:name="detailPesanan"
+                app:argType="com.polije.sosrobahufactoryapp.data.model.DataItem" />
+        </fragment>
         <fragment
             android:id="@+id/navigation_riwayat"
             android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.RiwayatFragment"

@@ -1,5 +1,7 @@
 package com.polije.sosrobahufactoryapp.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
@@ -59,6 +61,7 @@ data class LinksItem(
 	val url: String? = null
 )
 
+@Parcelize
 @Serializable
 data class DataItem(
 
@@ -91,4 +94,4 @@ data class DataItem(
 
 	@SerialName("tanggal")
 	val tanggal: String? = null
-)
+) : Parcelable
