@@ -12,7 +12,7 @@ data class PesananMasukResopnse(
 	val perPage: Int? = null,
 
 	@SerialName("data")
-	val data: List<DataItem> = emptyList(),
+	val data: List<PesananMasukItem> = emptyList(),
 
 	@SerialName("last_page")
 	val lastPage: Int? = null,
@@ -39,7 +39,7 @@ data class PesananMasukResopnse(
 	val from: Int? = null,
 
 	@SerialName("links")
-	val links: List<LinksItem?>? = null,
+	val links: List<LinksItemPesananMasuk?>? = null,
 
 	@SerialName("to")
 	val to: Int? = null,
@@ -49,7 +49,7 @@ data class PesananMasukResopnse(
 )
 
 @Serializable
-data class LinksItem(
+data class LinksItemPesananMasuk(
 
 	@SerialName("active")
 	val active: Boolean? = null,
@@ -63,7 +63,7 @@ data class LinksItem(
 
 @Parcelize
 @Serializable
-data class DataItem(
+data class PesananMasukItem(
 
 	@SerialName("status_pemesanan")
 	val statusPemesanan: Int? = null,

@@ -1,6 +1,7 @@
 package com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +9,16 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailPesananBinding
 import com.polije.sosrobahufactoryapp.utils.toRupiah
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailPesananFragment : Fragment() {
 
@@ -21,7 +27,9 @@ class DetailPesananFragment : Fragment() {
 
     private var isImageVisible = false
 
-    val args: DetailPesananFragmentArgs by navArgs()
+    private val args: DetailPesananFragmentArgs by navArgs()
+
+    private val detailPesananViewModel: DetailPesananViewModel by viewModel()
 
 
     override fun onCreateView(
@@ -34,16 +42,12 @@ class DetailPesananFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Ambil data dari arguments
-        val distributor = arguments?.getString("distributor") ?: "Unknown"
-        val tanggal = arguments?.getString("tanggal") ?: "Unknown"
-        val totalHarga = arguments?.getInt("totalHarga") ?: 0
-        val status = arguments?.getString("status") ?: "Unknown"
-
+        detailPesananViewModel.detailPesananMasuk(args.detailPesanan.idOrder ?: 0)
         binding.tvDistributorDetail.text = args.detailPesanan.namaDistributor
         binding.tvTanggalDetail.text = args.detailPesanan.tanggal
         binding.tvHargaTotal.text =
             getString(R.string.totalPendapatan, args.detailPesanan.total?.toRupiah())
+
 
         // Setup Spinner (Dropdown)
         val statusOptions = arrayOf("Diproses", "Selesai", "Ditolak")
@@ -78,10 +82,10 @@ class DetailPesananFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        // Tombol Bukti Pembayaran
-        val urlGambar = "https://example.com/bukti_pembayaran.jpg"
+
+        val gambar = BuildConfig.PICTURE_BASE_URL + args.detailPesanan.buktiTransfer
         Glide.with(requireContext())
-            .load(urlGambar)
+            .load(gambar)
             .placeholder(R.drawable.logo) // Gambar sementara
             .error(R.drawable.logo) // Gambar jika gagal
             .into(binding.imgBuktiPembayaran)
@@ -94,6 +98,13 @@ class DetailPesananFragment : Fragment() {
         binding.CetakLaporanButton.setOnClickListener {
             Toast.makeText(requireContext(), "Fitur Cetak Belum Tersedia", Toast.LENGTH_SHORT)
                 .show()
+        }
+
+        lifecycleScope.launch {
+
+            detailPesananViewModel.detailPesanan.collectLatest { data->
+                Log.d("DetailPesanan", "onViewCreated: $data")
+            }
         }
     }
 

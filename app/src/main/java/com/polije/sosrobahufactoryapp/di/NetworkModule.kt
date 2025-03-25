@@ -29,8 +29,6 @@ val networkModule = module {
         Json.asConverterFactory("application/json".toMediaType())
     }
 
-
-
     single {
         Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)

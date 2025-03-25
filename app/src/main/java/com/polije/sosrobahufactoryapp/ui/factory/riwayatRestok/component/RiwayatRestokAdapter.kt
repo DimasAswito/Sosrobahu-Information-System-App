@@ -5,33 +5,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.navigation.findNavController
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.data.model.restock_pabrik
+import com.polije.sosrobahufactoryapp.data.model.RiwayatRestockItem
 
-class RiwayatRestokAdapter(private val riwayatList: List<restock_pabrik>) :
-    RecyclerView.Adapter<RiwayatRestokAdapter.ViewHolder>() {
+class RiwayatRestokAdapter(private val onRiwayatItemClicked: OnRiwayatItemClicked) :
+    PagingDataAdapter<RiwayatRestockItem, RiwayatRestokAdapter.ViewHolder>(RiwayatRestokDiffUtill()) {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgProduk: ImageView = itemView.findViewById(R.id.imgProduk)
-//        val txtNamaProduk: TextView = itemView.findViewById(R.id.txtNamaProduk)
+
+        //        val txtNamaProduk: TextView = itemView.findViewById(R.id.txtNamaProduk)
         val txtTanggalRestok: TextView = itemView.findViewById(R.id.txtTanggalRestok)
         val txtJumlahProduk: TextView = itemView.findViewById(R.id.txtJumlahProduk)
 
-        init {
-            itemView.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val riwayat = riwayatList[position]
-
-
-                    // Menjalankan navigasi
-                    itemView.findNavController()
-                        .navigate(R.id.action_navigation_riwayat_to_detailRestokFragment)
-                }
-            }
-        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,12 +30,39 @@ class RiwayatRestokAdapter(private val riwayatList: List<restock_pabrik>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        val riwayat = riwayatList[position]
-//        holder.imgProduk.setImageResource(riwayat.gambar)
-////        holder.txtNamaProduk.text = riwayat.namaProduk
-//        holder.txtTanggalRestok.text = riwayat.tanggalRestok
-//        holder.txtJumlahProduk.text = "Jumlah Produk: ${riwayat.jumlahProduk}"
+        val riwayat = getItem(position)
+        if (riwayat != null) {
+
+//        holder.txtNamaProduk.text = riwayat.namaProduk
+            holder.txtTanggalRestok.text = riwayat?.tanggal
+            holder.txtJumlahProduk.text = "Jumlah Produk: ${riwayat?.jumlah}"
+
+            holder.itemView.setOnClickListener { onRiwayatItemClicked.onItemClick(riwayat) }
+
+        }
     }
 
-    override fun getItemCount(): Int = riwayatList.size
+
+    companion object {
+        class RiwayatRestokDiffUtill : DiffUtil.ItemCallback<RiwayatRestockItem>() {
+            override fun areItemsTheSame(
+                oldItem: RiwayatRestockItem,
+                newItem: RiwayatRestockItem
+            ): Boolean {
+                return oldItem.idRestock == newItem.idRestock
+            }
+
+            override fun areContentsTheSame(
+                oldItem: RiwayatRestockItem,
+                newItem: RiwayatRestockItem
+            ): Boolean {
+                return oldItem.idRestock == newItem.idRestock
+            }
+
+        }
+    }
+
+    interface OnRiwayatItemClicked {
+        fun onItemClick(item: RiwayatRestockItem)
+    }
 }

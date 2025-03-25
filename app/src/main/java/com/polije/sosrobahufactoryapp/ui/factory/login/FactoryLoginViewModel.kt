@@ -41,7 +41,7 @@ class FactoryLoginViewModel(private val loginUseCase: LoginUseCase) : ViewModel(
             when (data) {
                 is DataResult.Error -> {
 
-                    _loginState.update { LoginState.Error(data.Message) }
+                    _loginState.update { LoginState.Error(data.message) }
                 }
 
                 is DataResult.Success -> {

@@ -8,11 +8,11 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.data.model.DataItem
+import com.polije.sosrobahufactoryapp.data.model.PesananMasukItem
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 
 class PesananAdapter(val onItemClickListener: OnItemClickListener) :
-    PagingDataAdapter<DataItem, PesananAdapter.PesananViewHolder>(PesananMasukDiffCallBack()) {
+    PagingDataAdapter<PesananMasukItem, PesananAdapter.PesananViewHolder>(PesananMasukDiffCallBack()) {
 
     class PesananViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvDistributor: TextView = itemView.findViewById(R.id.tvDistributor)
@@ -34,11 +34,7 @@ class PesananAdapter(val onItemClickListener: OnItemClickListener) :
 
             holder.tvDistributor.text = pesanan?.namaDistributor
 //        holder.tvTanggal.text = pesanan.tanggal
-            holder.tvTotalHarga.text = holder.itemView.context.getString(
-                R.string.totalPendapatan,
-                pesanan.total?.toRupiah() ?: "0"
-            )
-
+            holder.tvTotalHarga.text = pesanan.total?.toRupiah()
 //
             val status = when (pesanan?.statusPemesanan) {
                 0 -> "Diproses"
@@ -67,17 +63,17 @@ class PesananAdapter(val onItemClickListener: OnItemClickListener) :
     }
 
     companion object {
-        class PesananMasukDiffCallBack : DiffUtil.ItemCallback<DataItem>() {
+        class PesananMasukDiffCallBack : DiffUtil.ItemCallback<PesananMasukItem>() {
             override fun areItemsTheSame(
-                oldItem: DataItem,
-                newItem: DataItem
+                oldItem: PesananMasukItem,
+                newItem: PesananMasukItem
             ): Boolean {
                 return oldItem.idOrder == newItem.idOrder
             }
 
             override fun areContentsTheSame(
-                oldItem: DataItem,
-                newItem: DataItem
+                oldItem: PesananMasukItem,
+                newItem: PesananMasukItem
             ): Boolean {
                 return oldItem.idOrder == newItem.idOrder
             }
@@ -86,7 +82,7 @@ class PesananAdapter(val onItemClickListener: OnItemClickListener) :
     }
 
     interface OnItemClickListener {
-        fun onItemClick(pesanan: DataItem)
+        fun onItemClick(pesanan: PesananMasukItem)
     }
 }
 

@@ -4,13 +4,6 @@ import DashboardPabrikResponse
 import PesananPerBulan
 
 
-data class DashboardPabrikState(
-    val dashboardPabrik: DashboardPabrikResponse? = null,
-    val errorMessage: String? = null,
-    val pendapatanBulanan: Map<String, PesananPerBulan> = emptyMap(),
-    val isLoading: Boolean = false
-)
-
 sealed class HomeState {
     data class Success(
         val dashboardPabrik: DashboardPabrikResponse,

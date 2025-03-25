@@ -19,7 +19,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "BASE_URL", "${properties["BASE_URL"]}")
+        buildConfigField("String", "BASE_URL", "\"${properties["BASE_URL"]}\"")
+        buildConfigField("String", "PICTURE_BASE_URL","\"${properties["PICTURE_BASE_URL"]}\"")
     }
 
     buildTypes {
