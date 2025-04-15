@@ -8,18 +8,21 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailRestokBinding
+import com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan.DetailPesananFragmentArgs
+import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component.DetailRestockAdapter
+import kotlin.getValue
 
 class DetailRestokFragment : Fragment() {
 
-    private lateinit var tvNamaProduk: TextView
-    private lateinit var tvTanggalRestok: TextView
-    private lateinit var tvJumlahProduk: TextView
-    private lateinit var btnCetak: Button
 
     private var _binding: FragmentDetailRestokBinding? = null
     private val binding get() = _binding!!
+
+    private val args: DetailRestokFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,16 +35,19 @@ class DetailRestokFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tvNamaProduk = binding.tvNamaProduk
-        tvTanggalRestok = binding.tvTanggalRestok
-        tvJumlahProduk =binding.tvJumlahProduk
-        btnCetak = binding.btnCetak
 
         // Ambil data yang dikirim dari RiwayatFragment
 
+        binding.txtJumlah.text = args.restockDetail.jumlah
+
+        binding.txtTitle.text = getString(R.string.detail_restock,args.restockDetail.tanggal.toString(),args.restockDetail.idRestock)
+
+        val adapter = DetailRestockAdapter(args.restockDetail.detailProduk)
+        binding.rvListProduk.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvListProduk.adapter = adapter
 
         // Aksi tombol cetak (bisa dihubungkan dengan fungsi cetak PDF)
-        btnCetak.setOnClickListener {
+        binding.btnCetak.setOnClickListener {
             Toast.makeText(requireContext(), "Mencetak riwayat...", Toast.LENGTH_SHORT).show()
         }
     }

@@ -13,7 +13,6 @@ import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.pesanan.PesananViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan.DetailPesananViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.RiwayatViewModel
-import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.detailRestok.DetailRestokViewModel
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
@@ -35,6 +34,5 @@ val appModule = module {
     viewModelOf(::PesananViewModel)
     viewModelOf(::RiwayatViewModel)
     viewModelOf(::DetailPesananViewModel)
-    viewModelOf(::DetailRestokViewModel)
 
 }

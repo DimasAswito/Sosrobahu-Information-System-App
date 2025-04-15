@@ -3,5 +3,5 @@ package com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukResto
 import androidx.lifecycle.ViewModel
 
 class PilihProdukRestokViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+
 }

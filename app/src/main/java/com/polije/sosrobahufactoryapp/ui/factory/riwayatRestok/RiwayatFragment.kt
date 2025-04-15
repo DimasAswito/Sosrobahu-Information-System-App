@@ -51,7 +51,8 @@ class RiwayatFragment : Fragment() {
 
         riwayatAdapter = RiwayatRestokAdapter(object : RiwayatRestokAdapter.OnRiwayatItemClicked {
             override fun onItemClick(item: RiwayatRestockItem) {
-//                findNavController().navigate()
+                val action = RiwayatFragmentDirections.actionNavigationRiwayatToDetailRestokFragment(item)
+                findNavController().navigate(action)
             }
         })
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -66,7 +67,6 @@ class RiwayatFragment : Fragment() {
         fabTambahRestok.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_riwayat_to_pilihProdukRestokFragment)
         }
-
 
     }
 }

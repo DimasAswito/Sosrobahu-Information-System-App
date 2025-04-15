@@ -80,13 +80,7 @@ class HomeFragment : Fragment() {
                             getString(R.string.karton, state.dashboardPabrik.finalStockKarton)
 
                         binding.omsetPabrik.text =
-                            getString(
-                                R.string.totalPendapatan,
-                                Integer.parseInt(state.dashboardPabrik.totalPendapatan).toRupiah()
-                            )
-
-
-
+                            Integer.parseInt(state.dashboardPabrik.totalPendapatan).toRupiah()
                         binding.jumlahDistributor.text =
                             getString(R.string.distributor, state.dashboardPabrik.totalDistributor)
                         binding.topProductName.text = state.dashboardPabrik.topProductName
@@ -155,8 +149,7 @@ class HomeFragment : Fragment() {
 
     fun convertToMonthlyRevenueMap(pesananPerBulan: Map<String, PesananPerBulan>): Map<String, Float> {
         val monthNames = listOf(
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
         )
 
         return pesananPerBulan.mapNotNull { (yearMonth, data) ->

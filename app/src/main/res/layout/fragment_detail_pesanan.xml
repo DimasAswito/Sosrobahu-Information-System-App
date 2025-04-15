@@ -1,268 +1,274 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
 
-    <View
-        android:id="@+id/topView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/md_theme_primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.20"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Detail Pesanan"
-        android:textColor="@color/md_theme_tertiaryFixedDim"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/container"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="4dp"
-        app:layout_constraintBottom_toBottomOf="@id/topView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topView">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <View
+            android:id="@+id/topView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/md_theme_primary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.20"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Detail Pesanan"
+            android:textColor="@color/md_theme_tertiaryFixedDim"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="32dp"
-            android:paddingHorizontal="16dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:layout_margin="16dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp"
+            app:layout_constraintBottom_toBottomOf="@id/topView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/topView">
 
-            <!-- Gambar bulat -->
-            <!-- Gambar Kiri -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                app:cardCornerRadius="100dp"
-                android:layout_marginEnd="8dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/user"
-                    android:scaleType="centerCrop"/>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Nama Distributor dan Detail -->
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_marginStart="12dp">
+                android:paddingVertical="32dp"
+                android:paddingHorizontal="16dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/tvDistributorDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nama Distributor"
-                    android:textStyle="bold"
-                    android:textSize="16sp"/>
+                <!-- Gambar bulat -->
+                <!-- Gambar Kiri -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:cardCornerRadius="100dp"
+                    android:layout_marginEnd="8dp">
 
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/user"
+                        android:scaleType="centerCrop"/>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Nama Distributor dan Detail -->
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="8dp">
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
 
-                    <!-- Tanggal Pemesanan -->
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/tvDistributorDetail"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:text="Nama Distributor"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Tanggal Pemesanan"
-                            android:textStyle="bold"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tvTanggalDetail"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" - "
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <!-- Bukti Pembayaran -->
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="end">
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <!-- Tanggal Pemesanan -->
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Bukti Pembayaran"
-                            android:textStyle="bold"
-                            android:textSize="12sp" />
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/btnBuktiPembayaran"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Tanggal Pemesanan"
+                                android:textStyle="bold"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tvTanggalDetail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" - "
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <!-- Bukti Pembayaran -->
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Lihat Foto"
-                            android:textColor="@android:color/holo_blue_dark"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:clickable="true"
-                            android:focusable="true" />
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:gravity="end">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Bukti Pembayaran"
+                                android:textStyle="bold"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/btnBuktiPembayaran"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Lihat Foto"
+                                android:textColor="@android:color/holo_blue_dark"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:clickable="true"
+                                android:focusable="true" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-    <ImageView
-        android:id="@+id/imgBuktiPembayaran"
-        android:layout_width="match_parent"
-        android:layout_marginHorizontal="16dp"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/container" />
+        <ImageView
+            android:id="@+id/imgBuktiPembayaran"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/container" />
 
-    <TextView
-        android:id="@+id/tvProduk"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_marginHorizontal="16dp"
-        android:text="Produk"
-        app:layout_constraintTop_toBottomOf="@+id/imgBuktiPembayaran" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvproduk"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvProduk"/>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvproduk">
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvProduk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="12dp">
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginHorizontal="16dp"
+            android:text="Produk"
+            app:layout_constraintTop_toBottomOf="@+id/imgBuktiPembayaran" />
 
-            <!-- Text "Total" -->
-            <TextView
-                android:id="@+id/tvTotal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Total Keseluruhan"
-                android:textSize="18sp" />
-
-            <!-- Harga -->
-            <TextView
-                android:id="@+id/tvHargaTotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="-"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/tvStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"
-        android:text="Status Pemesanan"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvStatus"
-        tools:layout_editor_absoluteX="16dp">
-
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvproduk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="12dp">
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvProduk"/>
 
-            <!-- Dropdown Status -->
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/spinnerStatus"
-                android:layout_width="0dp"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvproduk">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:drawable/btn_dropdown"
-                android:padding="8dp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="12dp">
 
-    <Button
-        android:id="@+id/CetakLaporanButton"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="Cetak"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+                <!-- Text "Total" -->
+                <TextView
+                    android:id="@+id/tvTotal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Total Keseluruhan"
+                    android:textSize="18sp" />
+
+                <!-- Harga -->
+                <TextView
+                    android:id="@+id/tvHargaTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:text="Status Pemesanan"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvStatus"
+            tools:layout_editor_absoluteX="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <!-- Dropdown Status -->
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinnerStatus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:padding="8dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/CetakLaporanButton"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:text="Cetak"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

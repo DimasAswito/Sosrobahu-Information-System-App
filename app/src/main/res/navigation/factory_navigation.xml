@@ -117,7 +117,11 @@
         <fragment
             android:id="@+id/detailRestokFragment"
             android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.detailRestok.DetailRestokFragment"
-            android:label="DetailRestokFragment" />
+            android:label="DetailRestokFragment" >
+            <argument
+                android:name="restockDetail"
+                app:argType="com.polije.sosrobahufactoryapp.data.model.RiwayatRestockItem" />
+        </fragment>
         <fragment
             android:id="@+id/pilihProdukRestokFragment"
             android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.PilihProdukRestokFragment"

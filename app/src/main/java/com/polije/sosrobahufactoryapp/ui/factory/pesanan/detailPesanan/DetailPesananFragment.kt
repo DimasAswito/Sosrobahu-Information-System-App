@@ -11,10 +11,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailPesananBinding
+import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.DetailPesananItemAdapter
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -46,7 +48,7 @@ class DetailPesananFragment : Fragment() {
         binding.tvDistributorDetail.text = args.detailPesanan.namaDistributor
         binding.tvTanggalDetail.text = args.detailPesanan.tanggal
         binding.tvHargaTotal.text =
-            getString(R.string.totalPendapatan, args.detailPesanan.total?.toRupiah())
+             args.detailPesanan.total?.toRupiah()
 
 
         // Setup Spinner (Dropdown)
@@ -57,6 +59,11 @@ class DetailPesananFragment : Fragment() {
             statusOptions
         )
         binding.spinnerStatus.adapter = adapter
+
+        val produkAdapter = DetailPesananItemAdapter()
+        binding.rvproduk.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvproduk.adapter = produkAdapter
+
 
         // Set status awal sesuai data dari Bundle
         binding.spinnerStatus.setSelection(
@@ -102,8 +109,15 @@ class DetailPesananFragment : Fragment() {
 
         lifecycleScope.launch {
 
-            detailPesananViewModel.detailPesanan.collectLatest { data->
-                Log.d("DetailPesanan", "onViewCreated: $data")
+            detailPesananViewModel.detailPesanan.collectLatest { state->
+                when (state){
+                    is DetailPesananState.Failure -> {}
+                    DetailPesananState.Initial -> {}
+                    DetailPesananState.Loading -> {}
+                    is DetailPesananState.Success -> {
+                        produkAdapter.submitList(state.data.itemNota)
+                    }
+                }
             }
         }
     }
