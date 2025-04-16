@@ -4,11 +4,12 @@ import DashboardPabrikResponse
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.polije.sosrobahufactoryapp.data.local.TokenManager
+import com.polije.sosrobahufactoryapp.data.pabrik.source.local.TokenManager
 import com.polije.sosrobahufactoryapp.data.model.DetailOrderResponse
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.PesananMasukItem
+import com.polije.sosrobahufactoryapp.data.model.ProdukRestok
 import com.polije.sosrobahufactoryapp.data.model.RiwayatRestockItem
 import com.polije.sosrobahufactoryapp.data.pabrik.source.remote.PabrikDatasource
 import com.polije.sosrobahufactoryapp.data.pabrik.source.remote.paging.PesananMasukPagingSource
@@ -85,5 +86,15 @@ class PabrikRepositoryImpl(val pabrikDatasource: PabrikDatasource, val tokenMana
 
     override suspend fun logout() {
         tokenManager.removeToken()
+    }
+
+    override suspend fun getItemRestock(): DataResult<ProdukRestok, String> {
+        return try {
+            val token = tokenManager.getToken().first()
+            val data = pabrikDatasource.getRestockItem("Bearer $token")
+            DataResult.Success(data)
+        } catch (e: Exception) {
+            DataResult.Error("Not Found", e.message.toString())
+        }
     }
 }

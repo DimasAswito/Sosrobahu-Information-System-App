@@ -3,7 +3,7 @@ package com.polije.sosrobahufactoryapp.data.pabrik.source.remote.paging
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.polije.sosrobahufactoryapp.data.local.TokenManager
+import com.polije.sosrobahufactoryapp.data.pabrik.source.local.TokenManager
 import com.polije.sosrobahufactoryapp.data.model.PesananMasukItem
 import com.polije.sosrobahufactoryapp.data.pabrik.source.remote.PabrikDatasource
 import kotlinx.coroutines.flow.first

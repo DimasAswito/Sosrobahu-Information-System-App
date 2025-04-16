@@ -26,13 +26,13 @@ class TambahRestokFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerViewTambahRestok)
         val btnTambahRestok: Button = view.findViewById(R.id.btnTambahRestok)
 
-        // Mendapatkan produk yang dipilih dari arguments
-        arguments?.getParcelableArrayList<ProdukRestok>("produk_terpilih")?.let {
-            produkList.addAll(it)
-        }
+//        // Mendapatkan produk yang dipilih dari arguments
+//        arguments?.getParcelableArrayList<ProdukRestok>("produk_terpilih")?.let {
+//            produkList.addAll(it)
+//        }
 
         // Setup RecyclerView
-        tambahRestokAdapter = TambahRestokAdapter(produkList)
+        tambahRestokAdapter = TambahRestokAdapter(emptyList())
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = tambahRestokAdapter
 

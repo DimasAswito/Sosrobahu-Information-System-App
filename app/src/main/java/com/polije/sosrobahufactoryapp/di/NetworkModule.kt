@@ -15,11 +15,6 @@ import java.util.concurrent.TimeUnit
 val networkModule = module {
 
     single {
-
-    }
-
-
-    single {
         OkHttpClient
             .Builder()
             .addInterceptor(HttpLoggingInterceptor().apply {
@@ -39,7 +34,6 @@ val networkModule = module {
             .baseUrl(BuildConfig.BASE_URL)
             .client(get())
             .addConverterFactory(get())
-
             .build()
     }
 

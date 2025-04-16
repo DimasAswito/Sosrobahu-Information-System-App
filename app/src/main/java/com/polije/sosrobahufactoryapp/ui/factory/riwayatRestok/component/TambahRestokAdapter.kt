@@ -12,9 +12,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.ProdukRestok
+import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.SelectedProdukRestok
 import java.util.Calendar
 
-class TambahRestokAdapter(private val produkList: List<ProdukRestok>) :
+class TambahRestokAdapter(private val produkList: List<SelectedProdukRestok>) :
     RecyclerView.Adapter<TambahRestokAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -33,16 +34,16 @@ class TambahRestokAdapter(private val produkList: List<ProdukRestok>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val produk = produkList[position]
 
-        holder.imgProduk.setImageResource(produk.gambar)
-        holder.txtNamaProduk.text = produk.namaProduk
-        holder.edtJumlahProduk.setText(produk.jumlah.toString())
-        holder.txtPilihTanggal.text =
-            if (produk.tanggal.isNotEmpty()) produk.tanggal else "Pilih Tanggal"
+//        holder.imgProduk.setImageResource(produk)
+        holder.txtNamaProduk.text = produk.item.namaRokok
+        holder.edtJumlahProduk.setText(produk.quantity.toString())
+//        holder.txtPilihTanggal.text =
+//            if (produk.item..isNotEmpty()) produk.tanggal else "Pilih Tanggal"
 
         // Menyimpan jumlah produk saat diubah
         holder.edtJumlahProduk.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                produk.jumlah = s.toString().toIntOrNull() ?: 0
+                produk.quantity = s.toString().toIntOrNull() ?: 0
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -57,7 +58,7 @@ class TambahRestokAdapter(private val produkList: List<ProdukRestok>) :
                 context,
                 { _, year, month, dayOfMonth ->
                     val tanggal = "$dayOfMonth/${month + 1}/$year"
-                    produk.tanggal = tanggal
+
                     holder.txtPilihTanggal.text = tanggal
                 },
                 calendar.get(Calendar.YEAR),

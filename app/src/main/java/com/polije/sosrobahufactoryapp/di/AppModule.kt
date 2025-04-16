@@ -4,6 +4,8 @@ import com.polije.sosrobahufactoryapp.data.pabrik.repository.PabrikRepositoryImp
 import com.polije.sosrobahufactoryapp.domain.pabrik.repositiory.PabrikRepository
 import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.DashboardUseCase
 import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.DetailPesananMasukUseCase
+import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.GetItemRestockUseCase
+import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.InsertRestockUseCase
 import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.LoginUseCase
 import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.PesananMasukUseCase
 import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.RiwayatRestokUseCase
@@ -13,6 +15,7 @@ import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.pesanan.PesananViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan.DetailPesananViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.RiwayatViewModel
+import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.ProdukRestokViewModel
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
@@ -28,11 +31,14 @@ val appModule = module {
     factoryOf(::PesananMasukUseCase)
     factoryOf(::RiwayatRestokUseCase)
     factoryOf(::DetailPesananMasukUseCase)
+    factoryOf(::GetItemRestockUseCase)
+    factoryOf(::InsertRestockUseCase)
 
     viewModelOf(::FactoryLoginViewModel)
     viewModelOf(::HomeViewModel)
     viewModelOf(::PesananViewModel)
     viewModelOf(::RiwayatViewModel)
     viewModelOf(::DetailPesananViewModel)
+    viewModelOf(::ProdukRestokViewModel)
 
 }

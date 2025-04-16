@@ -5,6 +5,7 @@ import com.polije.sosrobahufactoryapp.data.model.DetailOrderResponse
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.PesananMasukResopnse
+import com.polije.sosrobahufactoryapp.data.model.ProdukRestok
 import com.polije.sosrobahufactoryapp.data.model.RiwayatRestockResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -38,5 +39,8 @@ interface PabrikDatasource {
         @Header("Authorization") token: String,
         @Path("id") idOrder: Int,
     ): DetailOrderResponse
+
+    @GET("pabrik/restock")
+    suspend fun getRestockItem(@Header("Authorization") token : String) : ProdukRestok
 
 }
