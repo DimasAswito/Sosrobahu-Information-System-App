@@ -1,5 +1,6 @@
 package com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok
 
+import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.polije.sosrobahufactoryapp.data.model.ProdukRestokItem
@@ -12,6 +13,8 @@ import kotlinx.coroutines.flow.WhileSubscribed
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 import kotlin.time.Duration.Companion.seconds
 
 class ProdukRestokViewModel(private val getItemRestockUseCase: GetItemRestockUseCase) :
@@ -82,7 +85,8 @@ class ProdukRestokViewModel(private val getItemRestockUseCase: GetItemRestockUse
     }
 }
 
+@Parcelize
 data class SelectedProdukRestok(
     val item: ProdukRestokItem,
     var quantity: Int = 0
-)
+):  Parcelable

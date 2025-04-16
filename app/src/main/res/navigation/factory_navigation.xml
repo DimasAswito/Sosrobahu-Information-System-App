@@ -139,6 +139,9 @@
             <action
                 android:id="@+id/action_tambahRestokFragment_to_navigation_riwayat"
                 app:destination="@id/navigation_riwayat" />
+            <argument
+                android:name="listProdukTerpilih"
+                app:argType="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.ProdukTerpilih" />
         </fragment>
         <fragment
             android:id="@+id/topProductFragment"

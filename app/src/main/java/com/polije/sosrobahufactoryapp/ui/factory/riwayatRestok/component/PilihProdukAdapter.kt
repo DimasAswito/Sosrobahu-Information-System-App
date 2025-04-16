@@ -35,7 +35,7 @@ class PilihProdukAdapter(
         fun bind(produk: ProdukRestokItem) {
 
             Glide.with(itemView.context)
-                .load(PICTURE_BASE_URL + produk.gambar)
+                .load(PICTURE_BASE_URL+ "produk/" + produk.gambar)
                 .placeholder(progressDrawable) // pakai animasi loading
                 .error(R.drawable.logo) // fallback kalau gagal
                 .into(imgProduk)
