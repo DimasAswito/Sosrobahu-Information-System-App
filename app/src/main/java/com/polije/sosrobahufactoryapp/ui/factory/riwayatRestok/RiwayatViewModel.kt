@@ -22,7 +22,7 @@ class RiwayatViewModel(val riwayatRestokUseCase: RiwayatRestokUseCase) : ViewMod
         .distinctUntilChanged()
         .flatMapLatest { query ->
             riwayatRestokUseCase.invoke(query).cachedIn(viewModelScope)
-        }.stateIn(viewModelScope, started = SharingStarted.WhileSubscribed(5000), PagingData.empty())
+        }
 
 
     fun onSeachQueryChanged(query: String) {

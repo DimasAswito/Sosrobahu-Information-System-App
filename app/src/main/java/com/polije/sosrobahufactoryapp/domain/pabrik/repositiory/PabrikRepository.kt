@@ -26,6 +26,6 @@ interface PabrikRepository {
 
     suspend fun getItemRestock() : DataResult<ProdukRestok, String>
 
-    suspend fun insertRestock(orders: List<Map<String, Int>>) : DataResult<Boolean, String>
+    suspend fun insertRestock(orders: Map<String, Map<String,Int>> ) : DataResult<Boolean, String>
 
 }

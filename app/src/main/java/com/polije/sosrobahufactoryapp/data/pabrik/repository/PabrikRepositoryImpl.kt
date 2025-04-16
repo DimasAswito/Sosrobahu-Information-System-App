@@ -98,11 +98,11 @@ class PabrikRepositoryImpl(val pabrikDatasource: PabrikDatasource, val tokenMana
         }
     }
 
-    override suspend fun insertRestock(orders: List<Map<String, Int>>): DataResult<Boolean, String> {
+    override suspend fun insertRestock(orders: Map<String, Map<String, Int>>): DataResult<Boolean, String> {
         return try {
             val token = tokenManager.getToken().first()
-            pabrikDatasource.insertRestock("Bearer $token", orders)
-            DataResult.Success(true)
+            val data = pabrikDatasource.insertRestock("Bearer $token", orders)
+            DataResult.Success(data.success)
         } catch (e: Exception) {
             DataResult.Error("Gagal menambah restok", e.message ?: "Unknown error")
         }

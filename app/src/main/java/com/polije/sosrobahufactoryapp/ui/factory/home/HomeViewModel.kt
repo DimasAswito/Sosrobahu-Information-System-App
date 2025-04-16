@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.WhileSubscribed
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Calendar
 import kotlin.time.Duration.Companion.seconds
@@ -33,36 +32,34 @@ class HomeViewModel(val dashboardUseCase: DashboardUseCase, val tokenUseCase: To
 
     fun getDashboardPabrik() {
         viewModelScope.launch {
-            _state.update { HomeState.Loading }
+            _state.value = HomeState.Loading
             val token = tokenUseCase.getToken()
             if (token == null) {
-                _state.update { HomeState.Failure("Token Tidak Berlaku") }
+                _state.value = HomeState.Failure("Token Tidak Berlaku")
                 return@launch
             } else {
 
                 try {
                     val response = dashboardUseCase.invoke()
                     when (response) {
-                        is DataResult.Error -> _state.update {
+                        is DataResult.Error -> _state.value =
                             HomeState.Failure(
                                 errorMessage = response.error,
                             )
-                        }
 
-                        is DataResult.Success -> _state.update {
+
+                        is DataResult.Success -> _state.value =
                             HomeState.Success(
                                 dashboardPabrik = response.data,
                                 pendapatanBulanan = response.data.pesananPerbulan
                             )
-                        }
                     }
                 } catch (e: Exception) {
-                    _state.update {
+                    _state.value =
                         HomeState.Failure(
                             errorMessage = "Error: ${e.message}",
+                        )
 
-                            )
-                    }
                 }
             }
         }
