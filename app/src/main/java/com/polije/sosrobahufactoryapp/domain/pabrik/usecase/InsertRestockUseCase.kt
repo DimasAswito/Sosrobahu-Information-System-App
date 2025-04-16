@@ -1,4 +1,10 @@
 package com.polije.sosrobahufactoryapp.domain.pabrik.usecase
 
-class InsertRestockUseCase {
+import com.polije.sosrobahufactoryapp.data.model.ProdukRestok
+import com.polije.sosrobahufactoryapp.domain.pabrik.repositiory.PabrikRepository
+import com.polije.sosrobahufactoryapp.utils.DataResult
+
+class InsertRestockUseCase (private val pabrikRepository: PabrikRepository) {
+    suspend operator fun invoke(): DataResult<ProdukRestok, String> =
+        pabrikRepository.getItemRestock()
 }

@@ -8,6 +8,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
@@ -23,8 +24,6 @@ class PilihProdukRestokFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PilihProdukAdapter
     private var produkTerpilih = mutableListOf<ProdukRestok>()
-    private var produkList = mutableListOf<Produk>()
-    private val selectedProduk = mutableListOf<Produk>()
 
     private val produkRestokViewModel : ProdukRestokViewModel by viewModel()
 
@@ -49,7 +48,7 @@ class PilihProdukRestokFragment : Fragment() {
                           adapter = PilihProdukAdapter(
                               produkList = state.data,
                               selectedList = selected.toMutableList(),
-                              onItemSelected = { item -> produkRestokViewModel.toggleProdukSelection(item) }
+                              onItemSelected = { produk, isSelected -> produkRestokViewModel.toggleProdukSelection(produk) }
                           )
                           recyclerView.adapter = adapter
                       }
@@ -60,9 +59,7 @@ class PilihProdukRestokFragment : Fragment() {
           }
       }
 
-
-
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
 
 
         btnPilihProduk.setOnClickListener {
@@ -70,7 +67,6 @@ class PilihProdukRestokFragment : Fragment() {
 //            produkTerpilih.addAll(selectedProduk.map { produk ->
 //
 //            })
-
 
             findNavController().navigate(
                 R.id.action_pilihProdukRestokFragment_to_tambahRestokFragment

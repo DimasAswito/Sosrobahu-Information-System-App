@@ -43,4 +43,7 @@ interface PabrikDatasource {
     @GET("pabrik/restock")
     suspend fun getRestockItem(@Header("Authorization") token : String) : ProdukRestok
 
+    @POST("pabrik/restock")
+    suspend fun insertRestock(@Header("Authorization") token : String, @Body quantities : List<Map<String, Int>>) : Unit
+
 }

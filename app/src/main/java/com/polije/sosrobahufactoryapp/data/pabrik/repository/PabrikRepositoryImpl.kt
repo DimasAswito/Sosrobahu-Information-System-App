@@ -97,4 +97,16 @@ class PabrikRepositoryImpl(val pabrikDatasource: PabrikDatasource, val tokenMana
             DataResult.Error("Not Found", e.message.toString())
         }
     }
+
+    override suspend fun insertRestock(orders: List<Map<String, Int>>): DataResult<Boolean, String> {
+        return try {
+            val token = tokenManager.getToken().first()
+            pabrikDatasource.insertRestock("Bearer $token", orders)
+            DataResult.Success(true)
+        } catch (e: Exception) {
+            DataResult.Error("Gagal menambah restok", e.message ?: "Unknown error")
+        }
+    }
+
+
 }

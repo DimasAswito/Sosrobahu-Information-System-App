@@ -7,6 +7,7 @@ import com.polije.sosrobahufactoryapp.data.model.PesananMasukItem
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.ProdukRestok
 import com.polije.sosrobahufactoryapp.data.model.RiwayatRestockItem
+import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.InsertRestockUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import kotlinx.coroutines.flow.Flow
 
@@ -24,5 +25,7 @@ interface PabrikRepository {
     suspend fun logout()
 
     suspend fun getItemRestock() : DataResult<ProdukRestok, String>
+
+    suspend fun insertRestock(orders: List<Map<String, Int>>) : DataResult<Boolean, String>
 
 }
