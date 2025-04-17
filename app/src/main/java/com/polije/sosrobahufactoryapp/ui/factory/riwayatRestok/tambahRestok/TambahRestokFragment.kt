@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.polije.sosrobahufactoryapp.databinding.FragmentTambahRestokBinding
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component.TambahRestokAdapter
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component.TambahRestokAdapter.OnQuantityChangeListener
@@ -37,12 +39,12 @@ class TambahRestokFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         tambahRestokViewModel.initialProdukRestock(args.listProdukTerpilih.data)
-        tambahRestokAdapter = TambahRestokAdapter(object : OnQuantityChangeListener{
+        tambahRestokAdapter = TambahRestokAdapter(object : OnQuantityChangeListener {
             override fun onQuantityChanged(
                 produk: SelectedProdukRestok,
                 newQty: Int
             ) {
-               tambahRestokViewModel.updateQuantity(produk.item.idMasterBarang,newQty)
+                tambahRestokViewModel.updateQuantity(produk.item.idMasterBarang, newQty)
             }
 
         })
@@ -52,10 +54,26 @@ class TambahRestokFragment : Fragment() {
         lifecycleScope.launch {
             tambahRestokViewModel.state.collectLatest { state ->
                 when (state) {
-                    TambahRestokState.Failure -> {}
+                    TambahRestokState.Failure -> {
+                        binding.btnTambahRestok.isEnabled = false
+
+                    }
+
                     TambahRestokState.Initial -> {}
-                    TambahRestokState.Loading -> {}
-                    TambahRestokState.Success -> {}
+                    TambahRestokState.Loading -> {
+                        binding.progressBar3.visibility = View.VISIBLE
+                        binding.btnTambahRestok.isEnabled = true
+                    }
+
+                    TambahRestokState.Success -> {
+                        binding.btnTambahRestok.isEnabled = false
+                        binding.progressBar3.visibility = View.GONE
+                        Snackbar.make(
+                            binding.root, "Berhasil Mengingputkan data",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                        findNavController().navigateUp()
+                    }
                 }
             }
         }
