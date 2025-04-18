@@ -185,7 +185,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Omset Keseluruhan"
+                            android:text="Distributor"
                             android:layout_gravity="center"
                             android:textColor="@android:color/black"
                             android:textSize="14sp"
@@ -204,13 +204,13 @@
                                 android:layout_height="40dp"
                                 android:layout_marginEnd="12dp"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/omset" />
+                                android:src="@drawable/group" />
 
                             <TextView
-                                android:id="@+id/omsetPabrik"
+                                android:id="@+id/jumlahDistributor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
+                                android:text="- orang"
                                 android:textColor="@android:color/black"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
@@ -269,16 +269,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Distributor aktif"
+                        android:text="Omset Keseluruhan"
                         android:textColor="@android:color/black"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/jumlahDistributor"
+                        android:id="@+id/omsetPabrik"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text=" - distributor"
+                        android:text=" -"
                         android:textColor="@android:color/black"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -288,7 +288,7 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/group" />
+                    android:src="@drawable/omset" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

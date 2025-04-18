@@ -11,13 +11,18 @@ import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.polije.sosrobahufactoryapp.BuildConfig.PICTURE_BASE_URL
 import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.data.model.ListTopSellingProduct
+import com.polije.sosrobahufactoryapp.data.model.TopSellingProduct
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeBinding
 import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginActivity
 import com.polije.sosrobahufactoryapp.utils.toRupiah
@@ -31,6 +36,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val homeViewModel: HomeViewModel by viewModel()
+
+    lateinit var listTopSellingProduct: ListTopSellingProduct
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -51,7 +58,9 @@ class HomeFragment : Fragment() {
         }
 
         binding.tvlihatProdukTerlaris.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_home_to_topProductFragment)
+            val action = HomeFragmentDirections.actionNavigationHomeToTopProductFragment(listTopSellingProduct)
+
+            findNavController().navigate(action)
         }
     }
 
@@ -75,18 +84,58 @@ class HomeFragment : Fragment() {
                     }
 
                     is HomeState.Success -> {
+
                         binding.progressBar2.visibility = View.GONE
                         binding.stokPabrikTersedia.text =
                             getString(R.string.karton, state.dashboardPabrik.finalStockKarton)
-
                         binding.omsetPabrik.text =
                             Integer.parseInt(state.dashboardPabrik.totalPendapatan).toRupiah()
                         binding.jumlahDistributor.text =
                             getString(R.string.distributor, state.dashboardPabrik.totalDistributor)
-                        binding.topProductName.text = state.dashboardPabrik.topProductName
-                        //                binding.topProductStock.text = "${state.dashboardPabrik.}"
-//                val imageUrl = "$BASE_URL_PRODUK${it.image}"
-//                Glide.with(requireContext()).load(imageUrl).into(binding.topProductImage)
+
+                        val topProductName = state.dashboardPabrik.topProductName
+                        val namaRokokList = state.dashboardPabrik.namaRokokList
+                        val gambarRokokList = state.dashboardPabrik.gambarRokokList
+                        val totalProdukList = state.dashboardPabrik.totalProdukList
+
+                        val topProductIndex = namaRokokList.indexOf(topProductName)
+
+                        val combinedList = ListTopSellingProduct(namaRokokList.indices.map { index ->
+                            TopSellingProduct(
+                                rank = 0, // Nanti diisi setelah sorting
+                                name = namaRokokList.getOrNull(index) ?: "Produk Tidak Diketahui",
+                                image = gambarRokokList.getOrNull(index) ?: "",
+                                stock = totalProdukList.getOrNull(index) ?: 0
+                            )
+                        }.sortedBy { it.stock } )// urutkan berdasarkan stok paling sedikit)
+
+                        val rankedList = combinedList.listTopSellingProduct.mapIndexed { index, product ->
+                            product.copy(rank = index + 1)
+                        }
+                         listTopSellingProduct = ListTopSellingProduct(rankedList)
+
+
+                        if (topProductIndex != -1) {
+                            val topProductImageName = gambarRokokList[topProductIndex]
+                            val topProductStock = totalProdukList[topProductIndex]
+
+                            binding.topProductName.text = topProductName
+                            binding.topProductStock.text = getString(R.string.karton, topProductStock)
+
+                            val imageUrl = PICTURE_BASE_URL + topProductImageName
+
+                            val circularProgressDrawable = CircularProgressDrawable(requireContext()).apply {
+                                strokeWidth = 5f
+                                centerRadius = 30f
+                                start()
+                            }
+
+                            Glide.with(requireContext())
+                                .load(imageUrl)
+                                .placeholder(circularProgressDrawable)
+                                .error(R.drawable.logo)
+                                .into(binding.topProductImage)
+                        }
                         val pendapatanBulanan = convertToMonthlyRevenueMap(state.pendapatanBulanan)
                         setupBarChartPendapatan(pendapatanBulanan)
                     }
@@ -169,6 +218,3 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 }
-
-
-

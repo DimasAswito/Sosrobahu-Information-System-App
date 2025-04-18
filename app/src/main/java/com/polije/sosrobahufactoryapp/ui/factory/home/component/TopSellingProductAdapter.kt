@@ -5,19 +5,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
+import com.polije.sosrobahufactoryapp.BuildConfig.PICTURE_BASE_URL
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.TopSellingProduct
-import com.polije.sosrobahufactoryapp.utils.toRupiah
 
-class TopSellingProductAdapter(private val productList: List<TopSellingProduct>) :
-    RecyclerView.Adapter<TopSellingProductAdapter.ViewHolder>() {
+class TopSellingProductAdapter :
+    ListAdapter<TopSellingProduct,TopSellingProductAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvRank: TextView = view.findViewById(R.id.tvRank)
         val imgProduct: ImageView = view.findViewById(R.id.topProductImage)
         val tvProductName: TextView = view.findViewById(R.id.topProductName)
-        val tvRevenue: TextView = view.findViewById(R.id.topProductRevenue)
+        val tvProductStock: TextView = view.findViewById(R.id.topProductStock)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,20 +32,38 @@ class TopSellingProductAdapter(private val productList: List<TopSellingProduct>)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val product = productList[position]
+        val product = getItem(position)
         holder.tvRank.text = "${product.rank}."
         holder.tvProductName.text = product.name
-        holder.tvRevenue.text = product.revenue.toRupiah()
+        holder.tvProductStock.text = "${product.stock} karton"
 
-        val imageResId = holder.itemView.context.resources.getIdentifier(
-            product.image, "drawable", holder.itemView.context.packageName
-        )
-        if (imageResId != 0) {
-            holder.imgProduct.setImageResource(imageResId)
-        } else {
-            holder.imgProduct.setImageResource(R.drawable.logo) // Placeholder jika gambar tidak ditemukan
+        val circularProgressDrawable = CircularProgressDrawable(holder.itemView.context).apply {
+            strokeWidth = 5f
+            centerRadius = 30f
+            start()
+        }
+
+        val imageUrl = PICTURE_BASE_URL + product.image
+        Glide.with(holder.itemView.context)
+            .load(imageUrl)
+           .placeholder(circularProgressDrawable)
+            .error(R.drawable.logo)
+            .into(holder.imgProduct)
+    }
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TopSellingProduct>() {
+            override fun areItemsTheSame(oldItem: TopSellingProduct, newItem: TopSellingProduct): Boolean {
+                return oldItem.name == newItem.name
+            }
+
+            override fun areContentsTheSame(
+                oldItem: TopSellingProduct,
+                newItem: TopSellingProduct
+            ): Boolean {
+                return oldItem == newItem
+            }
         }
     }
 
-    override fun getItemCount(): Int = productList.size
 }

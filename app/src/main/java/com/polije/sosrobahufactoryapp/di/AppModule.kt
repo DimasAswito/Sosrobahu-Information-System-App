@@ -11,6 +11,7 @@ import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.PesananMasukUseCase
 import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.RiwayatRestokUseCase
 import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.TokenUseCase
 import com.polije.sosrobahufactoryapp.ui.factory.home.HomeViewModel
+import com.polije.sosrobahufactoryapp.ui.factory.home.produkTerlaris.TopProductViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.pesanan.PesananViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan.DetailPesananViewModel
@@ -42,5 +43,6 @@ val appModule = module {
     viewModelOf(::DetailPesananViewModel)
     viewModelOf(::ProdukRestokViewModel)
     viewModelOf(::TambahRestokViewModel)
+    viewModelOf(::TopProductViewModel)
 
 }

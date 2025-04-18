@@ -84,9 +84,7 @@ class HomeViewModel(val dashboardUseCase: DashboardUseCase, val tokenUseCase: To
                 monthlyRevenue[monthLabel] = data.totalOmset.toFloat()
             }
         }
-
     }
-
 }
 
 

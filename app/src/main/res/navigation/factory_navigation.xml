@@ -147,7 +147,10 @@
             android:id="@+id/topProductFragment"
             android:name="com.polije.sosrobahufactoryapp.ui.factory.home.produkTerlaris.TopProductFragment"
             android:label="fragment_top_product"
-            tools:layout="@layout/fragment_top_product" />
+            tools:layout="@layout/fragment_top_product" >
+            <argument android:name="listTopProduct"
+                app:argType="com.polije.sosrobahufactoryapp.data.model.ListTopSellingProduct" />
+        </fragment>
     </navigation>
 
 </navigation>
