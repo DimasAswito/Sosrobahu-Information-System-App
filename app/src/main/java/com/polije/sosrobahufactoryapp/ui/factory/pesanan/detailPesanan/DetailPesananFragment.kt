@@ -18,6 +18,7 @@ import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailPesananBinding
 import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.DetailPesananItemAdapter
 import com.polije.sosrobahufactoryapp.utils.toRupiah
+import com.polije.sosrobahufactoryapp.utils.toTanggalIndonesia
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -46,9 +47,8 @@ class DetailPesananFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         detailPesananViewModel.detailPesananMasuk(args.detailPesanan.idOrder ?: 0)
         binding.tvDistributorDetail.text = args.detailPesanan.namaDistributor
-        binding.tvTanggalDetail.text = args.detailPesanan.tanggal
-        binding.tvHargaTotal.text =
-             args.detailPesanan.total?.toRupiah()
+        binding.tvTanggalDetail.text = args.detailPesanan.tanggal?.toTanggalIndonesia()
+        binding.tvHargaTotal.text = args.detailPesanan.total?.toRupiah()
 
 
         // Setup Spinner (Dropdown)

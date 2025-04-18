@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +15,7 @@ import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.TopSellingProduct
 
 class TopSellingProductAdapter :
-    ListAdapter<TopSellingProduct,TopSellingProductAdapter.ViewHolder>(DIFF_CALLBACK) {
+    ListAdapter<TopSellingProduct, TopSellingProductAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvRank: TextView = view.findViewById(R.id.tvRank)
@@ -43,23 +42,25 @@ class TopSellingProductAdapter :
             start()
         }
 
-        val imageUrl = PICTURE_BASE_URL + product.image
+        val imageUrl = PICTURE_BASE_URL + "produk/" + product.image
         Glide.with(holder.itemView.context)
             .load(imageUrl)
-           .placeholder(circularProgressDrawable)
-            .error(R.drawable.logo)
+            .placeholder(circularProgressDrawable)
+            .error(R.drawable.rokok)
             .into(holder.imgProduct)
     }
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TopSellingProduct>() {
-            override fun areItemsTheSame(oldItem: TopSellingProduct, newItem: TopSellingProduct): Boolean {
+            override fun areItemsTheSame(
+                oldItem: TopSellingProduct,
+                newItem: TopSellingProduct
+            ): Boolean {
                 return oldItem.name == newItem.name
             }
 
             override fun areContentsTheSame(
-                oldItem: TopSellingProduct,
-                newItem: TopSellingProduct
+                oldItem: TopSellingProduct, newItem: TopSellingProduct
             ): Boolean {
                 return oldItem == newItem
             }

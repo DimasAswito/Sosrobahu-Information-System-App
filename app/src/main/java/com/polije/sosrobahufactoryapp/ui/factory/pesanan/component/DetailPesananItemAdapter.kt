@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.data.model.ItemNotaItem
 import com.polije.sosrobahufactoryapp.databinding.DetailPesananItemBinding
+import com.polije.sosrobahufactoryapp.utils.toRupiah
 
 class DetailPesananItemAdapter :
     ListAdapter<ItemNotaItem, DetailPesananItemAdapter.ItemNotaViewHolder>(DIFF_CALLBACK) {
@@ -23,9 +24,9 @@ class DetailPesananItemAdapter :
         val item = getItem(position)
         holder.binding.apply {
             tvNamaRokok.text = item.namaRokok
-            tvHargaSatuan.text = "Harga Satuan: Rp${item.hargaSatuan}"
-            tvJumlahItem.text = "Jumlah Item: ${item.jumlahItem}"
-            tvJumlahHarga.text = "Jumlah Harga: Rp${item.jumlahHarga}"
+            tvHargaSatuan.text = item.hargaSatuan.toRupiah()
+            tvJumlahItem.text = item.jumlahItem.toString()
+            tvJumlahHarga.text = item.jumlahHarga.toRupiah()
         }
     }
 

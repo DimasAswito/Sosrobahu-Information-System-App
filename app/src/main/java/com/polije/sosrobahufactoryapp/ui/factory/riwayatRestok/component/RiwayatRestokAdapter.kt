@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.RiwayatRestockItem
+import com.polije.sosrobahufactoryapp.utils.toTanggalIndonesia
 
 class RiwayatRestokAdapter(private val onRiwayatItemClicked: OnRiwayatItemClicked) :
     PagingDataAdapter<RiwayatRestockItem, RiwayatRestokAdapter.ViewHolder>(RiwayatRestokDiffUtill()) {
@@ -33,15 +34,13 @@ class RiwayatRestokAdapter(private val onRiwayatItemClicked: OnRiwayatItemClicke
         val riwayat = getItem(position)
         if (riwayat != null) {
 
-//        holder.txtNamaProduk.text = riwayat.namaProduk
-            holder.txtTanggalRestok.text = riwayat?.tanggal
-            holder.txtJumlahProduk.text = "Jumlah Produk: ${riwayat?.jumlah}"
+            holder.txtTanggalRestok.text = riwayat?.tanggal?.toTanggalIndonesia()
+            holder.txtJumlahProduk.text = riwayat?.jumlah
 
             holder.itemView.setOnClickListener { onRiwayatItemClicked.onItemClick(riwayat) }
 
         }
     }
-
 
     companion object {
         class RiwayatRestokDiffUtill : DiffUtil.ItemCallback<RiwayatRestockItem>() {

@@ -279,14 +279,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=" -"
+                        android:layout_marginTop="4dp"
                         android:textColor="@android:color/black"
-                        android:textSize="16sp" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <!-- Bagian gambar (kanan) -->
                 <ImageView
                     android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_height="55dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/omset" />
             </LinearLayout>
@@ -355,7 +356,7 @@
                         android:id="@+id/topProductImage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/logo"
+                        android:src="@drawable/rokok"
                         android:scaleType="centerCrop"/>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -389,8 +390,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Stok"
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
+                        android:textSize="14sp"/>
 
                     <TextView
                         android:id="@+id/topProductStock"

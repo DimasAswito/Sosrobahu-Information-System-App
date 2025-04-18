@@ -58,7 +58,9 @@ class HomeFragment : Fragment() {
         }
 
         binding.tvlihatProdukTerlaris.setOnClickListener {
-            val action = HomeFragmentDirections.actionNavigationHomeToTopProductFragment(listTopSellingProduct)
+            val action = HomeFragmentDirections.actionNavigationHomeToTopProductFragment(
+                listTopSellingProduct
+            )
 
             findNavController().navigate(action)
         }
@@ -100,19 +102,22 @@ class HomeFragment : Fragment() {
 
                         val topProductIndex = namaRokokList.indexOf(topProductName)
 
-                        val combinedList = ListTopSellingProduct(namaRokokList.indices.map { index ->
-                            TopSellingProduct(
-                                rank = 0, // Nanti diisi setelah sorting
-                                name = namaRokokList.getOrNull(index) ?: "Produk Tidak Diketahui",
-                                image = gambarRokokList.getOrNull(index) ?: "",
-                                stock = totalProdukList.getOrNull(index) ?: 0
-                            )
-                        }.sortedBy { it.stock } )// urutkan berdasarkan stok paling sedikit)
+                        val combinedList =
+                            ListTopSellingProduct(namaRokokList.indices.map { index ->
+                                TopSellingProduct(
+                                    rank = 0, // Nanti diisi setelah sorting
+                                    name = namaRokokList.getOrNull(index)
+                                        ?: "Produk Tidak Diketahui",
+                                    image = gambarRokokList.getOrNull(index) ?: "",
+                                    stock = totalProdukList.getOrNull(index) ?: 0
+                                )
+                            }.sortedBy { it.stock })// urutkan berdasarkan stok paling sedikit)
 
-                        val rankedList = combinedList.listTopSellingProduct.mapIndexed { index, product ->
-                            product.copy(rank = index + 1)
-                        }
-                         listTopSellingProduct = ListTopSellingProduct(rankedList)
+                        val rankedList =
+                            combinedList.listTopSellingProduct.mapIndexed { index, product ->
+                                product.copy(rank = index + 1)
+                            }
+                        listTopSellingProduct = ListTopSellingProduct(rankedList)
 
 
                         if (topProductIndex != -1) {
@@ -120,20 +125,22 @@ class HomeFragment : Fragment() {
                             val topProductStock = totalProdukList[topProductIndex]
 
                             binding.topProductName.text = topProductName
-                            binding.topProductStock.text = getString(R.string.karton, topProductStock)
+                            binding.topProductStock.text =
+                                getString(R.string.karton, topProductStock)
 
-                            val imageUrl = PICTURE_BASE_URL + topProductImageName
+                            val imageUrl = PICTURE_BASE_URL + "produk/" + topProductImageName
 
-                            val circularProgressDrawable = CircularProgressDrawable(requireContext()).apply {
-                                strokeWidth = 5f
-                                centerRadius = 30f
-                                start()
-                            }
+                            val circularProgressDrawable =
+                                CircularProgressDrawable(requireContext()).apply {
+                                    strokeWidth = 5f
+                                    centerRadius = 30f
+                                    start()
+                                }
 
                             Glide.with(requireContext())
                                 .load(imageUrl)
                                 .placeholder(circularProgressDrawable)
-                                .error(R.drawable.logo)
+                                .error(R.drawable.rokok)
                                 .into(binding.topProductImage)
                         }
                         val pendapatanBulanan = convertToMonthlyRevenueMap(state.pendapatanBulanan)
@@ -141,15 +148,6 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
-
-//        homeViewModel.topProduct.observe(viewLifecycleOwner) { topProduct ->
-//            topProduct?.let {
-//                binding.topProductName.text = it.name
-//                binding.topProductStock.text = "${it.stock}"
-//                val imageUrl = "$BASE_URL_PRODUK${it.image}"
-//                Glide.with(requireContext()).load(imageUrl).into(binding.topProductImage)
-//            }
-//        }
         }
     }
 

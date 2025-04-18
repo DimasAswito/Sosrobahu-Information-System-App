@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:elevation="4dp"
         android:padding="16dp"
-        app:cardCornerRadius="12dp">
+        app:cardCornerRadius="6dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,12 +45,14 @@
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"/>
 
                 <TextView
                     android:id="@+id/txtTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
                     android:textAlignment="viewEnd" />
             </LinearLayout>
 
@@ -87,19 +89,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="8dp"
+                android:background="#646464"
+                />
             <!-- Total -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
+                android:paddingVertical="8dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:text="Total Keseluruhan"
                     android:textStyle="bold"
                     android:layout_weight="1"
+                    android:layout_marginStart="8dp"
                     android:layout_width="0dp"
+                    android:textSize="16sp"
                     android:layout_height="wrap_content" />
 
                 <TextView
@@ -107,7 +116,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:textSize="16sp"
                     android:gravity="end"
+                    android:textColor="@android:color/black"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -117,6 +129,7 @@
                 android:text="Detail riwayat restock produk ini adalah dokumen yang dicetak secara otomatis oleh sistem berdasarkan data yang diinput oleh perusahaan."
                 android:textSize="12sp"
                 android:textColor="#555"
+                android:layout_marginHorizontal="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>

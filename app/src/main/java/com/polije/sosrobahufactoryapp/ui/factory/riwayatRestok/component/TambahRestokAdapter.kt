@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.polije.sosrobahufactoryapp.BuildConfig
+import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.ItemTambahRestokBinding
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.SelectedProdukRestok
 
@@ -22,6 +25,14 @@ class TambahRestokAdapter(
         private var isUpdatingText = false
 
         fun bind(produk: SelectedProdukRestok) {
+
+            val restokGambar = BuildConfig.PICTURE_BASE_URL + "produk/" + produk.item.gambar
+            Glide.with(itemView.context)
+                .load(restokGambar)
+                .placeholder(R.drawable.logo)
+                .error(R.drawable.rokok)
+                .into(binding.imgProduk)
+
             // Set product data
             binding.apply {
                 txtNamaProduk.text = produk.item.namaRokok

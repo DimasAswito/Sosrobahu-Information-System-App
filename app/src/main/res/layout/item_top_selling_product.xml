@@ -67,15 +67,14 @@
         android:orientation="vertical"
         android:gravity="center"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="32dp">
+        android:layout_marginEnd="24dp">
 
         <TextView
             android:id="@+id/topProductStockLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Stok"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/topProductStock"
