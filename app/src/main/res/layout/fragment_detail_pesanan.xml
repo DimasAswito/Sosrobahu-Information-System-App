@@ -20,18 +20,40 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/headerDetailPesanan"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Detail Pesanan"
-            android:textColor="@color/md_theme_tertiaryFixedDim"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center_vertical"
+            android:justifyContent="space-between">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Detail Pesanan"
+                android:gravity="center"
+                android:textColor="@color/md_theme_tertiaryFixedDim"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/CetakLaporanButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_print_24"
+            android:contentDescription="Cetak" />
+        </LinearLayout>
+
 
         <androidx.cardview.widget.CardView
             android:id="@+id/container"
@@ -256,13 +278,13 @@
         </androidx.cardview.widget.CardView>
 
         <Button
-            android:id="@+id/CetakLaporanButton"
+            android:id="@+id/SimpanStatusButton"
             android:layout_width="0dp"
             android:layout_height="64dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:text="Cetak"
+            android:text="Simpan"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
