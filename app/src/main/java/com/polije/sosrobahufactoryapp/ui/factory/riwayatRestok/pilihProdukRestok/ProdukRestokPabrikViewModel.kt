@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import kotlin.time.Duration.Companion.seconds
 
-class ProdukRestokViewModel(private val getItemRestockUseCase: GetItemRestockUseCase) :
+class ProdukRestokPabrikViewModel(private val getItemRestockUseCase: GetItemRestockUseCase) :
     ViewModel() {
 
     private val _productsState =

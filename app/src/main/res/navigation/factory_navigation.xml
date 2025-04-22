@@ -124,7 +124,7 @@
         </fragment>
         <fragment
             android:id="@+id/pilihProdukRestokFragment"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.PilihProdukRestokFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.PilihProdukRestokPabrikFragment"
             android:label="fragment_pilih_produk_restok"
             tools:layout="@layout/fragment_pilih_produk_restok" >
             <action

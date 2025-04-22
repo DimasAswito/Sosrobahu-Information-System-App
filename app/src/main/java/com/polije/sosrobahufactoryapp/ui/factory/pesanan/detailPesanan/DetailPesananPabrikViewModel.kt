@@ -11,56 +11,56 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
 
-class DetailPesananViewModel(
+class DetailPesananPabrikViewModel(
     private val getDetailPesananMasukUseCase: DetailPesananMasukUseCase,
     private val updateDetailPesananMasukUseCase: UpdatePesananUseCase
 ) : ViewModel() {
-    private val _detailPesanan = MutableStateFlow<DetailPesananState>(DetailPesananState.Initial)
+    private val _detailPesanan = MutableStateFlow<DetailPesananPabrikState>(DetailPesananPabrikState.Initial)
     val detailPesanan get() = _detailPesanan.asStateFlow()
 
-    private val _updatePesananState = MutableStateFlow<UpdateStatusPesananState>(
-        UpdateStatusPesananState.Initial
+    private val _updatePesananState = MutableStateFlow<UpdateStatusPesananPabrikState>(
+        UpdateStatusPesananPabrikState.Initial
     )
     val updatePesananState get() = _updatePesananState.asStateFlow()
 
 
     fun detailPesananMasuk(idOrder: Int) {
-        _detailPesanan.value = DetailPesananState.Loading
+        _detailPesanan.value = DetailPesananPabrikState.Loading
         viewModelScope.launch {
             try {
                 val data = getDetailPesananMasukUseCase.invoke(idOrder)
                 when (data) {
                     is DataResult.Error -> _detailPesanan.value =
-                        DetailPesananState.Failure(data.message)
+                        DetailPesananPabrikState.Failure(data.message)
 
                     is DataResult.Success -> _detailPesanan.value =
-                        DetailPesananState.Success(data.data)
+                        DetailPesananPabrikState.Success(data.data)
                 }
             } catch (e: Exception) {
                 _detailPesanan.value =
-                    DetailPesananState.Failure(e.message.toString())
+                    DetailPesananPabrikState.Failure(e.message.toString())
             }
         }
     }
 
     fun updateDetailPesanan(idOrder: Int, status: Int) {
-        _updatePesananState.value = UpdateStatusPesananState.Loading
+        _updatePesananState.value = UpdateStatusPesananPabrikState.Loading
         viewModelScope.launch {
             try {
                 val data = updateDetailPesananMasukUseCase.invoke(idOrder, status)
                 when (data) {
                     is DataResult.Error -> {
-                        _updatePesananState.value = UpdateStatusPesananState.Failure(data.message)
+                        _updatePesananState.value = UpdateStatusPesananPabrikState.Failure(data.message)
                     }
 
                     is DataResult.Success -> {
                         delay(2.seconds)
-                        _updatePesananState.value = UpdateStatusPesananState.Success
+                        _updatePesananState.value = UpdateStatusPesananPabrikState.Success
                     }
                 }
             } catch (e: Exception) {
                 _detailPesanan.value =
-                    DetailPesananState.Failure(e.message.toString())
+                    DetailPesananPabrikState.Failure(e.message.toString())
             }
         }
     }

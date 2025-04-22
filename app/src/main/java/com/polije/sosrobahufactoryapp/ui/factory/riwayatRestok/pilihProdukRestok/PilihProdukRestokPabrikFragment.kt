@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PilihProdukRestokFragment : Fragment() {
+class PilihProdukRestokPabrikFragment : Fragment() {
 
     private lateinit var adapter: PilihProdukPabrikAdapter
     private lateinit var produkTerpilih: ProdukTerpilih
@@ -24,7 +24,7 @@ class PilihProdukRestokFragment : Fragment() {
     private var _binding: FragmentPilihProdukRestokBinding? = null
     private val binding get() = _binding!!
 
-    private val produkRestokViewModel: ProdukRestokViewModel by viewModel()
+    private val produkRestokViewModel: ProdukRestokPabrikViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -72,7 +72,7 @@ class PilihProdukRestokFragment : Fragment() {
 
         binding.btnPilihProduk.setOnClickListener {
             val action =
-                PilihProdukRestokFragmentDirections.actionPilihProdukRestokFragmentToTambahRestokFragment(
+                PilihProdukRestokPabrikFragmentDirections.actionPilihProdukRestokFragmentToTambahRestokFragment(
                     produkTerpilih
                 )
             findNavController().navigate(

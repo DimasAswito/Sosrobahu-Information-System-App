@@ -10,17 +10,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.data.model.PesananMasukItem
 import com.polije.sosrobahufactoryapp.databinding.FragmentPesananBinding
-import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.PesananAdapter
+import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.PesananPabrikAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PesananFragment : Fragment() {
+class PesananPabrikFragment : Fragment() {
 
     private var _binding: FragmentPesananBinding? = null
     private val binding get() = _binding!!
 
-    private val pesananViewModel: PesananViewModel by viewModel()
+    private val pesananViewModel: PesananPabrikViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -33,10 +33,10 @@ class PesananFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val pesananAdapter = PesananAdapter(object : PesananAdapter.OnItemClickListener {
+        val pesananAdapter = PesananPabrikAdapter(object : PesananPabrikAdapter.OnItemClickListener {
             override fun onItemClick(pesanan: PesananMasukItem) {
                 val action =
-                    PesananFragmentDirections.actionNavigationPesananToDetailPesananFragment(pesanan)
+                    PesananPabrikFragmentDirections.actionNavigationPesananToDetailPesananFragment(pesanan)
                 findNavController().navigate(action)
             }
         })

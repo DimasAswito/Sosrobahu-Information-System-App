@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.WhileSubscribed
 import kotlinx.coroutines.flow.stateIn
 import kotlin.time.Duration.Companion.seconds
 
-class PesananViewModel(val pesananMasukUseCase: PesananMasukUseCase) : ViewModel() {
+class PesananPabrikViewModel(val pesananMasukUseCase: PesananMasukUseCase) : ViewModel() {
 
     fun getPesananMasuk() =
         pesananMasukUseCase.invoke().cachedIn(viewModelScope).stateIn(

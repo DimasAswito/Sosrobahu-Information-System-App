@@ -16,23 +16,23 @@ import com.bumptech.glide.Glide
 import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailPesananBinding
-import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.DetailPesananItemAdapter
+import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.DetailPesananItemPabrikAdapter
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 import com.polije.sosrobahufactoryapp.utils.toTanggalIndonesia
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class DetailPesananFragment : Fragment() {
+class DetailPesananPabrikFragment : Fragment() {
 
     private var _binding: FragmentDetailPesananBinding? = null
     private val binding get() = _binding!!
 
     private var isImageVisible = false
 
-    private val args: DetailPesananFragmentArgs by navArgs()
+    private val args: DetailPesananPabrikFragmentArgs by navArgs()
 
-    private val detailPesananViewModel: DetailPesananViewModel by viewModel()
+    private val detailPesananViewModel: DetailPesananPabrikViewModel by viewModel()
 
 
     override fun onCreateView(
@@ -60,7 +60,7 @@ class DetailPesananFragment : Fragment() {
         )
         binding.spinnerStatus.adapter = adapter
 
-        val produkAdapter = DetailPesananItemAdapter()
+        val produkAdapter = DetailPesananItemPabrikAdapter()
         binding.rvproduk.layoutManager = LinearLayoutManager(requireContext())
         binding.rvproduk.adapter = produkAdapter
 
@@ -117,10 +117,10 @@ class DetailPesananFragment : Fragment() {
 
             detailPesananViewModel.detailPesanan.collectLatest { state ->
                 when (state) {
-                    is DetailPesananState.Failure -> {}
-                    DetailPesananState.Initial -> {}
-                    DetailPesananState.Loading -> {}
-                    is DetailPesananState.Success -> {
+                    is DetailPesananPabrikState.Failure -> {}
+                    DetailPesananPabrikState.Initial -> {}
+                    DetailPesananPabrikState.Loading -> {}
+                    is DetailPesananPabrikState.Success -> {
                         produkAdapter.submitList(state.data.itemNota)
                     }
                 }
@@ -130,17 +130,17 @@ class DetailPesananFragment : Fragment() {
         lifecycleScope.launch {
             detailPesananViewModel.updatePesananState.collectLatest { state ->
                 when (state) {
-                    is UpdateStatusPesananState.Failure -> {
+                    is UpdateStatusPesananPabrikState.Failure -> {
                         showToast(state.errorMessage)
                         binding.SimpanStatusButton.isEnabled = true
                     }
 
-                    UpdateStatusPesananState.Initial -> {}
-                    UpdateStatusPesananState.Loading -> {
+                    UpdateStatusPesananPabrikState.Initial -> {}
+                    UpdateStatusPesananPabrikState.Loading -> {
                         binding.SimpanStatusButton.isEnabled = false
                     }
 
-                    UpdateStatusPesananState.Success -> {
+                    UpdateStatusPesananPabrikState.Success -> {
                         binding.SimpanStatusButton.isEnabled = true
                         showToast("Berhasil Mengubah Status")
                         findNavController().navigateUp()
@@ -156,7 +156,7 @@ class DetailPesananFragment : Fragment() {
     }
 
     private fun showToast(message: String) {
-        Toast.makeText(this@DetailPesananFragment.requireContext(), message, Toast.LENGTH_SHORT)
+        Toast.makeText(this@DetailPesananPabrikFragment.requireContext(), message, Toast.LENGTH_SHORT)
             .show()
     }
 }
