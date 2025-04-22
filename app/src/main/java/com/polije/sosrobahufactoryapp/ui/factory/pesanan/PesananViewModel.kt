@@ -6,13 +6,15 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.PesananMasukUseCase
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.WhileSubscribed
 import kotlinx.coroutines.flow.stateIn
+import kotlin.time.Duration.Companion.seconds
 
-class PesananViewModel(pesananMasukUseCase: PesananMasukUseCase) : ViewModel() {
+class PesananViewModel(val pesananMasukUseCase: PesananMasukUseCase) : ViewModel() {
 
-    val getPesananMasuk =
+    fun getPesananMasuk() =
         pesananMasukUseCase.invoke().cachedIn(viewModelScope).stateIn(
             viewModelScope,
-            SharingStarted.WhileSubscribed(5000), PagingData.empty()
+            SharingStarted.WhileSubscribed(0.5.seconds), PagingData.empty()
         )
 }

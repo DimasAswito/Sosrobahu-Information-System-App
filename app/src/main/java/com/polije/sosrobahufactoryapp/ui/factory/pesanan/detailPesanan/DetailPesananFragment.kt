@@ -1,7 +1,6 @@
 package com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -107,10 +107,16 @@ class DetailPesananFragment : Fragment() {
                 .show()
         }
 
+        binding.SimpanStatusButton.setOnClickListener {
+            val status = binding.spinnerStatus.selectedItemPosition
+            detailPesananViewModel.updateDetailPesanan(args.detailPesanan.idOrder ?: 0,status)
+
+        }
+
         lifecycleScope.launch {
 
-            detailPesananViewModel.detailPesanan.collectLatest { state->
-                when (state){
+            detailPesananViewModel.detailPesanan.collectLatest { state ->
+                when (state) {
                     is DetailPesananState.Failure -> {}
                     DetailPesananState.Initial -> {}
                     DetailPesananState.Loading -> {}
@@ -120,11 +126,38 @@ class DetailPesananFragment : Fragment() {
                 }
             }
         }
+
+        lifecycleScope.launch {
+            detailPesananViewModel.updatePesananState.collectLatest { state ->
+                when (state) {
+                    is UpdateStatusPesananState.Failure -> {
+                        showToast(state.errorMessage)
+                        binding.SimpanStatusButton.isEnabled = true
+                    }
+
+                    UpdateStatusPesananState.Initial -> {}
+                    UpdateStatusPesananState.Loading -> {
+                        binding.SimpanStatusButton.isEnabled = false
+                    }
+
+                    UpdateStatusPesananState.Success -> {
+                        binding.SimpanStatusButton.isEnabled = true
+                        showToast("Berhasil Mengubah Status")
+                        findNavController().navigateUp()
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this@DetailPesananFragment.requireContext(), message, Toast.LENGTH_SHORT)
+            .show()
     }
 }
 

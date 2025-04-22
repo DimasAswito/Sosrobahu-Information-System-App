@@ -5,9 +5,11 @@ import com.polije.sosrobahufactoryapp.data.model.DetailOrderResponse
 import com.polije.sosrobahufactoryapp.data.model.InsertRestockResponse
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
-import com.polije.sosrobahufactoryapp.data.model.PesananMasukResopnse
+import com.polije.sosrobahufactoryapp.data.model.PesananMasukResponse
 import com.polije.sosrobahufactoryapp.data.model.ProdukRestok
 import com.polije.sosrobahufactoryapp.data.model.RiwayatRestockResponse
+import com.polije.sosrobahufactoryapp.data.model.UpdateDetailPesananRequest
+import com.polije.sosrobahufactoryapp.data.model.UpdateDetailPesananResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -26,7 +28,7 @@ interface PabrikDatasource {
     suspend fun getPesananMasuk(
         @Header("Authorization") token: String,
         @Query("page") page: Int
-    ): PesananMasukResopnse
+    ): PesananMasukResponse
 
     @GET("pabrik/riwayatPabrik")
     suspend fun getRiwayatStokPabrik(
@@ -48,7 +50,14 @@ interface PabrikDatasource {
     @JvmSuppressWildcards
     suspend fun insertRestock(
         @Header("Authorization") token: String,
-        @Body orders: Map<String, Map<String,Int>>
+        @Body orders: Map<String, Map<String, Int>>
     ): InsertRestockResponse
+
+    @POST("pabrik/pesananMasuk/{id}")
+    suspend fun updateDetailPesanan(
+        @Header("Authorization") token: String,
+        @Path("id") idOrder: Int,
+        @Body status: UpdateDetailPesananRequest
+    ): UpdateDetailPesananResponse
 
 }

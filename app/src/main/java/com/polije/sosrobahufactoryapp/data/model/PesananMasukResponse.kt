@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
 @Serializable
-data class PesananMasukResopnse(
+data class PesananMasukResponse(
 
 	@SerialName("per_page")
 	val perPage: Int? = null,

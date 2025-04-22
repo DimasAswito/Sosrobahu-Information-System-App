@@ -4,13 +4,15 @@ import DashboardPabrikResponse
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.polije.sosrobahufactoryapp.data.pabrik.source.local.TokenManager
 import com.polije.sosrobahufactoryapp.data.model.DetailOrderResponse
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.PesananMasukItem
 import com.polije.sosrobahufactoryapp.data.model.ProdukRestok
 import com.polije.sosrobahufactoryapp.data.model.RiwayatRestockItem
+import com.polije.sosrobahufactoryapp.data.model.UpdateDetailPesananRequest
+import com.polije.sosrobahufactoryapp.data.model.UpdateDetailPesananResponse
+import com.polije.sosrobahufactoryapp.data.pabrik.source.local.TokenManager
 import com.polije.sosrobahufactoryapp.data.pabrik.source.remote.PabrikDatasource
 import com.polije.sosrobahufactoryapp.data.pabrik.source.remote.paging.PesananMasukPagingSource
 import com.polije.sosrobahufactoryapp.data.pabrik.source.remote.paging.RiwayatRestockPagingSource
@@ -46,10 +48,27 @@ class PabrikRepositoryImpl(val pabrikDatasource: PabrikDatasource, val tokenMana
         }
     }
 
-    override suspend fun getDetailPesananMasuk(idOrder: Int) : DataResult<DetailOrderResponse, String> {
+    override suspend fun getDetailPesananMasuk(idOrder: Int): DataResult<DetailOrderResponse, String> {
         return try {
             val token = "Bearer ${tokenManager.getToken().first()}"
-            val data = pabrikDatasource.getDetailPesananMasuk(token,idOrder)
+            val data = pabrikDatasource.getDetailPesananMasuk(token, idOrder)
+            DataResult.Success(data)
+        } catch (e: Exception) {
+            DataResult.Error("Not Found", e.message.toString())
+        }
+    }
+
+    override suspend fun updateDetailPesananMasuk(
+        idOrder: Int,
+        status: Int
+    ): DataResult<UpdateDetailPesananResponse, String> {
+        return try {
+            val token = "Bearer ${tokenManager.getToken().first()}"
+            val data = pabrikDatasource.updateDetailPesanan(
+                token = token,
+                idOrder,
+                status = UpdateDetailPesananRequest(status)
+            )
             DataResult.Success(data)
         } catch (e: Exception) {
             DataResult.Error("Not Found", e.message.toString())
@@ -74,7 +93,7 @@ class PabrikRepositoryImpl(val pabrikDatasource: PabrikDatasource, val tokenMana
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
-                RiwayatRestockPagingSource(query,pabrikDatasource, tokenManager)
+                RiwayatRestockPagingSource(query, pabrikDatasource, tokenManager)
             }
         ).flow
     }

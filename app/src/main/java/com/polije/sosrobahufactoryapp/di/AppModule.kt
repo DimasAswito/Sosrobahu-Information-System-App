@@ -10,6 +10,7 @@ import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.LoginUseCase
 import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.PesananMasukUseCase
 import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.RiwayatRestokUseCase
 import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.TokenUseCase
+import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.UpdatePesananUseCase
 import com.polije.sosrobahufactoryapp.ui.factory.home.HomeViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.home.produkTerlaris.TopProductViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginViewModel
@@ -25,6 +26,7 @@ import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
 val appModule = module {
+
     singleOf(::PabrikRepositoryImpl){bind<PabrikRepository>() }
 
     factoryOf(::LoginUseCase)
@@ -35,6 +37,7 @@ val appModule = module {
     factoryOf(::DetailPesananMasukUseCase)
     factoryOf(::GetItemRestockUseCase)
     factoryOf(::InsertRestockUseCase)
+    factoryOf(::UpdatePesananUseCase)
 
     viewModelOf(::FactoryLoginViewModel)
     viewModelOf(::HomeViewModel)
