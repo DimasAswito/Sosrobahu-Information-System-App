@@ -73,4 +73,6 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
+    implementation("com.github.jahirfiquitiva:TextDrawable:1.0.3")
+
 }

@@ -10,7 +10,7 @@
         app:startDestination="@id/navigation_home">
         <fragment
             android:id="@+id/navigation_home"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.home.HomeFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.home.HomePabrikFragment"
             android:label="@string/title_home"
             tools:layout="@layout/fragment_home">
             <action
@@ -22,7 +22,7 @@
         </fragment>
         <fragment
             android:id="@+id/navigation_pesanan"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.pesanan.PesananFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.pesanan.PesananPabrikFragment"
             android:label="@string/title_pesanan"
             tools:layout="@layout/fragment_pesanan" >
             <action
@@ -32,7 +32,7 @@
         </fragment>
         <fragment
             android:id="@+id/detailPesananFragment"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan.DetailPesananFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan.DetailPesananPabrikFragment"
             android:label="fragment_detail_pesanan"
             tools:layout="@layout/fragment_detail_pesanan" >
             <argument
@@ -41,7 +41,7 @@
         </fragment>
         <fragment
             android:id="@+id/navigation_riwayat"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.RiwayatFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.RiwayatPabrikFragment"
             android:label="@string/title_riwayatStok"
             tools:layout="@layout/fragment_riwayat" >
             <action
@@ -53,7 +53,7 @@
         </fragment>
         <fragment
             android:id="@+id/navigation_harga"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.HargaProdukFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.HargaProdukPabrikFragment"
             android:label="@string/title_harga"
             tools:layout="@layout/fragment_harga_produk" >
             <action
@@ -108,15 +108,15 @@
             android:label="DetailLaporanFragment" />
         <fragment
             android:id="@+id/detailHargaFragment"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.detail.DetailHargaFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.detail.DetailHargaPabrikFragment"
             android:label="DetailHargaFragment" />
         <fragment
             android:id="@+id/tambahProdukFragment"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.tambahProduk.TambahProdukFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.tambahProduk.TambahProdukPabrikFragment"
             android:label="TambahProdukFragment" />
         <fragment
             android:id="@+id/detailRestokFragment"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.detailRestok.DetailRestokFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.detailRestok.DetailRestokPabrikFragment"
             android:label="DetailRestokFragment" >
             <argument
                 android:name="restockDetail"
@@ -133,7 +133,7 @@
         </fragment>
         <fragment
             android:id="@+id/tambahRestokFragment"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.tambahRestok.TambahRestokFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.tambahRestok.TambahRestokPabrikFragment"
             android:label="fragment_tambah_restok"
             tools:layout="@layout/fragment_tambah_restok" >
             <action
@@ -145,7 +145,7 @@
         </fragment>
         <fragment
             android:id="@+id/topProductFragment"
-            android:name="com.polije.sosrobahufactoryapp.ui.factory.home.produkTerlaris.TopProductFragment"
+            android:name="com.polije.sosrobahufactoryapp.ui.factory.home.produkTerlaris.TopProductPabrikFragment"
             android:label="fragment_top_product"
             tools:layout="@layout/fragment_top_product" >
             <argument android:name="listTopProduct"

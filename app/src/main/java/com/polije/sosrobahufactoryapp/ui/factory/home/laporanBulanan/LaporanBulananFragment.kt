@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.ui.factory.FactoryActivity
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.LaporanBulanan
-import com.polije.sosrobahufactoryapp.ui.factory.home.component.LaporanBulananAdapter
+import com.polije.sosrobahufactoryapp.ui.factory.home.component.LaporanBulananPabrikAdapter
 
 class LaporanBulananFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var laporanAdapter: LaporanBulananAdapter
+    private lateinit var laporanAdapter: LaporanBulananPabrikAdapter
     // laporanList akan digunakan sebagai data yang ditampilkan saat ini
     private var laporanList = mutableListOf<LaporanBulanan>()
     // allLaporanList sebagai data master (seluruh data)
@@ -42,7 +42,7 @@ class LaporanBulananFragment : Fragment() {
         // Inisialisasi laporanList dengan semua data
         laporanList.addAll(allLaporanList)
 
-        laporanAdapter = LaporanBulananAdapter(laporanList)
+        laporanAdapter = LaporanBulananPabrikAdapter(laporanList)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = laporanAdapter
 
