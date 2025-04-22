@@ -31,8 +31,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center_vertical"
-            android:justifyContent="space-between">
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/textView"
@@ -50,8 +49,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
-                android:src="@drawable/ic_print_24"
-            android:contentDescription="Cetak" />
+                android:src="@drawable/ic_print_24"/>
         </LinearLayout>
 
 

@@ -1,0 +1,100 @@
+package com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.tambahRestok
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import com.polije.sosrobahufactoryapp.databinding.FragmentTambahRestokBinding
+import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component.TambahRestokPabrikAdapter
+import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component.TambahRestokPabrikAdapter.OnQuantityChangeListener
+import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.SelectedProdukRestok
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
+class TambahRestokPabrikFragment : Fragment() {
+
+    private lateinit var tambahRestokPabrikAdapter: TambahRestokPabrikAdapter
+    private var _binding: FragmentTambahRestokBinding? = null
+    private val binding get() = _binding!!
+
+    private val tambahRestokPabrikViewModel: TambahRestokPabrikViewModel by viewModel()
+
+    private val args: TambahRestokPabrikFragmentArgs by navArgs()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentTambahRestokBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        tambahRestokPabrikViewModel.initialProdukRestock(args.listProdukTerpilih.data)
+        tambahRestokPabrikAdapter = TambahRestokPabrikAdapter(object : OnQuantityChangeListener {
+            override fun onQuantityChanged(
+                produk: SelectedProdukRestok,
+                newQty: Int
+            ) {
+                tambahRestokPabrikViewModel.updateQuantity(produk.item.idMasterBarang, newQty)
+            }
+
+        })
+        binding.recyclerViewTambahRestok.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewTambahRestok.adapter = tambahRestokPabrikAdapter
+
+        lifecycleScope.launch {
+            tambahRestokPabrikViewModel.state.collectLatest { state ->
+                when (state) {
+                    TambahRestokPabrikState.Failure -> {
+                        binding.btnTambahRestok.isEnabled = false
+
+                    }
+
+                    TambahRestokPabrikState.Initial -> {}
+                    TambahRestokPabrikState.Loading -> {
+                        binding.progressBar3.visibility = View.VISIBLE
+                        binding.btnTambahRestok.isEnabled = true
+                    }
+
+                    TambahRestokPabrikState.Success -> {
+                        binding.btnTambahRestok.isEnabled = false
+                        binding.progressBar3.visibility = View.GONE
+                        Snackbar.make(
+                            binding.root, "Berhasil Mengingputkan data",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                        findNavController().navigateUp()
+                    }
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            tambahRestokPabrikViewModel.isValid.collectLatest { isValid ->
+                binding.btnTambahRestok.isEnabled = isValid
+            }
+        }
+
+        lifecycleScope.launch {
+            tambahRestokPabrikViewModel.produkRestock.collectLatest { data ->
+                tambahRestokPabrikAdapter.submitList(data)
+            }
+        }
+
+
+        // Tombol Tambah Restok kembali ke RiwayatFragment
+        binding.btnTambahRestok.setOnClickListener {
+            tambahRestokPabrikViewModel.insertRestock()
+        }
+    }
+}
+
