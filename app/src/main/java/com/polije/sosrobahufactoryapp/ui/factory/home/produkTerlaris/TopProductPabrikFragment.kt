@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.databinding.FragmentTopProductBinding
-import com.polije.sosrobahufactoryapp.data.model.TopSellingProduct
+import com.polije.sosrobahufactoryapp.data.model.pabrik.TopSellingProduct
 import com.polije.sosrobahufactoryapp.ui.factory.home.component.TopSellingProductPabrikAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

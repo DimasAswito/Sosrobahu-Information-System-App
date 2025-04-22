@@ -1,6 +1,6 @@
 package com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan
 
-import com.polije.sosrobahufactoryapp.data.model.DetailOrderResponse
+import com.polije.sosrobahufactoryapp.data.model.pabrik.DetailOrderResponse
 
 sealed class DetailPesananPabrikState {
     data class Success(val data: DetailOrderResponse) : DetailPesananPabrikState()

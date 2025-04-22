@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.data.model.LaporanBulanan
+import com.polije.sosrobahufactoryapp.data.model.pabrik.LaporanBulanan
 
 class LaporanBulananPabrikAdapter(private val laporanList: List<LaporanBulanan>) :
     RecyclerView.Adapter<LaporanBulananPabrikAdapter.ViewHolder>() {

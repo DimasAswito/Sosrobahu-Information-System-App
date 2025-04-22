@@ -3,7 +3,7 @@ package com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.polije.sosrobahufactoryapp.data.model.DetailProdukItem
+import com.polije.sosrobahufactoryapp.data.model.pabrik.DetailProdukItem
 import com.polije.sosrobahufactoryapp.databinding.DetailRestockItemBinding
 
 class DetailRestockPabrikAdapter(private val listDetailRestoctItem : List<DetailProdukItem?>) : RecyclerView.Adapter<DetailRestockPabrikAdapter.ProdukViewHolder>() {

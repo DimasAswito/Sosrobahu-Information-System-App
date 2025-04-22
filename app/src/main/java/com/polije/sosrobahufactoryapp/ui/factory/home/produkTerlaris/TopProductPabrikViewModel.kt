@@ -1,9 +1,9 @@
 package com.polije.sosrobahufactoryapp.ui.factory.home.produkTerlaris
 
-import DashboardPabrikResponse
+import DashboardResponse
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.polije.sosrobahufactoryapp.data.model.TopSellingProduct
+import com.polije.sosrobahufactoryapp.data.model.pabrik.TopSellingProduct
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -12,7 +12,7 @@ class TopProductPabrikViewModel : ViewModel() {
     private val _topProducts = MutableStateFlow<List<TopSellingProduct>>(emptyList())
     val topProducts: StateFlow<List<TopSellingProduct>> = _topProducts
 
-    fun setDashboardData(dashboard: DashboardPabrikResponse) {
+    fun setDashboardData(dashboard: DashboardResponse) {
         val namaList = dashboard.namaRokokList
         val gambarList = dashboard.gambarRokokList
         val stokList = dashboard.totalProdukList

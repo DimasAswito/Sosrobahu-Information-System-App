@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.polije.sosrobahufactoryapp.data.model.PesananMasukItem
+import com.polije.sosrobahufactoryapp.data.model.pabrik.PesananMasukItem
 import com.polije.sosrobahufactoryapp.databinding.FragmentPesananBinding
 import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.PesananPabrikAdapter
 import kotlinx.coroutines.flow.collectLatest

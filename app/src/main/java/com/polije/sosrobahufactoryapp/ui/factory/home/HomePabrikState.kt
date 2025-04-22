@@ -1,12 +1,12 @@
 package com.polije.sosrobahufactoryapp.ui.factory.home
 
-import DashboardPabrikResponse
+import DashboardResponse
 import PesananPerBulan
 
 
 sealed class HomePabrikState {
     data class Success(
-        val dashboardPabrik: DashboardPabrikResponse,
+        val dashboardPabrik: DashboardResponse,
         val pendapatanBulanan: Map<String, PesananPerBulan>
     ) : HomePabrikState()
 

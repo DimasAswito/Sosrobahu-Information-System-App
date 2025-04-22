@@ -12,7 +12,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.polije.sosrobahufactoryapp.BuildConfig.PICTURE_BASE_URL
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.data.model.TopSellingProduct
+import com.polije.sosrobahufactoryapp.data.model.pabrik.TopSellingProduct
 
 class TopSellingProductPabrikAdapter :
     ListAdapter<TopSellingProduct, TopSellingProductPabrikAdapter.ViewHolder>(DIFF_CALLBACK) {

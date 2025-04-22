@@ -1,21 +1,21 @@
-package com.polije.sosrobahufactoryapp.data.pabrik.repository
+package com.polije.sosrobahufactoryapp.data.repository
 
-import DashboardPabrikResponse
+import DashboardResponse
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.polije.sosrobahufactoryapp.data.model.DetailOrderResponse
+import com.polije.sosrobahufactoryapp.data.model.pabrik.DetailOrderResponse
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
-import com.polije.sosrobahufactoryapp.data.model.PesananMasukItem
-import com.polije.sosrobahufactoryapp.data.model.ProdukRestok
-import com.polije.sosrobahufactoryapp.data.model.RiwayatRestockItem
-import com.polije.sosrobahufactoryapp.data.model.UpdateDetailPesananRequest
-import com.polije.sosrobahufactoryapp.data.model.UpdateDetailPesananResponse
-import com.polije.sosrobahufactoryapp.data.pabrik.source.local.TokenManager
-import com.polije.sosrobahufactoryapp.data.pabrik.source.remote.PabrikDatasource
-import com.polije.sosrobahufactoryapp.data.pabrik.source.remote.paging.PesananMasukPagingSource
-import com.polije.sosrobahufactoryapp.data.pabrik.source.remote.paging.RiwayatRestockPagingSource
+import com.polije.sosrobahufactoryapp.data.model.pabrik.PesananMasukItem
+import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestok
+import com.polije.sosrobahufactoryapp.data.model.pabrik.RiwayatRestockItem
+import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRequest
+import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananResponse
+import com.polije.sosrobahufactoryapp.data.datasource.local.TokenManager
+import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.PabrikDatasource
+import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.PesananMasukPagingSource
+import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.RiwayatRestockPagingSource
 import com.polije.sosrobahufactoryapp.domain.pabrik.repositiory.PabrikRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import kotlinx.coroutines.flow.Flow
@@ -37,7 +37,7 @@ class PabrikRepositoryImpl(val pabrikDatasource: PabrikDatasource, val tokenMana
         }
     }
 
-    override suspend fun getDashboardPabrik(): DataResult<DashboardPabrikResponse, String> {
+    override suspend fun getDashboardPabrik(): DataResult<DashboardResponse, String> {
 
         return try {
             val token = tokenManager.getToken().first()

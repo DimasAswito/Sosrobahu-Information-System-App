@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.polije.sosrobahufactoryapp.data.model.ItemNotaItem
+import com.polije.sosrobahufactoryapp.data.model.pabrik.ItemNotaItem
 import com.polije.sosrobahufactoryapp.databinding.DetailPesananItemBinding
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 

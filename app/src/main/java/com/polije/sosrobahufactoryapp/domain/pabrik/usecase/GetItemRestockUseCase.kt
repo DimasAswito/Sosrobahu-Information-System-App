@@ -1,6 +1,6 @@
 package com.polije.sosrobahufactoryapp.domain.pabrik.usecase
 
-import com.polije.sosrobahufactoryapp.data.model.ProdukRestok
+import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestok
 import com.polije.sosrobahufactoryapp.domain.pabrik.repositiory.PabrikRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
 

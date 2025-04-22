@@ -8,7 +8,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.data.model.PesananMasukItem
+import com.polije.sosrobahufactoryapp.data.model.pabrik.PesananMasukItem
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 
 class PesananPabrikAdapter(val onItemClickListener: OnItemClickListener) :

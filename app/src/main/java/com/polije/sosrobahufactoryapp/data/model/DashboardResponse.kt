@@ -1,5 +1,3 @@
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -35,7 +33,7 @@ data class PesananPerBulan(
 )
 
 @Serializable
-data class DashboardPabrikResponse(
+data class DashboardResponse(
     @SerialName("barangPabriks") val barangPabriks: List<BarangPabrik>,
     @SerialName("namaRokokList") val namaRokokList: List<String>,
     @SerialName("gambarRokokList") val gambarRokokList: List<String>,

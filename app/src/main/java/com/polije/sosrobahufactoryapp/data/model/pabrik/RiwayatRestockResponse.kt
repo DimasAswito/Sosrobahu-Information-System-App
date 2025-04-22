@@ -1,6 +1,5 @@
-package com.polije.sosrobahufactoryapp.data.model
+package com.polije.sosrobahufactoryapp.data.model.pabrik
 
-import android.os.Parcel
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable

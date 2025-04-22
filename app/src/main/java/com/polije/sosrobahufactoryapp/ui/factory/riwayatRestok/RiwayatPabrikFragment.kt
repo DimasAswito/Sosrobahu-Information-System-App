@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.data.model.RiwayatRestockItem
+import com.polije.sosrobahufactoryapp.data.model.pabrik.RiwayatRestockItem
 import com.polije.sosrobahufactoryapp.databinding.FragmentRiwayatBinding
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component.RiwayatRestokPabrikAdapter
 import kotlinx.coroutines.flow.collectLatest

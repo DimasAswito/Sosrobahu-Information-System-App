@@ -1,6 +1,6 @@
 package com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok
 
-import com.polije.sosrobahufactoryapp.data.model.ProdukRestok
+import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestok
 
 sealed class PilihProdukRestockPabrikState {
         object Loading : PilihProdukRestockPabrikState()

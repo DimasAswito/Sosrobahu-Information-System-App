@@ -1,4 +1,4 @@
-package com.polije.sosrobahufactoryapp.data.model
+package com.polije.sosrobahufactoryapp.data.model.pabrik
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

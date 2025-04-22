@@ -37,7 +37,7 @@
             tools:layout="@layout/fragment_detail_pesanan" >
             <argument
                 android:name="detailPesanan"
-                app:argType="com.polije.sosrobahufactoryapp.data.model.PesananMasukItem" />
+                app:argType="com.polije.sosrobahufactoryapp.data.model.pabrik.PesananMasukItem" />
         </fragment>
         <fragment
             android:id="@+id/navigation_riwayat"
@@ -120,7 +120,7 @@
             android:label="DetailRestokFragment" >
             <argument
                 android:name="restockDetail"
-                app:argType="com.polije.sosrobahufactoryapp.data.model.RiwayatRestockItem" />
+                app:argType="com.polije.sosrobahufactoryapp.data.model.pabrik.RiwayatRestockItem" />
         </fragment>
         <fragment
             android:id="@+id/pilihProdukRestokFragment"
@@ -149,7 +149,7 @@
             android:label="fragment_top_product"
             tools:layout="@layout/fragment_top_product" >
             <argument android:name="listTopProduct"
-                app:argType="com.polije.sosrobahufactoryapp.data.model.ListTopSellingProduct" />
+                app:argType="com.polije.sosrobahufactoryapp.data.model.pabrik.ListTopSellingProduct" />
         </fragment>
     </navigation>
 

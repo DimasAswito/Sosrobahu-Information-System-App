@@ -1,12 +1,11 @@
 package com.polije.sosrobahufactoryapp.di
 
 import com.polije.sosrobahufactoryapp.BuildConfig
-import com.polije.sosrobahufactoryapp.data.pabrik.source.remote.PabrikDatasource
+import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.PabrikDatasource
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory

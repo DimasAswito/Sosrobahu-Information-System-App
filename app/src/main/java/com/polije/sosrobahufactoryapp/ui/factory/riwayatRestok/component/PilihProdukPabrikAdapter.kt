@@ -12,8 +12,8 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.polije.sosrobahufactoryapp.BuildConfig.PICTURE_BASE_URL
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.data.model.ProdukRestok
-import com.polije.sosrobahufactoryapp.data.model.ProdukRestokItem
+import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestok
+import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestokItem
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.SelectedProdukRestok
 class PilihProdukPabrikAdapter(
     private val produkList: ProdukRestok,

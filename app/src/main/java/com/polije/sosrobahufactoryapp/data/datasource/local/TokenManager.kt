@@ -1,4 +1,4 @@
-package com.polije.sosrobahufactoryapp.data.pabrik.source.local
+package com.polije.sosrobahufactoryapp.data.datasource.local
 
 import android.content.Context
 import androidx.datastore.core.DataStore

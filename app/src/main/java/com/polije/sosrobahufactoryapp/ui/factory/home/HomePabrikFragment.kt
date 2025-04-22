@@ -21,8 +21,8 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.polije.sosrobahufactoryapp.BuildConfig.PICTURE_BASE_URL
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.data.model.ListTopSellingProduct
-import com.polije.sosrobahufactoryapp.data.model.TopSellingProduct
+import com.polije.sosrobahufactoryapp.data.model.pabrik.ListTopSellingProduct
+import com.polije.sosrobahufactoryapp.data.model.pabrik.TopSellingProduct
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeBinding
 import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginActivity
 import com.polije.sosrobahufactoryapp.utils.toRupiah

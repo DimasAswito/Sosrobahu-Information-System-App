@@ -9,7 +9,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.data.model.RiwayatRestockItem
+import com.polije.sosrobahufactoryapp.data.model.pabrik.RiwayatRestockItem
 import com.polije.sosrobahufactoryapp.utils.toTanggalIndonesia
 
 class RiwayatRestokPabrikAdapter(private val onRiwayatItemClicked: OnRiwayatItemClicked) :

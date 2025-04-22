@@ -1,6 +1,6 @@
 package com.polije.sosrobahufactoryapp.di
 
-import com.polije.sosrobahufactoryapp.data.pabrik.repository.PabrikRepositoryImpl
+import com.polije.sosrobahufactoryapp.data.repository.PabrikRepositoryImpl
 import com.polije.sosrobahufactoryapp.domain.pabrik.repositiory.PabrikRepository
 import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.DashboardUseCase
 import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.DetailPesananMasukUseCase

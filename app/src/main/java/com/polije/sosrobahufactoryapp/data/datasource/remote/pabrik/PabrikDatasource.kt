@@ -1,15 +1,15 @@
-package com.polije.sosrobahufactoryapp.data.pabrik.source.remote
+package com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik
 
-import DashboardPabrikResponse
-import com.polije.sosrobahufactoryapp.data.model.DetailOrderResponse
-import com.polije.sosrobahufactoryapp.data.model.InsertRestockResponse
+import DashboardResponse
+import com.polije.sosrobahufactoryapp.data.model.pabrik.DetailOrderResponse
+import com.polije.sosrobahufactoryapp.data.model.pabrik.InsertRestockResponse
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
-import com.polije.sosrobahufactoryapp.data.model.PesananMasukResponse
-import com.polije.sosrobahufactoryapp.data.model.ProdukRestok
-import com.polije.sosrobahufactoryapp.data.model.RiwayatRestockResponse
-import com.polije.sosrobahufactoryapp.data.model.UpdateDetailPesananRequest
-import com.polije.sosrobahufactoryapp.data.model.UpdateDetailPesananResponse
+import com.polije.sosrobahufactoryapp.data.model.pabrik.PesananMasukResponse
+import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestok
+import com.polije.sosrobahufactoryapp.data.model.pabrik.RiwayatRestockResponse
+import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRequest
+import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -22,7 +22,7 @@ interface PabrikDatasource {
     suspend fun login(@Body request: LoginRequest): LoginResponse
 
     @GET("pabrik/dashboard")
-    suspend fun getDashboardPabrik(@Header("Authorization") token: String): DashboardPabrikResponse
+    suspend fun getDashboardPabrik(@Header("Authorization") token: String): DashboardResponse
 
     @GET("pabrik/pesananMasuk")
     suspend fun getPesananMasuk(
