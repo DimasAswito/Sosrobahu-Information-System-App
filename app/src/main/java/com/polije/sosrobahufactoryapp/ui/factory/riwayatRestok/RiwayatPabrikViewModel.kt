@@ -3,7 +3,7 @@ package com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.RiwayatRestokUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.RiwayatRestokUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow

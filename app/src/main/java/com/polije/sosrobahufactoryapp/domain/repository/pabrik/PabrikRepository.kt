@@ -1,16 +1,15 @@
-package com.polije.sosrobahufactoryapp.domain.pabrik.repositiory
+package com.polije.sosrobahufactoryapp.domain.repository.pabrik
 
 import DashboardResponse
 import androidx.paging.PagingData
-import com.polije.sosrobahufactoryapp.data.model.pabrik.DetailOrderResponse
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
+import com.polije.sosrobahufactoryapp.data.model.pabrik.DetailOrderResponse
 import com.polije.sosrobahufactoryapp.data.model.pabrik.PesananMasukItem
 import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestok
 import com.polije.sosrobahufactoryapp.data.model.pabrik.RiwayatRestockItem
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananResponse
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import kotlinx.coroutines.flow.Flow
-
 
 interface PabrikRepository {
     suspend fun login(username: String, password: String): DataResult<LoginResponse, String>

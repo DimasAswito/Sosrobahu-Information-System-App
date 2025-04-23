@@ -1,8 +1,8 @@
-package com.polije.sosrobahufactoryapp.domain.pabrik.usecase
+package com.polije.sosrobahufactoryapp.domain.usecase.pabrik
 
 import androidx.paging.PagingData
 import com.polije.sosrobahufactoryapp.data.model.pabrik.RiwayatRestockItem
-import com.polije.sosrobahufactoryapp.domain.pabrik.repositiory.PabrikRepository
+import com.polije.sosrobahufactoryapp.domain.repository.pabrik.PabrikRepository
 import kotlinx.coroutines.flow.Flow
 
 class RiwayatRestokUseCase(private val pabrikRepository: PabrikRepository) {

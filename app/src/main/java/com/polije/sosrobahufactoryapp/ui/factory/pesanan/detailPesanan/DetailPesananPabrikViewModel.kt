@@ -2,8 +2,8 @@ package com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.DetailPesananMasukUseCase
-import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.UpdatePesananUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DetailPesananMasukUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UpdatePesananUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow

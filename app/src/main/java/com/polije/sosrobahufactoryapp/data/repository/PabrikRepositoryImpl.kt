@@ -16,7 +16,7 @@ import com.polije.sosrobahufactoryapp.data.datasource.local.TokenManager
 import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.PabrikDatasource
 import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.PesananMasukPagingSource
 import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.RiwayatRestockPagingSource
-import com.polije.sosrobahufactoryapp.domain.pabrik.repositiory.PabrikRepository
+import com.polije.sosrobahufactoryapp.domain.repository.pabrik.PabrikRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first

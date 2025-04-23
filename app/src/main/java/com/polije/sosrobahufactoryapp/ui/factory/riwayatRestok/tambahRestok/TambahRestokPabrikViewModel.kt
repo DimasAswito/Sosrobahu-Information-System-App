@@ -2,7 +2,7 @@ package com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.tambahRestok
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.InsertRestockUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.InsertRestockUseCase
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.SelectedProdukRestok
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import kotlinx.coroutines.flow.MutableStateFlow

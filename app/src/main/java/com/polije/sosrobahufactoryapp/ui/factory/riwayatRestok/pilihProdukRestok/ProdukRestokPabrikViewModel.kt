@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestokItem
-import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.GetItemRestockUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.GetItemRestockUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted

@@ -1,16 +1,16 @@
 package com.polije.sosrobahufactoryapp.di
 
 import com.polije.sosrobahufactoryapp.data.repository.PabrikRepositoryImpl
-import com.polije.sosrobahufactoryapp.domain.pabrik.repositiory.PabrikRepository
-import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.DashboardUseCase
-import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.DetailPesananMasukUseCase
-import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.GetItemRestockUseCase
-import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.InsertRestockUseCase
-import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.LoginUseCase
-import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.PesananMasukUseCase
-import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.RiwayatRestokUseCase
-import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.TokenUseCase
-import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.UpdatePesananUseCase
+import com.polije.sosrobahufactoryapp.domain.repository.pabrik.PabrikRepository
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DashboardUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DetailPesananMasukUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.GetItemRestockUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.InsertRestockUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.LoginUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.PesananMasukUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.RiwayatRestokUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.TokenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UpdatePesananUseCase
 import com.polije.sosrobahufactoryapp.ui.factory.home.HomePabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.home.produkTerlaris.TopProductPabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginViewModel

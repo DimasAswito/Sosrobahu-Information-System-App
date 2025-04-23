@@ -3,8 +3,8 @@ package com.polije.sosrobahufactoryapp.ui.factory.home
 import PesananPerBulan
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.DashboardUseCase
-import com.polije.sosrobahufactoryapp.domain.pabrik.usecase.TokenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DashboardUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.TokenUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
