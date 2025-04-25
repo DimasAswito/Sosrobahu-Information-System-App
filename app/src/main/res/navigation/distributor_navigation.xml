@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/distributor_navigation"
+    app:startDestination="@id/homeDistributorFragment">
+
+    <fragment
+        android:id="@+id/homeDistributorFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.home.HomeDistributorFragment"
+        android:label="fragment_home_distributor"
+        tools:layout="@layout/fragment_home_distributor" >
+        <action
+            android:id="@+id/action_homeDistributorFragment_to_stockDistributorRankFragment"
+            app:destination="@id/stockDistributorRankFragment" />
+        <action
+            android:id="@+id/action_homeDistributorFragment_to_pesananDistributorFragment"
+            app:destination="@id/pesananDistributorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stockDistributorRankFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.home.peringkatStok.StockDistributorRankFragment"
+        android:label="fragment_stock_distributor_rank"
+        tools:layout="@layout/fragment_stock_distributor_rank" />
+    <fragment
+        android:id="@+id/orderDistributorFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.order.OrderDistributorFragment"
+        android:label="fragment_order_distributor"
+        tools:layout="@layout/fragment_order_distributor" >
+        <action
+            android:id="@+id/action_orderDistributorFragment_to_detailOrderDistributorFragment"
+            app:destination="@id/detailOrderDistributorFragment" />
+        <action
+            android:id="@+id/action_orderDistributorFragment_to_pilihProdukDistributorFragment"
+            app:destination="@id/pilihProdukDistributorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailOrderDistributorFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.order.detailOrder.DetailOrderDistributorFragment"
+        android:label="fragment_detail_order_distributor"
+        tools:layout="@layout/fragment_detail_order_distributor" />
+    <fragment
+        android:id="@+id/detailPesananDistributorFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.pesanan.detailPesanan.DetailPesananDistributorFragment"
+        android:label="fragment_detail_pesanan_distributor"
+        tools:layout="@layout/fragment_detail_pesanan_distributor" />
+    <fragment
+        android:id="@+id/pesananDistributorFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.pesanan.PesananDistributorFragment"
+        android:label="fragment_pesanan_distributor"
+        tools:layout="@layout/fragment_pesanan_distributor" >
+        <action
+            android:id="@+id/action_pesananDistributorFragment_to_detailPesananDistributorFragment"
+            app:destination="@id/detailPesananDistributorFragment" />
+        <action
+            android:id="@+id/action_pesananDistributorFragment_to_orderDistributorFragment"
+            app:destination="@id/orderDistributorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pilihProdukDistributorFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.PilihProdukDistributorFragment"
+        android:label="fragment_pilih_produk_distributor"
+        tools:layout="@layout/fragment_pilih_produk_distributor" >
+        <action
+            android:id="@+id/action_pilihProdukDistributorFragment_to_tambahOrderDistributorFragment"
+            app:destination="@id/tambahOrderDistributorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tambahOrderDistributorFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.order.tambahOrder.TambahOrderDistributorFragment"
+        android:label="fragment_tambah_order_distributor"
+        tools:layout="@layout/fragment_tambah_order_distributor" >
+        <action
+            android:id="@+id/action_tambahOrderDistributorFragment_to_orderDistributorFragment"
+            app:destination="@id/orderDistributorFragment" />
+    </fragment>
+</navigation>

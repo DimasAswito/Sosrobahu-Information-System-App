@@ -26,6 +26,6 @@ class OrderDistributorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_order_pabrik, container, false)
+        return inflater.inflate(R.layout.fragment_order_distributor, container, false)
     }
 }

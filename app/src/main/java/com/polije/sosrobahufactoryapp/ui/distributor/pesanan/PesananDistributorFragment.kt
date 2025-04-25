@@ -26,6 +26,6 @@ class PesananDistributorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_pesanan_agen, container, false)
+        return inflater.inflate(R.layout.fragment_pesanan_distributor, container, false)
     }
 }
