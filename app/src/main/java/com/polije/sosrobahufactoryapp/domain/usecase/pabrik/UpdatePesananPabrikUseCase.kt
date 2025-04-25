@@ -4,7 +4,7 @@ import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRespo
 import com.polije.sosrobahufactoryapp.domain.repository.pabrik.PabrikRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
 
-class UpdatePesananUseCase(private val repository: PabrikRepository) {
+class UpdatePesananPabrikUseCase(private val repository: PabrikRepository) {
     suspend operator fun invoke(
         idOrder: Int,
         status: Int

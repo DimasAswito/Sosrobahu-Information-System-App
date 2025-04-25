@@ -3,8 +3,8 @@ package com.polije.sosrobahufactoryapp.ui.factory.home
 import PesananPerBulan
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DashboardUseCase
-import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.TokenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DashboardPabrikUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.TokenPabrikUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 import kotlin.time.Duration.Companion.seconds
 
-class HomePabrikViewModel(val dashboardUseCase: DashboardUseCase, val tokenUseCase: TokenUseCase) :
+class HomePabrikViewModel(val dashboardPabrikUseCase: DashboardPabrikUseCase, val tokenPabrikUseCase: TokenPabrikUseCase) :
     ViewModel() {
 
     private val _state = MutableStateFlow<HomePabrikState>(HomePabrikState.Initial)
@@ -33,14 +33,14 @@ class HomePabrikViewModel(val dashboardUseCase: DashboardUseCase, val tokenUseCa
     fun getDashboardPabrik() {
         viewModelScope.launch {
             _state.value = HomePabrikState.Loading
-            val token = tokenUseCase.getToken()
+            val token = tokenPabrikUseCase.getToken()
             if (token == null) {
                 _state.value = HomePabrikState.Failure("Token Tidak Berlaku")
                 return@launch
             } else {
 
                 try {
-                    val response = dashboardUseCase.invoke()
+                    val response = dashboardPabrikUseCase.invoke()
                     when (response) {
                         is DataResult.Error -> _state.value =
                             HomePabrikState.Failure(

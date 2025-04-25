@@ -4,7 +4,7 @@ import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestokItem
-import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.GetItemRestockUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.GetItemRestockPabrikUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import kotlin.time.Duration.Companion.seconds
 
-class ProdukRestokPabrikViewModel(private val getItemRestockUseCase: GetItemRestockUseCase) :
+class ProdukRestokPabrikViewModel(private val getItemRestockPabrikUseCase: GetItemRestockPabrikUseCase) :
     ViewModel() {
 
     private val _productsState =
@@ -36,7 +36,7 @@ class ProdukRestokPabrikViewModel(private val getItemRestockUseCase: GetItemRest
         viewModelScope.launch {
             _productsState.value = PilihProdukRestockPabrikState.Loading
             try {
-                val result = getItemRestockUseCase.invoke()
+                val result = getItemRestockPabrikUseCase.invoke()
                 when (result) {
                     is DataResult.Error -> _productsState.value =
                         PilihProdukRestockPabrikState.Error(result.message ?: "Terjadi kesalahan")

@@ -2,7 +2,7 @@ package com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.tambahRestok
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.InsertRestockUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.InsertRestockPabrikUseCase
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.SelectedProdukRestok
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class TambahRestokPabrikViewModel(private val insertRestockUseCase: InsertRestockUseCase) : ViewModel() {
+class TambahRestokPabrikViewModel(private val insertRestockPabrikUseCase: InsertRestockPabrikUseCase) : ViewModel() {
 
     private val _produkRestock = MutableStateFlow<List<SelectedProdukRestok>>(emptyList())
     val produkRestock : StateFlow<List<SelectedProdukRestok>> get() = _produkRestock
@@ -34,7 +34,7 @@ class TambahRestokPabrikViewModel(private val insertRestockUseCase: InsertRestoc
         _state.value = TambahRestokPabrikState.Loading
 
         viewModelScope.launch {
-            val result = insertRestockUseCase.invoke(orders)
+            val result = insertRestockPabrikUseCase.invoke(orders)
 
             when (result) {
                 is DataResult.Error -> {

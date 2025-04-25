@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentHargaProdukBinding
-import com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.component.ProdukPabrikAdapter
 
 class HargaProdukPabrikFragment : Fragment() {
 
@@ -35,9 +34,9 @@ class HargaProdukPabrikFragment : Fragment() {
         // Dummy data produk
 
 
-        val produkPabrikAdapter = ProdukPabrikAdapter(viewModel.produkList.value)
-        binding.recyclerViewHarga.layoutManager = GridLayoutManager(requireContext(), 2)
-        binding.recyclerViewHarga.adapter = produkPabrikAdapter
+//        val produkPabrikAdapter = ProdukPabrikAdapter(viewModel.produkList.value)
+//        binding.recyclerViewHarga.layoutManager = GridLayoutManager(requireContext(), 2)
+//        binding.recyclerViewHarga.adapter = produkPabrikAdapter
 
         binding.fabTambahProduk.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_harga_to_tambahProdukFragment)
@@ -49,7 +48,7 @@ class HargaProdukPabrikFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                produkPabrikAdapter.filter(newText ?: "")
+//                produkPabrikAdapter.filter(newText ?: "")
                 return true
             }
         })

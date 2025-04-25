@@ -5,6 +5,6 @@ import com.polije.sosrobahufactoryapp.data.model.pabrik.PesananMasukItem
 import com.polije.sosrobahufactoryapp.domain.repository.pabrik.PabrikRepository
 import kotlinx.coroutines.flow.Flow
 
-class PesananMasukUseCase(private val pabrikRepository: PabrikRepository) {
+class PesananMasukPabrikUseCase(private val pabrikRepository: PabrikRepository) {
     operator fun invoke() : Flow<PagingData<PesananMasukItem>> = pabrikRepository.getPesananMasuk()
 }

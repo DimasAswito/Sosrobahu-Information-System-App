@@ -2,8 +2,8 @@ package com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DetailPesananMasukUseCase
-import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UpdatePesananUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DetailPesananMasukPabrikUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UpdatePesananPabrikUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,8 +12,8 @@ import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
 
 class DetailPesananPabrikViewModel(
-    private val getDetailPesananMasukUseCase: DetailPesananMasukUseCase,
-    private val updateDetailPesananMasukUseCase: UpdatePesananUseCase
+    private val getDetailPesananMasukPabrikUseCase: DetailPesananMasukPabrikUseCase,
+    private val updateDetailPesananMasukUseCase: UpdatePesananPabrikUseCase
 ) : ViewModel() {
     private val _detailPesanan = MutableStateFlow<DetailPesananPabrikState>(DetailPesananPabrikState.Initial)
     val detailPesanan get() = _detailPesanan.asStateFlow()
@@ -28,7 +28,7 @@ class DetailPesananPabrikViewModel(
         _detailPesanan.value = DetailPesananPabrikState.Loading
         viewModelScope.launch {
             try {
-                val data = getDetailPesananMasukUseCase.invoke(idOrder)
+                val data = getDetailPesananMasukPabrikUseCase.invoke(idOrder)
                 when (data) {
                     is DataResult.Error -> _detailPesanan.value =
                         DetailPesananPabrikState.Failure(data.message)

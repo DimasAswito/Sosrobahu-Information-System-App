@@ -2,7 +2,7 @@ package com.polije.sosrobahufactoryapp.ui.factory.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.LoginUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.LoginPabrikUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class FactoryLoginViewModel(private val loginUseCase: LoginUseCase) : ViewModel() {
+class FactoryLoginViewModel(private val loginPabrikUseCase: LoginPabrikUseCase) : ViewModel() {
 
     private val _factoryLoginInput = MutableStateFlow(FactoryLoginInput())
 
@@ -34,7 +34,7 @@ class FactoryLoginViewModel(private val loginUseCase: LoginUseCase) : ViewModel(
     fun login() {
         viewModelScope.launch {
             _loginState.update { LoginState.Loading }
-            val data = loginUseCase.invoke(
+            val data = loginPabrikUseCase.invoke(
                 _factoryLoginInput.value.username,
                 _factoryLoginInput.value.password
             )
