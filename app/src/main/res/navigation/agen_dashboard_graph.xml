@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/agen_dashboard_graph"
+    app:startDestination="@id/homeAgenFragment">
+
+    <fragment
+        android:id="@+id/homeAgenFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.agen.home.HomeAgenFragment"
+        android:label="fragment_home_agen"
+        tools:layout="@layout/fragment_home_agen" />
+    <fragment
+        android:id="@+id/orderAgenFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.agen.order.OrderAgenFragment"
+        android:label="fragment_order_agen"
+        tools:layout="@layout/fragment_order_agen">
+        <action
+            android:id="@+id/action_orderAgenFragment_to_detailOrderAgenFragment"
+            app:destination="@id/detailOrderAgenFragment" />
+        <action
+            android:id="@+id/action_orderAgenFragment_to_pilihProdukAgenFragment"
+            app:destination="@id/pilihProdukAgenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pesananAgenFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.agen.pesanan.PesananAgenFragment"
+        android:label="fragment_pesanan_agen"
+        tools:layout="@layout/fragment_pesanan_agen" />
+</navigation>

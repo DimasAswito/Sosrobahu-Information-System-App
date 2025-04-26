@@ -36,13 +36,15 @@ class ChooseRoleFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        binding.cvAgen.setOnClickListener{
+            val action = ChooseRoleFragmentDirections.actionChooseRoleFragmentToDistributorNavigation()
+            findNavController().navigate(action)
+        }
+
         binding.cvSales.setOnClickListener {
 
         }
 
-        binding.cvAgen.setOnClickListener{
-
-        }
     }
 
 

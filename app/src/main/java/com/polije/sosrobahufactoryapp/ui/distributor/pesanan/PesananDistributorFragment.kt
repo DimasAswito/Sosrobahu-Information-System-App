@@ -7,25 +7,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.databinding.FragmentPesananDistributorBinding
 
 class PesananDistributorFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = PesananDistributorFragment()
-    }
-
-    private val viewModel: PesananDistributorViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
+    private var _binding: FragmentPesananDistributorBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_pesanan_distributor, container, false)
+    ): View? {
+        _binding = FragmentPesananDistributorBinding.inflate(layoutInflater,container,false    )
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 }

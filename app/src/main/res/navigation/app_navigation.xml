@@ -16,7 +16,13 @@
         <action
             android:id="@+id/action_chooseRoleFragment_to_distributor_navigation"
             app:destination="@id/distributor_navigation" />
+        <action
+            android:id="@+id/action_chooseRoleFragment_to_agen_navigation"
+            app:destination="@id/agen_navigation" />
+
     </fragment>
     <include app:graph="@navigation/factory_navigation" />
     <include app:graph="@navigation/distributor_navigation" />
+    <include app:graph="@navigation/agen_navigation" />
+
 </navigation>

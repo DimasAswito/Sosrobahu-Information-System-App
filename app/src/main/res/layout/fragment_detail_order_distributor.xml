@@ -2,9 +2,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.distributor.order.detailOrder.DetailOrderDistributorFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.distributor.order.detailOrder.DetailOrderDistributorFragment">
 
     <LinearLayout
         android:id="@+id/topView"
