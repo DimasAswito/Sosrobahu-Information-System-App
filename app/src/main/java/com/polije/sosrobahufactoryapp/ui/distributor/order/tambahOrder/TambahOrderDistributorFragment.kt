@@ -6,26 +6,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.databinding.FragmentTambahOrderDistributorBinding
 
 class TambahOrderDistributorFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = TambahOrderDistributorFragment()
-    }
-
+    private var _binding: FragmentTambahOrderDistributorBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: TambahOrderDistributorViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_tambah_order_distributor, container, false)
+        _binding = FragmentTambahOrderDistributorBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
     }
 }

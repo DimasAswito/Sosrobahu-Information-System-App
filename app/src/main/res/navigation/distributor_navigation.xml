@@ -57,5 +57,8 @@
         <action
             android:id="@+id/action_dashboardDistributorFragment_to_pilihProdukDistributorFragment"
             app:destination="@id/pilihProdukDistributorFragment" />
+        <action
+            android:id="@+id/action_dashboardDistributorFragment_to_stockDistributorRankFragment"
+            app:destination="@id/stockDistributorRankFragment" />
     </fragment>
 </navigation>

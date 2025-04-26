@@ -1,52 +1,96 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.distributor.order.detailOrder.DetailOrderDistributorFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/topView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="@color/md_theme_primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <RelativeLayout
+            android:id="@+id/headerDetailPesanan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="6dp">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/circle_background"
+                android:src="@drawable/ic_arrow_back"
+                android:scaleType="center"
+                android:contentDescription="Tombol Kembali"
+                android:padding="8dp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Detail Order"
+                android:textColor="@color/md_theme_tertiaryFixedDim"
+                android:textSize="27sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/btnCetak"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/circle_background"
+                android:src="@drawable/ic_print_24"
+                android:scaleType="center"
+                android:contentDescription="Cetak"
+                android:padding="8dp" />
+        </RelativeLayout>
+    </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="8dp"
         android:elevation="4dp"
         android:padding="16dp"
-        app:cardCornerRadius="6dp">
+        app:cardCornerRadius="6dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topView">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Header Right: Download Button -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="end">
-
-                <Button
-                    android:id="@+id/btnCetak"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@android:color/holo_red_dark"
-                    android:text="Download PDF"
-                    android:textColor="@android:color/white" />
-            </LinearLayout>
-
-            <!-- Title and Metadata -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginTop="24dp"
-                android:gravity="end">
+                android:gravity="end"
+                android:orientation="vertical">
 
                 <TextView
-                    android:text="ORDER PRODUK"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"/>
+                    android:layout_marginEnd="8dp"
+                    android:text="ORDER PRODUK"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtTitle"
@@ -56,82 +100,85 @@
                     android:textAlignment="viewEnd" />
             </LinearLayout>
 
-            <!-- Table Header -->
             <LinearLayout
-                android:layout_marginTop="24dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="4dp"
                 android:background="#202D3A"
-                android:padding="8dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="8dp">
 
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Nama Produk"
                     android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:textStyle="bold" />
 
                 <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
                     android:text="Jumlah (Karton)"
                     android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:gravity="end"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
+                    android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- Table Content (Hardcoded rows as example) -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvListProduk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
                 android:orientation="vertical" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginVertical="8dp"
-                android:background="#646464"
-                />
-            <!-- Total -->
+                android:layout_marginHorizontal="4dp"
+                android:background="#646464" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="8dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="4dp"
+                android:paddingVertical="8dp">
 
                 <TextView
-                    android:text="Total Keseluruhan"
-                    android:textStyle="bold"
-                    android:layout_weight="1"
-                    android:layout_marginStart="8dp"
                     android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="Total Keseluruhan"
                     android:textSize="16sp"
-                    android:layout_height="wrap_content" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtJumlah"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginEnd="8dp"
-                    android:textSize="16sp"
+                    android:layout_weight="1"
                     android:gravity="end"
                     android:textColor="@android:color/black"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- Footer -->
             <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
                 android:layout_marginTop="16dp"
                 android:text="Detail riwayat order produk ini adalah dokumen yang dicetak secara otomatis oleh sistem berdasarkan data yang diinput oleh perusahaan."
-                android:textSize="12sp"
                 android:textColor="#555"
-                android:layout_marginHorizontal="4dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:textSize="12sp" />
+
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

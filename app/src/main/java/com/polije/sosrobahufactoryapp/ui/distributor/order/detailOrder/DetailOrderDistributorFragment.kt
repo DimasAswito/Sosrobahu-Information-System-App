@@ -6,26 +6,39 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.databinding.FragmentDetailOrderDistributorBinding
 
 class DetailOrderDistributorFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = DetailOrderDistributorFragment()
-    }
 
+    private var _binding: FragmentDetailOrderDistributorBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: DetailOrderDistributorViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+//    private val args: DetailOrderDistributorFragmentArgs by navArgs()
 
-        // TODO: Use the ViewModel
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_detail_order_distributor, container, false)
+        _binding = FragmentDetailOrderDistributorBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        binding.btnCetak.setOnClickListener {
+            Toast.makeText(requireContext(), "Mencetak riwayat...", Toast.LENGTH_SHORT).show()
+        }
     }
 }
