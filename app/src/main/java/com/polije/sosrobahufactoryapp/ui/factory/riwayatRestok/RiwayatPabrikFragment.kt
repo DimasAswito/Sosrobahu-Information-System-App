@@ -42,15 +42,6 @@ class RiwayatPabrikFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerViewRiwayat)
         val fabTambahRestok: FloatingActionButton = binding.fabTambahRestok
 
-        // Dummy Data
-//        riwayatList = mutableListOf(
-//            restock_pabrik("Produk A", "10 Februari 2025", 50, R.drawable.logo),
-//            restock_pabrik("Produk B", "8 Februari 2025", 30, R.drawable.logo),
-//            restock_pabrik("Produk C", "5 Februari 2025", 70, R.drawable.logo),
-//            restock_pabrik("Produk D", "3 Februari 2025", 40, R.drawable.logo)
-//        )
-
-
         riwayatAdapter =
             RiwayatRestokPabrikAdapter(object : RiwayatRestokPabrikAdapter.OnRiwayatItemClicked {
                 override fun onItemClick(item: RiwayatRestockItem) {
