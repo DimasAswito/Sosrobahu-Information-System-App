@@ -36,7 +36,9 @@ class PilihProdukRestokPabrikFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         lifecycleScope.launch {
             produkRestokViewModel.productsState.collectLatest { state ->

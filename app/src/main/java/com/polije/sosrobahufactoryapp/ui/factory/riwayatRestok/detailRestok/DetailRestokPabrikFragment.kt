@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
@@ -38,6 +39,10 @@ class DetailRestokPabrikFragment : Fragment() {
         binding.txtJumlah.text = args.restockDetail.jumlah
 
         binding.txtTitle.text = getString(R.string.detail_restock,args.restockDetail.tanggal.toString(),args.restockDetail.idRestock)
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         val adapter = DetailRestockPabrikAdapter(args.restockDetail.detailProduk)
         binding.rvListProduk.layoutManager = LinearLayoutManager(requireContext())

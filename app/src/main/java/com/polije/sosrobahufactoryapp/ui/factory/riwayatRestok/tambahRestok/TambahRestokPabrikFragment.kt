@@ -51,6 +51,10 @@ class TambahRestokPabrikFragment : Fragment() {
         binding.recyclerViewTambahRestok.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewTambahRestok.adapter = tambahRestokPabrikAdapter
 
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         lifecycleScope.launch {
             tambahRestokPabrikViewModel.state.collectLatest { state ->
                 when (state) {

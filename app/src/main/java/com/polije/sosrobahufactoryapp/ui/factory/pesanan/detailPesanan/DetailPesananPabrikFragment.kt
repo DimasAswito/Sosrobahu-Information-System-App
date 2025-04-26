@@ -113,6 +113,10 @@ class DetailPesananPabrikFragment : Fragment() {
 
         }
 
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         lifecycleScope.launch {
 
             detailPesananViewModel.detailPesanan.collectLatest { state ->
