@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.pabrik.PesananMasukItem
 import com.polije.sosrobahufactoryapp.databinding.FragmentPesananBinding
+import com.polije.sosrobahufactoryapp.ui.factory.dashboard.DashboardPabrikFragmentDirections
 import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.PesananPabrikAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -36,8 +39,8 @@ class PesananPabrikFragment : Fragment() {
         val pesananAdapter = PesananPabrikAdapter(object : PesananPabrikAdapter.OnItemClickListener {
             override fun onItemClick(pesanan: PesananMasukItem) {
                 val action =
-                    PesananPabrikFragmentDirections.actionNavigationPesananToDetailPesananFragment(pesanan)
-                findNavController().navigate(action)
+                    DashboardPabrikFragmentDirections.actionDashboardFragmentToDetailPesananFragment(pesanan)
+                requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
             }
         })
         binding.recyclerViewPesanan.layoutManager = LinearLayoutManager(requireContext())

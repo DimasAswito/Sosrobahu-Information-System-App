@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.pabrik.RiwayatRestockItem
 import com.polije.sosrobahufactoryapp.databinding.FragmentRiwayatBinding
+import com.polije.sosrobahufactoryapp.ui.factory.dashboard.DashboardPabrikFragmentDirections
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component.RiwayatRestokPabrikAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -49,12 +51,16 @@ class RiwayatPabrikFragment : Fragment() {
 //        )
 
 
-        riwayatAdapter = RiwayatRestokPabrikAdapter(object : RiwayatRestokPabrikAdapter.OnRiwayatItemClicked {
-            override fun onItemClick(item: RiwayatRestockItem) {
-                val action = RiwayatPabrikFragmentDirections.actionNavigationRiwayatToDetailRestokFragment(item)
-                findNavController().navigate(action)
-            }
-        })
+        riwayatAdapter =
+            RiwayatRestokPabrikAdapter(object : RiwayatRestokPabrikAdapter.OnRiwayatItemClicked {
+                override fun onItemClick(item: RiwayatRestockItem) {
+                    val action =
+                        DashboardPabrikFragmentDirections.actionDashboardFragmentToDetailRestokFragment(
+                            item
+                        )
+                    findNavController().navigate(action)
+                }
+            })
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = riwayatAdapter
 
@@ -65,7 +71,10 @@ class RiwayatPabrikFragment : Fragment() {
         }
 
         fabTambahRestok.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_riwayat_to_pilihProdukRestokFragment)
+            val action =
+                DashboardPabrikFragmentDirections.actionDashboardFragmentToPilihProdukRestokFragment()
+            requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
+
         }
 
     }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/chooseRoleFragment">
+
+    <fragment
+        android:id="@+id/chooseRoleFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.role.ChooseRoleFragment"
+        android:label="fragment_choose_role"
+        tools:layout="@layout/fragment_choose_role" >
+        <action
+            android:id="@+id/action_chooseRoleFragment_to_mobile_navigation"
+            app:destination="@id/mobile_navigation" />
+        <action
+            android:id="@+id/action_chooseRoleFragment_to_distributor_navigation"
+            app:destination="@id/distributor_navigation" />
+    </fragment>
+    <include app:graph="@navigation/factory_navigation" />
+    <include app:graph="@navigation/distributor_navigation" />
+</navigation>

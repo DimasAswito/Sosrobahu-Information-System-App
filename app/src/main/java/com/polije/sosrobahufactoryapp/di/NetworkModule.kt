@@ -39,6 +39,10 @@ val networkModule = module {
 
     single {
         get<Retrofit>().create(PabrikDatasource::class.java)
+
+    }
+
+    single {
         get<Retrofit>().create(DistributorDatasource::class.java)
     }
 

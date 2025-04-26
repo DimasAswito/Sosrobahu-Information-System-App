@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
@@ -24,7 +25,7 @@ import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.pabrik.ListTopSellingProduct
 import com.polije.sosrobahufactoryapp.data.model.pabrik.TopSellingProduct
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeBinding
-import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginActivity
+import com.polije.sosrobahufactoryapp.ui.factory.dashboard.DashboardPabrikFragmentDirections
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -58,11 +59,11 @@ class HomePabrikFragment : Fragment() {
         }
 
         binding.tvlihatProdukTerlaris.setOnClickListener {
-            val action = HomePabrikFragmentDirections.actionNavigationHomeToTopProductFragment(
+            val action = DashboardPabrikFragmentDirections.actionDashboardFragmentToTopProductFragment(
                 listTopSellingProduct
             )
 
-            findNavController().navigate(action)
+            requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
         }
     }
 
@@ -152,9 +153,9 @@ class HomePabrikFragment : Fragment() {
     }
 
     private fun navigateToLogin() {
-        val intent = Intent(requireContext(), FactoryLoginActivity::class.java)
-        startActivity(intent)
-        requireActivity().finish()
+//        val intent = Intent(requireContext(), FactoryLoginActivity::class.java)
+//        startActivity(intent)
+//        requireActivity().finish()
     }
 
     private fun setupBarChartPendapatan(pendapatanMap: Map<String, Float>) {

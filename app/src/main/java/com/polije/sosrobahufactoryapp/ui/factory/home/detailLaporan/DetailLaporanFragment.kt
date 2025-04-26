@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.ui.factory.FactoryActivity
 
 class DetailLaporanFragment : Fragment() {
 
@@ -45,13 +44,13 @@ class DetailLaporanFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        (activity as? FactoryActivity)?.hideBottomNav()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        (activity as? FactoryActivity)?.showBottomNav()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        (activity as? FactoryActivity)?.hideBottomNav()
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        (activity as? FactoryActivity)?.showBottomNav()
+//    }
 }

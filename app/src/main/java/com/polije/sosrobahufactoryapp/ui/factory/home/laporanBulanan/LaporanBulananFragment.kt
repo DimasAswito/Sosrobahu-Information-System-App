@@ -10,7 +10,6 @@ import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.polije.sosrobahufactoryapp.ui.factory.FactoryActivity
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.pabrik.LaporanBulanan
 import com.polije.sosrobahufactoryapp.ui.factory.home.component.LaporanBulananPabrikAdapter
@@ -96,14 +95,14 @@ class LaporanBulananFragment : Fragment() {
             .show()
     }
 
-    override fun onResume() {
-        super.onResume()
-        (activity as? FactoryActivity)?.hideBottomNav()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        (activity as? FactoryActivity)?.showBottomNav()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        (activity as? FactoryActivity)?.hideBottomNav()
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        (activity as? FactoryActivity)?.showBottomNav()
+//    }
 }
 
