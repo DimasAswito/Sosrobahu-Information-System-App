@@ -27,7 +27,7 @@ class DashboardPabrikFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navHost = childFragmentManager.findFragmentById(binding.dashboardFragmentContainer.id) as NavHostFragment
+        val navHost = childFragmentManager.findFragmentById(binding.pabrikDashboardFragmentContainer.id) as NavHostFragment
         binding.dashboardBottomNavigation.setupWithNavController(navHost.navController)
     }
 

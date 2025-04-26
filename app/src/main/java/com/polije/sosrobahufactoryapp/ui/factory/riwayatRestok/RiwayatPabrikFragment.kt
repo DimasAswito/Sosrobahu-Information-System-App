@@ -58,7 +58,7 @@ class RiwayatPabrikFragment : Fragment() {
                         DashboardPabrikFragmentDirections.actionDashboardFragmentToDetailRestokFragment(
                             item
                         )
-                    findNavController().navigate(action)
+                   requireActivity(). findNavController(R.id.fragmentContainerView).navigate(action)
                 }
             })
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
