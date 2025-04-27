@@ -4,20 +4,21 @@ import DashboardResponse
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.polije.sosrobahufactoryapp.data.model.pabrik.DetailOrderResponse
+import com.polije.sosrobahufactoryapp.data.datasource.local.TokenManager
+import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.PabrikDatasource
+import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.PesananMasukPagingSource
+import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.RiwayatRestockPagingSource
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
+import com.polije.sosrobahufactoryapp.data.model.pabrik.DetailOrderResponse
 import com.polije.sosrobahufactoryapp.data.model.pabrik.PesananMasukItem
 import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestok
 import com.polije.sosrobahufactoryapp.data.model.pabrik.RiwayatRestockItem
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRequest
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananResponse
-import com.polije.sosrobahufactoryapp.data.datasource.local.TokenManager
-import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.PabrikDatasource
-import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.PesananMasukPagingSource
-import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.RiwayatRestockPagingSource
 import com.polije.sosrobahufactoryapp.domain.repository.pabrik.PabrikRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
+import com.polije.sosrobahufactoryapp.utils.UserRole
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 
@@ -31,6 +32,7 @@ class PabrikRepositoryImpl(val pabrikDatasource: PabrikDatasource, val tokenMana
         return try {
             val data = pabrikDatasource.login(request)
             tokenManager.saveToken(data.token?.plainTextToken ?: "")
+            tokenManager.saveUserRole(UserRole.PABRIK)
             DataResult.Success(data)
         } catch (e: Exception) {
             DataResult.Error(e.cause.toString(), e.message.toString())
@@ -103,7 +105,12 @@ class PabrikRepositoryImpl(val pabrikDatasource: PabrikDatasource, val tokenMana
         return tokenManager.getToken().first()
     }
 
+    override fun isLoggingUsingPabrik(): Flow<UserRole?> {
+        return tokenManager.userRoleFlow()
+    }
+
     override suspend fun logout() {
+        tokenManager.removeUserRole()
         tokenManager.removeToken()
     }
 

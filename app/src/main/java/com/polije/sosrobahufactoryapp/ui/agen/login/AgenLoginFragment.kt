@@ -56,23 +56,23 @@ class AgenLoginFragment : Fragment() {
             viewModel.loginState.collectLatest { state ->
                 when (state) {
                     is LoginState.Idle -> {
-                        binding.progressBar4.visibility = View.GONE
+                        binding.progressBar5.visibility = View.GONE
 
                     }
 
                     is LoginState.Loading -> {
-                        binding.progressBar4.visibility = View.VISIBLE
+                        binding.progressBar5.visibility = View.VISIBLE
                         binding.loginButton.isEnabled = false
                     }
 
                     is LoginState.Success -> {
-                        binding.progressBar4.visibility = View.GONE
+                        binding.progressBar5.visibility = View.GONE
                         binding.loginButton.isEnabled = false
                         findNavController().navigate(R.id.action_agenLoginFragment_to_dashboardAgenFragment)
                     }
 
                     is LoginState.Error -> {
-                        binding.progressBar4.visibility = View.GONE
+                        binding.progressBar5.visibility = View.GONE
                         Toast.makeText(
                             requireContext(),
                             "Login Failed: ${state.message}",

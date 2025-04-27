@@ -12,8 +12,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeAgenBinding
-import com.polije.sosrobahufactoryapp.ui.agen.dashboard.DashboardAgenFragment
-import com.polije.sosrobahufactoryapp.ui.distributor.dashboard.DashboardAgenFragmentDirections
+import com.polije.sosrobahufactoryapp.ui.agen.dashboard.DashboardAgenFragmentDirections
+
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -91,8 +91,4 @@ class HomeAgenFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-}
-
-
-
 }

@@ -12,8 +12,9 @@ import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
-import com.polije.sosrobahufactoryapp.domain.repository.pabrik.DistributorRepository
+import com.polije.sosrobahufactoryapp.domain.repository.distributor.DistributorRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
+import com.polije.sosrobahufactoryapp.utils.UserRole
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 
@@ -30,6 +31,7 @@ class DistributorRepositoryImpl(
         return try {
             val data = distributorDatasource.login(request)
             tokenManager.saveToken(data.token?.plainTextToken ?: "")
+            tokenManager.saveUserRole(UserRole.DISTRIBUTOR)
             DataResult.Success(data)
         } catch (e: Exception) {
             DataResult.Error(e.cause.toString(), e.message.toString())

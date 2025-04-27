@@ -49,6 +49,8 @@ class DistributorLoginFragment : Fragment() {
             viewModel.login()
         }
 
+
+
         lifecycleScope.launch {
             viewModel.loginState.collectLatest { state ->
                 when (state) {
@@ -66,6 +68,7 @@ class DistributorLoginFragment : Fragment() {
                         binding.progressBar4.visibility = View.GONE
                         binding.loginButton.isEnabled = false
                         findNavController().navigate(R.id.action_distributorLoginFragment_to_dashboardDistributorFragment)
+                        viewModel
                     }
 
                     is LoginState.Error -> {

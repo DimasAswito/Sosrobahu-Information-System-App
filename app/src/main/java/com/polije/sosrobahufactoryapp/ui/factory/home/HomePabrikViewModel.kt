@@ -4,6 +4,7 @@ import PesananPerBulan
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DashboardPabrikUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.LogoutUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.TokenPabrikUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +16,11 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 import kotlin.time.Duration.Companion.seconds
 
-class HomePabrikViewModel(val dashboardPabrikUseCase: DashboardPabrikUseCase, val tokenPabrikUseCase: TokenPabrikUseCase) :
+class HomePabrikViewModel(
+    val dashboardPabrikUseCase: DashboardPabrikUseCase,
+    val tokenPabrikUseCase: TokenPabrikUseCase,
+    private val logoutUseCase: LogoutUseCase
+) :
     ViewModel() {
 
     private val _state = MutableStateFlow<HomePabrikState>(HomePabrikState.Initial)
@@ -62,6 +67,12 @@ class HomePabrikViewModel(val dashboardPabrikUseCase: DashboardPabrikUseCase, va
 
                 }
             }
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            logoutUseCase.invoke()
         }
     }
 

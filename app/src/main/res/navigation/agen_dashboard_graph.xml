@@ -14,14 +14,7 @@
         android:id="@+id/orderAgenFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.agen.order.OrderAgenFragment"
         android:label="fragment_order_agen"
-        tools:layout="@layout/fragment_order_agen">
-        <action
-            android:id="@+id/action_orderAgenFragment_to_detailOrderAgenFragment"
-            app:destination="@id/detailOrderAgenFragment" />
-        <action
-            android:id="@+id/action_orderAgenFragment_to_pilihProdukAgenFragment"
-            app:destination="@id/pilihProdukAgenFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_order_agen"/>
     <fragment
         android:id="@+id/pesananAgenFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.agen.pesanan.PesananAgenFragment"

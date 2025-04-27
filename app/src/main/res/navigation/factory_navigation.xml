@@ -139,6 +139,11 @@
         <action
             android:id="@+id/action_dashboardFragment_to_topProductFragment"
             app:destination="@id/topProductFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_login_pabrik"
+            app:destination="@id/login_pabrik"
+            app:popUpTo="@id/login_pabrik"
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>

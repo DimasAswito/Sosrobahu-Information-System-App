@@ -1,7 +1,6 @@
 package com.polije.sosrobahufactoryapp.ui.factory.home
 
 import PesananPerBulan
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -55,13 +54,16 @@ class HomePabrikFragment : Fragment() {
         binding.logoutPabrikButton.setOnClickListener {
 
             Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
-            navigateToLogin()
+            homePabrikViewModel.logout()
+            val action = DashboardPabrikFragmentDirections.actionDashboardFragmentToLoginPabrik()
+            requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
         }
 
         binding.tvlihatProdukTerlaris.setOnClickListener {
-            val action = DashboardPabrikFragmentDirections.actionDashboardFragmentToTopProductFragment(
-                listTopSellingProduct
-            )
+            val action =
+                DashboardPabrikFragmentDirections.actionDashboardFragmentToTopProductFragment(
+                    listTopSellingProduct
+                )
 
             requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
         }
@@ -73,8 +75,12 @@ class HomePabrikFragment : Fragment() {
             homePabrikViewModel.state.collectLatest { state ->
                 when (state) {
                     is HomePabrikState.Failure -> {
-                        Toast.makeText(requireContext(), state.errorMessage, Toast.LENGTH_LONG)
+                        homePabrikViewModel.logout()
+                        findNavController()
+                            .navigate(R.id.action_dashboardFragment_to_login_pabrik)
+                        Toast.makeText(requireContext(), state.errorMessage, Toast.LENGTH_SHORT)
                             .show()
+
                     }
 
                     HomePabrikState.Initial -> {

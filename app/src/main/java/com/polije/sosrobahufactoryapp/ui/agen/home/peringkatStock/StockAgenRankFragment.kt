@@ -18,13 +18,10 @@ class StockAgenRankFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_stock_agen_rank, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        mViewModel =
-            ViewModelProvider(this).get<StockAgenRankViewModel?>(StockAgenRankViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+    }
     companion object {
         fun newInstance(): StockAgenRankFragment {
             return StockAgenRankFragment()

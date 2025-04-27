@@ -3,6 +3,7 @@ package com.polije.sosrobahufactoryapp.ui.distributor.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LoginDistributorUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.LogoutUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -60,6 +61,8 @@ class DistributorLoginViewModel(val loginDistributorUseCase: LoginDistributorUse
                 }
             }
         }
+
+
     }
 }
 

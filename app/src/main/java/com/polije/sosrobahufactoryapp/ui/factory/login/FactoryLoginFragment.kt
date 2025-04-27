@@ -46,6 +46,16 @@ class FactoryLoginFragment : Fragment() {
         }
 
         lifecycleScope.launch {
+            viewModel.isAlreadyLoggedIn.collectLatest {
+                if (it) {
+                    findNavController().navigate(R.id.action_login_pabrik_to_dashboardFragment)
+                } else {
+                    return@collectLatest
+                }
+            }
+        }
+
+        lifecycleScope.launch {
             viewModel.loginState.collectLatest { state ->
                 when (state) {
                     is LoginState.Idle -> {
@@ -61,7 +71,6 @@ class FactoryLoginFragment : Fragment() {
                     is LoginState.Success -> {
                         binding.progressBar.visibility = View.GONE
                         binding.loginButtonPabrik.isEnabled = false
-                        findNavController().navigate(R.id.action_login_pabrik_to_dashboardFragment)
                     }
 
                     is LoginState.Error -> {

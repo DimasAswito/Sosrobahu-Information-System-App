@@ -2,23 +2,40 @@ package com.polije.sosrobahufactoryapp.ui.factory.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.CheckLoginPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.LoginPabrikUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
+import com.polije.sosrobahufactoryapp.utils.UserRole
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class FactoryLoginViewModel(private val loginPabrikUseCase: LoginPabrikUseCase) : ViewModel() {
+class FactoryLoginViewModel(
+    private val loginPabrikUseCase: LoginPabrikUseCase,
+    private val checkLoginPabrikUseCase: CheckLoginPabrikUseCase
+) : ViewModel() {
 
     private val _factoryLoginInput = MutableStateFlow(FactoryLoginInput())
 
     private val _loginState = MutableStateFlow<LoginState>(LoginState.Idle)
     val loginState: StateFlow<LoginState> get() = _loginState.asStateFlow()
+
+    val isAlreadyLoggedIn: StateFlow<Boolean> =
+        checkLoginPabrikUseCase.invoke()
+            .map { it != null && it.name == UserRole.PABRIK.name }               // true kalau ada role tersimpan
+            .onStart { emit(false) }          // sebelum koleksi, emisi dulu 'false'
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.Lazily,
+                initialValue = false
+            )
+
 
     val isValid = _factoryLoginInput.map { state ->
         state.username.isNotBlank() && state.password.isNotBlank()

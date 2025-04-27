@@ -46,7 +46,7 @@
 
     <!-- Tombol Logout -->
     <Button
-        android:id="@+id/logoutPabrikButton"
+        android:id="@+id/logoutAgenButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
