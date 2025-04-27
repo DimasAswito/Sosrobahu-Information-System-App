@@ -30,28 +30,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Judul -->
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Dashboard Agen"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="@color/md_theme_tertiaryFixedDim"
+        android:padding="16dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/container" />
+        app:layout_constraintBottom_toTopOf="@id/container">
 
-    <!-- Tombol Logout -->
-    <Button
-        android:id="@+id/logoutAgenButton"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dashboard Agen"
+            android:textColor="@color/md_theme_tertiaryFixedDim"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_centerInParent="true" />
+
+        <ImageButton
+            android:id="@+id/logoutAgenButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/circle_background"
+            android:src="@drawable/baseline_logout_24"
+            android:scaleType="centerInside"
+            android:contentDescription="Logout"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="8dp" />
+
+    </RelativeLayout>
 
     <!-- Container Ringkasan -->
     <androidx.cardview.widget.CardView
@@ -60,7 +70,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         app:cardCornerRadius="20dp"
-        app:layout_constraintTop_toBottomOf="@id/topView">
+        app:layout_constraintTop_toBottomOf="@id/topView"
+        app:layout_constraintBottom_toBottomOf="@id/topView">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,7 +108,7 @@
                         android:id="@+id/jumlahSales"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="56 orang"
+                        android:text="-"
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -129,7 +140,7 @@
                         android:id="@+id/omsetBulanAgen"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rp 28.000"
+                        android:text="-"
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -160,7 +171,7 @@
                         android:id="@+id/jumlahAgen"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="66 slop"
+                        android:text="-"
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -182,7 +193,7 @@
 
     <!-- RecyclerView Produk dan Stok -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewProduk"
+        android:id="@+id/recyclerViewDasboardAgen"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -199,7 +210,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_margin="16dp"
-        app:layout_constraintTop_toBottomOf="@id/recyclerViewProduk"
+        app:layout_constraintTop_toBottomOf="@id/recyclerViewDasboardAgen"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -231,7 +242,7 @@
                 app:cardCornerRadius="8dp">
 
                 <ImageView
-                    android:id="@+id/topProductImage"
+                    android:id="@+id/topProductImageAgen"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
