@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:padding="16dp"
-        android:background="@color/md_theme_primary"
+        android:background="@color/distributor_theme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="Stok Produk"
-                android:textColor="@color/md_theme_tertiaryFixedDim"
+                android:textColor="@color/md_theme_background_highContrast"
                 android:textSize="27sp"
                 android:textStyle="bold" />
 
@@ -73,6 +73,7 @@
         android:layout_height="64dp"
         android:layout_marginBottom="16dp"
         android:layout_marginHorizontal="16dp"
+        android:backgroundTint="@color/distributor_theme_dark"
         android:text="Kembali"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"

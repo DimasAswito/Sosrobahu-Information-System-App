@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:padding="16dp"
-        android:background="@color/md_theme_primary"
+        android:background="@color/agen_theme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Pesanan Masuk"
-            android:textColor="@color/md_theme_tertiaryFixedDim"
+            android:textColor="@color/md_theme_background_highContrast"
             android:textSize="30sp"
             android:layout_marginTop="32dp"
             android:textStyle="bold"

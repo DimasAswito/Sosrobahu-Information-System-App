@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:padding="16dp"
-        android:background="@color/md_theme_primary"
+        android:background="@color/agen_theme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="Detail Order"
-                android:textColor="@color/md_theme_tertiaryFixedDim"
+                android:textColor="@color/md_theme_background_highContrast"
                 android:textSize="27sp"
                 android:textStyle="bold" />
 

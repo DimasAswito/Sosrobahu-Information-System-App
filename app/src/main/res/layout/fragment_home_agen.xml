@@ -24,7 +24,7 @@
         android:id="@+id/topView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/md_theme_primary"
+        android:background="@color/agen_theme"
         app:layout_constraintTop_toBottomOf="@+id/progressBar2"
         app:layout_constraintHeight_percent="0.25"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dashboard Agen"
-            android:textColor="@color/md_theme_tertiaryFixedDim"
+            android:textColor="@color/md_theme_background_highContrast"
             android:textSize="30sp"
             android:textStyle="bold"
             android:layout_centerInParent="true" />
@@ -76,7 +76,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/md_theme_onPrimaryContainer"
+            android:background="@color/agen_theme_dark"
             android:orientation="horizontal"
             android:gravity="center"
             android:padding="16dp">

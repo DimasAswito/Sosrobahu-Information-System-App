@@ -146,4 +146,10 @@
     <color name="red">#FF4D4D</color>
     <color name="abu_abu_cerah">#B4B4B4</color>
 
+    <color name="distributor_theme">#6D943E</color>
+    <color name="distributor_theme_dark">#306B32</color>
+    <color name="agen_theme">#3F6EB2</color>
+    <color name="agen_theme_dark">#27426A</color>
+    <color name="sales_theme">#D24936</color>
+    <color name="sales_theme_dark">#802D22</color>
 </resources>

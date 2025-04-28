@@ -9,8 +9,9 @@
         android:id="@+id/topView"
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:background="@color/md_theme_primary"
+        android:background="@color/agen_theme"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="Detail Pesanan"
-            android:textColor="@color/md_theme_tertiaryFixedDim"
+            android:textColor="@color/md_theme_background_highContrast"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -336,6 +337,7 @@
         android:layout_marginEnd="32dp"
         android:text="Simpan"
         android:textSize="18sp"
+        android:backgroundTint="@color/agen_theme_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView2" />
