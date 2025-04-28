@@ -2,8 +2,8 @@ package com.polije.sosrobahufactoryapp.ui.factory.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.CheckLoginPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.LoginPabrikUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UserSessionPabrikUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.UserRole
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 
 class FactoryLoginViewModel(
     private val loginPabrikUseCase: LoginPabrikUseCase,
-    private val checkLoginPabrikUseCase: CheckLoginPabrikUseCase
+    private val userSessionPabrikUseCase: UserSessionPabrikUseCase
 ) : ViewModel() {
 
     private val _factoryLoginInput = MutableStateFlow(FactoryLoginInput())
@@ -26,13 +26,13 @@ class FactoryLoginViewModel(
     private val _loginState = MutableStateFlow<LoginState>(LoginState.Idle)
     val loginState: StateFlow<LoginState> get() = _loginState.asStateFlow()
 
-    val isAlreadyLoggedIn: StateFlow<Boolean> =
-        checkLoginPabrikUseCase.invoke()
-            .map { it != null && it.name == UserRole.PABRIK.name }               // true kalau ada role tersimpan
+    fun isAlreadyLoggedIn(): StateFlow<Boolean> =
+        userSessionPabrikUseCase.invoke()
+            .map { it.token != null && it.role?.name == UserRole.PABRIK.name }               // true kalau ada role tersimpan
             .onStart { emit(false) }          // sebelum koleksi, emisi dulu 'false'
             .stateIn(
                 scope = viewModelScope,
-                started = SharingStarted.Lazily,
+                started = SharingStarted.Eagerly,
                 initialValue = false
             )
 

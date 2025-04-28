@@ -19,7 +19,9 @@ import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRespo
 import com.polije.sosrobahufactoryapp.domain.repository.pabrik.PabrikRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.UserRole
+import com.polije.sosrobahufactoryapp.utils.UserSession
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 
 class PabrikRepositoryImpl(val pabrikDatasource: PabrikDatasource, val tokenManager: TokenManager) :
@@ -100,13 +102,11 @@ class PabrikRepositoryImpl(val pabrikDatasource: PabrikDatasource, val tokenMana
         ).flow
     }
 
-
-    override suspend fun getToken(): String {
-        return tokenManager.getToken().first()
-    }
-
-    override fun isLoggingUsingPabrik(): Flow<UserRole?> {
-        return tokenManager.userRoleFlow()
+    override fun getUserPabrikSession(): Flow<UserSession> = combine(
+        tokenManager.userRoleFlow(),
+        tokenManager.getToken()
+    ) { role, token ->
+        UserSession(role, token)
     }
 
     override suspend fun logout() {

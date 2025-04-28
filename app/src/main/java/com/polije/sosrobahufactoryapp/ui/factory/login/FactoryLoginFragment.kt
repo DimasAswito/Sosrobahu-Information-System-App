@@ -46,11 +46,9 @@ class FactoryLoginFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            viewModel.isAlreadyLoggedIn.collectLatest {
+            viewModel.isAlreadyLoggedIn().collectLatest {
                 if (it) {
                     findNavController().navigate(R.id.action_login_pabrik_to_dashboardFragment)
-                } else {
-                    return@collectLatest
                 }
             }
         }

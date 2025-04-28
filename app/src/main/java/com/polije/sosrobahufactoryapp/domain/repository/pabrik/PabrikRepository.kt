@@ -10,6 +10,7 @@ import com.polije.sosrobahufactoryapp.data.model.pabrik.RiwayatRestockItem
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananResponse
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.UserRole
+import com.polije.sosrobahufactoryapp.utils.UserSession
 import kotlinx.coroutines.flow.Flow
 
 interface PabrikRepository {
@@ -25,8 +26,8 @@ interface PabrikRepository {
     fun getPesananMasuk(): Flow<PagingData<PesananMasukItem>>
     fun getRiwayatRestockPabrik(query: String): Flow<PagingData<RiwayatRestockItem>>
 
-    suspend fun getToken(): String
-     fun isLoggingUsingPabrik(): Flow<UserRole?>
+
+    fun getUserPabrikSession() : Flow<UserSession>
     suspend fun logout()
 
     suspend fun getItemRestock(): DataResult<ProdukRestok, String>

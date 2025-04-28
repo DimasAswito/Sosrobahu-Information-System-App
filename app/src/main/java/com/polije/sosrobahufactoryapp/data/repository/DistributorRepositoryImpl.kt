@@ -15,7 +15,9 @@ import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistrib
 import com.polije.sosrobahufactoryapp.domain.repository.distributor.DistributorRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.UserRole
+import com.polije.sosrobahufactoryapp.utils.UserSession
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 
 class DistributorRepositoryImpl(
@@ -75,9 +77,13 @@ class DistributorRepositoryImpl(
         ).flow
     }
 
-    override suspend fun getToken(): String {
-        return tokenManager.getToken().first()
+    override fun getUserDistributorSession(): Flow<UserSession> = combine(
+    tokenManager.userRoleFlow(),
+    tokenManager.getToken()
+    ) { role, token ->
+        UserSession(role, token)
     }
+
 
     override suspend fun logout() {
         tokenManager.removeToken()

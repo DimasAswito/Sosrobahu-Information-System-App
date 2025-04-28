@@ -6,6 +6,7 @@ import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
 import com.polije.sosrobahufactoryapp.utils.DataResult
+import com.polije.sosrobahufactoryapp.utils.UserSession
 import kotlinx.coroutines.flow.Flow
 
 interface DistributorRepository {
@@ -19,7 +20,7 @@ interface DistributorRepository {
 
      fun getRiwayatOrder() : Flow<PagingData<RiwayatOrderDistributorDataItem>>
 
-     suspend fun getToken() : String
+    fun getUserDistributorSession() : Flow<UserSession>
 
     suspend fun logout()
 

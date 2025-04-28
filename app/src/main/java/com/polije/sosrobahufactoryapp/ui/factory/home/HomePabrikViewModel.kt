@@ -5,11 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DashboardPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.LogoutUseCase
-import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.TokenPabrikUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UserSessionPabrikUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.WhileSubscribed
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -18,7 +19,7 @@ import kotlin.time.Duration.Companion.seconds
 
 class HomePabrikViewModel(
     val dashboardPabrikUseCase: DashboardPabrikUseCase,
-    val tokenPabrikUseCase: TokenPabrikUseCase,
+    val userSessionUseCase: UserSessionPabrikUseCase,
     private val logoutUseCase: LogoutUseCase
 ) :
     ViewModel() {
@@ -38,7 +39,7 @@ class HomePabrikViewModel(
     fun getDashboardPabrik() {
         viewModelScope.launch {
             _state.value = HomePabrikState.Loading
-            val token = tokenPabrikUseCase.getToken()
+            val token = userSessionUseCase.invoke().first().token
             if (token == null) {
                 _state.value = HomePabrikState.Failure("Token Tidak Berlaku")
                 return@launch

@@ -76,8 +76,7 @@ class HomePabrikFragment : Fragment() {
                 when (state) {
                     is HomePabrikState.Failure -> {
                         homePabrikViewModel.logout()
-                        findNavController()
-                            .navigate(R.id.action_dashboardFragment_to_login_pabrik)
+                        requireActivity().findNavController(R.id.fragmentContainerView).navigate(R.id.action_dashboardFragment_to_login_pabrik)
                         Toast.makeText(requireContext(), state.errorMessage, Toast.LENGTH_SHORT)
                             .show()
 
