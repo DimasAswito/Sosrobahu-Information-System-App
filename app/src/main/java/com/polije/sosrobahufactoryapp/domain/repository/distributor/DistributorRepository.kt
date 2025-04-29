@@ -15,14 +15,14 @@ interface DistributorRepository {
 
     suspend fun getDashboardDistributor(): DataResult<DashboardResponse, HttpErrorCode>
 
-    suspend fun getDetailPesananMasuk(idOrder : Int) : DataResult<DetailPesananMasukDistributorResponse, HttpErrorCode>
+    suspend fun getDetailPesananMasuk(idOrder: Int): DataResult<DetailPesananMasukDistributorResponse, HttpErrorCode>
 
 //    suspend fun getPesananMasukDistributor() : Flow<PagingData<RiwayatOrderDistributorDataItem>>
 
-     fun getRiwayatOrder() : Flow<PagingData<RiwayatOrderDistributorDataItem>>
+    fun getRiwayatOrder(): Flow<PagingData<RiwayatOrderDistributorDataItem>>
 
-    fun getUserDistributorSession() : Flow<UserSession>
-
+    fun getUserDistributorSession(): Flow<UserSession>
+    fun isUserIsLogged(): Flow<Boolean>
     suspend fun logout()
 
 }

@@ -8,4 +8,7 @@ class UserSessionDistributorUseCase(private val distributorRepository: Distribut
     operator fun invoke() : Flow<UserSession> {
         return distributorRepository.getUserDistributorSession()
     }
+
+    fun isLoggingIn() = distributorRepository.isUserIsLogged()
+
 }

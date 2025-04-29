@@ -41,7 +41,9 @@
         tools:layout="@layout/fragment_distributor_login">
         <action
             android:id="@+id/action_distributorLoginFragment_to_dashboardDistributorFragment"
-            app:destination="@id/dashboardDistributorFragment" />
+            app:destination="@id/dashboardDistributorFragment"
+            app:popUpTo="@id/distributorLoginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/dashboardDistributorFragment"
@@ -60,5 +62,10 @@
         <action
             android:id="@+id/action_dashboardDistributorFragment_to_stockDistributorRankFragment"
             app:destination="@id/stockDistributorRankFragment" />
+        <action
+            android:id="@+id/action_dashboardDistributorFragment_to_distributorLoginFragment"
+            app:destination="@id/distributorLoginFragment"
+            app:popUpTo="@id/dashboardDistributorFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

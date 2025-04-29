@@ -7,18 +7,20 @@ import com.polije.sosrobahufactoryapp.domain.repository.agen.AgenRepository
 import com.polije.sosrobahufactoryapp.domain.repository.distributor.DistributorRepository
 import com.polije.sosrobahufactoryapp.domain.repository.pabrik.PabrikRepository
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LoginDistributorUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LogoutDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UserSessionDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DashboardPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DetailPesananMasukPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.GetItemRestockPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.InsertRestockPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.LoginPabrikUseCase
-import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.LogoutUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.LogoutPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.PesananMasukPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.RiwayatRestokPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UpdatePesananPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UserSessionPabrikUseCase
 import com.polije.sosrobahufactoryapp.ui.agen.login.AgenLoginViewModel
+import com.polije.sosrobahufactoryapp.ui.distributor.home.HomeDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.login.DistributorLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.home.HomePabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.home.produkTerlaris.TopProductPabrikViewModel
@@ -48,10 +50,11 @@ val appModule = module {
     factoryOf(::InsertRestockPabrikUseCase)
     factoryOf(::UpdatePesananPabrikUseCase)
     factoryOf(::UserSessionPabrikUseCase)
-    factoryOf(::LogoutUseCase)
+    factoryOf(::LogoutPabrikUseCase)
 
     factoryOf(::UserSessionDistributorUseCase)
     factoryOf(::LoginDistributorUseCase)
+    factoryOf(::LogoutDistributorUseCase)
 
     viewModelOf(::HomePabrikViewModel)
     viewModelOf(::FactoryLoginViewModel)
@@ -63,6 +66,7 @@ val appModule = module {
     viewModelOf(::TopProductPabrikViewModel)
 
     viewModelOf(::DistributorLoginViewModel)
+    viewModelOf(::HomeDistributorViewModel)
 
     viewModelOf(::AgenLoginViewModel)
 

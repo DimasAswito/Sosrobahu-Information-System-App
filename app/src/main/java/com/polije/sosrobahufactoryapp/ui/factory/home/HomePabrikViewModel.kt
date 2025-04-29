@@ -3,7 +3,7 @@ package com.polije.sosrobahufactoryapp.ui.factory.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DashboardPabrikUseCase
-import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.LogoutUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.LogoutPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UserSessionPabrikUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
@@ -19,7 +19,7 @@ import kotlin.time.Duration.Companion.seconds
 class HomePabrikViewModel(
     val dashboardPabrikUseCase: DashboardPabrikUseCase,
     val userSessionUseCase: UserSessionPabrikUseCase,
-    private val logoutUseCase: LogoutUseCase
+    private val logoutPabrikUseCase: LogoutPabrikUseCase
 ) :
     ViewModel() {
 
@@ -87,7 +87,7 @@ class HomePabrikViewModel(
 
     fun logout() {
         viewModelScope.launch {
-            logoutUseCase.invoke()
+            logoutPabrikUseCase.invoke()
         }
     }
 }

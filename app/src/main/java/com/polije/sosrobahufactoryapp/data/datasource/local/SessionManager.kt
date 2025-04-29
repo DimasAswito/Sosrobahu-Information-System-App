@@ -40,9 +40,7 @@ class SessionManager(
         .map { it.token?.isNotBlank() == true }
         .distinctUntilChanged()
 
-    /**
-     * Save token and role in one transaction.
-     */
+
     suspend fun saveSession(token: String, role: UserRole) {
         dataStore.edit { prefs ->
             prefs[Keys.TOKEN] = token

@@ -105,6 +105,7 @@ class DistributorRepositoryImpl(
     }
 
     override fun getUserDistributorSession(): Flow<UserSession> = sessionManager.sessionFlow
+    override fun isUserIsLogged(): Flow<Boolean> = sessionManager.isLoggedIn
 
     override suspend fun logout() {
         sessionManager.clearSession()

@@ -1,26 +1,19 @@
 package com.polije.sosrobahufactoryapp.ui.distributor.home
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.databinding.FragmentHomeBinding
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeDistributorBinding
 import com.polije.sosrobahufactoryapp.ui.distributor.dashboard.DashboardDistributorFragmentDirections
-import com.polije.sosrobahufactoryapp.ui.factory.dashboard.DashboardPabrikFragmentDirections
-import com.polije.sosrobahufactoryapp.ui.factory.home.HomePabrikState
-import com.polije.sosrobahufactoryapp.ui.factory.home.HomePabrikViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.getValue
 
 class HomeDistributorFragment : Fragment() {
 
@@ -42,15 +35,20 @@ class HomeDistributorFragment : Fragment() {
         observeViewModel()
 
         binding.logoutDistributorButton.setOnClickListener {
+            homeDistributorViewModel.logout()
+        }
 
-            Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
-            findNavController().navigateUp()
+        lifecycleScope.launch {
+            homeDistributorViewModel.isLogged.collectLatest {
+                requireActivity().findNavController(R.id.fragmentContainerView).navigate(DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToDistributorLoginFragment())
+            }
         }
 
         binding.tvlihatProdukTerlaris.setOnClickListener {
-            val action = DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToStockDistributorRankFragment(
+            val action =
+                DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToStockDistributorRankFragment(
 //                listStockProdukDistributor
-            )
+                )
 
 
             requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
@@ -58,7 +56,7 @@ class HomeDistributorFragment : Fragment() {
 
     }
 
-     fun observeViewModel() {
+    fun observeViewModel() {
 
         lifecycleScope.launch {
 
@@ -87,6 +85,7 @@ class HomeDistributorFragment : Fragment() {
 //            }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
