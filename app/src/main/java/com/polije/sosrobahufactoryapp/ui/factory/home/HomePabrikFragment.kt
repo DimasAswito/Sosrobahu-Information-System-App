@@ -10,7 +10,6 @@ import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.github.mikephil.charting.components.Legend
@@ -25,6 +24,7 @@ import com.polije.sosrobahufactoryapp.data.model.pabrik.ListTopSellingProduct
 import com.polije.sosrobahufactoryapp.data.model.pabrik.TopSellingProduct
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeBinding
 import com.polije.sosrobahufactoryapp.ui.factory.dashboard.DashboardPabrikFragmentDirections
+import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -53,10 +53,8 @@ class HomePabrikFragment : Fragment() {
 
         binding.logoutPabrikButton.setOnClickListener {
 
-            Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
             homePabrikViewModel.logout()
-            val action = DashboardPabrikFragmentDirections.actionDashboardFragmentToLoginPabrik()
-            requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
+
         }
 
         binding.tvlihatProdukTerlaris.setOnClickListener {
@@ -67,6 +65,17 @@ class HomePabrikFragment : Fragment() {
 
             requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
         }
+
+        lifecycleScope.launch {
+            homePabrikViewModel.isLogged.collectLatest {
+                if (!it) {
+                    Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
+                    val action =
+                        DashboardPabrikFragmentDirections.actionDashboardFragmentToLoginPabrik()
+                    activity?.findNavController(R.id.fragmentContainerView)?.navigate(action)
+                }
+            }
+        }
     }
 
     private fun observeViewModel() {
@@ -75,11 +84,43 @@ class HomePabrikFragment : Fragment() {
             homePabrikViewModel.state.collectLatest { state ->
                 when (state) {
                     is HomePabrikState.Failure -> {
-                        homePabrikViewModel.logout()
-                        requireActivity().findNavController(R.id.fragmentContainerView).navigate(R.id.action_dashboardFragment_to_login_pabrik)
-                        Toast.makeText(requireContext(), state.errorMessage, Toast.LENGTH_SHORT)
-                            .show()
+                        when (state.errorCode) {
+                            HttpErrorCode.BAD_REQUEST -> {
 
+                            }
+
+                            HttpErrorCode.UNAUTHORIZED -> {
+                                homePabrikViewModel.logout()
+                                requireActivity().findNavController(R.id.fragmentContainerView)
+                                    .navigate(R.id.action_dashboardFragment_to_login_pabrik)
+                                Toast.makeText(
+                                    requireContext(),
+                                    state.errorMessage,
+                                    Toast.LENGTH_SHORT
+                                )
+                                    .show()
+                            }
+
+                            HttpErrorCode.FORBIDDEN -> {
+
+                            }
+
+                            HttpErrorCode.NOT_FOUND -> {
+
+                            }
+
+                            HttpErrorCode.TIMEOUT -> {
+
+                            }
+
+                            HttpErrorCode.INTERNAL_SERVER_ERROR -> {
+
+                            }
+
+                            HttpErrorCode.UNKNOWN -> {
+
+                            }
+                        }
                     }
 
                     HomePabrikState.Initial -> {

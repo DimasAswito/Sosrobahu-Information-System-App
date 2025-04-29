@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -49,7 +48,7 @@ class RiwayatPabrikFragment : Fragment() {
                         DashboardPabrikFragmentDirections.actionDashboardFragmentToDetailRestokFragment(
                             item
                         )
-                   requireActivity(). findNavController(R.id.fragmentContainerView).navigate(action)
+                    requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
                 }
             })
         recyclerView.layoutManager = LinearLayoutManager(requireContext())

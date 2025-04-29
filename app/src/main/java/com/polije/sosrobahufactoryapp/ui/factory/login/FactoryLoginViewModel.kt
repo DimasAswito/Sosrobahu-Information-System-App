@@ -5,20 +5,19 @@ import androidx.lifecycle.viewModelScope
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.LoginPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UserSessionPabrikUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
-import com.polije.sosrobahufactoryapp.utils.UserRole
+import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class FactoryLoginViewModel(
     private val loginPabrikUseCase: LoginPabrikUseCase,
-    private val userSessionPabrikUseCase: UserSessionPabrikUseCase
+    userSessionPabrikUseCase: UserSessionPabrikUseCase
 ) : ViewModel() {
 
     private val _factoryLoginInput = MutableStateFlow(FactoryLoginInput())
@@ -26,15 +25,12 @@ class FactoryLoginViewModel(
     private val _loginState = MutableStateFlow<LoginState>(LoginState.Idle)
     val loginState: StateFlow<LoginState> get() = _loginState.asStateFlow()
 
-    fun isAlreadyLoggedIn(): StateFlow<Boolean> =
-        userSessionPabrikUseCase.invoke()
-            .map { it.token != null && it.role?.name == UserRole.PABRIK.name }               // true kalau ada role tersimpan
-            .onStart { emit(false) }          // sebelum koleksi, emisi dulu 'false'
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.Eagerly,
-                initialValue = false
-            )
+    val isAlreadyLoggedIn: StateFlow<Boolean> = userSessionPabrikUseCase.isLoggingIn()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = false
+        )
 
 
     val isValid = _factoryLoginInput.map { state ->
@@ -58,7 +54,17 @@ class FactoryLoginViewModel(
             when (data) {
                 is DataResult.Error -> {
 
-                    _loginState.update { LoginState.Error(data.message) }
+                    _loginState.update {
+                        when (data.error) {
+                            HttpErrorCode.BAD_REQUEST -> LoginState.Error("")
+                            HttpErrorCode.UNAUTHORIZED -> LoginState.Error("")
+                            HttpErrorCode.FORBIDDEN -> LoginState.Error("")
+                            HttpErrorCode.NOT_FOUND -> LoginState.Error("")
+                            HttpErrorCode.TIMEOUT -> LoginState.Error("")
+                            HttpErrorCode.INTERNAL_SERVER_ERROR -> LoginState.Error("")
+                            HttpErrorCode.UNKNOWN -> LoginState.Error("")
+                        }
+                    }
                 }
 
                 is DataResult.Success -> {

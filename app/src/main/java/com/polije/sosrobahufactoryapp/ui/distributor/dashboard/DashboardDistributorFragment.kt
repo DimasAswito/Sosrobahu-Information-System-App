@@ -30,8 +30,6 @@ class DashboardDistributorFragment : Fragment() {
 
         val navHost = childFragmentManager.findFragmentById(binding.dashboardDistributorContainerView.id) as NavHostFragment
         binding.bottomNavigationView.setupWithNavController(navHost.navController)
-
-
     }
 
 }

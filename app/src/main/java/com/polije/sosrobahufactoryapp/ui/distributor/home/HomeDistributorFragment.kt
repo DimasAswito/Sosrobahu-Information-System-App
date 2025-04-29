@@ -87,12 +87,6 @@ class HomeDistributorFragment : Fragment() {
 //            }
         }
     }
-
-    private fun navigateToLogin() {
-//        val intent = Intent(requireContext(), FactoryLoginActivity::class.java)
-//        startActivity(intent)
-//        requireActivity().finish()
-    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

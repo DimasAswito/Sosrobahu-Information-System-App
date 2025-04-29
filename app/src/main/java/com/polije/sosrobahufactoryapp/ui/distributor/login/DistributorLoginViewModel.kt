@@ -3,18 +3,24 @@ package com.polije.sosrobahufactoryapp.ui.distributor.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LoginDistributorUseCase
-import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.LogoutUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UserSessionDistributorUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
+import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
+import com.polije.sosrobahufactoryapp.utils.UserRole
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class DistributorLoginViewModel(val loginDistributorUseCase: LoginDistributorUseCase) :
+class DistributorLoginViewModel(
+    val loginDistributorUseCase: LoginDistributorUseCase,
+    val userSessionDistributorUseCase: UserSessionDistributorUseCase
+) :
     ViewModel() {
     private var _distributorLoginState = MutableStateFlow(DistributorLoginState())
 
@@ -33,6 +39,16 @@ class DistributorLoginViewModel(val loginDistributorUseCase: LoginDistributorUse
     fun onPasswordChanged(password: String) =
         _distributorLoginState.update { state -> state.copy(password = password) }
 
+    fun isAlreadyLoggedIn(): StateFlow<Boolean> =
+        userSessionDistributorUseCase.invoke()
+            .map { it.token != null && it.role?.name == UserRole.DISTRIBUTOR.name }
+            .onStart { emit(false) }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.Eagerly,
+                initialValue = false
+            )
+
     fun login() {
         viewModelScope.launch {
             viewModelScope.launch {
@@ -46,7 +62,15 @@ class DistributorLoginViewModel(val loginDistributorUseCase: LoginDistributorUse
 
                         _loginState.update {
                             LoginState.Error(
-                                data.message
+                                when (data.error) {
+                                    HttpErrorCode.BAD_REQUEST -> ""
+                                    HttpErrorCode.UNAUTHORIZED -> ""
+                                    HttpErrorCode.FORBIDDEN -> ""
+                                    HttpErrorCode.NOT_FOUND -> ""
+                                    HttpErrorCode.TIMEOUT -> ""
+                                    HttpErrorCode.INTERNAL_SERVER_ERROR -> ""
+                                    HttpErrorCode.UNKNOWN -> ""
+                                }
                             )
                         }
                     }

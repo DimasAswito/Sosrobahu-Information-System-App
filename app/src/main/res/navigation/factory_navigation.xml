@@ -13,7 +13,10 @@
         tools:layout="@layout/fragment_factory_login">
         <action
             android:id="@+id/action_login_pabrik_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            app:destination="@id/dashboardFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/login_pabrik"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/detailPesananFragment"
@@ -142,7 +145,7 @@
         <action
             android:id="@+id/action_dashboardFragment_to_login_pabrik"
             app:destination="@id/login_pabrik"
-            app:popUpTo="@id/login_pabrik"
+            app:popUpTo="@id/dashboardFragment"
             app:popUpToInclusive="true" />
     </fragment>
 

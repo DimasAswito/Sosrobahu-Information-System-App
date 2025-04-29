@@ -9,30 +9,30 @@ import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestok
 import com.polije.sosrobahufactoryapp.data.model.pabrik.RiwayatRestockItem
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananResponse
 import com.polije.sosrobahufactoryapp.utils.DataResult
-import com.polije.sosrobahufactoryapp.utils.UserRole
+import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.UserSession
 import kotlinx.coroutines.flow.Flow
 
 interface PabrikRepository {
-    suspend fun login(username: String, password: String): DataResult<LoginResponse, String>
+    suspend fun login(username: String, password: String): DataResult<LoginResponse, HttpErrorCode>
 
-    suspend fun getDashboardPabrik(): DataResult<DashboardResponse, String>
-    suspend fun getDetailPesananMasuk(idOrder: Int): DataResult<DetailOrderResponse, String>
+    suspend fun getDashboardPabrik(): DataResult<DashboardResponse, HttpErrorCode>
+    suspend fun getDetailPesananMasuk(idOrder: Int): DataResult<DetailOrderResponse, HttpErrorCode>
     suspend fun updateDetailPesananMasuk(
         idOrder: Int,
         status: Int
-    ): DataResult<UpdateDetailPesananResponse, String>
+    ): DataResult<UpdateDetailPesananResponse, HttpErrorCode>
 
     fun getPesananMasuk(): Flow<PagingData<PesananMasukItem>>
     fun getRiwayatRestockPabrik(query: String): Flow<PagingData<RiwayatRestockItem>>
 
 
-    fun getUserPabrikSession() : Flow<UserSession>
+    fun getUserPabrikSession(): Flow<UserSession>
     suspend fun logout()
+    fun isUserIsLogged() : Flow<Boolean>
+    suspend fun getItemRestock(): DataResult<ProdukRestok, HttpErrorCode>
 
-    suspend fun getItemRestock(): DataResult<ProdukRestok, String>
-
-    suspend fun insertRestock(orders: Map<String, Map<String, Int>>): DataResult<Boolean, String>
+    suspend fun insertRestock(orders: Map<String, Map<String, Int>>): DataResult<Boolean, HttpErrorCode>
 
 
 }

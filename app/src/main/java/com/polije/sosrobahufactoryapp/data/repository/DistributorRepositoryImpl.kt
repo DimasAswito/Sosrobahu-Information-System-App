@@ -4,7 +4,7 @@ import DashboardResponse
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.polije.sosrobahufactoryapp.data.datasource.local.TokenManager
+import com.polije.sosrobahufactoryapp.data.datasource.local.SessionManager
 import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.DistributorDatasource
 import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.paging.RiwayatOrderPagingSource
 import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.RiwayatRestockPagingSource
@@ -14,50 +14,76 @@ import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukD
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
 import com.polije.sosrobahufactoryapp.domain.repository.distributor.DistributorRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
+import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.UserRole
 import com.polije.sosrobahufactoryapp.utils.UserSession
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import retrofit2.HttpException
+import java.io.IOException
 
 class DistributorRepositoryImpl(
     val distributorDatasource: DistributorDatasource,
-    val tokenManager: TokenManager
+    val sessionManager: SessionManager
 ) :
     DistributorRepository {
     override suspend fun login(
         username: String,
         password: String
-    ): DataResult<LoginResponse, String> {
+    ): DataResult<LoginResponse, HttpErrorCode> {
         val request = LoginRequest(username, password)
         return try {
             val data = distributorDatasource.login(request)
-            tokenManager.saveToken(data.token?.plainTextToken ?: "")
-            tokenManager.saveUserRole(UserRole.DISTRIBUTOR)
+            sessionManager.saveSession(data.token?.plainTextToken ?: "", UserRole.DISTRIBUTOR)
             DataResult.Success(data)
-        } catch (e: Exception) {
-            DataResult.Error(e.cause.toString(), e.message.toString())
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (_: Exception) {
+            DataResult.Error(HttpErrorCode.UNKNOWN)
         }
     }
 
-    override suspend fun getDashboardDistributor(): DataResult<DashboardResponse, String> {
+    override suspend fun getDashboardDistributor(): DataResult<DashboardResponse, HttpErrorCode> {
 
         return try {
-            val token = tokenManager.getToken().first()
-            val data = distributorDatasource.getDashboardDistributor(token)
+            val token = sessionManager.sessionFlow.first().token
+            val data = distributorDatasource.getDashboardDistributor("Bearer $token")
             DataResult.Success(data)
-        } catch (e: Exception) {
-            DataResult.Error(e.cause.toString(), e.message.toString())
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (_: Exception) {
+            DataResult.Error(HttpErrorCode.UNKNOWN)
         }
     }
 
-    override suspend fun getDetailPesananMasuk(idOrder: Int): DataResult<DetailPesananMasukDistributorResponse, String> {
+    override suspend fun getDetailPesananMasuk(idOrder: Int): DataResult<DetailPesananMasukDistributorResponse, HttpErrorCode> {
         return try {
-            val token = tokenManager.getToken().first()
-            val data = distributorDatasource.getDetailPesananMasuk(token, idOrder = idOrder)
+            val token = sessionManager.sessionFlow.first().token
+            val data =
+                distributorDatasource.getDetailPesananMasuk("Bearer $token", idOrder = idOrder)
             DataResult.Success(data)
-        } catch (e: Exception) {
-            DataResult.Error(e.cause.toString(), e.message.toString())
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (_: Exception) {
+            DataResult.Error(HttpErrorCode.UNKNOWN)
         }
     }
 
@@ -71,22 +97,17 @@ class DistributorRepositoryImpl(
             pagingSourceFactory = {
                 RiwayatOrderPagingSource(
                     dataSource = distributorDatasource,
-                    tokenManager
+                    sessionManager
                 )
             }
         ).flow
+
     }
 
-    override fun getUserDistributorSession(): Flow<UserSession> = combine(
-    tokenManager.userRoleFlow(),
-    tokenManager.getToken()
-    ) { role, token ->
-        UserSession(role, token)
-    }
-
+    override fun getUserDistributorSession(): Flow<UserSession> = sessionManager.sessionFlow
 
     override suspend fun logout() {
-        tokenManager.removeToken()
+        sessionManager.clearSession()
     }
 
 //    override suspend fun getPesananMasukDistributor(): Flow<PagingData<RiwayatOrderDistributorDataItem>> {

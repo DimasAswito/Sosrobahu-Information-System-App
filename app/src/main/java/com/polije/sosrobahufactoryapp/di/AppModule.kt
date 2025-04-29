@@ -7,6 +7,7 @@ import com.polije.sosrobahufactoryapp.domain.repository.agen.AgenRepository
 import com.polije.sosrobahufactoryapp.domain.repository.distributor.DistributorRepository
 import com.polije.sosrobahufactoryapp.domain.repository.pabrik.PabrikRepository
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LoginDistributorUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UserSessionDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DashboardPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DetailPesananMasukPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.GetItemRestockPabrikUseCase
@@ -49,6 +50,7 @@ val appModule = module {
     factoryOf(::UserSessionPabrikUseCase)
     factoryOf(::LogoutUseCase)
 
+    factoryOf(::UserSessionDistributorUseCase)
     factoryOf(::LoginDistributorUseCase)
 
     viewModelOf(::HomePabrikViewModel)

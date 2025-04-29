@@ -49,6 +49,14 @@ class DistributorLoginFragment : Fragment() {
             viewModel.login()
         }
 
+        lifecycleScope.launch {
+            viewModel.isAlreadyLoggedIn().collectLatest {
+                if (it) {
+                    findNavController().navigate(R.id.action_distributorLoginFragment_to_dashboardDistributorFragment)
+                }
+            }
+
+        }
 
 
         lifecycleScope.launch {
@@ -67,8 +75,6 @@ class DistributorLoginFragment : Fragment() {
                     is LoginState.Success -> {
                         binding.progressBar4.visibility = View.GONE
                         binding.loginButton.isEnabled = false
-                        findNavController().navigate(R.id.action_distributorLoginFragment_to_dashboardDistributorFragment)
-                        viewModel
                     }
 
                     is LoginState.Error -> {

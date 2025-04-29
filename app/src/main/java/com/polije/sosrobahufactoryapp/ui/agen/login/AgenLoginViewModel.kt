@@ -1,11 +1,11 @@
 package com.polije.sosrobahufactoryapp.ui.agen.login
 
+//import com.polije.sosrobahufactoryapp.domain.usecase.agen.LoginAgenUseCase
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.LoginAgenUseCase
-//import com.polije.sosrobahufactoryapp.domain.usecase.agen.LoginAgenUseCase
-import com.polije.sosrobahufactoryapp.ui.agen.login.AgenLoginState
 import com.polije.sosrobahufactoryapp.utils.DataResult
+import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -47,7 +47,15 @@ class AgenLoginViewModel(val loginAgenUseCase: LoginAgenUseCase) :
 
                         _loginState.update {
                             LoginState.Error(
-                                data.message
+                                when (data.error) {
+                                    HttpErrorCode.BAD_REQUEST -> ""
+                                    HttpErrorCode.UNAUTHORIZED -> ""
+                                    HttpErrorCode.FORBIDDEN -> ""
+                                    HttpErrorCode.NOT_FOUND -> ""
+                                    HttpErrorCode.TIMEOUT -> ""
+                                    HttpErrorCode.INTERNAL_SERVER_ERROR -> ""
+                                    HttpErrorCode.UNKNOWN -> ""
+                                }
                             )
                         }
                     }

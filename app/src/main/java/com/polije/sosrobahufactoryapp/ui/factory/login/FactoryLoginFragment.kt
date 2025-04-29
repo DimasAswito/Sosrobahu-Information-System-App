@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentFactoryLoginBinding
@@ -46,7 +47,7 @@ class FactoryLoginFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            viewModel.isAlreadyLoggedIn().collectLatest {
+            viewModel.isAlreadyLoggedIn.collect {
                 if (it) {
                     findNavController().navigate(R.id.action_login_pabrik_to_dashboardFragment)
                 }
@@ -58,7 +59,6 @@ class FactoryLoginFragment : Fragment() {
                 when (state) {
                     is LoginState.Idle -> {
                         binding.progressBar.visibility = View.GONE
-
                     }
 
                     is LoginState.Loading -> {

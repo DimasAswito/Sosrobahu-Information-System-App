@@ -3,16 +3,16 @@ package com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.polije.sosrobahufactoryapp.data.datasource.local.TokenManager
-import com.polije.sosrobahufactoryapp.data.model.pabrik.PesananMasukItem
+import com.polije.sosrobahufactoryapp.data.datasource.local.SessionManager
 import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.PabrikDatasource
+import com.polije.sosrobahufactoryapp.data.model.pabrik.PesananMasukItem
 import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 import java.io.IOException
 
 class PesananMasukPagingSource(
     private val dataSource: PabrikDatasource,
-    private val tokenManager: TokenManager
+    private val sessionManager: SessionManager
 ) :
     PagingSource<Int, PesananMasukItem>() {
 
@@ -26,7 +26,7 @@ class PesananMasukPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PesananMasukItem> {
         val pageIndex = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val token = tokenManager.getToken().first()
+            val token = sessionManager.sessionFlow.first().token
             val response = dataSource.getPesananMasuk(token = "Bearer $token", page = pageIndex)
             val pesananMasuk = response.data
             Log.d("PagingDebug", "Page: $pageIndex, Data Count: ${response.data.size}")

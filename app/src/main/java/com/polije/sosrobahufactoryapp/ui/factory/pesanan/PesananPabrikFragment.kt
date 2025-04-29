@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.pabrik.PesananMasukItem
@@ -36,29 +35,28 @@ class PesananPabrikFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val pesananAdapter = PesananPabrikAdapter(object : PesananPabrikAdapter.OnItemClickListener {
-            override fun onItemClick(pesanan: PesananMasukItem) {
-                val action =
-                    DashboardPabrikFragmentDirections.actionDashboardFragmentToDetailPesananFragment(pesanan)
-                requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
-            }
-        })
+        val pesananAdapter =
+            PesananPabrikAdapter(object : PesananPabrikAdapter.OnItemClickListener {
+                override fun onItemClick(pesanan: PesananMasukItem) {
+                    val action =
+                        DashboardPabrikFragmentDirections.actionDashboardFragmentToDetailPesananFragment(
+                            pesanan
+                        )
+                    requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
+                }
+            })
         binding.recyclerViewPesanan.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewPesanan.adapter = pesananAdapter
 
         viewLifecycleOwner.lifecycleScope.launch {
-            pesananViewModel.getPesananMasuk().collectLatest { pesananMasuk ->
+            pesananViewModel.pesananResult().collectLatest { pesananMasuk ->
                 pesananAdapter.submitData(pesananMasuk)
             }
         }
 
-        binding.swipeRefreshLayout.setOnRefreshListener{
-            pesananViewModel.getPesananMasuk()
-            binding.swipeRefreshLayout.isRefreshing = false
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            pesananAdapter.retry()
         }
-
-
-
 
 
 //        btnFilter.setOnClickListener {

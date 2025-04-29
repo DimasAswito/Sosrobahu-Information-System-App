@@ -6,7 +6,9 @@ import com.polije.sosrobahufactoryapp.utils.UserSession
 import kotlinx.coroutines.flow.Flow
 
 class UserSessionPabrikUseCase(private val pabrikRepository: PabrikRepository) {
-    operator fun invoke() : Flow<UserSession> {
+    fun invoke() : Flow<UserSession> {
         return pabrikRepository.getUserPabrikSession()
     }
+
+    fun isLoggingIn() = pabrikRepository.isUserIsLogged()
 }

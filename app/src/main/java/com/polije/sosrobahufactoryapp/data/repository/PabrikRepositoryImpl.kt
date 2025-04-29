@@ -4,7 +4,7 @@ import DashboardResponse
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.polije.sosrobahufactoryapp.data.datasource.local.TokenManager
+import com.polije.sosrobahufactoryapp.data.datasource.local.SessionManager
 import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.PabrikDatasource
 import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.PesananMasukPagingSource
 import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.RiwayatRestockPagingSource
@@ -18,64 +18,102 @@ import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananReque
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananResponse
 import com.polije.sosrobahufactoryapp.domain.repository.pabrik.PabrikRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
+import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.UserRole
 import com.polije.sosrobahufactoryapp.utils.UserSession
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import retrofit2.HttpException
+import java.io.IOException
 
-class PabrikRepositoryImpl(val pabrikDatasource: PabrikDatasource, val tokenManager: TokenManager) :
+class PabrikRepositoryImpl(
+    val pabrikDatasource: PabrikDatasource,
+    val sessionManager: SessionManager
+) :
     PabrikRepository {
     override suspend fun login(
         username: String,
         password: String
-    ): DataResult<LoginResponse, String> {
+    ): DataResult<LoginResponse, HttpErrorCode> {
+
         val request = LoginRequest(username, password)
         return try {
             val data = pabrikDatasource.login(request)
-            tokenManager.saveToken(data.token?.plainTextToken ?: "")
-            tokenManager.saveUserRole(UserRole.PABRIK)
+            sessionManager.saveSession(token = data.token?.plainTextToken ?: "", UserRole.PABRIK)
             DataResult.Success(data)
-        } catch (e: Exception) {
-            DataResult.Error(e.cause.toString(), e.message.toString())
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (_: Exception) {
+            DataResult.Error(HttpErrorCode.UNKNOWN)
         }
     }
 
-    override suspend fun getDashboardPabrik(): DataResult<DashboardResponse, String> {
+    override suspend fun getDashboardPabrik(): DataResult<DashboardResponse, HttpErrorCode> {
 
         return try {
-            val token = tokenManager.getToken().first()
+            val token = sessionManager.sessionFlow.first().token
             val data = pabrikDatasource.getDashboardPabrik("Bearer $token")
             DataResult.Success(data)
-        } catch (e: Exception) {
-            DataResult.Error("Not Found", e.message.toString())
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (_: Exception) {
+            DataResult.Error(HttpErrorCode.UNKNOWN)
         }
     }
 
-    override suspend fun getDetailPesananMasuk(idOrder: Int): DataResult<DetailOrderResponse, String> {
+    override suspend fun getDetailPesananMasuk(idOrder: Int): DataResult<DetailOrderResponse, HttpErrorCode> {
         return try {
-            val token = "Bearer ${tokenManager.getToken().first()}"
+            val token = "Bearer ${sessionManager.sessionFlow.first().token}"
             val data = pabrikDatasource.getDetailPesananMasuk(token, idOrder)
             DataResult.Success(data)
-        } catch (e: Exception) {
-            DataResult.Error("Not Found", e.message.toString())
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (_: Exception) {
+            DataResult.Error(HttpErrorCode.UNKNOWN)
         }
+
     }
 
     override suspend fun updateDetailPesananMasuk(
         idOrder: Int,
         status: Int
-    ): DataResult<UpdateDetailPesananResponse, String> {
+    ): DataResult<UpdateDetailPesananResponse, HttpErrorCode> {
         return try {
-            val token = "Bearer ${tokenManager.getToken().first()}"
+            val token = "Bearer ${sessionManager.sessionFlow.first().token}"
             val data = pabrikDatasource.updateDetailPesanan(
                 token = token,
                 idOrder,
                 status = UpdateDetailPesananRequest(status)
             )
             DataResult.Success(data)
-        } catch (e: Exception) {
-            DataResult.Error("Not Found", e.message.toString())
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (_: Exception) {
+            DataResult.Error(HttpErrorCode.UNKNOWN)
         }
     }
 
@@ -86,7 +124,14 @@ class PabrikRepositoryImpl(val pabrikDatasource: PabrikDatasource, val tokenMana
                 pageSize = PesananMasukPagingSource.PESANAN_MASUK_PAGE_SIZE,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = { PesananMasukPagingSource(pabrikDatasource, tokenManager) }).flow
+            pagingSourceFactory = {
+                PesananMasukPagingSource(
+                    pabrikDatasource,
+                    sessionManager
+                )
+            }).flow
+
+
     }
 
     override fun getRiwayatRestockPabrik(query: String): Flow<PagingData<RiwayatRestockItem>> {
@@ -97,40 +142,55 @@ class PabrikRepositoryImpl(val pabrikDatasource: PabrikDatasource, val tokenMana
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
-                RiwayatRestockPagingSource(query, pabrikDatasource, tokenManager)
+                RiwayatRestockPagingSource(query, pabrikDatasource, sessionManager)
             }
         ).flow
+
+
     }
 
-    override fun getUserPabrikSession(): Flow<UserSession> = combine(
-        tokenManager.userRoleFlow(),
-        tokenManager.getToken()
-    ) { role, token ->
-        UserSession(role, token)
-    }
+
+    override fun getUserPabrikSession(): Flow<UserSession> = sessionManager.sessionFlow
 
     override suspend fun logout() {
-        tokenManager.removeUserRole()
-        tokenManager.removeToken()
+        sessionManager.clearSession()
     }
 
-    override suspend fun getItemRestock(): DataResult<ProdukRestok, String> {
+    override fun isUserIsLogged(): Flow<Boolean> = sessionManager.isLoggedIn
+
+    override suspend fun getItemRestock(): DataResult<ProdukRestok, HttpErrorCode> {
         return try {
-            val token = tokenManager.getToken().first()
+            val token = sessionManager.sessionFlow.first().token
             val data = pabrikDatasource.getRestockItem("Bearer $token")
             DataResult.Success(data)
-        } catch (e: Exception) {
-            DataResult.Error("Not Found", e.message.toString())
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (_: Exception) {
+            DataResult.Error(HttpErrorCode.UNKNOWN)
         }
     }
 
-    override suspend fun insertRestock(orders: Map<String, Map<String, Int>>): DataResult<Boolean, String> {
+    override suspend fun insertRestock(orders: Map<String, Map<String, Int>>): DataResult<Boolean, HttpErrorCode> {
         return try {
-            val token = tokenManager.getToken().first()
+            val token = sessionManager.sessionFlow.first().token
             val data = pabrikDatasource.insertRestock("Bearer $token", orders)
             DataResult.Success(data.success)
-        } catch (e: Exception) {
-            DataResult.Error("Gagal menambah restok", e.message ?: "Unknown error")
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (_: Exception) {
+            DataResult.Error(HttpErrorCode.UNKNOWN)
         }
     }
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestokItem
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.GetItemRestockPabrikUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
+import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -39,7 +40,17 @@ class ProdukRestokPabrikViewModel(private val getItemRestockPabrikUseCase: GetIt
                 val result = getItemRestockPabrikUseCase.invoke()
                 when (result) {
                     is DataResult.Error -> _productsState.value =
-                        PilihProdukRestockPabrikState.Error(result.message ?: "Terjadi kesalahan")
+                        PilihProdukRestockPabrikState.Error(
+                            when (result.error) {
+                                HttpErrorCode.BAD_REQUEST -> ""
+                                HttpErrorCode.UNAUTHORIZED -> ""
+                                HttpErrorCode.FORBIDDEN -> ""
+                                HttpErrorCode.NOT_FOUND -> ""
+                                HttpErrorCode.TIMEOUT -> ""
+                                HttpErrorCode.INTERNAL_SERVER_ERROR -> ""
+                                HttpErrorCode.UNKNOWN -> ""
+                            }
+                        )
 
                     is DataResult.Success -> _productsState.value =
                         PilihProdukRestockPabrikState.Success(result.data)
