@@ -6,6 +6,7 @@ import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LoginDistributo
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UserSessionDistributorUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
+import com.polije.sosrobahufactoryapp.utils.LoginState
 import com.polije.sosrobahufactoryapp.utils.UserRole
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -39,7 +40,7 @@ class DistributorLoginViewModel(
     fun onPasswordChanged(password: String) =
         _distributorLoginState.update { state -> state.copy(password = password) }
 
-    fun isAlreadyLoggedIn(): StateFlow<Boolean> =
+    val isAlreadyLoggedIn: StateFlow<Boolean> =
         userSessionDistributorUseCase.invoke()
             .map { it.token != null && it.role?.name == UserRole.DISTRIBUTOR.name }
             .onStart { emit(false) }
@@ -90,9 +91,3 @@ class DistributorLoginViewModel(
     }
 }
 
-sealed class LoginState {
-    object Idle : LoginState()
-    object Loading : LoginState()
-    data class Success(val isLoggedIn: Boolean) : LoginState()
-    data class Error(val message: String) : LoginState()
-}

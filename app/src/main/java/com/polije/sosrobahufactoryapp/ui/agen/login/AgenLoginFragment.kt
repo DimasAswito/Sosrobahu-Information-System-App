@@ -1,22 +1,20 @@
 package com.polije.sosrobahufactoryapp.ui.agen.login
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentAgenLoginBinding
-import com.polije.sosrobahufactoryapp.ui.agen.login.AgenLoginViewModel
-import com.polije.sosrobahufactoryapp.ui.agen.login.LoginState
+import com.polije.sosrobahufactoryapp.utils.LoginState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.getValue
 
 
 class AgenLoginFragment : Fragment() {
@@ -48,9 +46,21 @@ class AgenLoginFragment : Fragment() {
             }
         }
 
+
+        lifecycleScope.launch {
+            viewModel.isAlreadyLoggedIn.collectLatest {
+                if (it) {
+                    val action =
+                        AgenLoginFragmentDirections.actionAgenLoginFragmentToDashboardAgenFragment()
+                    findNavController().navigate(action)
+                }
+            }
+        }
+
         binding.loginButton.setOnClickListener {
             viewModel.login()
         }
+
 
         lifecycleScope.launch {
             viewModel.loginState.collectLatest { state ->
@@ -68,7 +78,6 @@ class AgenLoginFragment : Fragment() {
                     is LoginState.Success -> {
                         binding.progressBar5.visibility = View.GONE
                         binding.loginButton.isEnabled = false
-                        findNavController().navigate(R.id.action_agenLoginFragment_to_dashboardAgenFragment)
                     }
 
                     is LoginState.Error -> {

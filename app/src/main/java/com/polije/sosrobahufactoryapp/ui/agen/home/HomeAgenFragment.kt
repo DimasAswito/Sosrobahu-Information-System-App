@@ -6,14 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeAgenBinding
 import com.polije.sosrobahufactoryapp.ui.agen.dashboard.DashboardAgenFragmentDirections
-
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -38,17 +37,27 @@ class HomeAgenFragment : Fragment() {
 
         binding.logoutAgenButton.setOnClickListener {
 
-            Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
-            findNavController().navigateUp()
         }
 
         binding.tvlihatProdukTerlaris.setOnClickListener {
-            val action = DashboardAgenFragmentDirections.actionDashboardAgenFragmentToStockAgenRankFragment(
+            val action =
+                DashboardAgenFragmentDirections.actionDashboardAgenFragmentToStockAgenRankFragment(
 //                listStockProdukAgen
-            )
+                )
 
 
             requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
+        }
+
+        lifecycleScope.launch {
+            homeAgenViewModel.isLogged.collectLatest {
+                if (!it) {
+                    Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
+                    val action =
+                        DashboardAgenFragmentDirections.actionDashboardAgenFragmentToAgenLoginFragment()
+                    requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
+                }
+            }
         }
     }
 
@@ -87,6 +96,7 @@ class HomeAgenFragment : Fragment() {
 //        startActivity(intent)
 //        requireActivity().finish()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

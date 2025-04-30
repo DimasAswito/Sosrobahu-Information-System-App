@@ -3,6 +3,7 @@ package com.polije.sosrobahufactoryapp.data.datasource.remote.distributor
 import DashboardResponse
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
+import com.polije.sosrobahufactoryapp.data.model.distributor.DashboardDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.OrderDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorResponse
@@ -26,7 +27,7 @@ interface DistributorDatasource {
     suspend fun login(@Body request: LoginRequest): LoginResponse
 
     @GET("distributor/dashboard")
-    suspend fun getDashboardDistributor(@Header("Authorization") token: String): DashboardResponse
+    suspend fun getDashboardDistributor(@Header("Authorization") token: String): DashboardDistributorResponse
 
     @GET("distributor/pesananMasuk")
     suspend fun getPesananMasuk(

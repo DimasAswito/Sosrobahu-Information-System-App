@@ -6,6 +6,9 @@ import com.polije.sosrobahufactoryapp.data.repository.PabrikRepositoryImpl
 import com.polije.sosrobahufactoryapp.domain.repository.agen.AgenRepository
 import com.polije.sosrobahufactoryapp.domain.repository.distributor.DistributorRepository
 import com.polije.sosrobahufactoryapp.domain.repository.pabrik.PabrikRepository
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.LoginAgenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.UserSessionAgenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DasbhoardDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LoginDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LogoutDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UserSessionDistributorUseCase
@@ -19,6 +22,7 @@ import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.PesananMasukPabrikUs
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.RiwayatRestokPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UpdatePesananPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UserSessionPabrikUseCase
+import com.polije.sosrobahufactoryapp.ui.agen.home.HomeAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.login.AgenLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.home.HomeDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.login.DistributorLoginViewModel
@@ -56,6 +60,11 @@ val appModule = module {
     factoryOf(::LoginDistributorUseCase)
     factoryOf(::LogoutDistributorUseCase)
 
+    factoryOf(::LoginAgenUseCase)
+    factoryOf(::UserSessionAgenUseCase)
+    factoryOf(::DasbhoardDistributorUseCase)
+
+
     viewModelOf(::HomePabrikViewModel)
     viewModelOf(::FactoryLoginViewModel)
     viewModelOf(::PesananPabrikViewModel)
@@ -69,5 +78,9 @@ val appModule = module {
     viewModelOf(::HomeDistributorViewModel)
 
     viewModelOf(::AgenLoginViewModel)
+
+    viewModelOf(::AgenLoginViewModel)
+    factoryOf(::HomeAgenViewModel)
+    factoryOf(::AgenLoginViewModel)
 
 }

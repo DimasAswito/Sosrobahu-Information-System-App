@@ -60,5 +60,10 @@
         <action
             android:id="@+id/action_dashboardAgenFragment_to_stockAgenRankFragment"
             app:destination="@id/stockAgenRankFragment" />
+        <action
+            android:id="@+id/action_dashboardAgenFragment_to_agenLoginFragment"
+            app:destination="@id/agenLoginFragment"
+            app:popUpTo="@id/dashboardAgenFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

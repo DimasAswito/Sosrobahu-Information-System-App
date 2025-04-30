@@ -8,6 +8,8 @@ import com.polije.sosrobahufactoryapp.domain.repository.agen.AgenRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.UserRole
+import com.polije.sosrobahufactoryapp.utils.UserSession
+import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -22,7 +24,7 @@ class AgenRepositoryImpl(
         val request = LoginRequest(username, password)
         return try {
             val data = agenDatasource.login(request)
-            sessionManager.saveSession(data.token?.plainTextToken ?: "", UserRole.DISTRIBUTOR)
+            sessionManager.saveSession(data.token?.plainTextToken ?: "", UserRole.AGEN)
             DataResult.Success(data)
         } catch (e: HttpException) {
             val code = e.code()
@@ -35,6 +37,14 @@ class AgenRepositoryImpl(
         } catch (_: Exception) {
             DataResult.Error(HttpErrorCode.UNKNOWN)
         }
+    }
+
+    override fun getUserAgenSession(): Flow<UserSession> = sessionManager.sessionFlow
+
+    override fun isUserIsLogged(): Flow<Boolean> = sessionManager.isLoggedIn
+
+    override suspend fun logout() {
+        sessionManager.clearSession()
     }
 
 

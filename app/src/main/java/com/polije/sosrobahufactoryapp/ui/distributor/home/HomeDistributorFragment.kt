@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeDistributorBinding
 import com.polije.sosrobahufactoryapp.ui.distributor.dashboard.DashboardDistributorFragmentDirections
@@ -40,7 +40,11 @@ class HomeDistributorFragment : Fragment() {
 
         lifecycleScope.launch {
             homeDistributorViewModel.isLogged.collectLatest {
-                requireActivity().findNavController(R.id.fragmentContainerView).navigate(DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToDistributorLoginFragment())
+                if (!it) {
+                    Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
+                    requireActivity().findNavController(R.id.fragmentContainerView)
+                        .navigate(DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToDistributorLoginFragment())
+                }
             }
         }
 
@@ -60,29 +64,27 @@ class HomeDistributorFragment : Fragment() {
 
         lifecycleScope.launch {
 
-//            homeDistributorViewModel.state.collectLatest { state ->
-//                when (state) {
-//                    is HomeDistributorState.Failure -> {
-//                        Toast.makeText(requireContext(), state.errorMessage, Toast.LENGTH_LONG)
-//                            .show()
-//                    }
-//
-//                    HomeDistributorState.Initial -> {
-//                        binding.progressBar2.visibility = View.GONE
-//                    }
-//
-//
-//                    HomeDistributorState.Loading -> {
-//                        binding.progressBar2.visibility = View.VISIBLE
-//                    }
-//
-//                    is HomeDistributorState.Success -> {
+            homeDistributorViewModel.state.collectLatest { state ->
+                when (state) {
+                    is HomeDistributorState.Failure -> {
+                        Toast.makeText(requireContext(), state.errorMessage, Toast.LENGTH_LONG)
+                            .show()
+                    }
 
-//                    Do something
-//                    }
-//
-//                }
-//            }
+                    HomeDistributorState.Initial -> {
+                        binding.progressBar2.visibility = View.GONE
+                    }
+
+
+                    HomeDistributorState.Loading -> {
+                        binding.progressBar2.visibility = View.VISIBLE
+                    }
+
+                    is HomeDistributorState.Success -> {
+                    }
+
+                }
+            }
         }
     }
 

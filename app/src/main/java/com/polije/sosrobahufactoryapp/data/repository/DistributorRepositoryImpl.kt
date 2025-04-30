@@ -10,6 +10,7 @@ import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.paging.
 import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.RiwayatRestockPagingSource
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
+import com.polije.sosrobahufactoryapp.data.model.distributor.DashboardDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
 import com.polije.sosrobahufactoryapp.domain.repository.distributor.DistributorRepository
@@ -49,7 +50,7 @@ class DistributorRepositoryImpl(
         }
     }
 
-    override suspend fun getDashboardDistributor(): DataResult<DashboardResponse, HttpErrorCode> {
+    override suspend fun getDashboardDistributor(): DataResult<DashboardDistributorResponse, HttpErrorCode> {
 
         return try {
             val token = sessionManager.sessionFlow.first().token

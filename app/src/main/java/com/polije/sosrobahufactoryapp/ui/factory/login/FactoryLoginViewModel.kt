@@ -6,6 +6,7 @@ import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.LoginPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UserSessionPabrikUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
+import com.polije.sosrobahufactoryapp.utils.LoginState
 import com.polije.sosrobahufactoryapp.utils.UserRole
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -73,11 +74,4 @@ class FactoryLoginViewModel(
         }
     }
 
-}
-
-sealed class LoginState {
-    object Idle : LoginState()
-    object Loading : LoginState()
-    data class Success(val isLoggedIn: Boolean) : LoginState()
-    data class Error(val message: String) : LoginState()
 }

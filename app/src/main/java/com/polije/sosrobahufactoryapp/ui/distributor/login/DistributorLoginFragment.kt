@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDistributorLoginBinding
+import com.polije.sosrobahufactoryapp.utils.LoginState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -49,8 +50,9 @@ class DistributorLoginFragment : Fragment() {
             viewModel.login()
         }
 
+
         lifecycleScope.launch {
-            viewModel.isAlreadyLoggedIn().collectLatest {
+            viewModel.isAlreadyLoggedIn.collectLatest {
                 if (it) {
                     findNavController().navigate(R.id.action_distributorLoginFragment_to_dashboardDistributorFragment)
                 }

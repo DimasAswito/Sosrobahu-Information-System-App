@@ -12,13 +12,19 @@
         tools:layout="@layout/fragment_choose_role" >
         <action
             android:id="@+id/action_chooseRoleFragment_to_mobile_navigation"
-            app:destination="@id/mobile_navigation" />
+            app:destination="@id/mobile_navigation"
+            app:popUpTo="@id/chooseRoleFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_chooseRoleFragment_to_distributor_navigation"
-            app:destination="@id/distributor_navigation" />
+            app:destination="@id/distributor_navigation"
+            app:popUpTo="@id/chooseRoleFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_chooseRoleFragment_to_agen_navigation"
-            app:destination="@id/agen_navigation" />
+            app:destination="@id/agen_navigation"
+            app:popUpTo="@id/chooseRoleFragment"
+            app:popUpToInclusive="true" />
 
     </fragment>
     <include app:graph="@navigation/factory_navigation" />
