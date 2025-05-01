@@ -75,7 +75,7 @@ class PesananPabrikAdapter(val onItemClickListener: OnItemClickListener) :
                 oldItem: PesananMasukItem,
                 newItem: PesananMasukItem
             ): Boolean {
-                return oldItem.idOrder == newItem.idOrder
+                return oldItem == newItem
             }
 
         }

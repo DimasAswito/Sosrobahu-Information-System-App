@@ -11,6 +11,7 @@ import com.polije.sosrobahufactoryapp.domain.usecase.agen.UserSessionAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DasbhoardDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LoginDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LogoutDistributorUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.distributor.PesananMasukDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UserSessionDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DashboardPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DetailPesananMasukPabrikUseCase
@@ -26,6 +27,7 @@ import com.polije.sosrobahufactoryapp.ui.agen.home.HomeAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.login.AgenLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.home.HomeDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.login.DistributorLoginViewModel
+import com.polije.sosrobahufactoryapp.ui.distributor.pesanan.PesananDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.home.HomePabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.home.produkTerlaris.TopProductPabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginViewModel
@@ -63,6 +65,7 @@ val appModule = module {
     factoryOf(::LoginAgenUseCase)
     factoryOf(::UserSessionAgenUseCase)
     factoryOf(::DasbhoardDistributorUseCase)
+    factoryOf(::PesananMasukDistributorUseCase)
 
 
     viewModelOf(::HomePabrikViewModel)
@@ -76,6 +79,7 @@ val appModule = module {
 
     viewModelOf(::DistributorLoginViewModel)
     viewModelOf(::HomeDistributorViewModel)
+    viewModelOf(::PesananDistributorViewModel)
 
     viewModelOf(::AgenLoginViewModel)
 

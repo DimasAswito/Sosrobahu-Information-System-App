@@ -1,18 +1,16 @@
 package com.polije.sosrobahufactoryapp.data.repository
 
-import DashboardResponse
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.polije.sosrobahufactoryapp.data.datasource.local.SessionManager
 import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.DistributorDatasource
-import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.paging.RiwayatOrderPagingSource
-import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.RiwayatRestockPagingSource
+import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.paging.PesananMasukPagingSource
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DashboardDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
-import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
+import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorDataItem
 import com.polije.sosrobahufactoryapp.domain.repository.distributor.DistributorRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
@@ -88,15 +86,15 @@ class DistributorRepositoryImpl(
         }
     }
 
-    override fun getRiwayatOrder(): Flow<PagingData<RiwayatOrderDistributorDataItem>> {
+    override fun getPesananMasukDistributor(): Flow<PagingData<PesananMasukDistributorDataItem>> {
         return Pager(
             config = PagingConfig(
-                initialLoadSize = RiwayatRestockPagingSource.RIWAYAT_RESTOCK_PAGE_SIZE,
-                pageSize = RiwayatRestockPagingSource.RIWAYAT_RESTOCK_PAGE_SIZE,
+                initialLoadSize = PesananMasukPagingSource.RIWAYAT_ORDER_PAGE_SIZE,
+                pageSize = PesananMasukPagingSource.RIWAYAT_ORDER_PAGE_SIZE,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
-                RiwayatOrderPagingSource(
+                PesananMasukPagingSource(
                     dataSource = distributorDatasource,
                     sessionManager
                 )
