@@ -49,7 +49,6 @@ class HomePabrikFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeViewModel()
 
         binding.logoutPabrikButton.setOnClickListener {
 
@@ -76,11 +75,8 @@ class HomePabrikFragment : Fragment() {
                 }
             }
         }
-    }
 
-    private fun observeViewModel() {
         lifecycleScope.launch {
-
             homePabrikViewModel.state.collectLatest { state ->
                 when (state) {
                     is HomePabrikState.Failure -> {
@@ -91,8 +87,8 @@ class HomePabrikFragment : Fragment() {
 
                             HttpErrorCode.UNAUTHORIZED -> {
                                 homePabrikViewModel.logout()
-                                requireActivity().findNavController(R.id.fragmentContainerView)
-                                    .navigate(R.id.action_dashboardFragment_to_login_pabrik)
+                                activity?.findNavController(R.id.fragmentContainerView)
+                                    ?.navigate(R.id.action_dashboardFragment_to_login_pabrik)
                                 Toast.makeText(
                                     requireContext(),
                                     state.errorMessage,

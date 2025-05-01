@@ -30,7 +30,7 @@ class HomePabrikViewModel(
         }
         .stateIn(
             viewModelScope,
-            started = SharingStarted.WhileSubscribed(5.seconds),
+            started = SharingStarted.Lazily,
             initialValue = HomePabrikState.Initial
         )
 

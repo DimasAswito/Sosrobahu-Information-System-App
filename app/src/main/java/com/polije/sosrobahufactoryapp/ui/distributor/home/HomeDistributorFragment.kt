@@ -8,9 +8,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeDistributorBinding
 import com.polije.sosrobahufactoryapp.ui.distributor.dashboard.DashboardDistributorFragmentDirections
+import com.polije.sosrobahufactoryapp.ui.distributor.home.component.ItemHomeDistributorAdapter
+import com.polije.sosrobahufactoryapp.utils.toRupiah
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,6 +23,7 @@ class HomeDistributorFragment : Fragment() {
     private var _binding: FragmentHomeDistributorBinding? = null
     private val binding get() = _binding!!
     private val homeDistributorViewModel: HomeDistributorViewModel by viewModel()
+    private lateinit var adapter: ItemHomeDistributorAdapter
 
 
     override fun onCreateView(
@@ -31,8 +35,11 @@ class HomeDistributorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        adapter = ItemHomeDistributorAdapter()
+        binding.recyclerViewDasboardDistributor.layoutManager =
+            LinearLayoutManager(requireContext())
+        binding.recyclerViewDasboardDistributor.adapter = adapter
 
-        observeViewModel()
 
         binding.logoutDistributorButton.setOnClickListener {
             homeDistributorViewModel.logout()
@@ -42,25 +49,11 @@ class HomeDistributorFragment : Fragment() {
             homeDistributorViewModel.isLogged.collectLatest {
                 if (!it) {
                     Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
-                    requireActivity().findNavController(R.id.fragmentContainerView)
-                        .navigate(DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToDistributorLoginFragment())
+                    activity?.findNavController(R.id.fragmentContainerView)
+                        ?.navigate(DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToDistributorLoginFragment())
                 }
             }
         }
-
-        binding.tvlihatProdukTerlaris.setOnClickListener {
-            val action =
-                DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToStockDistributorRankFragment(
-//                listStockProdukDistributor
-                )
-
-
-            requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
-        }
-
-    }
-
-    fun observeViewModel() {
 
         lifecycleScope.launch {
 
@@ -81,12 +74,23 @@ class HomeDistributorFragment : Fragment() {
                     }
 
                     is HomeDistributorState.Success -> {
+                        binding.jumlahAgen.text = state.dashboardResponse.totalAgen.toString()
+                        binding.omsetBulanDistributor.text =
+                            Integer.parseInt(state.dashboardResponse.totalPendapatan.toString())
+                                .toRupiah()
+                        binding.totalStokDistributor.text =
+                            state.dashboardResponse.finalStockKarton.toString()
+                        adapter.submitList(state.dashboardResponse.produkData)
                     }
 
                 }
             }
         }
+
     }
+
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
