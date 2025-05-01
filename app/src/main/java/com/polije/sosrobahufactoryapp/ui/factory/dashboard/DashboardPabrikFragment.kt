@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.polije.sosrobahufactoryapp.databinding.FragmentDashboardPabrikBinding
+import com.polije.sosrobahufactoryapp.utils.UserRole
+import com.polije.sosrobahufactoryapp.utils.setStatusBarColorByRole
 
 class DashboardPabrikFragment : Fragment() {
 
@@ -26,6 +28,8 @@ class DashboardPabrikFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().setStatusBarColorByRole(UserRole.PABRIK)
 
         val navHost = childFragmentManager.findFragmentById(binding.pabrikDashboardFragmentContainer.id) as NavHostFragment
         binding.dashboardBottomNavigation.setupWithNavController(navHost.navController)

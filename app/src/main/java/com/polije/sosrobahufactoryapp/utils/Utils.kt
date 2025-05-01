@@ -3,6 +3,11 @@ package com.polije.sosrobahufactoryapp.utils
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Locale
+import android.app.Activity
+import android.os.Build
+import androidx.core.content.ContextCompat
+import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.utils.UserRole
 
 fun Int.toRupiah(): String {
     val formatter = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
@@ -33,3 +38,17 @@ fun String.toTanggalIndonesia(): String {
 
     return this
 }
+
+fun Activity.setStatusBarColorByRole(role: UserRole) {
+    val colorRes = when (role) {
+        UserRole.PABRIK -> R.color.factory_theme
+        UserRole.DISTRIBUTOR -> R.color.distributor_theme
+        UserRole.AGEN -> R.color.agen_theme
+        UserRole.SALES -> R.color.sales_theme
+    }
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        window.statusBarColor = ContextCompat.getColor(this, colorRes)
+    }
+}
+

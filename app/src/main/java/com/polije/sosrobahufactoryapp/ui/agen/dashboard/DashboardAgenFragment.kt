@@ -10,6 +10,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDashboardAgenBinding
 import com.polije.sosrobahufactoryapp.databinding.FragmentDashboardDistributorBinding
+import com.polije.sosrobahufactoryapp.utils.UserRole
+import com.polije.sosrobahufactoryapp.utils.setStatusBarColorByRole
 
 class DashboardAgenFragment : Fragment() {
     private var _binding : FragmentDashboardAgenBinding? = null
@@ -27,6 +29,8 @@ class DashboardAgenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().setStatusBarColorByRole(UserRole.AGEN)
 
 //        val navHost = childFragmentManager.findFragmentById(binding.dashboardAgenContainerView.id) as NavHostFragment
 //        binding.bottomNavigationView.setupWithNavController(navHost.navController)

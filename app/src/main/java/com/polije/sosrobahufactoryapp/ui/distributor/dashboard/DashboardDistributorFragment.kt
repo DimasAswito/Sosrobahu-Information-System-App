@@ -9,6 +9,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDashboardDistributorBinding
+import com.polije.sosrobahufactoryapp.databinding.FragmentDashboardPabrikBinding
+import com.polije.sosrobahufactoryapp.utils.UserRole
+import com.polije.sosrobahufactoryapp.utils.setStatusBarColorByRole
 
 class DashboardDistributorFragment : Fragment() {
 
@@ -27,6 +30,8 @@ class DashboardDistributorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().setStatusBarColorByRole(UserRole.DISTRIBUTOR)
 
         val navHost = childFragmentManager.findFragmentById(binding.dashboardDistributorContainerView.id) as NavHostFragment
         binding.bottomNavigationView.setupWithNavController(navHost.navController)
