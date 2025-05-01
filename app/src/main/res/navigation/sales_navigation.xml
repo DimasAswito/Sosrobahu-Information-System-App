@@ -62,6 +62,9 @@
         <action
             android:id="@+id/action_dashboardSalesFragment_to_daftarTokoSalesFragment"
             app:destination="@id/daftarTokoSalesFragment" />
+        <action
+            android:id="@+id/action_dashboardSalesFragment_to_orderSalesFragment2"
+            app:destination="@id/orderSalesFragment2" />
     </fragment>
     <fragment
         android:id="@+id/daftarTokoSalesFragment"
@@ -71,5 +74,20 @@
         <action
             android:id="@+id/action_daftarTokoSalesFragment_to_detailTokoSalesFragment"
             app:destination="@id/detailTokoSalesFragment" />
+        <action
+            android:id="@+id/action_daftarTokoSalesFragment_to_tambahTokoFragment"
+            app:destination="@id/tambahTokoFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/orderSalesFragment2"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.order.OrderSalesFragment"
+        android:label="OrderSalesFragment" >
+        <action
+            android:id="@+id/action_orderSalesFragment2_to_detailOrderSalesFragment"
+            app:destination="@id/detailOrderSalesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tambahTokoFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.tambahToko.TambahTokoFragment"
+        android:label="TambahTokoFragment" />
 </navigation>

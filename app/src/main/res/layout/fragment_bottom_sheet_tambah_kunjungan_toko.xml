@@ -1,14 +1,100 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.sales.daftarToko.component.BottomSheetTambahKunjunganTokoFragment">
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center_horizontal">
 
-</FrameLayout>
+        <!-- Handle -->
+        <View
+            android:layout_width="100dp"
+            android:layout_height="6dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/handle_background"
+            android:layout_gravity="center_horizontal" />
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tambah Kunjungan"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Tanggal -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilTanggal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tanggal"
+            app:boxStrokeWidth="2dp"
+            android:layout_marginBottom="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTanggal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:focusable="false"
+                android:drawableEnd="@drawable/ic_calendar"
+                android:paddingEnd="12dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Jumlah/Stok -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilStok"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Jumlah"
+            app:boxStrokeWidth="2dp"
+            android:layout_marginBottom="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etStok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Foto Kunjungan -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilFoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeWidth="2dp"
+            app:endIconDrawable="@drawable/baseline_add_box_24"
+            app:endIconMode="custom"
+            android:layout_marginBottom="20dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etFoto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:clickable="true"
+                android:inputType="none"
+                android:hint="Pilih gambar" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Tombol Edit -->
+        <Button
+            android:id="@+id/BtnTambahKunjungan"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="@color/sales_theme_dark"
+            android:text="Tambah Kunjungan"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
