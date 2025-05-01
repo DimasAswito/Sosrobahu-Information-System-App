@@ -6,17 +6,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.polije.sosrobahufactoryapp.data.model.pabrik.ItemNotaItem
-import com.polije.sosrobahufactoryapp.databinding.DetailPesananItemBinding
+import com.polije.sosrobahufactoryapp.databinding.ItemDetailPesananBinding
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 
-class DetailPesananItemPabrikAdapter :
-    ListAdapter<ItemNotaItem, DetailPesananItemPabrikAdapter.ItemNotaViewHolder>(DIFF_CALLBACK) {
+class ItemDetailPesananPabrikAdapter :
+    ListAdapter<ItemNotaItem, ItemDetailPesananPabrikAdapter.ItemNotaViewHolder>(DIFF_CALLBACK) {
 
-    inner class ItemNotaViewHolder(val binding: DetailPesananItemBinding) :
+    inner class ItemNotaViewHolder(val binding: ItemDetailPesananBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemNotaViewHolder {
-        val binding = DetailPesananItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemDetailPesananBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemNotaViewHolder(binding)
     }
 

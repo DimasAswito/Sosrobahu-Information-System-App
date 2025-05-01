@@ -1,4 +1,4 @@
 package com.polije.sosrobahufactoryapp.ui.distributor.pesanan.component
 
-class DetailPesananItemDistributorAdapter {
+class ItemDetailPesananDistributorAdapter {
 }

@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide
 import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailPesananBinding
-import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.DetailPesananItemPabrikAdapter
+import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.ItemDetailPesananPabrikAdapter
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 import com.polije.sosrobahufactoryapp.utils.toTanggalIndonesia
 import kotlinx.coroutines.flow.collectLatest
@@ -60,7 +60,7 @@ class DetailPesananPabrikFragment : Fragment() {
         )
         binding.spinnerStatus.adapter = adapter
 
-        val produkAdapter = DetailPesananItemPabrikAdapter()
+        val produkAdapter = ItemDetailPesananPabrikAdapter()
         binding.rvproduk.layoutManager = LinearLayoutManager(requireContext())
         binding.rvproduk.adapter = produkAdapter
 

@@ -17,7 +17,7 @@
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/md_theme_primary"
+            android:background="@color/agen_theme"
             android:indeterminate="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
             android:id="@+id/topView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/md_theme_primary"
+            android:background="@color/agen_theme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.25"
             app:layout_constraintStart_toStartOf="parent"
@@ -129,6 +129,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:text="@string/login"
+            android:backgroundTint="@color/agen_theme_dark"
             android:textSize="18sp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

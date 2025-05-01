@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sales_dashboard_graph"
+    app:startDestination="@id/homeSalesFragment">
+
+    <fragment
+        android:id="@+id/homeSalesFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.home.HomeSalesFragment"
+        android:label="fragment_home_sales"
+        tools:layout="@layout/fragment_home_sales" />
+    <fragment
+        android:id="@+id/orderSalesFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.order.OrderSalesFragment"
+        android:label="fragment_order_sales"
+        tools:layout="@layout/fragment_order_sales">
+        <action
+            android:id="@+id/action_orderSalesFragment_to_detailOrderSalesFragment"
+            app:destination="@id/detailOrderSalesFragment" />
+        <action
+            android:id="@+id/action_orderSalesFragment_to_pilihProdukSalesFragment"
+            app:destination="@id/pilihProdukSalesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/daftarTokoSalesFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.DaftarTokoSalesFragment"
+        android:label="fragment_pesanan_sales"
+        tools:layout="@layout/fragment_daftar_toko_sales" />
+</navigation>

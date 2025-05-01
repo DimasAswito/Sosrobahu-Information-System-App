@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sales_navigation"
+    app:startDestination="@id/salesLoginFragment">
+
+    <fragment
+        android:id="@+id/detailOrderSalesFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.order.detailOrder.DetailOrderSalesFragment"
+        android:label="fragment_detail_order_sales"
+        tools:layout="@layout/fragment_detail_order_sales" />
+    <fragment
+        android:id="@+id/detailTokoSalesFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.detailDaftarToko.DetailDaftarTokoSalesFragment"
+        android:label="fragment_detail_daftar_toko_sales"
+        tools:layout="@layout/fragment_detail_daftar_toko_sales" />
+    <fragment
+        android:id="@+id/pilihProdukSalesFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.order.pilihProdukSales.PilihProdukSalesFragment"
+        android:label="fragment_pilih_produk_sales"
+        tools:layout="@layout/fragment_pilih_produk_sales">
+        <action
+            android:id="@+id/action_pilihProdukSalesFragment_to_tambahOrderSalesFragment"
+            app:destination="@id/tambahOrderSalesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tambahOrderSalesFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.order.tambahOrder.TambahOrderSalesFragment"
+        android:label="fragment_tambah_order_sales"
+        tools:layout="@layout/fragment_tambah_order_sales" />
+    <fragment
+        android:id="@+id/salesLoginFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.login.SalesLoginFragment"
+        android:label="fragment_sales_login"
+        tools:layout="@layout/fragment_sales_login">
+        <action
+            android:id="@+id/action_salesLoginFragment_to_dashboardSalesFragment"
+            app:destination="@id/dashboardSalesFragment"
+            app:popUpTo="@id/salesLoginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/dashboardSalesFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.dashboard.DashboardSalesFragment"
+        android:label="fragment_dashboard_sales"
+        tools:layout="@layout/fragment_dashboard_sales">
+        <action
+            android:id="@+id/action_dashboardSalesFragment_to_detailPesananSalesFragment"
+            app:destination="@id/detailTokoSalesFragment" />
+        <action
+            android:id="@+id/action_dashboardSalesFragment_to_detailOrderSalesFragment"
+            app:destination="@id/detailOrderSalesFragment" />
+        <action
+            android:id="@+id/action_dashboardSalesFragment_to_pilihProdukSalesFragment"
+            app:destination="@id/pilihProdukSalesFragment" />
+        <action
+            android:id="@+id/action_dashboardSalesFragment_to_salesLoginFragment"
+            app:destination="@id/salesLoginFragment"
+            app:popUpTo="@id/dashboardSalesFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_dashboardSalesFragment_to_daftarTokoSalesFragment"
+            app:destination="@id/daftarTokoSalesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/daftarTokoSalesFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.DaftarTokoSalesFragment"
+        android:label="fragment_daftar_toko_sales"
+        tools:layout="@layout/fragment_daftar_toko_sales" >
+        <action
+            android:id="@+id/action_daftarTokoSalesFragment_to_detailTokoSalesFragment"
+            app:destination="@id/detailTokoSalesFragment" />
+    </fragment>
+</navigation>
