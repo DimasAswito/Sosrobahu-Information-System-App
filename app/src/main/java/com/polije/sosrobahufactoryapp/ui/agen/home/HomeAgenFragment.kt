@@ -39,15 +39,13 @@ class HomeAgenFragment : Fragment() {
 
         }
 
-        binding.tvlihatProdukTerlaris.setOnClickListener {
-            val action =
-                DashboardAgenFragmentDirections.actionDashboardAgenFragmentToStockAgenRankFragment(
+//        binding.tvlihatProdukTerlaris.setOnClickListener {
+//            val action =
+//                DashboardAgenFragmentDirections.actionDashboardAgenFragmentToStockAgenRankFragment(
 //                listStockProdukAgen
-                )
-
-
-            requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
-        }
+//                )
+//            requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
+//        }
 
         lifecycleScope.launch {
             homeAgenViewModel.isLogged.collectLatest {

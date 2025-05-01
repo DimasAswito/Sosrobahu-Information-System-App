@@ -54,13 +54,13 @@ class HomeDistributorViewModel(
                             HomeDistributorState.Failure(
                                 response.error,
                                 errorMessage = when (response.error) {
-                                    HttpErrorCode.BAD_REQUEST -> ""
-                                    HttpErrorCode.UNAUTHORIZED -> ""
-                                    HttpErrorCode.FORBIDDEN -> ""
-                                    HttpErrorCode.NOT_FOUND -> ""
-                                    HttpErrorCode.TIMEOUT -> ""
-                                    HttpErrorCode.INTERNAL_SERVER_ERROR -> ""
-                                    HttpErrorCode.UNKNOWN -> ""
+                                    HttpErrorCode.BAD_REQUEST -> "Permintaan tidak valid. Periksa kembali data yang dikirimkan."
+                                    HttpErrorCode.UNAUTHORIZED -> "Login gagal. Username atau password salah."
+                                    HttpErrorCode.FORBIDDEN -> "Akses ditolak. Anda tidak memiliki izin untuk mengakses."
+                                    HttpErrorCode.NOT_FOUND -> "Server tidak ditemukan. Coba lagi nanti."
+                                    HttpErrorCode.TIMEOUT -> "Permintaan melebihi batas waktu. Periksa koneksi internet Anda."
+                                    HttpErrorCode.INTERNAL_SERVER_ERROR -> "Terjadi kesalahan pada server. Silakan coba beberapa saat lagi."
+                                    HttpErrorCode.UNKNOWN -> "Terjadi kesalahan yang tidak diketahui. Silakan coba lagi."
                                 },
                             )
                     }
