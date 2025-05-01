@@ -5,7 +5,7 @@ import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DashboardDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorDataItem
-import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorResponse
+import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.UserSession
@@ -19,6 +19,8 @@ interface DistributorRepository {
     suspend fun getDetailPesananMasuk(idOrder: Int): DataResult<DetailPesananMasukDistributorResponse, HttpErrorCode>
 
     fun getPesananMasukDistributor(): Flow<PagingData<PesananMasukDistributorDataItem>>
+
+    fun getRiwayatOrderDistributor(): Flow<PagingData<RiwayatOrderDistributorDataItem>>
 
     fun getUserDistributorSession(): Flow<UserSession>
     fun isUserIsLogged(): Flow<Boolean>

@@ -9,7 +9,7 @@ import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistrib
 import com.polije.sosrobahufactoryapp.databinding.ItemPesananDistributorBinding
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 
-class PesananDistributorAdapter(val onPesananDistributorClicked: OnPesananDistributorClicked) :
+class PesananDistributorAdapter(val pesananDistributorAction: PesananDistributorAction) :
     PagingDataAdapter<PesananMasukDistributorDataItem, PesananDistributorAdapter.ViewHolder>(
         PesananDistributorDiffUtil()
     ) {
@@ -41,14 +41,14 @@ class PesananDistributorAdapter(val onPesananDistributorClicked: OnPesananDistri
                binding.tvTotalHarga.text = item.total?.toRupiah()
 
                binding.root.setOnClickListener {
-                   onPesananDistributorClicked.onItemClicked(item)
+                   pesananDistributorAction.onItemClicked(item)
                }
            }
         }
     }
 
 
-    interface OnPesananDistributorClicked {
+    interface PesananDistributorAction {
         fun onItemClicked(item: PesananMasukDistributorDataItem)
     }
 

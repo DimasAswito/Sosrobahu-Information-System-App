@@ -34,7 +34,7 @@ class PesananDistributorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = PesananDistributorAdapter(object :
-            PesananDistributorAdapter.OnPesananDistributorClicked {
+            PesananDistributorAdapter.PesananDistributorAction {
             override fun onItemClicked(item: PesananMasukDistributorDataItem) {
                 Log.d("PesananDistributor", "onItemClicked: ${item}")
             }

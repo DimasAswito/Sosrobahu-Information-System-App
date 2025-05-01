@@ -37,7 +37,7 @@ data class PesananMasukDistributorResponse(
 	val from: Int? = null,
 
 	@SerialName("links")
-	val links: List<LinksItem?>? = null,
+	val links: List<RiwayatOrderDistributorLinksItem?>? = null,
 
 	@SerialName("to")
 	val to: Int? = null,

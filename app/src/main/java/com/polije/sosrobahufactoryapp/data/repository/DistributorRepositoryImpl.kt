@@ -6,11 +6,13 @@ import androidx.paging.PagingData
 import com.polije.sosrobahufactoryapp.data.datasource.local.SessionManager
 import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.DistributorDatasource
 import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.paging.PesananMasukPagingSource
+import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.paging.RiwayatOrderPagingSource
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DashboardDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorDataItem
+import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
 import com.polije.sosrobahufactoryapp.domain.repository.distributor.DistributorRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
@@ -89,8 +91,8 @@ class DistributorRepositoryImpl(
     override fun getPesananMasukDistributor(): Flow<PagingData<PesananMasukDistributorDataItem>> {
         return Pager(
             config = PagingConfig(
-                initialLoadSize = PesananMasukPagingSource.RIWAYAT_ORDER_PAGE_SIZE,
-                pageSize = PesananMasukPagingSource.RIWAYAT_ORDER_PAGE_SIZE,
+                initialLoadSize = PesananMasukPagingSource.PESANAN_MASUK_PAGE_SIZE,
+                pageSize = PesananMasukPagingSource.PESANAN_MASUK_PAGE_SIZE,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
@@ -110,15 +112,19 @@ class DistributorRepositoryImpl(
         sessionManager.clearSession()
     }
 
-//    override suspend fun getPesananMasukDistributor(): Flow<PagingData<RiwayatOrderDistributorDataItem>> {
-//        return Pager(
-//            config = PagingConfig(
-//                initialLoadSize = PesananMasukDistributor.PESANAN_MASUK_PAGE_SIZE,
-//                pageSize = PesananMasukPagingSource.PESANAN_MASUK_PAGE_SIZE,
-//                enablePlaceholders = false
-//            ),
-//            pagingSourceFactory = { PesananMasukPagingSource(pabrikDatasource, tokenManager) }).flow
-//    }
-
+    override fun getRiwayatOrderDistributor(): Flow<PagingData<RiwayatOrderDistributorDataItem>> {
+        return Pager(
+            config = PagingConfig(
+                initialLoadSize = RiwayatOrderPagingSource.PESANAN_MASUK_PAGE_SIZE,
+                pageSize = RiwayatOrderPagingSource.PESANAN_MASUK_PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                RiwayatOrderPagingSource(
+                    distributorDatasource,
+                    sessionManager
+                )
+            }).flow
+    }
 
 }

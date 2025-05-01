@@ -6,6 +6,7 @@ import com.polije.sosrobahufactoryapp.data.model.distributor.DashboardDistributo
 import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.OrderDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorResponse
+import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRequest
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananResponse
 import okhttp3.MultipartBody
@@ -49,8 +50,11 @@ interface DistributorDatasource {
         @Part paymentProof: MultipartBody.Part
     ): OrderDistributorResponse
 
-//    @GET("distributor/riwayatOrder")
-//    suspend fun getRiwayatOrder(@Header("Authorization") token: String): RiwayatOrderDistributorResponse
+    @GET("distributor/riwayatOrder")
+    suspend fun getRiwayatOrder(
+        @Query("page") page: Int,
+        @Header("Authorization") token: String
+    ): RiwayatOrderDistributorResponse
 
     @POST("distributor/pesananMasuk/{id}")
     suspend fun updateDetailPesanan(
