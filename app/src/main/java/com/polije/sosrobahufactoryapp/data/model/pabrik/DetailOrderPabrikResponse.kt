@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
 @Serializable
-data class DetailOrderResponse(
+data class DetailOrderPabrikResponse(
 
 	@SerialName("total_item")
 	val totalItem: Int,

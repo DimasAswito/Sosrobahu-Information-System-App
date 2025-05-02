@@ -1,11 +1,11 @@
 package com.polije.sosrobahufactoryapp.ui.distributor.home.component
 
+import ProdukDataItem
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.polije.sosrobahufactoryapp.data.model.distributor.ProdukDataItem
 import com.polije.sosrobahufactoryapp.databinding.ItemHomeDistributorBinding
 
 

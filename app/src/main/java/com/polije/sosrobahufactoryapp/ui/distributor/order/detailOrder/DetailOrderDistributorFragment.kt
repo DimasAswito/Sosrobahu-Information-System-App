@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailOrderDistributorBinding
+import com.polije.sosrobahufactoryapp.ui.distributor.order.component.DetailOrderDistributorAdapter
+import com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan.DetailPesananPabrikFragmentArgs
 
 class DetailOrderDistributorFragment : Fragment() {
 
@@ -18,9 +20,6 @@ class DetailOrderDistributorFragment : Fragment() {
     private var _binding: FragmentDetailOrderDistributorBinding? = null
     private val binding get() = _binding!!
     private val viewModel: DetailOrderDistributorViewModel by viewModels()
-
-//    private val args: DetailOrderDistributorFragmentArgs by navArgs()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +35,7 @@ class DetailOrderDistributorFragment : Fragment() {
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
 
         binding.btnCetak.setOnClickListener {
             Toast.makeText(requireContext(), "Mencetak riwayat...", Toast.LENGTH_SHORT).show()

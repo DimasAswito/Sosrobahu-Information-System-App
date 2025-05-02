@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeDistributorBinding
@@ -45,12 +45,18 @@ class HomeDistributorFragment : Fragment() {
             homeDistributorViewModel.logout()
         }
 
+        val mainNavHost = requireActivity()
+            .supportFragmentManager
+            .findFragmentById(R.id.fragmentContainerView)
+                as NavHostFragment
+
+
+
         lifecycleScope.launch {
             homeDistributorViewModel.isLogged.collectLatest {
                 if (!it) {
                     Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
-                    activity?.findNavController(R.id.fragmentContainerView)
-                        ?.navigate(DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToDistributorLoginFragment())
+                    mainNavHost.navController.navigate(DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToDistributorLoginFragment())
                 }
             }
         }
@@ -60,6 +66,7 @@ class HomeDistributorFragment : Fragment() {
             homeDistributorViewModel.state.collectLatest { state ->
                 when (state) {
                     is HomeDistributorState.Failure -> {
+                        binding.progressBar2.visibility = View.GONE
                         Toast.makeText(requireContext(), state.errorMessage, Toast.LENGTH_LONG)
                             .show()
                     }
@@ -74,12 +81,15 @@ class HomeDistributorFragment : Fragment() {
                     }
 
                     is HomeDistributorState.Success -> {
+                        binding.progressBar2.visibility = View.GONE
                         binding.jumlahAgen.text = state.dashboardResponse.totalAgen.toString()
                         binding.omsetBulanDistributor.text =
-                            Integer.parseInt(state.dashboardResponse.totalPendapatan.toString())
+                            state.dashboardResponse.totalPendapatan.toInt()
                                 .toRupiah()
                         binding.totalStokDistributor.text =
                             state.dashboardResponse.finalStockKarton.toString()
+                        binding.topProductNameDistributor.text =
+                            state.dashboardResponse.topProductName
                         adapter.submitList(state.dashboardResponse.produkData)
                     }
 
@@ -88,8 +98,6 @@ class HomeDistributorFragment : Fragment() {
         }
 
     }
-
-
 
 
     override fun onDestroyView() {

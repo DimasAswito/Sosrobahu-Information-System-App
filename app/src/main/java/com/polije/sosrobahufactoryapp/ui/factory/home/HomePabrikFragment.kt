@@ -134,7 +134,7 @@ class HomePabrikFragment : Fragment() {
                         binding.stokPabrikTersedia.text =
                             getString(R.string.karton, state.dashboardPabrik.finalStockKarton)
                         binding.omsetPabrik.text =
-                            Integer.parseInt(state.dashboardPabrik.totalPendapatan).toRupiah()
+                            state.dashboardPabrik.totalPendapatan.toRupiah()
                         binding.jumlahDistributor.text =
                             getString(R.string.distributor, state.dashboardPabrik.totalDistributor)
 

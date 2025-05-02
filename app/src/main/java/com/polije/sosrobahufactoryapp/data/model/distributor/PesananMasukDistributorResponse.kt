@@ -1,5 +1,7 @@
 package com.polije.sosrobahufactoryapp.data.model.distributor
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
@@ -46,6 +48,7 @@ data class PesananMasukDistributorResponse(
 	val currentPage: Int? = null
 )
 
+@Parcelize
 @Serializable
 data class PesananMasukDistributorDataItem(
 
@@ -81,7 +84,7 @@ data class PesananMasukDistributorDataItem(
 
 	@SerialName("tanggal")
 	val tanggal: String? = null
-)
+) : Parcelable
 
 @Serializable
 data class LinksItem(

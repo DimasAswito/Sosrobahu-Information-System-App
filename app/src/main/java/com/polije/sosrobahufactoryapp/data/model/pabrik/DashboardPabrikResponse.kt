@@ -39,7 +39,7 @@ data class DashboardResponse(
     @SerialName("gambarRokokList") val gambarRokokList: List<String>,
     @SerialName("totalProdukList") val totalProdukList: List<Int>,
     @SerialName("finalStockKarton") val finalStockKarton: Int,
-    @SerialName("totalPendapatan") val totalPendapatan: String,
+    @SerialName("totalPendapatan") val totalPendapatan: Int,
     @SerialName("topProductName") val topProductName: String,
     @SerialName("totalDistributor") val totalDistributor: Int,
     @SerialName("pesananPerbulan") val pesananPerbulan: Map<String, PesananPerBulan>

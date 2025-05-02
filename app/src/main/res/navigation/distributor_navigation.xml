@@ -19,7 +19,11 @@
         android:id="@+id/detailPesananDistributorFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.distributor.pesanan.detailPesanan.DetailPesananDistributorFragment"
         android:label="fragment_detail_pesanan_distributor"
-        tools:layout="@layout/fragment_detail_pesanan_distributor" />
+        tools:layout="@layout/fragment_detail_pesanan_distributor" >
+        <argument
+            android:name="idOrder"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/pilihProdukDistributorFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.PilihProdukDistributorFragment"
@@ -52,7 +56,11 @@
         tools:layout="@layout/fragment_dashboard_distributor">
         <action
             android:id="@+id/action_dashboardDistributorFragment_to_detailPesananDistributorFragment"
-            app:destination="@id/detailPesananDistributorFragment" />
+            app:destination="@id/detailPesananDistributorFragment" >
+            <argument
+                android:name="idOrder"
+                android:defaultValue="0" />
+        </action>
         <action
             android:id="@+id/action_dashboardDistributorFragment_to_detailOrderDistributorFragment"
             app:destination="@id/detailOrderDistributorFragment" />

@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentOrderDistributorBinding
+import com.polije.sosrobahufactoryapp.ui.distributor.dashboard.DashboardDistributorFragmentDirections
 import com.polije.sosrobahufactoryapp.ui.distributor.order.component.RiwayatOrderDistributorAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -30,9 +33,19 @@ class OrderDistributorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        val mainNavHost = requireActivity()
+            .supportFragmentManager
+            .findFragmentById(R.id.fragmentContainerView)
+                as NavHostFragment
+
+
         val adapter = RiwayatOrderDistributorAdapter(object :
             RiwayatOrderDistributorAdapter.RiwayatOrderDistributorAction {
-            override fun onRiwayatOrderItemClicked() {
+            override fun onRiwayatOrderItemClicked(idOrder: Int) {
+                val action =
+                    DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToDetailPesananDistributorFragment()
+                mainNavHost.navController.navigate(action)
             }
         })
         binding.recyclerViewRiwayatOrderDistributor.layoutManager =

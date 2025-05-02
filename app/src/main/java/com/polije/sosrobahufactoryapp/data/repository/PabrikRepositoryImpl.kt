@@ -10,7 +10,7 @@ import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.Pesan
 import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.RiwayatRestockPagingSource
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
-import com.polije.sosrobahufactoryapp.data.model.pabrik.DetailOrderResponse
+import com.polije.sosrobahufactoryapp.data.model.pabrik.DetailOrderPabrikResponse
 import com.polije.sosrobahufactoryapp.data.model.pabrik.PesananMasukItem
 import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestok
 import com.polije.sosrobahufactoryapp.data.model.pabrik.RiwayatRestockItem
@@ -73,7 +73,7 @@ class PabrikRepositoryImpl(
         }
     }
 
-    override suspend fun getDetailPesananMasuk(idOrder: Int): DataResult<DetailOrderResponse, HttpErrorCode> {
+    override suspend fun getDetailPesananMasuk(idOrder: Int): DataResult<DetailOrderPabrikResponse, HttpErrorCode> {
         return try {
             val token = "Bearer ${sessionManager.sessionFlow.first().token}"
             val data = pabrikDatasource.getDetailPesananMasuk(token, idOrder)

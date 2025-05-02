@@ -3,7 +3,7 @@ package com.polije.sosrobahufactoryapp.domain.repository.pabrik
 import DashboardResponse
 import androidx.paging.PagingData
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
-import com.polije.sosrobahufactoryapp.data.model.pabrik.DetailOrderResponse
+import com.polije.sosrobahufactoryapp.data.model.pabrik.DetailOrderPabrikResponse
 import com.polije.sosrobahufactoryapp.data.model.pabrik.PesananMasukItem
 import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestok
 import com.polije.sosrobahufactoryapp.data.model.pabrik.RiwayatRestockItem
@@ -17,7 +17,7 @@ interface PabrikRepository {
     suspend fun login(username: String, password: String): DataResult<LoginResponse, HttpErrorCode>
 
     suspend fun getDashboardPabrik(): DataResult<DashboardResponse, HttpErrorCode>
-    suspend fun getDetailPesananMasuk(idOrder: Int): DataResult<DetailOrderResponse, HttpErrorCode>
+    suspend fun getDetailPesananMasuk(idOrder: Int): DataResult<DetailOrderPabrikResponse, HttpErrorCode>
     suspend fun updateDetailPesananMasuk(
         idOrder: Int,
         status: Int
