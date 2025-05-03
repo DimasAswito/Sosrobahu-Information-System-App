@@ -33,9 +33,9 @@ class ItemHomeDistributorAdapter :
     inner class ViewHolder(val binding: ItemHomeDistributorBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item : ProdukDataItem){
+        fun bind(item: ProdukDataItem) {
             binding.namaProduk.text = item.namaRokok
-            binding.stokProduk.text = item.totalProduk.toString()
+            binding.nominalSisaStok.text = item.totalProduk.toString()
         }
     }
 

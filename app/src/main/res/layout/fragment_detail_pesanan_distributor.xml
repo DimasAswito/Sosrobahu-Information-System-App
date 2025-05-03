@@ -17,9 +17,11 @@
             android:layout_height="wrap_content"
             android:background="@color/distributor_theme"
             android:indeterminate="true"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
         <View
             android:id="@+id/topView"
@@ -28,7 +30,7 @@
             android:background="@color/distributor_theme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/progressBar5" />
 
         <RelativeLayout
             android:id="@+id/headerDetailPesanan"

@@ -12,6 +12,7 @@ import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorDataItem
+import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
 import com.polije.sosrobahufactoryapp.domain.repository.distributor.DistributorRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
@@ -125,6 +126,25 @@ class DistributorRepositoryImpl(
                     sessionManager
                 )
             }).flow
+    }
+
+    override suspend fun pilihBarangPabrik(): DataResult<PilihBarangPabrikDistributorResponse, HttpErrorCode> {
+        return try {
+            val token = sessionManager.sessionFlow.first().token
+            val data =
+                distributorDatasource.getListBarangPabrik("Bearer $token")
+            DataResult.Success(data)
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (_: Exception) {
+            DataResult.Error(HttpErrorCode.UNKNOWN)
+        }
     }
 
 }

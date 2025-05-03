@@ -13,7 +13,7 @@ data class DetailPesananMasukDistributorResponse(
 	val idOrder: Int? = null,
 
 	@SerialName("item_nota")
-	val itemNota: List<ItemNotaItem> = emptyList(),
+	val itemNota: List<ItemNotaDistributorItem> = emptyList(),
 
 	@SerialName("nama_agen")
 	val namaAgen: String? = null,
@@ -35,7 +35,7 @@ data class DetailPesananMasukDistributorResponse(
 )
 
 @Serializable
-data class ItemNotaItem(
+data class ItemNotaDistributorItem(
 
 	@SerialName("jumlah_harga")
 	val jumlahHarga: Int? = null,

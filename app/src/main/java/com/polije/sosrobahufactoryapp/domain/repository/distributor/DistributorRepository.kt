@@ -5,6 +5,7 @@ import androidx.paging.PagingData
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorDataItem
+import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
@@ -21,6 +22,10 @@ interface DistributorRepository {
     fun getPesananMasukDistributor(): Flow<PagingData<PesananMasukDistributorDataItem>>
 
     fun getRiwayatOrderDistributor(): Flow<PagingData<RiwayatOrderDistributorDataItem>>
+
+//    suspend fun getDetailOrderDistributor(idOrder: Int)
+
+    suspend fun pilihBarangPabrik() : DataResult<PilihBarangPabrikDistributorResponse, HttpErrorCode>
 
     fun getUserDistributorSession(): Flow<UserSession>
     fun isUserIsLogged(): Flow<Boolean>

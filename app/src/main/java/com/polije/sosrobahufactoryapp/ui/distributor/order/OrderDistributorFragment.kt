@@ -33,19 +33,22 @@ class OrderDistributorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val mainNavHost = requireActivity()
             .supportFragmentManager
             .findFragmentById(R.id.fragmentContainerView)
                 as NavHostFragment
 
+        binding.fabTambahOrderDistributor.setOnClickListener {
+            val action = DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToPilihProdukDistributorFragment()
+            mainNavHost.navController.navigate(action)
+        }
+
+
+
 
         val adapter = RiwayatOrderDistributorAdapter(object :
             RiwayatOrderDistributorAdapter.RiwayatOrderDistributorAction {
             override fun onRiwayatOrderItemClicked(idOrder: Int) {
-                val action =
-                    DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToDetailPesananDistributorFragment()
-                mainNavHost.navController.navigate(action)
             }
         })
         binding.recyclerViewRiwayatOrderDistributor.layoutManager =
