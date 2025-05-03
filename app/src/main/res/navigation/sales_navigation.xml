@@ -14,7 +14,14 @@
         android:id="@+id/detailTokoSalesFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.detailDaftarToko.DetailDaftarTokoSalesFragment"
         android:label="fragment_detail_daftar_toko_sales"
-        tools:layout="@layout/fragment_detail_daftar_toko_sales" />
+        tools:layout="@layout/fragment_detail_daftar_toko_sales" >
+        <action
+            android:id="@+id/action_detailTokoSalesFragment_to_bottomSheetTambahKunjunganTokoFragment"
+            app:destination="@id/bottomSheetTambahKunjunganTokoFragment" />
+        <action
+            android:id="@+id/action_detailTokoSalesFragment_to_bottomSheetEditDetailTokoFragment"
+            app:destination="@id/bottomSheetEditDetailTokoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/pilihProdukSalesFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.sales.order.pilihProdukSales.PilihProdukSalesFragment"
@@ -60,34 +67,19 @@
             app:popUpTo="@id/dashboardSalesFragment"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_dashboardSalesFragment_to_daftarTokoSalesFragment"
-            app:destination="@id/daftarTokoSalesFragment" />
-        <action
-            android:id="@+id/action_dashboardSalesFragment_to_orderSalesFragment2"
-            app:destination="@id/orderSalesFragment2" />
-    </fragment>
-    <fragment
-        android:id="@+id/daftarTokoSalesFragment"
-        android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.DaftarTokoSalesFragment"
-        android:label="fragment_daftar_toko_sales"
-        tools:layout="@layout/fragment_daftar_toko_sales" >
-        <action
-            android:id="@+id/action_daftarTokoSalesFragment_to_detailTokoSalesFragment"
-            app:destination="@id/detailTokoSalesFragment" />
-        <action
-            android:id="@+id/action_daftarTokoSalesFragment_to_tambahTokoFragment"
+            android:id="@+id/action_dashboardSalesFragment_to_tambahTokoFragment"
             app:destination="@id/tambahTokoFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/orderSalesFragment2"
-        android:name="com.polije.sosrobahufactoryapp.ui.sales.order.OrderSalesFragment"
-        android:label="OrderSalesFragment" >
-        <action
-            android:id="@+id/action_orderSalesFragment2_to_detailOrderSalesFragment"
-            app:destination="@id/detailOrderSalesFragment" />
     </fragment>
     <fragment
         android:id="@+id/tambahTokoFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.tambahToko.TambahTokoFragment"
         android:label="TambahTokoFragment" />
+    <fragment
+        android:id="@+id/bottomSheetEditDetailTokoFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.BottomSheetEditDetailTokoFragment"
+        android:label="BottomSheetEditDetailTokoFragment" />
+    <fragment
+        android:id="@+id/bottomSheetTambahKunjunganTokoFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.BottomSheetTambahKunjunganTokoFragment"
+        android:label="BottomSheetTambahKunjunganTokoFragment" />
 </navigation>
