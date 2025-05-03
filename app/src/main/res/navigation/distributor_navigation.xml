@@ -37,7 +37,11 @@
         android:id="@+id/tambahOrderDistributorFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.distributor.order.tambahOrder.TambahOrderDistributorFragment"
         android:label="fragment_tambah_order_distributor"
-        tools:layout="@layout/fragment_tambah_order_distributor" />
+        tools:layout="@layout/fragment_tambah_order_distributor" >
+        <argument
+            android:name="listItemTerpilih"
+            app:argType="com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.ProdukTerpilihDistributor" />
+    </fragment>
     <fragment
         android:id="@+id/distributorLoginFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.distributor.login.DistributorLoginFragment"

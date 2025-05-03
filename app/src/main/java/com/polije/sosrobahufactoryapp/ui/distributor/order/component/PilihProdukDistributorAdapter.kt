@@ -3,8 +3,6 @@ package com.polije.sosrobahufactoryapp.ui.distributor.order.component
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
@@ -12,10 +10,11 @@ import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponseItem
 import com.polije.sosrobahufactoryapp.databinding.ItemPilihProdukDistributorBinding
+import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.SelectedProdukDistributor
 
 class PilihProdukDistributorAdapter(
     private var produkList: List<PilihBarangPabrikDistributorResponseItem>,
-    private val selectedList: MutableList<PilihBarangPabrikDistributorResponseItem>,
+    private val selectedList: MutableList<SelectedProdukDistributor>,
     private val onItemSelected: (PilihBarangPabrikDistributorResponseItem, Boolean) -> Unit
 ) : RecyclerView.Adapter<PilihProdukDistributorAdapter.ViewHolder>() {
 
@@ -30,14 +29,14 @@ class PilihProdukDistributorAdapter(
 
         fun bind(item: PilihBarangPabrikDistributorResponseItem) {
             Glide.with(binding.root.context)
-                .load(BuildConfig.PICTURE_BASE_URL + item.gambar)
+                .load(BuildConfig.PICTURE_BASE_URL + "produk/" + item.gambar)
                 .placeholder(progressDrawable)
                 .error(R.drawable.logo)
                 .into(binding.imgProduk)
 
             binding.txtNamaProduk.text = item.namaRokok
 
-            val isSelected = selectedList.any { it.idMasterBarang == item.idMasterBarang }
+            val isSelected = selectedList.any { it.item.idMasterBarang == item.idMasterBarang }
 
             binding.cardProduk.setCardBackgroundColor(
                 ContextCompat.getColor(
@@ -49,9 +48,9 @@ class PilihProdukDistributorAdapter(
             binding.root.setOnClickListener {
                 val baruDipilih = !isSelected
                 if (baruDipilih) {
-                    selectedList.add(item)
+                    selectedList.add(SelectedProdukDistributor(item))
                 } else {
-                    selectedList.removeAll { it.idMasterBarang == item.idMasterBarang }
+                    selectedList.removeAll { it.item.idMasterBarang == item.idMasterBarang }
                 }
 
                 notifyItemChanged(adapterPosition)

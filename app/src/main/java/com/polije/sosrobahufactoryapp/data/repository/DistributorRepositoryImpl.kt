@@ -142,7 +142,8 @@ class DistributorRepositoryImpl(
             DataResult.Error(httpError)
         } catch (_: IOException) {
             DataResult.Error(HttpErrorCode.TIMEOUT)
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            val error = e.message.toString()
             DataResult.Error(HttpErrorCode.UNKNOWN)
         }
     }

@@ -5,18 +5,17 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponseItem
 import com.polije.sosrobahufactoryapp.databinding.FragmentPilihProdukDistributorBinding
 import com.polije.sosrobahufactoryapp.ui.distributor.order.component.PilihProdukDistributorAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.io.Serializable
 
 
 class PilihProdukDistributorFragment : Fragment() {
@@ -25,7 +24,7 @@ class PilihProdukDistributorFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: PilihProdukDistributorViewModel by viewModel()
 
-    private val selectedList = mutableListOf<PilihBarangPabrikDistributorResponseItem>()
+    private lateinit var selectedList: ProdukTerpilihDistributor
     private lateinit var adapter: PilihProdukDistributorAdapter
 
     override fun onCreateView(
@@ -39,16 +38,9 @@ class PilihProdukDistributorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = PilihProdukDistributorAdapter(
-            produkList = emptyList(),
-            selectedList = selectedList,
-            onItemSelected = { _, _ ->
-                binding.btnPilihProduk.isEnabled = selectedList.isNotEmpty()
-            }
-        )
 
         binding.recyclerViewPilihProduk.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerViewPilihProduk.adapter = adapter
+
 
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
@@ -64,14 +56,48 @@ class PilihProdukDistributorFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.state.collectLatest { state ->
                 state.data?.let {
-                    adapter.updateList(it.pilihBarangPabrikDistributorResponse)
+                    viewModel.selectedProducts.collectLatest { selectedProduk ->
+                        adapter = PilihProdukDistributorAdapter(
+                            produkList = state.data.pilihBarangPabrikDistributorResponse,
+                            selectedList = selectedProduk.toMutableList(),
+                            onItemSelected = { item, _ ->
+
+                                viewModel.toggleProdukSelection(item)
+                            }
+                        )
+                        selectedList = ProdukTerpilihDistributor(
+                            selectedProduk,
+                            namaLengkap = state.data.bankPabrikResponse?.namaLengkap.toString(),
+                            namaBank = state.data.bankPabrikResponse?.namaBank.toString(),
+                            norek = state.data.bankPabrikResponse?.norek ?: 0
+                        )
+                        binding.recyclerViewPilihProduk.adapter = adapter
+                        adapter.updateList(it.pilihBarangPabrikDistributorResponse)
+                        binding.btnPilihProduk.isEnabled = selectedList.data.isNotEmpty()
+                    }
+                }
+
+                state.errorMessage?.let {
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+
+        binding.btnPilihProduk.setOnClickListener {
+            val action =
+                PilihProdukDistributorFragmentDirections.actionPilihProdukDistributorFragmentToTambahOrderDistributorFragment(
+                    selectedList
+                )
+            findNavController().navigate(action)
         }
     }
 }
 
+@Parcelize
 data class ProdukTerpilihDistributor(
-    val data: ArrayList<PilihBarangPabrikDistributorResponseItem>
-) : Serializable
+    val data: List<SelectedProdukDistributor>,
+    val namaLengkap: String,
+    val namaBank: String,
+    val norek: Int
+) : Parcelable
 

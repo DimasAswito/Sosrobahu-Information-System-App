@@ -13,6 +13,7 @@ import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DetailPesananMa
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LoginDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LogoutDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.PesananMasukDistributorUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.distributor.PilihProdukPabrikDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.RiwayatOrderDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UserSessionDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DashboardPabrikUseCase
@@ -30,6 +31,7 @@ import com.polije.sosrobahufactoryapp.ui.agen.login.AgenLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.home.HomeDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.login.DistributorLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.order.OrderDistributorViewModel
+import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.PilihProdukDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.pesanan.PesananDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.pesanan.detailPesanan.DetailPesananDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.home.HomePabrikViewModel
@@ -65,14 +67,14 @@ val appModule = module {
     factoryOf(::UserSessionDistributorUseCase)
     factoryOf(::LoginDistributorUseCase)
     factoryOf(::LogoutDistributorUseCase)
-
-    factoryOf(::LoginAgenUseCase)
-    factoryOf(::UserSessionAgenUseCase)
     factoryOf(::DasbhoardDistributorUseCase)
     factoryOf(::PesananMasukDistributorUseCase)
     factoryOf(::RiwayatOrderDistributorUseCase)
     factoryOf(::DetailPesananMasukDistributorUseCase)
+    factoryOf(::PilihProdukPabrikDistributorUseCase)
 
+    factoryOf(::LoginAgenUseCase)
+    factoryOf(::UserSessionAgenUseCase)
 
     viewModelOf(::HomePabrikViewModel)
     viewModelOf(::FactoryLoginViewModel)
@@ -88,6 +90,7 @@ val appModule = module {
     viewModelOf(::PesananDistributorViewModel)
     viewModelOf(::OrderDistributorViewModel)
     viewModelOf(::DetailPesananDistributorViewModel)
+    viewModelOf(::PilihProdukDistributorViewModel)
 
 
     viewModelOf(::AgenLoginViewModel)

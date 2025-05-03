@@ -13,18 +13,18 @@ import com.bumptech.glide.Glide
 import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.ItemTambahRestokBinding
-import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.SelectedProdukRestok
+import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.SelectedProdukRestokPabrik
 
 class TambahRestokPabrikAdapter(
     private val onQuantityChangeListener: OnQuantityChangeListener,
-) : ListAdapter<SelectedProdukRestok, TambahRestokPabrikAdapter.ViewHolder>(DiffCallback()) {
+) : ListAdapter<SelectedProdukRestokPabrik, TambahRestokPabrikAdapter.ViewHolder>(DiffCallback()) {
 
     inner class ViewHolder(private val binding: ItemTambahRestokBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private var currentWatcher: TextWatcher? = null
         private var isUpdatingText = false
 
-        fun bind(produk: SelectedProdukRestok) {
+        fun bind(produk: SelectedProdukRestokPabrik) {
 
             val restokGambar = BuildConfig.PICTURE_BASE_URL + "produk/" + produk.item.gambar
             Glide.with(itemView.context)
@@ -90,7 +90,7 @@ class TambahRestokPabrikAdapter(
             }
         }
 
-        private fun attachNewTextWatcher(produk: SelectedProdukRestok) {
+        private fun attachNewTextWatcher(produk: SelectedProdukRestokPabrik) {
             val watcher = object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     // Skip if we're programmatically updating the text
@@ -125,7 +125,7 @@ class TambahRestokPabrikAdapter(
             binding.edtJumlahProduk.addTextChangedListener(watcher)
         }
 
-//        private fun showDatePicker(produk: SelectedProdukRestok) {
+//        private fun showDatePicker(produk: com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.SelectedProdukRestokPabrik) {
 //            val context = itemView.context
 //            val calendar = Calendar.getInstance()
 //
@@ -177,17 +177,17 @@ class TambahRestokPabrikAdapter(
         holder.onViewRecycled()
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<SelectedProdukRestok>() {
+    class DiffCallback : DiffUtil.ItemCallback<SelectedProdukRestokPabrik>() {
         override fun areItemsTheSame(
-            oldItem: SelectedProdukRestok,
-            newItem: SelectedProdukRestok
+            oldItem: SelectedProdukRestokPabrik,
+            newItem: SelectedProdukRestokPabrik
         ): Boolean {
             return oldItem.item.idMasterBarang == newItem.item.idMasterBarang
         }
 
         override fun areContentsTheSame(
-            oldItem: SelectedProdukRestok,
-            newItem: SelectedProdukRestok
+            oldItem: SelectedProdukRestokPabrik,
+            newItem: SelectedProdukRestokPabrik
         ): Boolean {
             // Jangan bandingkan hasFocus dan cursorPosition di sini
             // untuk mencegah recycling yang tidak perlu
@@ -198,7 +198,7 @@ class TambahRestokPabrikAdapter(
     }
 
     interface OnQuantityChangeListener {
-        fun onQuantityChanged(produk: SelectedProdukRestok, newQty: Int)
+        fun onQuantityChanged(produk: SelectedProdukRestokPabrik, newQty: Int)
     }
 
 

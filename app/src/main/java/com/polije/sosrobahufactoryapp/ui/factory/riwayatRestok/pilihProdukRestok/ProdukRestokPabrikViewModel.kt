@@ -30,8 +30,8 @@ class ProdukRestokPabrikViewModel(private val getItemRestockPabrikUseCase: GetIt
         PilihProdukRestockPabrikState.Loading
     )
 
-    private val _selectedProducts = MutableStateFlow<List<SelectedProdukRestok>>(emptyList())
-    val selectedProducts: StateFlow<List<SelectedProdukRestok>> = _selectedProducts
+    private val _selectedProducts = MutableStateFlow<List<SelectedProdukRestokPabrik>>(emptyList())
+    val selectedProducts: StateFlow<List<SelectedProdukRestokPabrik>> = _selectedProducts
 
     fun fetchProdukRestok() {
         viewModelScope.launch {
@@ -69,37 +69,17 @@ class ProdukRestokPabrikViewModel(private val getItemRestockPabrikUseCase: GetIt
         if (existing != null) {
             current.remove(existing)
         } else {
-            current.add(SelectedProdukRestok(item = item))
+            current.add(SelectedProdukRestokPabrik(item = item))
         }
 
         _selectedProducts.value = current
     }
-
-    fun updateQuantity(id: Int, newQty: Int) {
-        _selectedProducts.value = _selectedProducts.value.map {
-            if (it.item.idMasterBarang == id) it.copy(quantity = newQty)
-            else it
-        }
-    }
-
-    fun submitToServer() {
-        val payload = _selectedProducts.value.map {
-            mapOf(
-                "id_barang" to it.item.idMasterBarang,
-                "qty" to it.quantity
-            )
-        }
-
-        // Kirim ke API
-        // repository.submitRestok(payload)
-    }
 }
 
 @Parcelize
-data class SelectedProdukRestok(
+data class SelectedProdukRestokPabrik(
     val item: ProdukRestokItem,
     var quantity: Int = 0,
-
     var hasFocus: Boolean = false,
     var cursorPosition: Int = -1
 ) : Parcelable

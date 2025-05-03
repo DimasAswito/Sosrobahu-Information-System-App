@@ -53,7 +53,7 @@ class HomeDistributorFragment : Fragment() {
 
 
         lifecycleScope.launch {
-            homeDistributorViewModel.isLogged.collectLatest {
+            homeDistributorViewModel.isLogged.collect {
                 if (!it) {
                     Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
                     mainNavHost.navController.navigate(DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToDistributorLoginFragment())

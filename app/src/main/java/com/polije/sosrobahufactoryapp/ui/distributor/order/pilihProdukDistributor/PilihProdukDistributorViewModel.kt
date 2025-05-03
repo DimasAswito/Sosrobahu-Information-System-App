@@ -1,7 +1,10 @@
 package com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor
 
+import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponseItem
+import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestokItem
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.PilihProdukPabrikDistributorUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
@@ -12,6 +15,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.parcelize.Parcelize
 
 class PilihProdukDistributorViewModel(private val pilihProdukPabrikDistributorUseCase: PilihProdukPabrikDistributorUseCase) :
     ViewModel() {
@@ -20,6 +24,9 @@ class PilihProdukDistributorViewModel(private val pilihProdukPabrikDistributorUs
         get() = _state.onStart {
             getListPoduk()
         }.stateIn(viewModelScope, SharingStarted.Lazily, PilihProdukDistributorState())
+
+    private val _selectedProducts = MutableStateFlow<List<SelectedProdukDistributor>>(emptyList())
+    val selectedProducts: StateFlow<List<SelectedProdukDistributor>> = _selectedProducts
 
     private fun getListPoduk() {
         viewModelScope.launch {
@@ -50,5 +57,27 @@ class PilihProdukDistributorViewModel(private val pilihProdukPabrikDistributorUs
         }
     }
 
+    fun toggleProdukSelection(item: PilihBarangPabrikDistributorResponseItem) {
+        val current = _selectedProducts.value.toMutableList()
+        val existing = current.find { it.item.idMasterBarang == item.idMasterBarang }
+
+        if (existing != null) {
+            current.remove(existing)
+        } else {
+            current.add(SelectedProdukDistributor(item = item))
+        }
+
+        _selectedProducts.value = current
+    }
+
 
 }
+
+
+@Parcelize
+data class SelectedProdukDistributor(
+    val item: PilihBarangPabrikDistributorResponseItem,
+    var quantity: Int = 0,
+    var hasFocus: Boolean = false,
+    var cursorPosition: Int = -1
+) : Parcelable

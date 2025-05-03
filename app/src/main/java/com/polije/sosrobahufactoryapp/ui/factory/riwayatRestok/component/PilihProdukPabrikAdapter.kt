@@ -14,10 +14,10 @@ import com.polije.sosrobahufactoryapp.BuildConfig.PICTURE_BASE_URL
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestok
 import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestokItem
-import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.SelectedProdukRestok
+import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.SelectedProdukRestokPabrik
 class PilihProdukPabrikAdapter(
     private val produkList: ProdukRestok,
-    private val selectedList: MutableList<SelectedProdukRestok>,
+    private val selectedList: MutableList<SelectedProdukRestokPabrik>,
     private val onItemSelected: (ProdukRestokItem, Boolean) -> Unit
 ) : RecyclerView.Adapter<PilihProdukPabrikAdapter.ViewHolder>() {
 
@@ -57,7 +57,7 @@ class PilihProdukPabrikAdapter(
             itemView.setOnClickListener {
                 val baruDipilih = !isSelected
                 if (baruDipilih) {
-                    selectedList.add(SelectedProdukRestok(produk))
+                    selectedList.add(SelectedProdukRestokPabrik(produk))
                 } else {
                     selectedList.removeAll { it.item.idMasterBarang == produk.idMasterBarang }
                 }

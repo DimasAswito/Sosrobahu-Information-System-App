@@ -85,4 +85,4 @@ class PilihProdukRestokPabrikFragment : Fragment() {
 }
 
 @Parcelize
-data class ProdukTerpilih(val data: List<SelectedProdukRestok>) : Parcelable
+data class ProdukTerpilih(val data: List<SelectedProdukRestokPabrik>) : Parcelable

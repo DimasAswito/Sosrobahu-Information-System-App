@@ -57,6 +57,7 @@ interface DistributorDatasource {
         @Header("Authorization") token: String
     ): RiwayatOrderDistributorResponse
 
+    @GET("distributor/pilihBarang")
     suspend fun getListBarangPabrik(@Header("Authorization") token : String) : PilihBarangPabrikDistributorResponse
 
     @POST("distributor/pesananMasuk/{id}")

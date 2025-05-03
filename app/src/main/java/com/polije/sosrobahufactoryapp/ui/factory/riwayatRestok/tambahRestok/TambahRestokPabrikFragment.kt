@@ -13,7 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.polije.sosrobahufactoryapp.databinding.FragmentTambahRestokBinding
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component.TambahRestokPabrikAdapter
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component.TambahRestokPabrikAdapter.OnQuantityChangeListener
-import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.SelectedProdukRestok
+import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.SelectedProdukRestokPabrik
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -41,7 +41,7 @@ class TambahRestokPabrikFragment : Fragment() {
         tambahRestokPabrikViewModel.initialProdukRestock(args.listProdukTerpilih.data)
         tambahRestokPabrikAdapter = TambahRestokPabrikAdapter(object : OnQuantityChangeListener {
             override fun onQuantityChanged(
-                produk: SelectedProdukRestok,
+                produk: SelectedProdukRestokPabrik,
                 newQty: Int
             ) {
                 tambahRestokPabrikViewModel.updateQuantity(produk.item.idMasterBarang, newQty)

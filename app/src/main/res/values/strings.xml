@@ -30,7 +30,7 @@
 
     <string name="transfer_info_text">
     Lakukan pembayaran melalui transfer ke<br />
-    BRI - 098-838-716 a/n prasetyo<br /><br />
+    %s - %s a/n %s<br /><br />
     <b>Dan upload bukti pembayaran Anda di bawah</b>
 </string>
     <string name="toko">Toko</string>

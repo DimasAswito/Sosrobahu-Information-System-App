@@ -1,23 +1,19 @@
 package com.polije.sosrobahufactoryapp.ui.distributor.order.detailOrder
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.databinding.FragmentDetailOrderDistributorBinding
-import com.polije.sosrobahufactoryapp.ui.distributor.order.component.DetailOrderDistributorAdapter
-import com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan.DetailPesananPabrikFragmentArgs
+import com.polije.sosrobahufactoryapp.databinding.FragmentDetailPesananDistributorBinding
 
 class DetailOrderDistributorFragment : Fragment() {
 
 
-    private var _binding: FragmentDetailOrderDistributorBinding? = null
+    private var _binding: FragmentDetailPesananDistributorBinding? = null
     private val binding get() = _binding!!
     private val viewModel: DetailOrderDistributorViewModel by viewModels()
 
@@ -25,7 +21,7 @@ class DetailOrderDistributorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDetailOrderDistributorBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentDetailPesananDistributorBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -37,7 +33,7 @@ class DetailOrderDistributorFragment : Fragment() {
         }
 
 
-        binding.btnCetak.setOnClickListener {
+        binding.btnBuktiPembayaran.setOnClickListener {
             Toast.makeText(requireContext(), "Mencetak riwayat...", Toast.LENGTH_SHORT).show()
         }
     }
