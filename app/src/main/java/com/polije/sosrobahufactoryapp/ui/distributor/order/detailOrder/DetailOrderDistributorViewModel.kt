@@ -5,4 +5,5 @@ import androidx.lifecycle.ViewModel
 class DetailOrderDistributorViewModel() :
     ViewModel() {
 
+
 }

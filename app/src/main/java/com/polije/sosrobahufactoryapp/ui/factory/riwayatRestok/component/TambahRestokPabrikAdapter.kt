@@ -81,6 +81,18 @@ class TambahRestokPabrikAdapter(
                     binding.edtJumlahProduk.setSelection(produk.cursorPosition)
                 }
             }
+
+
+        }
+
+        fun updateQuantityOnly(newQty: Int) {
+            // programmatically update text without re-attaching watchers or losing focus
+            if (binding.edtJumlahProduk.text.toString() != newQty.toString()) {
+                isUpdatingText = true
+                binding.edtJumlahProduk.setText(newQty.toString())
+                binding.edtJumlahProduk.setSelection(binding.edtJumlahProduk.text.length)
+                isUpdatingText = false
+            }
         }
 
         private fun removeCurrentTextWatcher() {
@@ -125,37 +137,6 @@ class TambahRestokPabrikAdapter(
             binding.edtJumlahProduk.addTextChangedListener(watcher)
         }
 
-//        private fun showDatePicker(produk: com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.SelectedProdukRestokPabrik) {
-//            val context = itemView.context
-//            val calendar = Calendar.getInstance()
-//
-//            // Parse existing date if available
-//            if (produk.tanggal.isNotEmpty()) {
-//                try {
-//                    val parts = produk.tanggal.split("/")
-//                    if (parts.size == 3) {
-//                        calendar.set(Calendar.DAY_OF_MONTH, parts[0].toInt())
-//                        calendar.set(Calendar.MONTH, parts[1].toInt() - 1)
-//                        calendar.set(Calendar.YEAR, parts[2].toInt())
-//                    }
-//                } catch (e: Exception) {
-//                    Log.e("TambahRestokAdapter", "Error parsing date", e)
-//                }
-//            }
-//
-//            DatePickerDialog(
-//                context,
-//                { _, year, month, dayOfMonth ->
-//                    val tanggal = "$dayOfMonth/${month + 1}/$year"
-//                    binding.txtPilihTanggal.text = tanggal
-//                    onDateChangeListener?.onDateChanged(produk, tanggal)
-//                },
-//                calendar.get(Calendar.YEAR),
-//                calendar.get(Calendar.MONTH),
-//                calendar.get(Calendar.DAY_OF_MONTH)
-//            ).show()
-//        }
-
         fun onViewRecycled() {
             removeCurrentTextWatcher()
         }
@@ -168,8 +149,23 @@ class TambahRestokPabrikAdapter(
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int
+    ) {
+        val item = getItem(position)
+        holder.bind(item)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any?>) {
+        if (payloads.isEmpty()) {
+            // full re-bind
+            super.onBindViewHolder(holder, position, emptyList<SelectedProdukRestokPabrik>())
+        } else {
+            // partial – only quantity changed
+            val newQty = payloads[0] as Int
+            holder.updateQuantityOnly(newQty)
+        }
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
@@ -194,6 +190,13 @@ class TambahRestokPabrikAdapter(
             return oldItem.quantity == newItem.quantity &&
 
                     oldItem.item == newItem.item
+        }
+
+        override fun getChangePayload(
+            oldItem: SelectedProdukRestokPabrik,
+            newItem: SelectedProdukRestokPabrik
+        ): Any? {
+            return if (oldItem.quantity != newItem.quantity) newItem.quantity else null
         }
     }
 

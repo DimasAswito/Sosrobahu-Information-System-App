@@ -2,9 +2,13 @@ package com.polije.sosrobahufactoryapp.data.model.distributor
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonIgnoreUnknownKeys
 
+@OptIn(ExperimentalSerializationApi::class)
+@JsonIgnoreUnknownKeys
 @Serializable
 data class PilihBarangPabrikDistributorResponse(
 
@@ -25,7 +29,19 @@ data class PilihBarangPabrikDistributorResponseItem(
     val namaRokok: String? = null,
 
     @SerialName("gambar")
-    val gambar: String? = null
+    val gambar: String? = null,
+
+    @SerialName("harga_karton_pabrik")
+    val hargaKartonPabrik : Int? = null,
+
+    @SerialName("stok_slop")
+    val stokSlop : Int? = null,
+
+    @SerialName("created_at")
+    val createdAt : String? = null,
+
+    @SerialName("updated_at")
+    val updateAt : String? = null
 ) : Parcelable
 
 @Serializable

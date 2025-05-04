@@ -6,12 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentTambahOrderDistributorBinding
 import com.polije.sosrobahufactoryapp.ui.distributor.order.component.TambahOrderDistributorAdapter
+import com.polije.sosrobahufactoryapp.ui.distributor.order.component.TambahOrderDistributorAdapter.OnQuantityChangeListener
+import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.SelectedProdukDistributor
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class TambahOrderDistributorFragment : Fragment() {
 
@@ -36,10 +41,25 @@ class TambahOrderDistributorFragment : Fragment() {
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
-        val adapter = TambahOrderDistributorAdapter(args.listItemTerpilih.data)
+        viewModel.initialProdukRestock(args.listItemTerpilih.data)
+
+        val adapter = TambahOrderDistributorAdapter(object :OnQuantityChangeListener {
+            override fun onQuantityChanged(
+                item: SelectedProdukDistributor,
+                newQty: Int
+            ) {
+                viewModel.updateQuantity(item.item.idMasterBarang ?: 0, newQty)
+            }
+        })
         binding.recyclerViewTambahOrder.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewTambahOrder.adapter = adapter
 
+        lifecycleScope.launch {
+            viewModel.produkRestock.collectLatest {
+                adapter.submitList(it)
+            }
+
+        }
 
         binding.textTransferInfo.text = getString(
             R.string.transfer_info_text,
