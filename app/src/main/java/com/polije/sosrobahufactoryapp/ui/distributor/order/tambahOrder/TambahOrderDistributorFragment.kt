@@ -1,9 +1,12 @@
 package com.polije.sosrobahufactoryapp.ui.distributor.order.tambahOrder
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -23,7 +26,7 @@ class TambahOrderDistributorFragment : Fragment() {
     private var _binding: FragmentTambahOrderDistributorBinding? = null
     private val binding get() = _binding!!
     private val viewModel: TambahOrderDistributorViewModel by viewModels()
-
+    private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
     private val args: TambahOrderDistributorFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -37,13 +40,25 @@ class TambahOrderDistributorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let {
+                binding.imageViewPreviewNota.setImageURI(it)
+                binding.imageViewPreviewNota.visibility = View.VISIBLE
+                binding.imageViewBuktiTransfer.visibility = View.GONE
+            }
+        }
+
+        binding.cardViewUpload.setOnClickListener {
+            imagePickerLauncher.launch("image/*")
+        }
 
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
         viewModel.initialProdukRestock(args.listItemTerpilih.data)
 
-        val adapter = TambahOrderDistributorAdapter(object :OnQuantityChangeListener {
+        val adapter = TambahOrderDistributorAdapter(object : OnQuantityChangeListener {
             override fun onQuantityChanged(
                 item: SelectedProdukDistributor,
                 newQty: Int
@@ -58,7 +73,6 @@ class TambahOrderDistributorFragment : Fragment() {
             viewModel.produkRestock.collectLatest {
                 adapter.submitList(it)
             }
-
         }
 
         binding.textTransferInfo.text = getString(
@@ -67,6 +81,6 @@ class TambahOrderDistributorFragment : Fragment() {
             args.listItemTerpilih.norek.toString(),
             args.listItemTerpilih.namaLengkap
         )
-
     }
+
 }

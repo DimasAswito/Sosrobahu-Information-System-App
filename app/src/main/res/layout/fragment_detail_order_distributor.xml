@@ -190,6 +190,39 @@
                             android:textSize="13sp" />
                     </LinearLayout>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="12dp">
+
+                    <!-- Status Pesanan -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bukti Pembayaran"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/btnBuktiPembayaran"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lihat Foto"
+                            android:textColor="@android:color/holo_blue_dark"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:clickable="true"
+                            android:focusable="true" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
