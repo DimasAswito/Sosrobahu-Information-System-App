@@ -32,7 +32,7 @@ data class PilihBarangPabrikDistributorResponseItem(
     val gambar: String? = null,
 
     @SerialName("harga_karton_pabrik")
-    val hargaKartonPabrik : Int? = null,
+    val hargaKartonPabrik : Int,
 
     @SerialName("stok_slop")
     val stokSlop : Int? = null,

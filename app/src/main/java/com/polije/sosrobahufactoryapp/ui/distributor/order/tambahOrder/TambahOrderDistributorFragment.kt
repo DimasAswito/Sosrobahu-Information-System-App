@@ -2,6 +2,7 @@ package com.polije.sosrobahufactoryapp.ui.distributor.order.tambahOrder
 
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +19,11 @@ import com.polije.sosrobahufactoryapp.databinding.FragmentTambahOrderDistributor
 import com.polije.sosrobahufactoryapp.ui.distributor.order.component.TambahOrderDistributorAdapter
 import com.polije.sosrobahufactoryapp.ui.distributor.order.component.TambahOrderDistributorAdapter.OnQuantityChangeListener
 import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.SelectedProdukDistributor
+import com.polije.sosrobahufactoryapp.utils.toRupiah
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.io.File
 
 class TambahOrderDistributorFragment : Fragment() {
 
@@ -40,13 +44,12 @@ class TambahOrderDistributorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        imagePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            uri?.let {
-                binding.imageViewPreviewNota.setImageURI(it)
-                binding.imageViewPreviewNota.visibility = View.VISIBLE
-                binding.imageViewBuktiTransfer.visibility = View.GONE
+        imagePickerLauncher =
+            registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+                uri?.let {
+                    viewModel.updateBuktiTransfer(uri)
+                }
             }
-        }
 
         binding.cardViewUpload.setOnClickListener {
             imagePickerLauncher.launch("image/*")
@@ -70,8 +73,32 @@ class TambahOrderDistributorFragment : Fragment() {
         binding.recyclerViewTambahOrder.adapter = adapter
 
         lifecycleScope.launch {
-            viewModel.produkRestock.collectLatest {
-                adapter.submitList(it)
+            launch {
+                viewModel.produkRestock.collectLatest {
+                    adapter.submitList(it)
+                }
+            }
+
+            launch {
+                viewModel.buktiTransfer.collectLatest { photo ->
+                    if (photo != Uri.EMPTY) {
+                        binding.imageViewPreviewNota.setImageURI(photo)
+                        binding.imageViewPreviewNota.visibility = View.VISIBLE
+                        binding.imageViewBuktiTransfer.visibility = View.GONE
+                    }
+                }
+            }
+
+            launch {
+                viewModel.isValid.collectLatest {
+                    binding.btnTambahOrder.isEnabled = it
+                }
+            }
+
+            launch {
+                viewModel.totalHarga.collectLatest {
+                    binding.tvTotalHargaNominal.text = it.toRupiah()
+                }
             }
         }
 
@@ -81,6 +108,16 @@ class TambahOrderDistributorFragment : Fragment() {
             args.listItemTerpilih.norek.toString(),
             args.listItemTerpilih.namaLengkap
         )
+    }
+
+    fun getFileFromUri(uri: Uri): File? {
+        val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = context?.contentResolver?.query(uri, filePathColumn, null, null, null)
+        cursor?.moveToFirst()
+        val columnIndex = cursor?.getColumnIndex(filePathColumn[0])
+        val filePath = cursor?.getString(columnIndex!!)
+        cursor?.close()
+        return filePath?.let { File(it) }
     }
 
 }

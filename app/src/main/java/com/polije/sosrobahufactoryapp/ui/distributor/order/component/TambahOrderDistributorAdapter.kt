@@ -40,7 +40,7 @@ class TambahOrderDistributorAdapter(
             // Sync text if needed
             if (binding.edtJumlahProduk.text.toString() != item.quantity.toString()) {
                 isUpdatingText = true
-                binding.edtJumlahProduk.setText(item.quantity.toString())
+                binding.edtJumlahProduk.setText(item.quantity?.toString() ?: "")
                 binding.edtJumlahProduk.setSelection(binding.edtJumlahProduk.text.length)
                 isUpdatingText = false
             }

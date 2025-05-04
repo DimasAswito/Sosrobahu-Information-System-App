@@ -4,7 +4,6 @@ import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponseItem
-import com.polije.sosrobahufactoryapp.data.model.pabrik.ProdukRestokItem
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.PilihProdukPabrikDistributorUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
@@ -77,7 +76,7 @@ class PilihProdukDistributorViewModel(private val pilihProdukPabrikDistributorUs
 @Parcelize
 data class SelectedProdukDistributor(
     val item: PilihBarangPabrikDistributorResponseItem,
-    var quantity: Int = 0,
+    var quantity: Int? = null,
     var hasFocus: Boolean = false,
     var cursorPosition: Int = -1
 ) : Parcelable
