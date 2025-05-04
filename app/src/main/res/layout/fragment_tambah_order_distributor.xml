@@ -64,21 +64,22 @@
         app:layout_constraintTop_toBottomOf="@+id/headerTambahOrder"
         tools:visibility="visible" />
 
-    <Button
-        android:id="@+id/btnTambahOrder"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginHorizontal="16dp"
-        android:text="Tambah Order"
-        android:backgroundTint="@color/distributor_theme_dark"
-        android:textSize="18sp"
-        android:enabled="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/btnTambahOrder"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/distributor_theme_dark"
+            android:text="Tambah Order"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutTransferInfo"
+            app:layout_constraintVertical_bias="1.0" />
 
-    <LinearLayout
+        <LinearLayout
         android:id="@+id/layoutTransferInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -163,6 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:layout_marginBottom="21dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp">
 

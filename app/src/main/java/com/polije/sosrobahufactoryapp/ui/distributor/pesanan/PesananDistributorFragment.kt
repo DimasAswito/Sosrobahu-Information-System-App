@@ -43,7 +43,7 @@ class PesananDistributorFragment : Fragment() {
         val adapter = PesananDistributorAdapter(object :
             PesananDistributorAdapter.PesananDistributorAction {
             override fun onItemClicked(item: PesananMasukDistributorDataItem) {
-                val action = DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToDetailPesananDistributorFragment(idOrder = item.idOrder ?: 0)
+                val action = DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToDetailPesananDistributorFragment(item)
                 mainNavHost.navController.navigate(action)
             }
 

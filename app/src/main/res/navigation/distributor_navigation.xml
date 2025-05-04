@@ -23,6 +23,9 @@
         <argument
             android:name="idOrder"
             app:argType="integer" />
+        <argument
+            android:name="detailPesananDistributor"
+            app:argType="com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorDataItem" />
     </fragment>
     <fragment
         android:id="@+id/pilihProdukDistributorFragment"
