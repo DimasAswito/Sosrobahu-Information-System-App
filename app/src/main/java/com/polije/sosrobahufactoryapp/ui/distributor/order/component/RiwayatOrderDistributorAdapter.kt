@@ -18,7 +18,7 @@ class RiwayatOrderDistributorAdapter(val riwayatOrderDistributorAction: RiwayatO
             binding.txtTanggalPesanan.text = item.tanggal
             binding.txtJumlahProduk.text = item.jumlah.toString()
             binding.root.setOnClickListener {
-                riwayatOrderDistributorAction.onRiwayatOrderItemClicked(item.idOrder ?: 0)
+                riwayatOrderDistributorAction.onRiwayatOrderItemClicked(item)
             }
         }
     }
@@ -66,6 +66,6 @@ class RiwayatOrderDistributorAdapter(val riwayatOrderDistributorAction: RiwayatO
     }
 
     interface RiwayatOrderDistributorAction {
-        fun onRiwayatOrderItemClicked(idOrder : Int)
+        fun onRiwayatOrderItemClicked(order: RiwayatOrderDistributorDataItem)
     }
 }

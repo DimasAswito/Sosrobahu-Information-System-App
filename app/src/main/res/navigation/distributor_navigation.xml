@@ -14,7 +14,11 @@
         android:id="@+id/detailOrderDistributorFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.distributor.order.detailOrder.DetailOrderDistributorFragment"
         android:label="fragment_detail_order_distributor"
-        tools:layout="@layout/fragment_detail_order_distributor" />
+        tools:layout="@layout/fragment_detail_order_distributor" >
+        <argument
+            android:name="detailOrder"
+            app:argType="com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem" />
+    </fragment>
     <fragment
         android:id="@+id/detailPesananDistributorFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.distributor.pesanan.detailPesanan.DetailPesananDistributorFragment"

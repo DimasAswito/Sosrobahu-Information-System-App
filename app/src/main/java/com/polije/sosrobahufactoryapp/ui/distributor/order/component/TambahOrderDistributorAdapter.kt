@@ -14,6 +14,7 @@ import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.ItemTambahOrderDistributorBinding
 import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.SelectedProdukDistributor
+import com.polije.sosrobahufactoryapp.utils.toRupiah
 
 class TambahOrderDistributorAdapter(
     private val onQuantityChangeListener: OnQuantityChangeListener
@@ -33,6 +34,7 @@ class TambahOrderDistributorAdapter(
 
             // Set name
             binding.txtNamaProduk.text = item.item.namaRokok
+            binding.txtHargaSatuan.text = item.item.hargaKartonPabrik.toRupiah()
 
             // Manage TextWatcher
             removeCurrentTextWatcher()
@@ -96,7 +98,14 @@ class TambahOrderDistributorAdapter(
                     }
                 }
 
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             }
             currentWatcher = watcher

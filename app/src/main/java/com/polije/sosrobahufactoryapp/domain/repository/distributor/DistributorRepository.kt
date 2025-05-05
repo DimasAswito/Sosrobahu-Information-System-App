@@ -1,12 +1,15 @@
 package com.polije.sosrobahufactoryapp.domain.repository.distributor
 
 import DashboardDistributorResponse
+import android.net.Uri
 import androidx.paging.PagingData
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
+import com.polije.sosrobahufactoryapp.data.model.distributor.OrderDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorDataItem
 import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
+import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.SelectedProdukDistributor
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.UserSession
@@ -25,7 +28,13 @@ interface DistributorRepository {
 
 //    suspend fun getDetailOrderDistributor(idOrder: Int)
 
-    suspend fun pilihBarangPabrik() : DataResult<PilihBarangPabrikDistributorResponse, HttpErrorCode>
+    suspend fun pilihBarangPabrik(): DataResult<PilihBarangPabrikDistributorResponse, HttpErrorCode>
+
+    suspend fun orderBarang(
+        products: List<SelectedProdukDistributor>,
+        totalAmount: Int,
+        buktiUri: Uri
+    ): DataResult<OrderDistributorResponse, HttpErrorCode>
 
     fun getUserDistributorSession(): Flow<UserSession>
     fun isUserIsLogged(): Flow<Boolean>

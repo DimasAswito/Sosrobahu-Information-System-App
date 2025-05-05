@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
 import com.polije.sosrobahufactoryapp.databinding.FragmentOrderDistributorBinding
 import com.polije.sosrobahufactoryapp.ui.distributor.dashboard.DashboardDistributorFragmentDirections
 import com.polije.sosrobahufactoryapp.ui.distributor.order.component.RiwayatOrderDistributorAdapter
@@ -39,17 +40,22 @@ class OrderDistributorFragment : Fragment() {
                 as NavHostFragment
 
         binding.fabTambahOrderDistributor.setOnClickListener {
-            val action = DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToPilihProdukDistributorFragment()
+            val action =
+                DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToPilihProdukDistributorFragment()
             mainNavHost.navController.navigate(action)
         }
 
 
-
-
         val adapter = RiwayatOrderDistributorAdapter(object :
             RiwayatOrderDistributorAdapter.RiwayatOrderDistributorAction {
-            override fun onRiwayatOrderItemClicked(idOrder: Int) {
+            override fun onRiwayatOrderItemClicked(order: RiwayatOrderDistributorDataItem) {
+                val action =
+                    DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToDetailOrderDistributorFragment(
+                        order
+                    )
+                mainNavHost.navController.navigate(action)
             }
+
         })
         binding.recyclerViewRiwayatOrderDistributor.layoutManager =
             LinearLayoutManager(requireContext())

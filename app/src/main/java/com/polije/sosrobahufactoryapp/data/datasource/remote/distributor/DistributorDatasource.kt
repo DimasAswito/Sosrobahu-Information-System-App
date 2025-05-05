@@ -18,6 +18,7 @@ import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.PartMap
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -45,10 +46,10 @@ interface DistributorDatasource {
     @Multipart
     @POST("distributor/order")
     suspend fun placeOrder(
-        @Part("total_items") totalItems: RequestBody,
-        @Part("total_amount") totalAmount: RequestBody,
-        @Part("quantities") quantitiesJson: RequestBody,
-        @Part paymentProof: MultipartBody.Part
+        @PartMap parts: Map<String, @JvmSuppressWildcards RequestBody>,
+        @Part paymentProof: MultipartBody.Part,
+        @Header("Authorization") token: String
+
     ): OrderDistributorResponse
 
     @GET("distributor/riwayatOrder")
@@ -58,7 +59,7 @@ interface DistributorDatasource {
     ): RiwayatOrderDistributorResponse
 
     @GET("distributor/pilihBarang")
-    suspend fun getListBarangPabrik(@Header("Authorization") token : String) : PilihBarangPabrikDistributorResponse
+    suspend fun getListBarangPabrik(@Header("Authorization") token: String): PilihBarangPabrikDistributorResponse
 
     @POST("distributor/pesananMasuk/{id}")
     suspend fun updateDetailPesanan(

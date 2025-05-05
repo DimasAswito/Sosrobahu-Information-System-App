@@ -6,27 +6,41 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.polije.sosrobahufactoryapp.databinding.FragmentDetailPesananDistributorBinding
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.polije.sosrobahufactoryapp.databinding.FragmentDetailOrderDistributorBinding
+import com.polije.sosrobahufactoryapp.ui.distributor.order.component.DetailOrderDistributorAdapter
+import com.polije.sosrobahufactoryapp.utils.toRupiah
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailOrderDistributorFragment : Fragment() {
 
 
-    private var _binding: FragmentDetailPesananDistributorBinding? = null
+    private var _binding: FragmentDetailOrderDistributorBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: DetailOrderDistributorViewModel by viewModels()
+    private val viewModel: DetailOrderDistributorViewModel by viewModel()
+
+    private val args: DetailOrderDistributorFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDetailPesananDistributorBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentDetailOrderDistributorBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val adapter = DetailOrderDistributorAdapter(args.detailOrder.detailProduk)
+        binding.rvProdukOrder.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvProdukOrder.adapter = adapter
+
+        binding.tvTanggalOrder.text = args.detailOrder.tanggal
+        binding.tvHargaTotal.text = args.detailOrder.total?.toRupiah()
+
 
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()

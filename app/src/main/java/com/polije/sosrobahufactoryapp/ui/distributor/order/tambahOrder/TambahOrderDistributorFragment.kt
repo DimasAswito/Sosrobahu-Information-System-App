@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -20,16 +19,16 @@ import com.polije.sosrobahufactoryapp.ui.distributor.order.component.TambahOrder
 import com.polije.sosrobahufactoryapp.ui.distributor.order.component.TambahOrderDistributorAdapter.OnQuantityChangeListener
 import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.SelectedProdukDistributor
 import com.polije.sosrobahufactoryapp.utils.toRupiah
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
 class TambahOrderDistributorFragment : Fragment() {
 
     private var _binding: FragmentTambahOrderDistributorBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: TambahOrderDistributorViewModel by viewModels()
+    private val viewModel: TambahOrderDistributorViewModel by viewModel()
     private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
     private val args: TambahOrderDistributorFragmentArgs by navArgs()
 
@@ -100,8 +99,21 @@ class TambahOrderDistributorFragment : Fragment() {
                     binding.tvTotalHargaNominal.text = it.toRupiah()
                 }
             }
+
+            launch {
+                viewModel.tambahOrderDistributorState.collectLatest { state ->
+                    binding.btnTambahOrder.isEnabled = state.isLoading
+
+                    if (state.isSubmitted) {
+                        findNavController().navigate(R.id.action_tambahOrderDistributorFragment_to_dashboardDistributorFragment)
+                    }
+                }
+            }
         }
 
+        binding.btnTambahOrder.setOnClickListener {
+            viewModel.submitOrder()
+        }
         binding.textTransferInfo.text = getString(
             R.string.transfer_info_text,
             args.listItemTerpilih.namaBank,

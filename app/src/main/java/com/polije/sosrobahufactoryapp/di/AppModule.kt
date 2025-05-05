@@ -12,6 +12,7 @@ import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DasbhoardDistri
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DetailPesananMasukDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LoginDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LogoutDistributorUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.distributor.OrderDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.PesananMasukDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.PilihProdukPabrikDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.RiwayatOrderDistributorUseCase
@@ -74,6 +75,7 @@ val appModule = module {
     factoryOf(::RiwayatOrderDistributorUseCase)
     factoryOf(::DetailPesananMasukDistributorUseCase)
     factoryOf(::PilihProdukPabrikDistributorUseCase)
+    factoryOf(::OrderDistributorUseCase)
 
     factoryOf(::LoginAgenUseCase)
     factoryOf(::UserSessionAgenUseCase)
