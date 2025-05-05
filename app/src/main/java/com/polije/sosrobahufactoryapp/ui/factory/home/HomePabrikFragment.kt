@@ -49,9 +49,7 @@ class HomePabrikFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         binding.logoutPabrikButton.setOnClickListener {
-
             homePabrikViewModel.logout()
 
         }
@@ -66,131 +64,134 @@ class HomePabrikFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            homePabrikViewModel.isLogged.collectLatest {
-                if (!it) {
-                    Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
-                    val action =
-                        DashboardPabrikFragmentDirections.actionDashboardFragmentToLoginPabrik()
-                    activity?.findNavController(R.id.fragmentContainerView)?.navigate(action)
-                }
-            }
-        }
 
-        lifecycleScope.launch {
-            homePabrikViewModel.state.collectLatest { state ->
-                when (state) {
-                    is HomePabrikState.Failure -> {
-                        when (state.errorCode) {
-                            HttpErrorCode.BAD_REQUEST -> {
+            launch {
+                homePabrikViewModel.state.collectLatest { state ->
+                    when (state) {
+                        is HomePabrikState.Failure -> {
+                            when (state.errorCode) {
+                                HttpErrorCode.BAD_REQUEST -> {
 
-                            }
-
-                            HttpErrorCode.UNAUTHORIZED -> {
-                                homePabrikViewModel.logout()
-                                activity?.findNavController(R.id.fragmentContainerView)
-                                    ?.navigate(R.id.action_dashboardFragment_to_login_pabrik)
-                                Toast.makeText(
-                                    requireContext(),
-                                    state.errorMessage,
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
-                            }
-
-                            HttpErrorCode.FORBIDDEN -> {
-
-                            }
-
-                            HttpErrorCode.NOT_FOUND -> {
-
-                            }
-
-                            HttpErrorCode.TIMEOUT -> {
-
-                            }
-
-                            HttpErrorCode.INTERNAL_SERVER_ERROR -> {
-
-                            }
-
-                            HttpErrorCode.UNKNOWN -> {
-
-                            }
-                        }
-                    }
-
-                    HomePabrikState.Initial -> {
-                        binding.progressBar2.visibility = View.GONE
-                    }
-
-
-                    HomePabrikState.Loading -> {
-                        binding.progressBar2.visibility = View.VISIBLE
-                    }
-
-                    is HomePabrikState.Success -> {
-
-                        binding.progressBar2.visibility = View.GONE
-                        binding.stokPabrikTersedia.text =
-                            getString(R.string.karton, state.dashboardPabrik.finalStockKarton)
-                        binding.omsetPabrik.text =
-                            state.dashboardPabrik.totalPendapatan.toRupiah()
-                        binding.jumlahDistributor.text =
-                            getString(R.string.distributor, state.dashboardPabrik.totalDistributor)
-
-                        val topProductName = state.dashboardPabrik.topProductName
-                        val namaRokokList = state.dashboardPabrik.namaRokokList
-                        val gambarRokokList = state.dashboardPabrik.gambarRokokList
-                        val totalProdukList = state.dashboardPabrik.totalProdukList
-
-                        val topProductIndex = namaRokokList.indexOf(topProductName)
-
-                        val combinedList =
-                            ListTopSellingProduct(namaRokokList.indices.map { index ->
-                                TopSellingProduct(
-                                    rank = 0, // Nanti diisi setelah sorting
-                                    name = namaRokokList.getOrNull(index)
-                                        ?: "Produk Tidak Diketahui",
-                                    image = gambarRokokList.getOrNull(index) ?: "",
-                                    stock = totalProdukList.getOrNull(index) ?: 0
-                                )
-                            }.sortedBy { it.stock })// urutkan berdasarkan stok paling sedikit)
-
-                        val rankedList =
-                            combinedList.listTopSellingProduct.mapIndexed { index, product ->
-                                product.copy(rank = index + 1)
-                            }
-                        listTopSellingProduct = ListTopSellingProduct(rankedList)
-
-
-                        if (topProductIndex != -1) {
-                            val topProductImageName = gambarRokokList[topProductIndex]
-                            val topProductStock = totalProdukList[topProductIndex]
-
-                            binding.topProductName.text = topProductName
-                            binding.topProductStock.text =
-                                getString(R.string.karton, topProductStock)
-
-                            val imageUrl = PICTURE_BASE_URL + "produk/" + topProductImageName
-
-                            val circularProgressDrawable =
-                                CircularProgressDrawable(requireContext()).apply {
-                                    strokeWidth = 5f
-                                    centerRadius = 30f
-                                    start()
                                 }
 
-                            Glide.with(requireContext())
-                                .load(imageUrl)
-                                .placeholder(circularProgressDrawable)
-                                .error(R.drawable.rokok)
-                                .into(binding.topProductImage)
+                                HttpErrorCode.UNAUTHORIZED -> {
+                                    homePabrikViewModel.logout()
+                                    activity?.findNavController(R.id.fragmentContainerView)
+                                        ?.navigate(R.id.action_dashboardFragment_to_login_pabrik)
+                                    Toast.makeText(
+                                        requireContext(),
+                                        state.errorMessage,
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                }
+
+                                HttpErrorCode.FORBIDDEN -> {
+
+                                }
+
+                                HttpErrorCode.NOT_FOUND -> {
+
+                                }
+
+                                HttpErrorCode.TIMEOUT -> {
+
+                                }
+
+                                HttpErrorCode.INTERNAL_SERVER_ERROR -> {
+
+                                }
+
+                                HttpErrorCode.UNKNOWN -> {
+
+                                }
+                            }
                         }
-                        val pendapatanBulanan = convertToMonthlyRevenueMap(state.pendapatanBulanan)
-                        setupBarChartPendapatan(pendapatanBulanan)
+
+                        HomePabrikState.Initial -> {
+                            binding.progressBar2.visibility = View.GONE
+                        }
+
+
+                        HomePabrikState.Loading -> {
+                            binding.progressBar2.visibility = View.VISIBLE
+                        }
+
+                        is HomePabrikState.Success -> {
+
+                            binding.progressBar2.visibility = View.GONE
+                            binding.stokPabrikTersedia.text =
+                                getString(R.string.karton, state.dashboardPabrik.finalStockKarton)
+                            binding.omsetPabrik.text =
+                                state.dashboardPabrik.totalPendapatan.toRupiah()
+                            binding.jumlahDistributor.text =
+                                getString(R.string.distributor, state.dashboardPabrik.totalDistributor)
+
+                            val topProductName = state.dashboardPabrik.topProductName
+                            val namaRokokList = state.dashboardPabrik.namaRokokList
+                            val gambarRokokList = state.dashboardPabrik.gambarRokokList
+                            val totalProdukList = state.dashboardPabrik.totalProdukList
+
+                            val topProductIndex = namaRokokList.indexOf(topProductName)
+
+                            val combinedList =
+                                ListTopSellingProduct(namaRokokList.indices.map { index ->
+                                    TopSellingProduct(
+                                        rank = 0, // Nanti diisi setelah sorting
+                                        name = namaRokokList.getOrNull(index)
+                                            ?: "Produk Tidak Diketahui",
+                                        image = gambarRokokList.getOrNull(index) ?: "",
+                                        stock = totalProdukList.getOrNull(index) ?: 0
+                                    )
+                                }.sortedBy { it.stock })// urutkan berdasarkan stok paling sedikit)
+
+                            val rankedList =
+                                combinedList.listTopSellingProduct.mapIndexed { index, product ->
+                                    product.copy(rank = index + 1)
+                                }
+                            listTopSellingProduct = ListTopSellingProduct(rankedList)
+
+
+                            if (topProductIndex != -1) {
+                                val topProductImageName = gambarRokokList[topProductIndex]
+                                val topProductStock = totalProdukList[topProductIndex]
+
+                                binding.topProductName.text = topProductName
+                                binding.topProductStock.text =
+                                    getString(R.string.karton, topProductStock)
+
+                                val imageUrl = PICTURE_BASE_URL + "produk/" + topProductImageName
+
+                                val circularProgressDrawable =
+                                    CircularProgressDrawable(requireContext()).apply {
+                                        strokeWidth = 5f
+                                        centerRadius = 30f
+                                        start()
+                                    }
+
+                                Glide.with(requireContext())
+                                    .load(imageUrl)
+                                    .placeholder(circularProgressDrawable)
+                                    .error(R.drawable.rokok)
+                                    .into(binding.topProductImage)
+                            }
+                            val pendapatanBulanan = convertToMonthlyRevenueMap(state.pendapatanBulanan)
+                            setupBarChartPendapatan(pendapatanBulanan)
+                        }
                     }
                 }
             }
+            launch {
+                homePabrikViewModel.isLogged.collectLatest {
+                    if (!it) {
+                        Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
+                        val action =
+                            DashboardPabrikFragmentDirections.actionDashboardFragmentToLoginPabrik()
+                        activity?.findNavController(R.id.fragmentContainerView)?.navigate(action)
+                    }
+                }
+            }
+
         }
     }
 

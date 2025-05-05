@@ -96,8 +96,6 @@ class TambahRestokPabrikFragment : Fragment() {
                 }
             }
 
-
-            // Tombol Tambah Restok kembali ke RiwayatFragment
             binding.btnTambahRestok.setOnClickListener {
                 tambahRestokPabrikViewModel.insertRestock()
             }

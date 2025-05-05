@@ -50,7 +50,6 @@ class DetailPesananPabrikFragment : Fragment() {
         binding.tvTanggalDetail.text = args.detailPesanan.tanggal?.toTanggalIndonesia()
         binding.tvHargaTotal.text = args.detailPesanan.total?.toRupiah()
 
-
         // Setup Spinner (Dropdown)
         val statusOptions = arrayOf("Diproses", "Selesai", "Ditolak")
         val adapter = ArrayAdapter(
@@ -63,7 +62,6 @@ class DetailPesananPabrikFragment : Fragment() {
         val produkAdapter = ItemDetailPesananPabrikAdapter()
         binding.rvproduk.layoutManager = LinearLayoutManager(requireContext())
         binding.rvproduk.adapter = produkAdapter
-
 
         // Set status awal sesuai data dari Bundle
         binding.spinnerStatus.setSelection(
@@ -89,12 +87,11 @@ class DetailPesananPabrikFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-
         val gambar = BuildConfig.PICTURE_BASE_URL + args.detailPesanan.buktiTransfer
         Glide.with(requireContext())
             .load(gambar)
-            .placeholder(R.drawable.logo) // Gambar sementara
-            .error(R.drawable.logo) // Gambar jika gagal
+            .placeholder(R.drawable.logo)
+            .error(R.drawable.logo)
             .into(binding.imgBuktiPembayaran)
 
         binding.btnBuktiPembayaran.setOnClickListener {
@@ -118,39 +115,41 @@ class DetailPesananPabrikFragment : Fragment() {
         }
 
         lifecycleScope.launch {
+            launch {
+                detailPesananViewModel.updatePesananState.collectLatest { state ->
+                    when (state) {
+                        is UpdateStatusPesananPabrikState.Failure -> {
+                            showToast(state.errorMessage)
+                            binding.SimpanStatusButton.isEnabled = true
+                        }
 
-            detailPesananViewModel.detailPesanan.collectLatest { state ->
-                when (state) {
-                    is DetailPesananPabrikState.Failure -> {}
-                    DetailPesananPabrikState.Initial -> {}
-                    DetailPesananPabrikState.Loading -> {}
-                    is DetailPesananPabrikState.Success -> {
-                        produkAdapter.submitList(state.data.itemNota)
+                        UpdateStatusPesananPabrikState.Initial -> {}
+                        UpdateStatusPesananPabrikState.Loading -> {
+                            binding.SimpanStatusButton.isEnabled = false
+                        }
+
+                        UpdateStatusPesananPabrikState.Success -> {
+                            binding.SimpanStatusButton.isEnabled = true
+                            showToast("Berhasil Mengubah Status")
+                            findNavController().navigateUp()
+                        }
                     }
                 }
             }
-        }
 
-        lifecycleScope.launch {
-            detailPesananViewModel.updatePesananState.collectLatest { state ->
-                when (state) {
-                    is UpdateStatusPesananPabrikState.Failure -> {
-                        showToast(state.errorMessage)
-                        binding.SimpanStatusButton.isEnabled = true
-                    }
-
-                    UpdateStatusPesananPabrikState.Initial -> {}
-                    UpdateStatusPesananPabrikState.Loading -> {
-                        binding.SimpanStatusButton.isEnabled = false
-                    }
-
-                    UpdateStatusPesananPabrikState.Success -> {
-                        binding.SimpanStatusButton.isEnabled = true
-                        showToast("Berhasil Mengubah Status")
-                        findNavController().navigateUp()
+            launch {
+                detailPesananViewModel.detailPesanan.collectLatest { state ->
+                    when (state) {
+                        is DetailPesananPabrikState.Failure -> {}
+                        DetailPesananPabrikState.Initial -> {}
+                        DetailPesananPabrikState.Loading -> {}
+                        is DetailPesananPabrikState.Success -> {
+                            produkAdapter.submitList(state.data.itemNota)
+                        }
                     }
                 }
             }
+
         }
     }
 

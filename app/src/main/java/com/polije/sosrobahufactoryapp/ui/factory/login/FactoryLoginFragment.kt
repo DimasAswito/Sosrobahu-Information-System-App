@@ -44,44 +44,47 @@ class FactoryLoginFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            viewModel.isValid.collectLatest { binding.loginButtonPabrik.isEnabled = it }
-        }
 
-        lifecycleScope.launch {
-            viewModel.isAlreadyLoggedIn.collect {
-                if (it) {
-                    findNavController().navigate(R.id.action_login_pabrik_to_dashboardFragment)
+            launch {
+                viewModel.loginState.collectLatest { state ->
+                    when (state) {
+                        is LoginState.Idle -> {
+                            binding.progressBar.visibility = View.GONE
+                        }
+
+                        is LoginState.Loading -> {
+                            binding.progressBar.visibility = View.VISIBLE
+                            binding.loginButtonPabrik.isEnabled = false
+                        }
+
+                        is LoginState.Success -> {
+                            binding.progressBar.visibility = View.GONE
+                            binding.loginButtonPabrik.isEnabled = false
+                        }
+
+                        is LoginState.Error -> {
+                            binding.progressBar.visibility = View.GONE
+                            Toast.makeText(
+                                requireContext(),
+                                "Login Failed: ${state.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            binding.loginButtonPabrik.isEnabled = true
+                        }
+                    }
                 }
             }
-        }
 
-        lifecycleScope.launch {
-            viewModel.loginState.collectLatest { state ->
-                when (state) {
-                    is LoginState.Idle -> {
-                        binding.progressBar.visibility = View.GONE
-                    }
-
-                    is LoginState.Loading -> {
-                        binding.progressBar.visibility = View.VISIBLE
-                        binding.loginButtonPabrik.isEnabled = false
-                    }
-
-                    is LoginState.Success -> {
-                        binding.progressBar.visibility = View.GONE
-                        binding.loginButtonPabrik.isEnabled = false
-                    }
-
-                    is LoginState.Error -> {
-                        binding.progressBar.visibility = View.GONE
-                        Toast.makeText(
-                            requireContext(),
-                            "Login Failed: ${state.message}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        binding.loginButtonPabrik.isEnabled = true
+            launch {
+                viewModel.isAlreadyLoggedIn.collect {
+                    if (it) {
+                        findNavController().navigate(R.id.action_login_pabrik_to_dashboardFragment)
                     }
                 }
+            }
+
+            launch {
+                viewModel.isValid.collectLatest { binding.loginButtonPabrik.isEnabled = it }
             }
         }
     }

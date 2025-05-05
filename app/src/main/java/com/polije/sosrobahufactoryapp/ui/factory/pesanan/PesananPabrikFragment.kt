@@ -34,7 +34,6 @@ class PesananPabrikFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         val pesananAdapter =
             PesananPabrikAdapter(object : PesananPabrikAdapter.OnItemClickListener {
                 override fun onItemClick(pesanan: PesananMasukItem) {
@@ -57,7 +56,6 @@ class PesananPabrikFragment : Fragment() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             pesananAdapter.retry()
         }
-
 
 //        btnFilter.setOnClickListener {
 //            showFilterDialog()
