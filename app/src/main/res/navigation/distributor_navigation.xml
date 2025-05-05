@@ -44,6 +44,11 @@
         <argument
             android:name="listItemTerpilih"
             app:argType="com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.ProdukTerpilihDistributor" />
+        <action
+            android:id="@+id/action_tambahOrderDistributorFragment_to_dashboardDistributorFragment"
+            app:destination="@id/dashboardDistributorFragment"
+            app:popUpTo="@id/pilihProdukDistributorFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/distributorLoginFragment"

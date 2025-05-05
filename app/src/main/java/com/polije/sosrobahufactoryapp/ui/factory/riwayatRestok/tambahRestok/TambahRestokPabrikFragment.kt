@@ -56,48 +56,51 @@ class TambahRestokPabrikFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            tambahRestokPabrikViewModel.state.collectLatest { state ->
-                when (state) {
-                    TambahRestokPabrikState.Failure -> {
-                        binding.btnTambahRestok.isEnabled = false
 
-                    }
+            launch {
+                tambahRestokPabrikViewModel.state.collectLatest { state ->
+                    when (state) {
+                        TambahRestokPabrikState.Failure -> {
+                            binding.btnTambahRestok.isEnabled = false
 
-                    TambahRestokPabrikState.Initial -> {}
-                    TambahRestokPabrikState.Loading -> {
-                        binding.progressBar3.visibility = View.VISIBLE
-                        binding.btnTambahRestok.isEnabled = true
-                    }
+                        }
 
-                    TambahRestokPabrikState.Success -> {
-                        binding.btnTambahRestok.isEnabled = false
-                        binding.progressBar3.visibility = View.GONE
-                        Snackbar.make(
-                            binding.root, "Berhasil Mengingputkan data",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
-                        findNavController().navigateUp()
+                        TambahRestokPabrikState.Initial -> {}
+                        TambahRestokPabrikState.Loading -> {
+                            binding.progressBar3.visibility = View.VISIBLE
+                            binding.btnTambahRestok.isEnabled = true
+                        }
+
+                        TambahRestokPabrikState.Success -> {
+                            binding.btnTambahRestok.isEnabled = false
+                            binding.progressBar3.visibility = View.GONE
+                            Snackbar.make(
+                                binding.root, "Berhasil Mengingputkan data",
+                                Snackbar.LENGTH_SHORT
+                            ).show()
+                            findNavController().navigateUp()
+                        }
                     }
                 }
             }
-        }
 
-        lifecycleScope.launch {
-            tambahRestokPabrikViewModel.isValid.collectLatest { isValid ->
-                binding.btnTambahRestok.isEnabled = isValid
+            launch {
+                tambahRestokPabrikViewModel.isValid.collectLatest { isValid ->
+                    binding.btnTambahRestok.isEnabled = isValid
+                }
             }
-        }
 
-        lifecycleScope.launch {
-            tambahRestokPabrikViewModel.produkRestock.collectLatest { data ->
-                tambahRestokPabrikAdapter.submitList(data)
+            launch {
+                tambahRestokPabrikViewModel.produkRestock.collectLatest { data ->
+                    tambahRestokPabrikAdapter.submitList(data)
+                }
             }
-        }
 
 
-        // Tombol Tambah Restok kembali ke RiwayatFragment
-        binding.btnTambahRestok.setOnClickListener {
-            tambahRestokPabrikViewModel.insertRestock()
+            // Tombol Tambah Restok kembali ke RiwayatFragment
+            binding.btnTambahRestok.setOnClickListener {
+                tambahRestokPabrikViewModel.insertRestock()
+            }
         }
     }
 }

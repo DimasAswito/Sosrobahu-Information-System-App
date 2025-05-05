@@ -44,6 +44,8 @@ class TambahOrderDistributorViewModel() : ViewModel() {
         }
     }
 
+    fun submitOrder()
+
     fun updateBuktiTransfer(uri: Uri) {
         _buktiTransfer.value = uri
     }
