@@ -10,6 +10,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,8 +55,15 @@ class TambahOrderDistributorFragment : Fragment() {
             imagePickerLauncher.launch("image/*")
         }
 
+        val mainNavHost = requireActivity()
+            .supportFragmentManager
+            .findFragmentById(R.id.fragmentContainerView)
+                as NavHostFragment
+
+
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
+          
         }
 
         viewModel.initialProdukRestock(args.listItemTerpilih.data)
@@ -102,10 +110,10 @@ class TambahOrderDistributorFragment : Fragment() {
 
             launch {
                 viewModel.tambahOrderDistributorState.collectLatest { state ->
-                    binding.btnTambahOrder.isEnabled = state.isLoading
-
                     if (state.isSubmitted) {
-                        findNavController().navigate(R.id.action_tambahOrderDistributorFragment_to_dashboardDistributorFragment)
+                        findNavController().navigate(
+                            R.id.action_tambahOrderDistributorFragment_to_dashboardDistributorFragment
+                        )
                     }
                 }
             }

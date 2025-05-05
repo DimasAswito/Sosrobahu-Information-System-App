@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailOrderDistributorBinding
 import com.polije.sosrobahufactoryapp.ui.distributor.order.component.DetailOrderDistributorAdapter
 import com.polije.sosrobahufactoryapp.utils.toRupiah
@@ -40,6 +41,8 @@ class DetailOrderDistributorFragment : Fragment() {
 
         binding.tvTanggalOrder.text = args.detailOrder.tanggal
         binding.tvHargaTotal.text = args.detailOrder.total?.toRupiah()
+        binding.tvJumlahOrder.text = getString(R.string.karton, args.detailOrder.jumlah)
+        binding.tvStatusPesanan.text = (args.detailOrder.statusPemesanan ?: 0).toString()
 
 
         binding.btnBack.setOnClickListener {

@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -24,13 +25,27 @@ class TambahOrderDistributorViewModel(val distributorOrderUseCase: OrderDistribu
     private val _buktiTransfer = MutableStateFlow<Uri>(Uri.EMPTY)
     val buktiTransfer: StateFlow<Uri> get() = _buktiTransfer.asStateFlow()
 
+    private val _tambahOrderDistributorState = MutableStateFlow(TambahOrderDistributorState())
+    val tambahOrderDistributorState get() = _tambahOrderDistributorState.asStateFlow()
+
+
     fun initialProdukRestock(orders: List<SelectedProdukDistributor>) {
         _produkRestock.value = orders
     }
 
-    val isValid: StateFlow<Boolean> = _produkRestock
-        .map { list -> list.any { (it.quantity ?: 0) > 0 } }
-        .stateIn(viewModelScope, SharingStarted.Eagerly, false)
+    val isValid: StateFlow<Boolean> = combine(
+        _produkRestock,
+        _buktiTransfer,
+        _tambahOrderDistributorState
+    ) { list, buktiTranser, state ->
+        val hasQuantity = list.any { (it.quantity ?: 0) > 0 }
+        val hasBukti = buktiTranser != Uri.EMPTY
+        hasQuantity && hasBukti && !state.isLoading
+    }.stateIn(
+        viewModelScope,
+        SharingStarted.Eagerly,
+        false
+    )
 
     val totalHarga: StateFlow<Int> = _produkRestock
         .map { list -> list.sumOf { (it.quantity ?: 0) * it.item.hargaKartonPabrik } }
@@ -49,10 +64,6 @@ class TambahOrderDistributorViewModel(val distributorOrderUseCase: OrderDistribu
         }
     }
 
-    private val _tambahOrderDistributorState = MutableStateFlow(TambahOrderDistributorState())
-    val tambahOrderDistributorState get() = _tambahOrderDistributorState.asStateFlow()
-
-    // … existing initialProdukRestock, updateQuantity, updateBuktiTransfer …
 
     fun submitOrder() {
         _tambahOrderDistributorState.update { it.copy(isLoading = true) }

@@ -17,7 +17,6 @@ import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailPesananDistributorBinding
 import com.polije.sosrobahufactoryapp.ui.distributor.pesanan.component.ItemDetailPesananDistributorAdapter
-import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.ItemDetailPesananPabrikAdapter
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -56,12 +55,12 @@ class DetailPesananDistributorFragment : Fragment() {
                 binding.progressBar5.visibility = if (state.isLoading) View.VISIBLE else View.GONE
 
                 if (state.data != null) {
-                    with(binding) {
-                        tvTanggalDetail.text = state.data.tanggal
-                        tvHargaTotal.text = state.data.totalHarga?.toRupiah()
-                        tvAgenDetail.text = state.data.namaAgen
-                        adapter.submitList(state.data.itemNota)
-                    }
+
+                    binding.tvTanggalDetail.text = state.data.tanggal
+                    binding.tvHargaTotal.text = state.data.totalHarga?.toRupiah()
+                    binding.tvAgenDetail.text = state.data.namaAgen
+                    adapter.submitList(state.data.itemNota)
+
                 }
             }
         }
@@ -79,11 +78,6 @@ class DetailPesananDistributorFragment : Fragment() {
             statusOptions
         )
         binding.spinnerStatus.adapter = adapterstatus
-
-        val produkAdapter = ItemDetailPesananPabrikAdapter()
-        binding.rvproduk.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvproduk.adapter = produkAdapter
-
 
         // Set status awal sesuai data dari Bundle
         binding.spinnerStatus.setSelection(

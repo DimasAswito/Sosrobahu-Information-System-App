@@ -9,7 +9,7 @@ import com.polije.sosrobahufactoryapp.data.model.distributor.ItemNotaDistributor
 import com.polije.sosrobahufactoryapp.databinding.ItemDetailPesananDistributorBinding
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 
-class ItemDetailPesananDistributorAdapter :
+class ItemDetailPesananDistributorAdapter() :
     ListAdapter<ItemNotaDistributorItem, ItemDetailPesananDistributorAdapter.ViewHolder>(
         ItemDetailPesananDistributorDiffUtil()
     ) {
