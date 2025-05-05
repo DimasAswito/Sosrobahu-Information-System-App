@@ -165,6 +165,7 @@
                             android:text=" - "
                             android:textStyle="bold"
                             android:textSize="13sp" />
+
                     </LinearLayout>
 
                     <!-- Status Pembayaran -->
@@ -174,34 +175,6 @@
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:gravity="end">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Status Pembayaran"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tvStatusPembayaran"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" - "
-                            android:textStyle="bold"
-                            android:textSize="13sp" />
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="12dp">
-
-                    <!-- Status Pesanan -->
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -219,11 +192,10 @@
                             android:textStyle="bold"
                             android:clickable="true"
                             android:focusable="true" />
+
+
                     </LinearLayout>
-
-
                 </LinearLayout>
-
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -297,27 +269,30 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="* Nota akan tersedia saat sudah disetujui pabrik"
-            app:layout_constraintTop_toBottomOf="@+id/cardView"
             android:layout_marginHorizontal="32dp"
-            android:layout_marginVertical="32dp"/>
-
+            android:text="* Nota akan tersedia saat sudah disetujui pabrik"
+            app:layout_constraintBottom_toTopOf="@id/btnCetakNota"/>
 
         <Button
             android:id="@+id/btnCetakNota"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_marginHorizontal="32dp"
+            android:layout_marginBottom="16dp"
             android:backgroundTint="@color/distributor_theme_dark"
             android:text="Cetak Nota"
             android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.625"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            app:layout_constraintVertical_bias="1.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

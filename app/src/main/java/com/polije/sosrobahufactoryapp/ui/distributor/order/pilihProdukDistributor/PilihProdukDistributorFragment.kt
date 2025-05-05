@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.databinding.FragmentPilihProdukDistributorBinding
 import com.polije.sosrobahufactoryapp.ui.distributor.order.component.PilihProdukDistributorAdapter
@@ -39,8 +40,7 @@ class PilihProdukDistributorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.recyclerViewPilihProduk.layoutManager = LinearLayoutManager(requireContext())
-
+        binding.recyclerViewPilihProduk.layoutManager = GridLayoutManager(requireContext(), 2)
 
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()

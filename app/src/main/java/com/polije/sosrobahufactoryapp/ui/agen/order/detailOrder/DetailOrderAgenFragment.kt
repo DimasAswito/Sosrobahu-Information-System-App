@@ -36,8 +36,5 @@ class DetailOrderAgenFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        binding.btnCetak.setOnClickListener {
-            Toast.makeText(requireContext(), "Mencetak riwayat...", Toast.LENGTH_SHORT).show()
-        }
     }
 }

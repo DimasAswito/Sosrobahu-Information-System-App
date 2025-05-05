@@ -2,23 +2,20 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
     card_view:cardCornerRadius="12dp"
+    android:layout_margin="4dp"
     card_view:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="8dp"
         android:gravity="center_vertical">
 
         <androidx.cardview.widget.CardView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            card_view:cardCornerRadius="12dp"
-            card_view:cardElevation="0dp"
-            android:layout_marginEnd="8dp">
+            card_view:cardCornerRadius="12dp">
 
             <ImageView
                 android:id="@+id/imgStokProduk"
@@ -30,7 +27,7 @@
 
         <!-- Kontainer teks -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"

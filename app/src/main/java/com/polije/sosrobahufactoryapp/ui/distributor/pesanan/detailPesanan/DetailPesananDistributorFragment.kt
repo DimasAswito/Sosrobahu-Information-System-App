@@ -12,6 +12,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.polije.sosrobahufactoryapp.BuildConfig
+import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailPesananDistributorBinding
 import com.polije.sosrobahufactoryapp.ui.distributor.pesanan.component.ItemDetailPesananDistributorAdapter
 import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.ItemDetailPesananPabrikAdapter
@@ -24,6 +27,7 @@ class DetailPesananDistributorFragment : Fragment() {
 
     private var _binding: FragmentDetailPesananDistributorBinding? = null
     private val binding get() = _binding!!
+    private var isImageVisible = false
     private val viewModel: DetailPesananDistributorViewModel by viewModel()
     private val args: DetailPesananDistributorFragmentArgs by navArgs()
 
@@ -116,6 +120,18 @@ class DetailPesananDistributorFragment : Fragment() {
 //                newStatus = selectedStatusIndex
 //            )
             findNavController().navigateUp()
+        }
+
+        val gambar = BuildConfig.PICTURE_BASE_URL + args.detailPesananDistributor.buktiTransfer
+        Glide.with(requireContext())
+            .load(gambar)
+            .placeholder(R.drawable.logo)
+            .error(R.drawable.logo)
+            .into(binding.imgBuktiPembayaran)
+
+        binding.btnBuktiPembayaran.setOnClickListener {
+            isImageVisible = !isImageVisible
+            binding.imgBuktiPembayaran.visibility = if (isImageVisible) View.VISIBLE else View.GONE
         }
 
     }
