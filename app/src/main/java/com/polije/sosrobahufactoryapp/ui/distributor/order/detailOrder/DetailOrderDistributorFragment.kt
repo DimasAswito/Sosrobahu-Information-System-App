@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailOrderDistributorBinding
 import com.polije.sosrobahufactoryapp.ui.distributor.order.component.DetailOrderDistributorAdapter
@@ -21,7 +23,7 @@ class DetailOrderDistributorFragment : Fragment() {
     private var _binding: FragmentDetailOrderDistributorBinding? = null
     private val binding get() = _binding!!
     private val viewModel: DetailOrderDistributorViewModel by viewModel()
-
+    private var isImageVisible = false
     private val args: DetailOrderDistributorFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -42,16 +44,29 @@ class DetailOrderDistributorFragment : Fragment() {
         binding.tvTanggalOrder.text = args.detailOrder.tanggal
         binding.tvHargaTotal.text = args.detailOrder.total?.toRupiah()
         binding.tvJumlahOrder.text = getString(R.string.karton, args.detailOrder.jumlah)
-        binding.tvStatusPesanan.text = (args.detailOrder.statusPemesanan ?: 0).toString()
 
+        val status = when (args.detailOrder.statusPemesanan) {
+            0 -> "Diproses"
+            1 -> "Selesai"
+            2 -> "Ditolak"
+            else -> "Tidak Diketahui"
+        }
+        binding.tvStatusPesanan.text = status
 
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
 
+        val gambar = BuildConfig.PICTURE_BASE_URL + args.detailOrder.buktiTransfer
+        Glide.with(requireContext())
+            .load(gambar)
+            .placeholder(R.drawable.loading_foto)
+            .error(R.drawable.foto_error)
+            .into(binding.imgBuktiPembayaran)
 
         binding.btnBuktiPembayaran.setOnClickListener {
-            Toast.makeText(requireContext(), "Mencetak riwayat...", Toast.LENGTH_SHORT).show()
+            isImageVisible = !isImageVisible
+            binding.imgBuktiPembayaran.visibility = if (isImageVisible) View.VISIBLE else View.GONE
         }
     }
 }

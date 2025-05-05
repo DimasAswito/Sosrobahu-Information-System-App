@@ -90,8 +90,8 @@ class DetailPesananPabrikFragment : Fragment() {
         val gambar = BuildConfig.PICTURE_BASE_URL + args.detailPesanan.buktiTransfer
         Glide.with(requireContext())
             .load(gambar)
-            .placeholder(R.drawable.logo)
-            .error(R.drawable.logo)
+            .placeholder(R.drawable.loading_foto)
+            .error(R.drawable.foto_error)
             .into(binding.imgBuktiPembayaran)
 
         binding.btnBuktiPembayaran.setOnClickListener {

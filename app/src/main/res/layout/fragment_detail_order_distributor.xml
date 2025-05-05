@@ -192,8 +192,6 @@
                             android:textStyle="bold"
                             android:clickable="true"
                             android:focusable="true" />
-
-
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
