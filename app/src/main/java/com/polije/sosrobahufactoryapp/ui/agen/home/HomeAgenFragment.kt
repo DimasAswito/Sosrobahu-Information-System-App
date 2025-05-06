@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeAgenBinding
 import com.polije.sosrobahufactoryapp.ui.agen.dashboard.DashboardAgenFragmentDirections
+import com.polije.sosrobahufactoryapp.utils.toRupiah
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -63,29 +64,30 @@ class HomeAgenFragment : Fragment() {
 
         lifecycleScope.launch {
 
-//            homeAgenViewModel.state.collectLatest { state ->
-//                when (state) {
-//                    is HomeAgenState.Failure -> {
-//                        Toast.makeText(requireContext(), state.errorMessage, Toast.LENGTH_LONG)
-//                            .show()
-//                    }
-//
-//                    HomeAgenState.Initial -> {
-//                        binding.progressBar2.visibility = View.GONE
-//                    }
-//
-//
-//                    HomeAgenState.Loading -> {
-//                        binding.progressBar2.visibility = View.VISIBLE
-//                    }
-//
-//                    is HomeAgenState.Success -> {
+            homeAgenViewModel.state.collectLatest { state ->
+                when (state) {
+                    is HomeAgenState.Failure -> {
+                        Toast.makeText(requireContext(), state.errorMessage, Toast.LENGTH_LONG)
+                            .show()
+                    }
 
-//                    Do something
-//                    }
-//
-//                }
-//            }
+                    HomeAgenState.Initial -> {
+                        binding.progressBar2.visibility = View.GONE
+                    }
+
+
+                    HomeAgenState.Loading -> {
+                        binding.progressBar2.visibility = View.VISIBLE
+                    }
+
+                    is HomeAgenState.Success -> {
+                        binding.jumlahSales.text = state.dashboardResponse.totalSales.toString()
+                        binding.omsetBulanAgen.text = state.dashboardResponse.totalPendapatan?.toRupiah()
+                        binding.topProductNameAgen.text = state.dashboardResponse.topProduct
+                    }
+
+                }
+            }
         }
     }
 

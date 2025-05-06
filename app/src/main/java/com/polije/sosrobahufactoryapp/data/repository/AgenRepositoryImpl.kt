@@ -4,12 +4,14 @@ import com.polije.sosrobahufactoryapp.data.datasource.local.SessionManager
 import com.polije.sosrobahufactoryapp.data.datasource.remote.agen.AgenDatasource
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.DashboardAgenResponse
 import com.polije.sosrobahufactoryapp.domain.repository.agen.AgenRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.UserRole
 import com.polije.sosrobahufactoryapp.utils.UserSession
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -25,6 +27,24 @@ class AgenRepositoryImpl(
         return try {
             val data = agenDatasource.login(request)
             sessionManager.saveSession(data.token?.plainTextToken ?: "", UserRole.AGEN)
+            DataResult.Success(data)
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (_: Exception) {
+            DataResult.Error(HttpErrorCode.UNKNOWN)
+        }
+    }
+
+    override suspend fun getDashboardAgen(): DataResult<DashboardAgenResponse, HttpErrorCode> {
+        return try {
+            val token = sessionManager.sessionFlow.first().token ?: ""
+            val data = agenDatasource.getDashboardAgen("Bearer $token")
             DataResult.Success(data)
         } catch (e: HttpException) {
             val code = e.code()

@@ -1,10 +1,11 @@
 package com.polije.sosrobahufactoryapp.ui.agen.home
 
-import DashboardResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.DashboardAgenResponse
+
 
 sealed class HomeAgenState {
     data class Success(
-        val dashboardResponse: DashboardResponse  // ganti dengan data dari Agen
+        val dashboardResponse: DashboardAgenResponse
     ) : HomeAgenState()
 
     data class Failure(
