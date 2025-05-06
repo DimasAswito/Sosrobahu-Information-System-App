@@ -96,7 +96,8 @@ class DetailPesananPabrikFragment : Fragment() {
 
         binding.btnBuktiPembayaran.setOnClickListener {
             isImageVisible = !isImageVisible
-            binding.imgBuktiPembayaran.visibility = if (isImageVisible) View.VISIBLE else View.GONE
+            binding.cardBuktiPembayaran.visibility =
+                if (isImageVisible) View.VISIBLE else View.GONE
         }
 
         binding.CetakLaporanButton.setOnClickListener {

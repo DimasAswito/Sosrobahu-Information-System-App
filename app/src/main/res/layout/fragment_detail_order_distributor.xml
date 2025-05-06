@@ -197,16 +197,26 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <ImageView
-            android:id="@+id/imgBuktiPembayaran"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardBuktiPembayaran"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
+            android:layout_marginTop="16dp"
             android:visibility="gone"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/container" />
+            app:layout_constraintTop_toBottomOf="@+id/container">
+
+            <ImageView
+                android:id="@+id/imgBuktiPembayaran"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="Bukti Pembayaran" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/tvProduk"
@@ -217,7 +227,7 @@
             android:textSize="20sp"
             android:layout_marginHorizontal="16dp"
             android:text="Produk"
-            app:layout_constraintTop_toBottomOf="@+id/imgBuktiPembayaran" />
+            app:layout_constraintTop_toBottomOf="@+id/cardBuktiPembayaran" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvProdukOrder"
@@ -275,7 +285,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
             android:text="* Nota akan tersedia saat sudah disetujui pabrik"
-            app:layout_constraintBottom_toTopOf="@id/btnCetakNota"/>
+            app:layout_constraintBottom_toTopOf="@id/btnCetakNota"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            app:layout_constraintVertical_bias="1.0"
+            tools:layout_editor_absoluteX="24dp" />
 
         <Button
             android:id="@+id/btnCetakNota"
@@ -290,7 +303,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.625"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView"
             app:layout_constraintVertical_bias="1.0" />
 
 

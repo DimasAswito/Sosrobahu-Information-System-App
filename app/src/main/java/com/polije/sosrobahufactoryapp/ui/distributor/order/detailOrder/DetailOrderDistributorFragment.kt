@@ -19,7 +19,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailOrderDistributorFragment : Fragment() {
 
-
     private var _binding: FragmentDetailOrderDistributorBinding? = null
     private val binding get() = _binding!!
     private val viewModel: DetailOrderDistributorViewModel by viewModel()
@@ -64,9 +63,11 @@ class DetailOrderDistributorFragment : Fragment() {
             .error(R.drawable.foto_error)
             .into(binding.imgBuktiPembayaran)
 
+        binding.btnCetakNota.isEnabled = args.detailOrder.statusPemesanan == 1
         binding.btnBuktiPembayaran.setOnClickListener {
             isImageVisible = !isImageVisible
-            binding.imgBuktiPembayaran.visibility = if (isImageVisible) View.VISIBLE else View.GONE
+            binding.cardBuktiPembayaran.visibility =
+                if (isImageVisible) View.VISIBLE else View.GONE
         }
     }
 }

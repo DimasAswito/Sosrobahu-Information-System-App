@@ -10,6 +10,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
+import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeDistributorBinding
 import com.polije.sosrobahufactoryapp.ui.distributor.dashboard.DashboardDistributorFragmentDirections
@@ -92,6 +95,31 @@ class HomeDistributorFragment : Fragment() {
                         binding.topProductNameDistributor.text =
                             state.dashboardResponse.topProductName
                         adapter.submitList(state.dashboardResponse.produkData)
+
+                        val topName = state.dashboardResponse.topProductName
+                        binding.topProductNameDistributor.text = topName
+
+                        val topProduct = state.dashboardResponse.produkData.find {
+                            it.namaRokok == topName
+                        }
+
+                        val imageName = topProduct?.gambar
+                        val imageUrl = BuildConfig.PICTURE_BASE_URL + "produk/" + imageName
+
+                        val circularProgressDrawable = CircularProgressDrawable(requireContext()).apply {
+                            strokeWidth = 5f
+                            centerRadius = 30f
+                            start()
+                        }
+
+                        Glide.with(requireContext())
+                            .load(imageUrl)
+                            .placeholder(circularProgressDrawable)
+                            .error(R.drawable.foto_error)
+                            .into(binding.topProductImageDistributor)
+
+                        adapter.submitList(state.dashboardResponse.produkData)
+
                     }
 
                 }

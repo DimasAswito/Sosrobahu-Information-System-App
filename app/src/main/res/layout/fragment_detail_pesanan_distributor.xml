@@ -190,16 +190,26 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <ImageView
-            android:id="@+id/imgBuktiPembayaran"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardBuktiPembayaran"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
+            android:layout_marginTop="16dp"
             android:visibility="gone"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/container" />
+            app:layout_constraintTop_toBottomOf="@+id/container">
+
+            <ImageView
+                android:id="@+id/imgBuktiPembayaran"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="Bukti Pembayaran" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/tvProduk"
@@ -210,7 +220,7 @@
             android:textSize="20sp"
             android:layout_marginHorizontal="16dp"
             android:text="Produk"
-            app:layout_constraintTop_toBottomOf="@+id/imgBuktiPembayaran" />
+            app:layout_constraintTop_toBottomOf="@+id/cardBuktiPembayaran" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvproduk"
