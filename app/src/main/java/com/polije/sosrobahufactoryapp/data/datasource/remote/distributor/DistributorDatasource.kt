@@ -8,6 +8,7 @@ import com.polije.sosrobahufactoryapp.data.model.distributor.OrderDistributorRes
 import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorResponse
+import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusPesananMasukResponse
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRequest
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananResponse
 import okhttp3.MultipartBody
@@ -66,6 +67,6 @@ interface DistributorDatasource {
         @Header("Authorization") token: String,
         @Path("id") idOrder: Int,
         @Body status: UpdateDetailPesananRequest
-    ): UpdateDetailPesananResponse
+    ): UpdateStatusPesananMasukResponse
 
 }

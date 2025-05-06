@@ -27,7 +27,7 @@ class RiwayatOrderDistributorAdapter(val riwayatOrderDistributorAction: RiwayatO
                 riwayatOrderDistributorAction.onRiwayatOrderItemClicked(item)
             }
         }
-    }
+    } 
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

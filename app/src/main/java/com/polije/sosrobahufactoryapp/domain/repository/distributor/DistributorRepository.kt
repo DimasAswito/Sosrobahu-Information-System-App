@@ -9,6 +9,7 @@ import com.polije.sosrobahufactoryapp.data.model.distributor.OrderDistributorRes
 import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorDataItem
 import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
+import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusPesananMasukResponse
 import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.SelectedProdukDistributor
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
@@ -35,6 +36,8 @@ interface DistributorRepository {
         totalAmount: Int,
         buktiUri: Uri
     ): DataResult<OrderDistributorResponse, HttpErrorCode>
+
+    suspend fun updateStatusPesanan(idOrder : Int,status : Int) : DataResult<UpdateStatusPesananMasukResponse, HttpErrorCode>
 
     fun getUserDistributorSession(): Flow<UserSession>
     fun isUserIsLogged(): Flow<Boolean>

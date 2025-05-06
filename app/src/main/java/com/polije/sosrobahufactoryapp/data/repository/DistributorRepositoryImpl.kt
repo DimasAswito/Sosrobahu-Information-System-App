@@ -18,6 +18,8 @@ import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistrib
 import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.QuantityItem
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
+import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusPesananMasukResponse
+import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRequest
 import com.polije.sosrobahufactoryapp.domain.repository.distributor.DistributorRepository
 import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.SelectedProdukDistributor
 import com.polije.sosrobahufactoryapp.utils.DataResult
@@ -177,6 +179,26 @@ class DistributorRepositoryImpl(
             val paymentProof = buktiUri.toMultipartPart(context = appContext, "payment_proof")
             val data =
                 distributorDatasource.placeOrder(partMap, paymentProof, "Bearer $token")
+            DataResult.Success(data)
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (e: Exception) {
+            val error = e.message.toString()
+            DataResult.Error(HttpErrorCode.UNKNOWN)
+        }
+    }
+
+    override suspend fun updateStatusPesanan(idOrder: Int,status : Int): DataResult<UpdateStatusPesananMasukResponse, HttpErrorCode> {
+        return try {
+            val token = sessionManager.sessionFlow.first().token
+            val data =
+                distributorDatasource.updateDetailPesanan("Bearer $token",idOrder,UpdateDetailPesananRequest(status))
             DataResult.Success(data)
         } catch (e: HttpException) {
             val code = e.code()

@@ -4,6 +4,7 @@ import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukD
 
 data class DetailPesananDistributorState(
     val isLoading: Boolean = false,
+    val isSubmitted: Boolean = false,
     val data: DetailPesananMasukDistributorResponse? = null,
     val errorMessage: String? = null
 )

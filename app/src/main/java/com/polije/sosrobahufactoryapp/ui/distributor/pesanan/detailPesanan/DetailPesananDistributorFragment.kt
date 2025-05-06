@@ -62,6 +62,10 @@ class DetailPesananDistributorFragment : Fragment() {
                     adapter.submitList(state.data.itemNota)
 
                 }
+
+                if (state.isSubmitted) {
+                    findNavController().navigateUp()
+                }
             }
         }
 
@@ -108,12 +112,11 @@ class DetailPesananDistributorFragment : Fragment() {
                 View.VISIBLE else View.GONE
 
         binding.SimpanStatusButton.setOnClickListener {
-//            val selectedStatusIndex = binding.spinnerStatus.selectedItemPosition
-//            viewModel.updateStatusPesanan(
-//                idOrder = args.idOrder,
-//                newStatus = selectedStatusIndex
-//            )
-            findNavController().navigateUp()
+            val selectedStatusIndex = binding.spinnerStatus.selectedItemPosition
+            viewModel.updateStatusPesananMasuk(
+                idOrder = args.idOrder,
+                status = selectedStatusIndex
+            )
         }
 
         val gambar = BuildConfig.PICTURE_BASE_URL + args.detailPesananDistributor.buktiTransfer
