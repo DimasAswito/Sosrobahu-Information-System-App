@@ -2,9 +2,11 @@ package com.polije.sosrobahufactoryapp.ui.distributor.pesanan.component
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorDataItem
 import com.polije.sosrobahufactoryapp.databinding.ItemPesananDistributorBinding
 import com.polije.sosrobahufactoryapp.utils.toRupiah
@@ -36,14 +38,27 @@ class PesananDistributorAdapter(val pesananDistributorAction: PesananDistributor
     inner class ViewHolder(val binding: ItemPesananDistributorBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: PesananMasukDistributorDataItem?) {
-           if (item != null){
-               binding.tvAgen.text = item.namaAgen
-               binding.tvTotalHarga.text = item.total?.toRupiah()
+            if (item != null) {
+                binding.tvAgen.text = item.namaAgen
+                binding.tvTotalHarga.text = item.total?.toRupiah()
 
-               binding.root.setOnClickListener {
-                   pesananDistributorAction.onItemClicked(item)
-               }
-           }
+                // ✅ Tambahan untuk status
+                val status = when (item.statusPemesanan) {
+                    0 -> "Diproses"
+                    1 -> "Selesai"
+                    2 -> "Ditolak"
+                    else -> "Tidak Diketahui"
+                }
+
+                binding.tvStatus.text = status
+                binding.tvStatus.isSelected = status == "Selesai"
+                binding.tvStatus.isActivated = status == "Ditolak"
+                binding.tvStatus.setBackgroundResource(R.drawable.status_background)
+
+                binding.root.setOnClickListener {
+                    pesananDistributorAction.onItemClicked(item)
+                }
+            }
         }
     }
 
