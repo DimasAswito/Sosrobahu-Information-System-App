@@ -4,7 +4,7 @@
     <!-- Status "Selesai" (Hijau) -->
     <item android:state_selected="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/green"/>
+            <solid android:color="@color/distributor_theme"/>
             <corners android:radius="8dp"/>
         </shape>
     </item>

@@ -42,7 +42,6 @@ class PesananDistributorAdapter(val pesananDistributorAction: PesananDistributor
                 binding.tvAgen.text = item.namaAgen
                 binding.tvTotalHarga.text = item.total?.toRupiah()
 
-                // ✅ Tambahan untuk status
                 val status = when (item.statusPemesanan) {
                     0 -> "Diproses"
                     1 -> "Selesai"
