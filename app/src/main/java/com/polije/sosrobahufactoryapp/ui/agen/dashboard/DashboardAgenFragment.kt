@@ -32,8 +32,8 @@ class DashboardAgenFragment : Fragment() {
 
         requireActivity().setStatusBarColorByRole(UserRole.AGEN)
 
-//        val navHost = childFragmentManager.findFragmentById(binding.dashboardAgenContainerView.id) as NavHostFragment
-//        binding.bottomNavigationView.setupWithNavController(navHost.navController)
+        val navHost = childFragmentManager.findFragmentById(binding.dashboardAgenContainerView.id) as NavHostFragment
+        binding.bottomNavigationView.setupWithNavController(navHost.navController)
 
 
     }

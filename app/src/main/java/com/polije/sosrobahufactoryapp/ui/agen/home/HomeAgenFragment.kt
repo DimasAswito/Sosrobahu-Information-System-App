@@ -9,6 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
+import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeAgenBinding
 import com.polije.sosrobahufactoryapp.ui.agen.dashboard.DashboardAgenFragmentDirections
@@ -84,6 +87,30 @@ class HomeAgenFragment : Fragment() {
                         binding.jumlahSales.text = state.dashboardResponse.totalSales.toString()
                         binding.omsetBulanAgen.text = state.dashboardResponse.totalPendapatan?.toRupiah()
                         binding.topProductNameAgen.text = state.dashboardResponse.topProduct
+
+//                        val topName = state.dashboardResponse.topProduct
+//                        binding.topProductNameAgen.text = topName
+//
+//                        val topProduct = state.dashboardResponse.produkData.find {
+//                            it.namaRokok == topName
+//                        }
+//
+//                        val imageName = topProduct?.gambar
+//                        val imageUrl = BuildConfig.PICTURE_BASE_URL + "produk/" + imageName
+//
+//                        val circularProgressDrawable = CircularProgressDrawable(requireContext()).apply {
+//                            strokeWidth = 5f
+//                            centerRadius = 30f
+//                            start()
+//                        }
+//
+//                        Glide.with(requireContext())
+//                            .load(imageUrl)
+//                            .placeholder(circularProgressDrawable)
+//                            .error(R.drawable.foto_error)
+//                            .into(binding.topProductImageAgen)
+//
+//                        adapter.submitList(state.dashboardResponse.produkData)
                     }
 
                 }

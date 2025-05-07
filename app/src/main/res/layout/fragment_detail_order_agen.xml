@@ -132,7 +132,7 @@
                             android:id="@+id/tvJumlahOrder"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" - Slop"
+                            android:text=" - Karton"
                             android:textStyle="bold"
                             android:textSize="13sp" />
                     </LinearLayout>
@@ -165,6 +165,7 @@
                             android:text=" - "
                             android:textStyle="bold"
                             android:textSize="13sp" />
+
                     </LinearLayout>
 
                     <!-- Status Pembayaran -->
@@ -174,34 +175,6 @@
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:gravity="end">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Status Pembayaran"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tvStatusPembayaran"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" - "
-                            android:textStyle="bold"
-                            android:textSize="13sp" />
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="12dp">
-
-                    <!-- Status Pesanan -->
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -220,23 +193,30 @@
                             android:clickable="true"
                             android:focusable="true" />
                     </LinearLayout>
-
-
                 </LinearLayout>
-
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <ImageView
-            android:id="@+id/imgBuktiPembayaran"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardBuktiPembayaran"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
+            android:layout_marginTop="16dp"
             android:visibility="gone"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/container" />
+            app:layout_constraintTop_toBottomOf="@+id/container">
+
+            <ImageView
+                android:id="@+id/imgBuktiPembayaran"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="Bukti Pembayaran" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/tvProduk"
@@ -247,7 +227,7 @@
             android:textSize="20sp"
             android:layout_marginHorizontal="16dp"
             android:text="Produk"
-            app:layout_constraintTop_toBottomOf="@+id/imgBuktiPembayaran" />
+            app:layout_constraintTop_toBottomOf="@+id/cardBuktiPembayaran" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvProdukOrder"
@@ -256,7 +236,8 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvProduk"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvProduk" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -303,8 +284,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
-            android:text="* Nota akan tersedia saat sudah disetujui Distributor"
-            app:layout_constraintBottom_toTopOf="@id/btnCetakNota"/>
+            android:text="* Nota akan tersedia saat sudah disetujui distributor"
+            app:layout_constraintBottom_toTopOf="@id/btnCetakNota"
+            app:layout_constraintTop_toBottomOf="@+id/cardView"
+            app:layout_constraintVertical_bias="1.0"
+            tools:layout_editor_absoluteX="24dp" />
 
         <Button
             android:id="@+id/btnCetakNota"
@@ -319,7 +303,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.625"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView"
             app:layout_constraintVertical_bias="1.0" />
 
 

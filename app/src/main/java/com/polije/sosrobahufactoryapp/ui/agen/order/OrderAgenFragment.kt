@@ -7,28 +7,66 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.ui.distributor.order.OrderDistributorFragment
-import com.polije.sosrobahufactoryapp.ui.distributor.order.OrderDistributorViewModel
+import com.polije.sosrobahufactoryapp.databinding.FragmentOrderAgenBinding
+import com.polije.sosrobahufactoryapp.ui.agen.dashboard.DashboardAgenFragmentDirections
+import com.polije.sosrobahufactoryapp.ui.agen.order.component.RiwayatOrderAgenAdapter
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.getValue
 
 class OrderAgenFragment : Fragment() {
-    companion object {
-        fun newInstance() = OrderAgenFragment()
-    }
+    private var _binding: FragmentOrderAgenBinding? = null
+    private val binding get() = _binding!!
 
-    private val viewModel: OrderAgenViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
+    private val viewModel: OrderAgenViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_order_agen, container, false)
+        _binding = FragmentOrderAgenBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val mainNavHost = requireActivity()
+            .supportFragmentManager
+            .findFragmentById(R.id.fragmentContainerView)
+                as NavHostFragment
+
+        binding.fabTambahOrderAgen.setOnClickListener {
+            val action =
+                DashboardAgenFragmentDirections.actionDashboardAgenFragmentToPilihProdukAgenFragment()
+            mainNavHost.navController.navigate(action)
+        }
+
+//        val adapter = RiwayatOrderAgenAdapter(object :
+//            RiwayatOrderAgenAdapter.RiwayatOrderAgenAction {
+//            override fun onRiwayatOrderItemClicked(order: RiwayatOrderAgenDataItem) {
+//                val action =
+//                    DashboardAgenFragmentDirections.actionDashboardAgenFragmentToDetailOrderAgenFragment(
+//                        order
+//                    )
+//                mainNavHost.navController.navigate(action)
+//            }
+//        })
+//
+//        binding.recyclerViewRiwayatOrderAgen.layoutManager =
+//            LinearLayoutManager(requireContext())
+//        binding.recyclerViewRiwayatOrderAgen.adapter = adapter
+//
+//
+//        lifecycleScope.launch {
+//            viewModel.riwayatOrderAgen.collectLatest {
+//                adapter.submitData(it)
+//            }
+//        }
     }
 }

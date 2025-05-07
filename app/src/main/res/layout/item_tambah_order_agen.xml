@@ -39,6 +39,14 @@
                 android:paddingBottom="4dp"
                 android:textStyle="bold"/>
 
+            <TextView
+                android:id="@+id/txtHargaSatuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp. - "
+                android:textSize="14sp"
+                android:paddingBottom="4dp"/>
+
             <EditText
                 android:id="@+id/edtJumlahProduk"
                 android:layout_width="match_parent"

@@ -7,12 +7,12 @@
     tools:context=".ui.agen.dashboard.DashboardAgenFragment">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/dashboardDistributorContainerView"
+        android:id="@+id/dashboardAgenContainerView"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toBottomOf="@id/bottomNavigationView"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,6 +26,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_distributor_menu" />
+        app:menu="@menu/bottom_nav_agen_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
