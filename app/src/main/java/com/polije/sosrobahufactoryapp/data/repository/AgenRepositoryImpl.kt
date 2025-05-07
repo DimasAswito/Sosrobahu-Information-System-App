@@ -9,7 +9,6 @@ import com.polije.sosrobahufactoryapp.domain.repository.agen.AgenRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.UserRole
-import com.polije.sosrobahufactoryapp.utils.UserSession
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
@@ -26,7 +25,11 @@ class AgenRepositoryImpl(
         val request = LoginRequest(username, password)
         return try {
             val data = agenDatasource.login(request)
-            sessionManager.saveSession(data.token?.plainTextToken ?: "", UserRole.AGEN)
+            sessionManager.saveSession(
+                data.token?.plainTextToken ?: "",
+                UserRole.AGEN,
+                data.token?.accessToken?.expiresAt ?: ""
+            )
             DataResult.Success(data)
         } catch (e: HttpException) {
             val code = e.code()
@@ -46,6 +49,7 @@ class AgenRepositoryImpl(
             val token = sessionManager.sessionFlow.first().token ?: ""
             val data = agenDatasource.getDashboardAgen("Bearer $token")
             DataResult.Success(data)
+
         } catch (e: HttpException) {
             val code = e.code()
             val httpError = HttpErrorCode.entries
@@ -59,9 +63,9 @@ class AgenRepositoryImpl(
         }
     }
 
-    override fun getUserAgenSession(): Flow<UserSession> = sessionManager.sessionFlow
 
-    override fun isUserIsLogged(): Flow<Boolean> = sessionManager.isLoggedIn
+    override fun isUserIsLogged(requiredRole: UserRole): Flow<Boolean> =
+        sessionManager.isLoggedIn(requiredRole)
 
     override suspend fun logout() {
         sessionManager.clearSession()

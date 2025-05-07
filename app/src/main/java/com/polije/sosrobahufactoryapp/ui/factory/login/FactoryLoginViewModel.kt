@@ -7,12 +7,10 @@ import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UserSessionPabrikUse
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.LoginState
-import com.polije.sosrobahufactoryapp.utils.UserRole
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -28,9 +26,7 @@ class FactoryLoginViewModel(
     private val _loginState = MutableStateFlow<LoginState>(LoginState.Idle)
     val loginState: StateFlow<LoginState> get() = _loginState.asStateFlow()
 
-    val isAlreadyLoggedIn: StateFlow<Boolean> = userSessionPabrikUseCase.invoke().map { session ->
-        session.role == UserRole.PABRIK && session.token?.isBlank() == false
-    }.distinctUntilChanged()
+    val isAlreadyLoggedIn: StateFlow<Boolean> = userSessionPabrikUseCase.invoke()
         .stateIn(viewModelScope, SharingStarted.Lazily, false)
 
     val isValid = _factoryLoginInput.map { state ->

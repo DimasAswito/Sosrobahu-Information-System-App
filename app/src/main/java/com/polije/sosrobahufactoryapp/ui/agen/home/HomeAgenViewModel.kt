@@ -3,28 +3,33 @@ package com.polije.sosrobahufactoryapp.ui.agen.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.DashboardAgenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.LogOutAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.UserSessionAgenUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class HomeAgenViewModel(
     userSessionAgenUseCase: UserSessionAgenUseCase,
-    private val dashboardAgenUseCase: DashboardAgenUseCase
+    private val dashboardAgenUseCase: DashboardAgenUseCase,
+    private val logOutAgenUseCase: LogOutAgenUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<HomeAgenState>(HomeAgenState.Initial)
-    val state: StateFlow<HomeAgenState>
-        get() = _state.asStateFlow().onStart {
-            getDashboard()
+    val state = _state.onStart {
+        getDashboard()
+    }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, HomeAgenState.Initial)
+
+    fun logout() {
+        viewModelScope.launch {
+            logOutAgenUseCase.invoke()
         }
-            .stateIn(viewModelScope, SharingStarted.Lazily, HomeAgenState.Initial)
+    }
 
     private fun getDashboard() {
         viewModelScope.launch {
@@ -65,6 +70,6 @@ class HomeAgenViewModel(
 
 
     val isLogged =
-        userSessionAgenUseCase.isLoggingIn()
+        userSessionAgenUseCase.invoke()
             .stateIn(viewModelScope, SharingStarted.Eagerly, true)
 }

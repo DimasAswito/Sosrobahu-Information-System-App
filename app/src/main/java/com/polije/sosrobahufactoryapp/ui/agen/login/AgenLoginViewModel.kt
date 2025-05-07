@@ -7,13 +7,11 @@ import com.polije.sosrobahufactoryapp.domain.usecase.agen.UserSessionAgenUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.LoginState
-import com.polije.sosrobahufactoryapp.utils.UserRole
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -42,8 +40,7 @@ class AgenLoginViewModel(
 
     val isAlreadyLoggedIn: StateFlow<Boolean> =
         userSessionAgenUseCase.invoke()
-            .map { it.token != null && it.role?.name == UserRole.AGEN.name }
-            .onStart { emit(false) }
+
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.Eagerly,

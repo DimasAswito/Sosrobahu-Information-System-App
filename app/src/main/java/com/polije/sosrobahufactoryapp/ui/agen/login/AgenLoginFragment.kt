@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentAgenLoginBinding
@@ -47,12 +49,14 @@ class AgenLoginFragment : Fragment() {
         }
 
 
-        lifecycleScope.launch {
-            viewModel.isAlreadyLoggedIn.collectLatest {
-                if (it) {
-                    val action =
-                        AgenLoginFragmentDirections.actionAgenLoginFragmentToDashboardAgenFragment()
-                    findNavController().navigate(action)
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isAlreadyLoggedIn.collectLatest {
+                    if (it) {
+                        val action =
+                            AgenLoginFragmentDirections.actionAgenLoginFragmentToDashboardAgenFragment()
+                        findNavController().navigate(action)
+                    }
                 }
             }
         }

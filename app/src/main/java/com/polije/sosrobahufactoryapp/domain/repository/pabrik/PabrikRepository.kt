@@ -10,6 +10,7 @@ import com.polije.sosrobahufactoryapp.data.model.pabrik.RiwayatRestockItem
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananResponse
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
+import com.polije.sosrobahufactoryapp.utils.UserRole
 import com.polije.sosrobahufactoryapp.utils.UserSession
 import kotlinx.coroutines.flow.Flow
 
@@ -27,9 +28,9 @@ interface PabrikRepository {
     fun getRiwayatRestockPabrik(query: String): Flow<PagingData<RiwayatRestockItem>>
 
 
-    fun getUserPabrikSession(): Flow<UserSession>
+
     suspend fun logout()
-    fun isUserIsLogged() : Flow<Boolean>
+    fun isUserIsLogged(requiredUser : UserRole) : Flow<Boolean>
     suspend fun getItemRestock(): DataResult<ProdukRestok, HttpErrorCode>
 
     suspend fun insertRestock(orders: Map<String, Map<String, Int>>): DataResult<Boolean, HttpErrorCode>

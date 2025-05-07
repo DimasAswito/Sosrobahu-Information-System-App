@@ -6,15 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
-import com.bumptech.glide.Glide
-import com.polije.sosrobahufactoryapp.BuildConfig
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeAgenBinding
 import com.polije.sosrobahufactoryapp.ui.agen.dashboard.DashboardAgenFragmentDirections
+import com.polije.sosrobahufactoryapp.ui.agen.home.component.ItemHomeAgenAdapter
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -37,10 +37,12 @@ class HomeAgenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        observeViewModel()
+        val adapter = ItemHomeAgenAdapter()
+        binding.recyclerViewDasboardAgen.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewDasboardAgen.adapter = adapter
 
         binding.logoutAgenButton.setOnClickListener {
-
+            homeAgenViewModel.logout()
         }
 
 //        binding.tvlihatProdukTerlaris.setOnClickListener {
@@ -51,22 +53,25 @@ class HomeAgenFragment : Fragment() {
 //            requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
 //        }
 
-        lifecycleScope.launch {
-            homeAgenViewModel.isLogged.collectLatest {
-                if (!it) {
-                    Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
-                    val action =
-                        DashboardAgenFragmentDirections.actionDashboardAgenFragmentToAgenLoginFragment()
-                    requireActivity().findNavController(R.id.fragmentContainerView).navigate(action)
+        viewLifecycleOwner.lifecycleScope.launch {
+
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                homeAgenViewModel.isLogged.collectLatest {
+                    if (!it) {
+                        Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT)
+                            .show()
+                        val action =
+                            DashboardAgenFragmentDirections.actionDashboardAgenFragmentToAgenLoginFragment()
+                        activity?.findNavController(R.id.fragmentContainerView)
+                            ?.navigate(action)
+                    }
                 }
             }
-        }
-    }
 
-    fun observeViewModel() {
+
+        }
 
         lifecycleScope.launch {
-
             homeAgenViewModel.state.collectLatest { state ->
                 when (state) {
                     is HomeAgenState.Failure -> {
@@ -85,44 +90,21 @@ class HomeAgenFragment : Fragment() {
 
                     is HomeAgenState.Success -> {
                         binding.jumlahSales.text = state.dashboardResponse.totalSales.toString()
-                        binding.omsetBulanAgen.text = state.dashboardResponse.totalPendapatan?.toRupiah()
+                        binding.omsetBulanAgen.text =
+                            state.dashboardResponse.totalPendapatan?.toRupiah()
                         binding.topProductNameAgen.text = state.dashboardResponse.topProduct
-
-//                        val topName = state.dashboardResponse.topProduct
-//                        binding.topProductNameAgen.text = topName
-//
-//                        val topProduct = state.dashboardResponse.produkData.find {
-//                            it.namaRokok == topName
-//                        }
-//
-//                        val imageName = topProduct?.gambar
-//                        val imageUrl = BuildConfig.PICTURE_BASE_URL + "produk/" + imageName
-//
-//                        val circularProgressDrawable = CircularProgressDrawable(requireContext()).apply {
-//                            strokeWidth = 5f
-//                            centerRadius = 30f
-//                            start()
-//                        }
-//
-//                        Glide.with(requireContext())
-//                            .load(imageUrl)
-//                            .placeholder(circularProgressDrawable)
-//                            .error(R.drawable.foto_error)
-//                            .into(binding.topProductImageAgen)
-//
-//                        adapter.submitList(state.dashboardResponse.produkData)
+                        binding.totalStokAgen.text =
+                            state.dashboardResponse.totalStokKeseluruhan.toString()
+                        adapter.submitList(state.dashboardResponse.stokBarang)
                     }
 
                 }
             }
         }
+
+
     }
 
-    private fun navigateToLogin() {
-//        val intent = Intent(requireContext(), FactoryLoginActivity::class.java)
-//        startActivity(intent)
-//        requireActivity().finish()
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -34,7 +34,7 @@ class HomeDistributorViewModel(
         )
 
     val isLogged =
-        userSessionDistributorUseCase.isLoggingIn()
+        userSessionDistributorUseCase.invoke()
             .stateIn(viewModelScope, SharingStarted.Eagerly, true)
 
     fun logout() {

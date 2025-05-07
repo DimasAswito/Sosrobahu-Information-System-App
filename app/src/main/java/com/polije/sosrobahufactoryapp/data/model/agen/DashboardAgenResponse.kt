@@ -19,7 +19,7 @@ data class DashboardAgenResponse(
 	val totalSales: Int? = null,
 
 	@SerialName("stok_barang")
-	val stokBarang: List<StokBarangAgenItem?>? = null,
+	val stokBarang: List<StokBarangAgenItem> = emptyList(),
 
 	@SerialName("total_stok_keseluruhan")
 	val totalStokKeseluruhan: Int? = null

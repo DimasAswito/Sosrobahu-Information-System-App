@@ -39,7 +39,8 @@ class PabrikRepositoryImpl(
         val request = LoginRequest(username, password)
         return try {
             val data = pabrikDatasource.login(request)
-            sessionManager.saveSession(token = data.token?.plainTextToken ?: "", UserRole.PABRIK)
+            sessionManager.saveSession(token = data.token?.plainTextToken ?: "", UserRole.PABRIK, data.token?.accessToken?.expiresAt ?: ""
+            )
             DataResult.Success(data)
         } catch (e: HttpException) {
             val code = e.code()
@@ -150,13 +151,12 @@ class PabrikRepositoryImpl(
     }
 
 
-    override fun getUserPabrikSession(): Flow<UserSession> = sessionManager.sessionFlow
 
     override suspend fun logout() {
         sessionManager.clearSession()
     }
 
-    override fun isUserIsLogged(): Flow<Boolean> = sessionManager.isLoggedIn
+    override fun isUserIsLogged(requiredUser : UserRole): Flow<Boolean> = sessionManager.isLoggedIn(requiredUser)
 
     override suspend fun getItemRestock(): DataResult<ProdukRestok, HttpErrorCode> {
         return try {

@@ -13,6 +13,7 @@ import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusPesanan
 import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.SelectedProdukDistributor
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
+import com.polije.sosrobahufactoryapp.utils.UserRole
 import com.polije.sosrobahufactoryapp.utils.UserSession
 import kotlinx.coroutines.flow.Flow
 
@@ -39,8 +40,7 @@ interface DistributorRepository {
 
     suspend fun updateStatusPesanan(idOrder : Int,status : Int) : DataResult<UpdateStatusPesananMasukResponse, HttpErrorCode>
 
-    fun getUserDistributorSession(): Flow<UserSession>
-    fun isUserIsLogged(): Flow<Boolean>
+    fun isUserIsLogged(requiredRole : UserRole): Flow<Boolean>
     suspend fun logout()
 
 }

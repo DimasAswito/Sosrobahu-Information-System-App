@@ -9,12 +9,9 @@ import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.WhileSubscribed
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlin.time.Duration.Companion.seconds
 
 class HomePabrikViewModel(
     val dashboardPabrikUseCase: DashboardPabrikUseCase,
@@ -35,54 +32,48 @@ class HomePabrikViewModel(
         )
 
     val isLogged =
-        userSessionUseCase.isLoggingIn().stateIn(viewModelScope, SharingStarted.Eagerly, true)
+        userSessionUseCase.invoke().stateIn(viewModelScope, SharingStarted.Eagerly, true)
 
 
     fun getDashboardPabrik() {
         viewModelScope.launch {
             _state.value = HomePabrikState.Loading
-            val token = userSessionUseCase.invoke().first().token
-            if (token == null) {
-                _state.value =
-                    HomePabrikState.Failure(HttpErrorCode.UNAUTHORIZED, "Token Tidak Berlaku")
-                return@launch
-            } else {
 
-                try {
-                    val response = dashboardPabrikUseCase.invoke()
-                    when (response) {
-                        is DataResult.Error -> {
-                            _state.value =
-                                HomePabrikState.Failure(
-                                    response.error,
-                                    errorMessage = when (response.error) {
-                                        HttpErrorCode.BAD_REQUEST -> "Permintaan tidak valid. Periksa kembali data yang dikirimkan."
-                                        HttpErrorCode.UNAUTHORIZED -> "Login gagal. Username atau password salah."
-                                        HttpErrorCode.FORBIDDEN -> "Akses ditolak. Anda tidak memiliki izin untuk mengakses."
-                                        HttpErrorCode.NOT_FOUND -> "Server tidak ditemukan. Coba lagi nanti."
-                                        HttpErrorCode.TIMEOUT -> "Permintaan melebihi batas waktu. Periksa koneksi internet Anda."
-                                        HttpErrorCode.INTERNAL_SERVER_ERROR -> "Terjadi kesalahan pada server. Silakan coba beberapa saat lagi."
-                                        HttpErrorCode.UNKNOWN -> "Terjadi kesalahan yang tidak diketahui. Silakan coba lagi."
-                                    },
-                                )
-                        }
-
-                        is DataResult.Success -> _state.value =
-                            HomePabrikState.Success(
-                                dashboardPabrik = response.data,
-                                pendapatanBulanan = response.data.pesananPerbulan
+            try {
+                val response = dashboardPabrikUseCase.invoke()
+                when (response) {
+                    is DataResult.Error -> {
+                        _state.value =
+                            HomePabrikState.Failure(
+                                response.error,
+                                errorMessage = when (response.error) {
+                                    HttpErrorCode.BAD_REQUEST -> "Permintaan tidak valid. Periksa kembali data yang dikirimkan."
+                                    HttpErrorCode.UNAUTHORIZED -> "Login gagal. Username atau password salah."
+                                    HttpErrorCode.FORBIDDEN -> "Akses ditolak. Anda tidak memiliki izin untuk mengakses."
+                                    HttpErrorCode.NOT_FOUND -> "Server tidak ditemukan. Coba lagi nanti."
+                                    HttpErrorCode.TIMEOUT -> "Permintaan melebihi batas waktu. Periksa koneksi internet Anda."
+                                    HttpErrorCode.INTERNAL_SERVER_ERROR -> "Terjadi kesalahan pada server. Silakan coba beberapa saat lagi."
+                                    HttpErrorCode.UNKNOWN -> "Terjadi kesalahan yang tidak diketahui. Silakan coba lagi."
+                                },
                             )
                     }
-                } catch (e: Exception) {
-                    _state.value =
-                        HomePabrikState.Failure(
-                            errorCode = HttpErrorCode.UNKNOWN,
-                            errorMessage = "Error: ${e.message}",
-                        )
 
+                    is DataResult.Success -> _state.value =
+                        HomePabrikState.Success(
+                            dashboardPabrik = response.data,
+                            pendapatanBulanan = response.data.pesananPerbulan
+                        )
                 }
+            } catch (e: Exception) {
+                _state.value =
+                    HomePabrikState.Failure(
+                        errorCode = HttpErrorCode.UNKNOWN,
+                        errorMessage = "Error: ${e.message}",
+                    )
+
             }
         }
+
     }
 
     fun logout() {

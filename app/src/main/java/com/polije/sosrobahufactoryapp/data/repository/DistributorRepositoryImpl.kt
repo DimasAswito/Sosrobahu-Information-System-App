@@ -25,7 +25,6 @@ import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributo
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.UserRole
-import com.polije.sosrobahufactoryapp.utils.UserSession
 import com.polije.sosrobahufactoryapp.utils.createOrderParts
 import com.polije.sosrobahufactoryapp.utils.toMultipartPart
 import kotlinx.coroutines.flow.Flow
@@ -46,7 +45,11 @@ class DistributorRepositoryImpl(
         val request = LoginRequest(username, password)
         return try {
             val data = distributorDatasource.login(request)
-            sessionManager.saveSession(data.token?.plainTextToken ?: "", UserRole.DISTRIBUTOR)
+            sessionManager.saveSession(
+                data.token?.plainTextToken ?: "",
+                UserRole.DISTRIBUTOR,
+                data.token?.accessToken?.expiresAt ?: ""
+            )
             DataResult.Success(data)
         } catch (e: HttpException) {
             val code = e.code()
@@ -116,8 +119,8 @@ class DistributorRepositoryImpl(
 
     }
 
-    override fun getUserDistributorSession(): Flow<UserSession> = sessionManager.sessionFlow
-    override fun isUserIsLogged(): Flow<Boolean> = sessionManager.isLoggedIn
+    override fun isUserIsLogged(requiredRole: UserRole): Flow<Boolean> =
+        sessionManager.isLoggedIn(requiredRole)
 
     override suspend fun logout() {
         sessionManager.clearSession()
@@ -194,11 +197,18 @@ class DistributorRepositoryImpl(
         }
     }
 
-    override suspend fun updateStatusPesanan(idOrder: Int,status : Int): DataResult<UpdateStatusPesananMasukResponse, HttpErrorCode> {
+    override suspend fun updateStatusPesanan(
+        idOrder: Int,
+        status: Int
+    ): DataResult<UpdateStatusPesananMasukResponse, HttpErrorCode> {
         return try {
             val token = sessionManager.sessionFlow.first().token
             val data =
-                distributorDatasource.updateDetailPesanan("Bearer $token",idOrder,UpdateDetailPesananRequest(status))
+                distributorDatasource.updateDetailPesanan(
+                    "Bearer $token",
+                    idOrder,
+                    UpdateDetailPesananRequest(status)
+                )
             DataResult.Success(data)
         } catch (e: HttpException) {
             val code = e.code()
