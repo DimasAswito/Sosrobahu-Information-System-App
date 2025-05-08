@@ -6,8 +6,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.polije.sosrobahufactoryapp.data.datasource.local.SessionManager
 import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.PabrikDatasource
-import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.PesananMasukPagingSource
-import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.RiwayatRestockPagingSource
+import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.PesananMasukPabrikPagingSource
+import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.RiwayatRestockPabrikPagingSource
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.pabrik.DetailOrderPabrikResponse
@@ -20,7 +20,6 @@ import com.polije.sosrobahufactoryapp.domain.repository.pabrik.PabrikRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.UserRole
-import com.polije.sosrobahufactoryapp.utils.UserSession
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
@@ -121,12 +120,12 @@ class PabrikRepositoryImpl(
     override fun getPesananMasuk(): Flow<PagingData<PesananMasukItem>> {
         return Pager(
             config = PagingConfig(
-                initialLoadSize = PesananMasukPagingSource.PESANAN_MASUK_PAGE_SIZE,
-                pageSize = PesananMasukPagingSource.PESANAN_MASUK_PAGE_SIZE,
+                initialLoadSize = PesananMasukPabrikPagingSource.PESANAN_MASUK_PABRIK_PAGE_SIZE,
+                pageSize = PesananMasukPabrikPagingSource.PESANAN_MASUK_PABRIK_PAGE_SIZE,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
-                PesananMasukPagingSource(
+                PesananMasukPabrikPagingSource(
                     pabrikDatasource,
                     sessionManager
                 )
@@ -138,12 +137,12 @@ class PabrikRepositoryImpl(
     override fun getRiwayatRestockPabrik(query: String): Flow<PagingData<RiwayatRestockItem>> {
         return Pager(
             config = PagingConfig(
-                initialLoadSize = RiwayatRestockPagingSource.RIWAYAT_RESTOCK_PAGE_SIZE,
-                pageSize = RiwayatRestockPagingSource.RIWAYAT_RESTOCK_PAGE_SIZE,
+                initialLoadSize = RiwayatRestockPabrikPagingSource.RIWAYAT_RESTOCK_PABRIK_PAGE_SIZE,
+                pageSize = RiwayatRestockPabrikPagingSource.RIWAYAT_RESTOCK_PABRIK_PAGE_SIZE,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
-                RiwayatRestockPagingSource(query, pabrikDatasource, sessionManager)
+                RiwayatRestockPabrikPagingSource(query, pabrikDatasource, sessionManager)
             }
         ).flow
 

@@ -8,8 +8,8 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.polije.sosrobahufactoryapp.data.datasource.local.SessionManager
 import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.DistributorDatasource
-import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.paging.PesananMasukPagingSource
-import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.paging.RiwayatOrderPagingSource
+import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.paging.PesananMasukDistributorPagingSource
+import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.paging.RiwayatOrderDistributorPagingSource
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
@@ -105,12 +105,12 @@ class DistributorRepositoryImpl(
     override fun getPesananMasukDistributor(): Flow<PagingData<PesananMasukDistributorDataItem>> {
         return Pager(
             config = PagingConfig(
-                initialLoadSize = PesananMasukPagingSource.PESANAN_MASUK_PAGE_SIZE,
-                pageSize = PesananMasukPagingSource.PESANAN_MASUK_PAGE_SIZE,
+                initialLoadSize = PesananMasukDistributorPagingSource.PESANAN_MASUK_DISTRIBUTOR_PAGE_SIZE,
+                pageSize = PesananMasukDistributorPagingSource.PESANAN_MASUK_DISTRIBUTOR_PAGE_SIZE,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
-                PesananMasukPagingSource(
+                PesananMasukDistributorPagingSource(
                     dataSource = distributorDatasource,
                     sessionManager
                 )
@@ -129,12 +129,12 @@ class DistributorRepositoryImpl(
     override fun getRiwayatOrderDistributor(): Flow<PagingData<RiwayatOrderDistributorDataItem>> {
         return Pager(
             config = PagingConfig(
-                initialLoadSize = RiwayatOrderPagingSource.PESANAN_MASUK_PAGE_SIZE,
-                pageSize = RiwayatOrderPagingSource.PESANAN_MASUK_PAGE_SIZE,
+                initialLoadSize = RiwayatOrderDistributorPagingSource.RIWAYAT_ORDER_DISTRIBUTOR_PAGE_SIZE,
+                pageSize = RiwayatOrderDistributorPagingSource.RIWAYAT_ORDER_DISTRIBUTOR_PAGE_SIZE,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
-                RiwayatOrderPagingSource(
+                RiwayatOrderDistributorPagingSource(
                     distributorDatasource,
                     sessionManager
                 )

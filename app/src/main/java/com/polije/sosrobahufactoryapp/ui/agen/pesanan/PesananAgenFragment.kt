@@ -9,12 +9,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.data.model.agen.PesananMasukAgenDataItem
 import com.polije.sosrobahufactoryapp.databinding.FragmentPesananAgenBinding
+import com.polije.sosrobahufactoryapp.ui.agen.dashboard.DashboardAgenFragmentDirections
 import com.polije.sosrobahufactoryapp.ui.agen.pesanan.component.PesananAgenAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.getValue
 
 class PesananAgenFragment : Fragment() {
 
@@ -28,7 +29,7 @@ class PesananAgenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentPesananAgenBinding.inflate(layoutInflater,container,false    )
+        _binding = FragmentPesananAgenBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -40,26 +41,25 @@ class PesananAgenFragment : Fragment() {
             .findFragmentById(R.id.fragmentContainerView)
                 as NavHostFragment
 
-//        val adapter = PesananAgenAdapter(object :
-//            PesananAgenAdapter.PesananAgenAction {
-//            override fun onItemClicked(item: PesananMasukAgenDataItem) {
-//                val action =
-//                    DashboardAgenFragmentDirections.actionDashboardAgenFragmentToDetailPesananAgenFragment(
-//                        detailPesananAgen = item,
-//                        idOrder = item.idOrder ?: 0
-//                    )
-//                mainNavHost.navController.navigate(action)
-//            }
-//
-//        })
-//        binding.recyclerViewPesananAgen.layoutManager = LinearLayoutManager(requireContext())
-//        binding.recyclerViewPesananAgen.adapter = adapter
-//
-//
-//        lifecycleScope.launch {
-//            pesananAgenViewModel.pesananMasukAgen().collectLatest { data ->
-//                adapter.submitData(data)
-//            }
-//        }
+        val adapter = PesananAgenAdapter(object :
+            PesananAgenAdapter.PesananAgenAction {
+            override fun onItemClicked(item: PesananMasukAgenDataItem) {
+                val action =
+                    DashboardAgenFragmentDirections.actionDashboardAgenFragmentToDetailPesananAgenFragment(
+                        idOrder = item.idOrder ?: 0, pesananAgenItem = item
+                    )
+                mainNavHost.navController.navigate(action)
+            }
+
+        })
+        binding.recyclerViewPesananAgen.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewPesananAgen.adapter = adapter
+
+
+        lifecycleScope.launch {
+            pesananAgenViewModel.pesananMasukAgen().collectLatest { data ->
+                adapter.submitData(data)
+            }
+        }
     }
 }

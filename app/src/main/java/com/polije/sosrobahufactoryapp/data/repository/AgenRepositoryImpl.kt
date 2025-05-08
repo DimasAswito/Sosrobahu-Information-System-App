@@ -1,10 +1,18 @@
 package com.polije.sosrobahufactoryapp.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.polije.sosrobahufactoryapp.data.datasource.local.SessionManager
 import com.polije.sosrobahufactoryapp.data.datasource.remote.agen.AgenDatasource
+import com.polije.sosrobahufactoryapp.data.datasource.remote.agen.paging.PesananMasukAgenPagingDataSource
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.DashboardAgenResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.DetailPesananMasukAgenResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.PesananMasukAgenDataItem
+import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusPesananMasukResponse
+import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRequest
 import com.polije.sosrobahufactoryapp.domain.repository.agen.AgenRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
@@ -59,6 +67,68 @@ class AgenRepositoryImpl(
         } catch (_: IOException) {
             DataResult.Error(HttpErrorCode.TIMEOUT)
         } catch (_: Exception) {
+            DataResult.Error(HttpErrorCode.UNKNOWN)
+        }
+    }
+
+    override fun getPesananMasukAgen(): Flow<PagingData<PesananMasukAgenDataItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = PesananMasukAgenPagingDataSource.PESANAN_MASUK_AGEN_PAGE_SIZE,
+                enablePlaceholders = false,
+                initialLoadSize = PesananMasukAgenPagingDataSource.PESANAN_MASUK_AGEN_PAGE_SIZE,
+            ),
+            pagingSourceFactory = {
+                PesananMasukAgenPagingDataSource(
+                    agenDatasource,
+                    sessionManager
+                )
+            }
+        ).flow
+    }
+
+    override suspend fun getDetailPesananMasukAgen(idOrder: Int): DataResult<DetailPesananMasukAgenResponse, HttpErrorCode> {
+        return try {
+            val token = sessionManager.sessionFlow.first().token
+            val data =
+                agenDatasource.getDetailPesananMasuk("Bearer $token", idOrder = idOrder)
+            DataResult.Success(data)
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (_: Exception) {
+            DataResult.Error(HttpErrorCode.UNKNOWN)
+        }
+    }
+
+    override suspend fun updateStatusPesanan(
+        idOrder: Int,
+        status: Int
+    ): DataResult<UpdateStatusPesananMasukResponse, HttpErrorCode> {
+        return try {
+            val token = sessionManager.sessionFlow.first().token
+            val data =
+                agenDatasource.updateDetailPesanan(
+                    "Bearer $token",
+                    idOrder,
+                    UpdateDetailPesananRequest(status)
+                )
+            DataResult.Success(data)
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (e: Exception) {
+            val error = e.message.toString()
             DataResult.Error(HttpErrorCode.UNKNOWN)
         }
     }

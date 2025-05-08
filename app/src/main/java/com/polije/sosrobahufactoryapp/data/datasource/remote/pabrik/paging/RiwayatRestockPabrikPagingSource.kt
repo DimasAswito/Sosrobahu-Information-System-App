@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 import java.io.IOException
 
-class RiwayatRestockPagingSource(
+class RiwayatRestockPabrikPagingSource(
     private val query: String,
     private val dataSource: PabrikDatasource,
     private val sessionManager: SessionManager
@@ -48,7 +48,7 @@ class RiwayatRestockPagingSource(
 
     companion object {
         private const val STARTING_PAGE_INDEX = 1
-        const val RIWAYAT_RESTOCK_PAGE_SIZE = 10
+        const val RIWAYAT_RESTOCK_PABRIK_PAGE_SIZE = 10
     }
 
 }

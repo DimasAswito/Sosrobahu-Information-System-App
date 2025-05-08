@@ -5,11 +5,11 @@
     android:id="@+id/agen_navigation"
     app:startDestination="@id/agenLoginFragment">
 
-    <fragment
-        android:id="@+id/stockAgenRankFragment"
-        android:name="com.polije.sosrobahufactoryapp.ui.agen.home.peringkatStok.StockAgenRankFragment"
-        android:label="fragment_stock_agen_rank"
-        tools:layout="@layout/fragment_stock_agen_rank" />
+<!--    <fragment-->
+<!--        android:id="@+id/stockAgenRankFragment"-->
+<!--        android:name="com.polije.sosrobahufactoryapp.ui.agen.home.peringkatStok.StockAgenRankFragment"-->
+<!--        android:label="fragment_stock_agen_rank"-->
+<!--        tools:layout="@layout/fragment_stock_agen_rank" />-->
     <fragment
         android:id="@+id/detailOrderAgenFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.agen.order.detailOrder.DetailOrderAgenFragment"
@@ -19,7 +19,13 @@
         android:id="@+id/detailPesananAgenFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.agen.pesanan.detailPesanan.DetailPesananAgenFragment"
         android:label="fragment_detail_pesanan_agen"
-        tools:layout="@layout/fragment_detail_pesanan_agen" />
+        tools:layout="@layout/fragment_detail_pesanan_agen" >
+        <argument android:name="idOrder"
+            app:argType="integer" />
+        <argument
+            android:name="pesananAgenItem"
+            app:argType="com.polije.sosrobahufactoryapp.data.model.agen.PesananMasukAgenDataItem" />
+    </fragment>
     <fragment
         android:id="@+id/pilihProdukAgenFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.agen.order.pilihProdukAgen.PilihProdukAgenFragment"
@@ -57,9 +63,9 @@
         <action
             android:id="@+id/action_dashboardAgenFragment_to_pilihProdukAgenFragment"
             app:destination="@id/pilihProdukAgenFragment" />
-        <action
-            android:id="@+id/action_dashboardAgenFragment_to_stockAgenRankFragment"
-            app:destination="@id/stockAgenRankFragment" />
+<!--        <action-->
+<!--            android:id="@+id/action_dashboardAgenFragment_to_stockAgenRankFragment"-->
+<!--            app:destination="@id/stockAgenRankFragment" />-->
         <action
             android:id="@+id/action_dashboardAgenFragment_to_agenLoginFragment"
             app:destination="@id/agenLoginFragment"

@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 import java.io.IOException
 
-class RiwayatOrderPagingSource(
+class RiwayatOrderDistributorPagingSource(
     private val distributorDatasource: DistributorDatasource,
     private val sessionManager: SessionManager
 ) : PagingSource<Int, RiwayatOrderDistributorDataItem>() {
@@ -44,6 +44,6 @@ class RiwayatOrderPagingSource(
 
     companion object {
         private const val STARTING_PAGE_INDEX = 1
-        const val PESANAN_MASUK_PAGE_SIZE = 10
+        const val RIWAYAT_ORDER_DISTRIBUTOR_PAGE_SIZE = 10
     }
 }

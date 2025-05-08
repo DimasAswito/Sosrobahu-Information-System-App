@@ -7,8 +7,11 @@ import com.polije.sosrobahufactoryapp.domain.repository.agen.AgenRepository
 import com.polije.sosrobahufactoryapp.domain.repository.distributor.DistributorRepository
 import com.polije.sosrobahufactoryapp.domain.repository.pabrik.PabrikRepository
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.DashboardAgenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.DetailPesananMasukUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.LogOutAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.LoginAgenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.PesananMasukAgenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.UpdateStatusPesananAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.UserSessionAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DasbhoardDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DetailPesananMasukDistributorUseCase
@@ -32,6 +35,8 @@ import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UpdatePesananPabrikU
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UserSessionPabrikUseCase
 import com.polije.sosrobahufactoryapp.ui.agen.home.HomeAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.login.AgenLoginViewModel
+import com.polije.sosrobahufactoryapp.ui.agen.pesanan.PesananAgenViewModel
+import com.polije.sosrobahufactoryapp.ui.agen.pesanan.detailPesanan.DetailPesananAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.home.HomeDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.login.DistributorLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.order.OrderDistributorViewModel
@@ -84,6 +89,9 @@ val appModule = module {
     factoryOf(::UserSessionAgenUseCase)
     factoryOf(::DashboardAgenUseCase)
     factoryOf(::LogOutAgenUseCase)
+    factoryOf(::PesananMasukAgenUseCase)
+    factoryOf(::DetailPesananMasukUseCase)
+    factoryOf(::UpdateStatusPesananAgenUseCase)
 
     viewModelOf(::HomePabrikViewModel)
     viewModelOf(::FactoryLoginViewModel)
@@ -104,5 +112,7 @@ val appModule = module {
 
     viewModelOf(::AgenLoginViewModel)
     viewModelOf(::HomeAgenViewModel)
+    viewModelOf(::PesananAgenViewModel)
+    viewModelOf(::DetailPesananAgenViewModel)
 
 }

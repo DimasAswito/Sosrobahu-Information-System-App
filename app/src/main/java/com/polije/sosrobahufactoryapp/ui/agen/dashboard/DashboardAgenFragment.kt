@@ -30,7 +30,7 @@ class DashboardAgenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireActivity().setStatusBarColorByRole(UserRole.AGEN)
+        activity?.setStatusBarColorByRole(UserRole.AGEN)
 
         val navHost = childFragmentManager.findFragmentById(binding.dashboardAgenContainerView.id) as NavHostFragment
         binding.bottomNavigationView.setupWithNavController(navHost.navController)

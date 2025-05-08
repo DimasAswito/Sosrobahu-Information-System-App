@@ -28,8 +28,6 @@ interface DistributorRepository {
 
     fun getRiwayatOrderDistributor(): Flow<PagingData<RiwayatOrderDistributorDataItem>>
 
-//    suspend fun getDetailOrderDistributor(idOrder: Int)
-
     suspend fun pilihBarangPabrik(): DataResult<PilihBarangPabrikDistributorResponse, HttpErrorCode>
 
     suspend fun orderBarang(

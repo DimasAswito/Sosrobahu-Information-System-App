@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 import java.io.IOException
 
-class PesananMasukPagingSource(
+class PesananMasukPabrikPagingSource(
     private val dataSource: PabrikDatasource,
     private val sessionManager: SessionManager
 ) :
@@ -45,6 +45,6 @@ class PesananMasukPagingSource(
 
     companion object {
         private const val STARTING_PAGE_INDEX = 1
-        const val PESANAN_MASUK_PAGE_SIZE = 10
+        const val PESANAN_MASUK_PABRIK_PAGE_SIZE = 10
     }
 }

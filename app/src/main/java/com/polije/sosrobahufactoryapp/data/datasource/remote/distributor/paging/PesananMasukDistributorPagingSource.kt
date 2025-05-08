@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
 import java.io.IOException
 
-class PesananMasukPagingSource(
+class PesananMasukDistributorPagingSource(
     private val dataSource: DistributorDatasource,
     private val sessionManager: SessionManager
 ) : PagingSource<Int, PesananMasukDistributorDataItem>() {
@@ -27,7 +27,7 @@ class PesananMasukPagingSource(
             val token = sessionManager.sessionFlow.first().token
             val response = dataSource.getPesananMasuk(token = "Bearer $token", page = pageIndex)
             val pesananMasuk = response.data
-            Log.d("PagingDebug", "Page: $pageIndex, Data Count: ${response.data?.size}")
+            Log.d("PagingDebug", "Page: $pageIndex, Data Count: ${response.data.size}")
 
             LoadResult.Page(
                 data = pesananMasuk,
@@ -43,6 +43,6 @@ class PesananMasukPagingSource(
 
     companion object {
         private const val STARTING_PAGE_INDEX = 1
-        const val PESANAN_MASUK_PAGE_SIZE = 10
+        const val PESANAN_MASUK_DISTRIBUTOR_PAGE_SIZE = 10
     }
 }
