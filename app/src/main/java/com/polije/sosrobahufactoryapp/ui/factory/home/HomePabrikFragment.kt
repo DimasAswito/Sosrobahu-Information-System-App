@@ -120,6 +120,7 @@ class HomePabrikFragment : Fragment() {
                         is HomePabrikState.Success -> {
 
                             binding.progressBar2.visibility = View.GONE
+                            binding.headerTextPabrik.text = state.dashboardPabrik.namaPabrik
                             binding.stokPabrikTersedia.text =
                                 getString(R.string.karton, state.dashboardPabrik.finalStockKarton)
                             binding.omsetPabrik.text =

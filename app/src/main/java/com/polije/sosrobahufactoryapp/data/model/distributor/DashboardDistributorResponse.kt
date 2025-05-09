@@ -25,7 +25,10 @@ data class DashboardDistributorResponse(
     val pesananPerBulan: Map<String, PesananDistributorPerBulan> = emptyMap(),
 
     @SerialName("availableYears")
-    val availableYears: List<Int> = emptyList()
+    val availableYears: List<Int> = emptyList(),
+
+    @SerialName("nama_distributor")
+    val namaDistributor: String = ""
 )
 
 @Serializable

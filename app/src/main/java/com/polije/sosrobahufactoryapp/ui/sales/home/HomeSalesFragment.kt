@@ -13,6 +13,7 @@ import androidx.navigation.findNavController
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeSalesBinding
 import com.polije.sosrobahufactoryapp.ui.agen.dashboard.DashboardAgenFragmentDirections
+import com.polije.sosrobahufactoryapp.utils.toRupiah
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -70,14 +71,15 @@ class HomeSalesFragment : Fragment() {
                     }
 
                     is HomeSalesState.Success -> {
-                        binding.topProductNameSales.text = "${state.dashboardResponse.jumlahToko} Toko"
 
-//                        binding.omsetBulanAgen.text =
+//                        binding.totalStokSales.text = state.dashboardResponse.totalStokKeseluruhan.toString()
+//                        binding.jumlahToko.text = state.dashboardResponse.jumlahToko.toString()
+//                        binding.modalSales.text =
 //                            state.dashboardResponse.totalPendapatan?.toRupiah()
-//                        binding.topProductNameAgen.text = state.dashboardResponse.topProduct
-//                        binding.totalStokAgen.text =
-//                            state.dashboardResponse.totalStokKeseluruhan.toString()
-//                        adapter.submitList(state.dashboardResponse.stokBarang)
+//
+//                        binding.imgTopProduct. // tak binding sendiri ngko lur
+//                        binding.topProductNameSales.text = state.dashboardResponse.topProduct
+
                     }
 
                 }
