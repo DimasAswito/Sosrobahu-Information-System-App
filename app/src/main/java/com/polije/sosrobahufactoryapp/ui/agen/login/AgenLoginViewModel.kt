@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 
 class AgenLoginViewModel(
     val loginAgenUseCase: LoginAgenUseCase,
-    val userSessionAgenUseCase: UserSessionAgenUseCase
+    userSessionAgenUseCase: UserSessionAgenUseCase
 ) :
     ViewModel() {
     private var _agenLoginState = MutableStateFlow(AgenLoginState())

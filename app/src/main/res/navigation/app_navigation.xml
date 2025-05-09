@@ -9,7 +9,7 @@
         android:id="@+id/chooseRoleFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.role.ChooseRoleFragment"
         android:label="fragment_choose_role"
-        tools:layout="@layout/fragment_choose_role" >
+        tools:layout="@layout/fragment_choose_role">
         <action
             android:id="@+id/action_chooseRoleFragment_to_mobile_navigation"
             app:destination="@id/mobile_navigation"
@@ -25,10 +25,17 @@
             app:destination="@id/agen_navigation"
             app:popUpTo="@id/chooseRoleFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_chooseRoleFragment_to_sales_navigation"
+            app:destination="@id/sales_navigation"
+            app:popUpTo="@id/chooseRoleFragment"
+            app:popUpToInclusive="true" />
+
 
     </fragment>
     <include app:graph="@navigation/factory_navigation" />
     <include app:graph="@navigation/distributor_navigation" />
     <include app:graph="@navigation/agen_navigation" />
+    <include app:graph="@navigation/sales_navigation" />
 
 </navigation>

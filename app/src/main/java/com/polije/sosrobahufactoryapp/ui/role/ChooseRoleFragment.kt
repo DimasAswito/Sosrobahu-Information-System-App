@@ -40,7 +40,8 @@ class ChooseRoleFragment : Fragment() {
         }
 
         binding.cvSales.setOnClickListener {
-
+            val action = ChooseRoleFragmentDirections.actionChooseRoleFragmentToSalesNavigation()
+            findNavController().navigate(action)
         }
 
     }

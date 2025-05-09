@@ -1,31 +1,87 @@
 package com.polije.sosrobahufactoryapp.ui.sales.home
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.findNavController
 import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.databinding.FragmentHomeSalesBinding
+import com.polije.sosrobahufactoryapp.ui.agen.dashboard.DashboardAgenFragmentDirections
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeSalesFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = HomeSalesFragment()
-    }
+    private var _binding: FragmentHomeSalesBinding? = null
+    private val binding get() = _binding!!
 
-    private val viewModel: HomeSalesViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
+    private val viewModel: HomeSalesViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_home_sales, container, false)
+        _binding = FragmentHomeSalesBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewLifecycleOwner.lifecycleScope.launch {
+
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isLogged.collectLatest {
+                    if (!it) {
+                        Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT)
+                            .show()
+                        val action =
+                            DashboardAgenFragmentDirections.actionDashboardAgenFragmentToAgenLoginFragment()
+                        activity?.findNavController(R.id.fragmentContainerView)
+                            ?.navigate(action)
+                    }
+                }
+            }
+
+
+        }
+
+        lifecycleScope.launch {
+            viewModel.state.collectLatest { state ->
+                when (state) {
+                    is HomeSalesState.Failure -> {
+                        Toast.makeText(requireContext(), state.errorMessage, Toast.LENGTH_LONG)
+                            .show()
+                    }
+
+                    HomeSalesState.Initial -> {
+                        binding.progressBar2.visibility = View.GONE
+                    }
+
+
+                    HomeSalesState.Loading -> {
+                        binding.progressBar2.visibility = View.VISIBLE
+                    }
+
+                    is HomeSalesState.Success -> {
+                        binding.topProductNameSales.text = "${state.dashboardResponse.jumlahToko} Toko"
+
+//                        binding.omsetBulanAgen.text =
+//                            state.dashboardResponse.totalPendapatan?.toRupiah()
+//                        binding.topProductNameAgen.text = state.dashboardResponse.topProduct
+//                        binding.totalStokAgen.text =
+//                            state.dashboardResponse.totalStokKeseluruhan.toString()
+//                        adapter.submitList(state.dashboardResponse.stokBarang)
+                    }
+
+                }
+            }
+        }
     }
 }

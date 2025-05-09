@@ -3,17 +3,19 @@ package com.polije.sosrobahufactoryapp.di
 import com.polije.sosrobahufactoryapp.data.repository.AgenRepositoryImpl
 import com.polije.sosrobahufactoryapp.data.repository.DistributorRepositoryImpl
 import com.polije.sosrobahufactoryapp.data.repository.PabrikRepositoryImpl
+import com.polije.sosrobahufactoryapp.data.repository.SalesRepositoryImpl
 import com.polije.sosrobahufactoryapp.domain.repository.agen.AgenRepository
 import com.polije.sosrobahufactoryapp.domain.repository.distributor.DistributorRepository
 import com.polije.sosrobahufactoryapp.domain.repository.pabrik.PabrikRepository
+import com.polije.sosrobahufactoryapp.domain.repository.sales.SalesRepository
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.DashboardAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.DetailPesananMasukUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.LogOutAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.LoginAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.OrderAgenUseCase
-import com.polije.sosrobahufactoryapp.domain.usecase.agen.RiwayatOrderAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.PesananMasukAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.PilihBarangDistributorAgenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.RiwayatOrderAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.UpdateStatusPesananAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.UserSessionAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DasbhoardDistributorUseCase
@@ -36,6 +38,10 @@ import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.PesananMasukPabrikUs
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.RiwayatRestokPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UpdatePesananPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UserSessionPabrikUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.sales.DashboardSalesUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.sales.LogOutSalesUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.sales.LoginSalesUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.sales.UserSessionSalesUseCase
 import com.polije.sosrobahufactoryapp.ui.agen.home.HomeAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.login.AgenLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.order.OrderAgenViewModel
@@ -58,6 +64,8 @@ import com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan.DetailPes
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.RiwayatPabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.ProdukRestokPabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.tambahRestok.TambahRestokPabrikViewModel
+import com.polije.sosrobahufactoryapp.ui.sales.home.HomeSalesViewModel
+import com.polije.sosrobahufactoryapp.ui.sales.login.SalesLoginViewModel
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.viewModelOf
@@ -68,6 +76,7 @@ val appModule = module {
     factoryOf(::PabrikRepositoryImpl) { bind<PabrikRepository>() }
     factoryOf(::DistributorRepositoryImpl) { bind<DistributorRepository>() }
     factoryOf(::AgenRepositoryImpl) { bind<AgenRepository>() }
+    factoryOf(::SalesRepositoryImpl) { bind<SalesRepository>() }
 
     factoryOf(::LoginPabrikUseCase)
     factoryOf(::DashboardPabrikUseCase)
@@ -102,6 +111,11 @@ val appModule = module {
     factoryOf(::PilihBarangDistributorAgenUseCase)
     factoryOf(::OrderAgenUseCase)
 
+    factoryOf(::LoginSalesUseCase)
+    factoryOf(::LogOutSalesUseCase)
+    factoryOf(::UserSessionSalesUseCase)
+    factoryOf(::DashboardSalesUseCase)
+
     viewModelOf(::HomePabrikViewModel)
     viewModelOf(::FactoryLoginViewModel)
     viewModelOf(::PesananPabrikViewModel)
@@ -126,5 +140,8 @@ val appModule = module {
     viewModelOf(::OrderAgenViewModel)
     viewModelOf(::PilihProdukAgenViewModel)
     viewModelOf(::TambahOrderAgenViewModel)
+
+    viewModelOf(::SalesLoginViewModel)
+    viewModelOf(::HomeSalesViewModel)
 
 }
