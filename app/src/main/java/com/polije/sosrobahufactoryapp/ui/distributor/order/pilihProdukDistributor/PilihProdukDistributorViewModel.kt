@@ -18,11 +18,11 @@ import kotlinx.parcelize.Parcelize
 
 class PilihProdukDistributorViewModel(private val pilihProdukPabrikDistributorUseCase: PilihProdukPabrikDistributorUseCase) :
     ViewModel() {
-    private val _state = MutableStateFlow(PilihProdukDistributorState())
-    val state: StateFlow<PilihProdukDistributorState>
+    private val _state = MutableStateFlow(PilihProdukDistributorPabrikState())
+    val state: StateFlow<PilihProdukDistributorPabrikState>
         get() = _state.onStart {
             getListPoduk()
-        }.stateIn(viewModelScope, SharingStarted.Lazily, PilihProdukDistributorState())
+        }.stateIn(viewModelScope, SharingStarted.Lazily, PilihProdukDistributorPabrikState())
 
     private val _selectedProducts = MutableStateFlow<List<SelectedProdukDistributor>>(emptyList())
     val selectedProducts: StateFlow<List<SelectedProdukDistributor>> = _selectedProducts

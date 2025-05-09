@@ -5,19 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.data.model.agen.RiwayatOrderAgenDataItem
 import com.polije.sosrobahufactoryapp.databinding.FragmentOrderAgenBinding
 import com.polije.sosrobahufactoryapp.ui.agen.dashboard.DashboardAgenFragmentDirections
 import com.polije.sosrobahufactoryapp.ui.agen.order.component.RiwayatOrderAgenAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.getValue
 
 class OrderAgenFragment : Fragment() {
     private var _binding: FragmentOrderAgenBinding? = null
@@ -47,26 +45,26 @@ class OrderAgenFragment : Fragment() {
             mainNavHost.navController.navigate(action)
         }
 
-//        val adapter = RiwayatOrderAgenAdapter(object :
-//            RiwayatOrderAgenAdapter.RiwayatOrderAgenAction {
-//            override fun onRiwayatOrderItemClicked(order: RiwayatOrderAgenDataItem) {
-//                val action =
-//                    DashboardAgenFragmentDirections.actionDashboardAgenFragmentToDetailOrderAgenFragment(
-//                        order
-//                    )
-//                mainNavHost.navController.navigate(action)
-//            }
-//        })
-//
-//        binding.recyclerViewRiwayatOrderAgen.layoutManager =
-//            LinearLayoutManager(requireContext())
-//        binding.recyclerViewRiwayatOrderAgen.adapter = adapter
-//
-//
-//        lifecycleScope.launch {
-//            viewModel.riwayatOrderAgen.collectLatest {
-//                adapter.submitData(it)
-//            }
-//        }
+        val adapter = RiwayatOrderAgenAdapter(object :
+            RiwayatOrderAgenAdapter.RiwayatOrderAgenAction {
+            override fun onRiwayatOrderItemClicked(order: RiwayatOrderAgenDataItem) {
+                val action =
+                    DashboardAgenFragmentDirections.actionDashboardAgenFragmentToDetailOrderAgenFragment(
+                        order
+                    )
+                mainNavHost.navController.navigate(action)
+            }
+        })
+
+        binding.recyclerViewRiwayatOrderAgen.layoutManager =
+            LinearLayoutManager(requireContext())
+        binding.recyclerViewRiwayatOrderAgen.adapter = adapter
+
+
+        lifecycleScope.launch {
+            viewModel.getOrderAgen().collectLatest {
+                adapter.submitData(it)
+            }
+        }
     }
 }

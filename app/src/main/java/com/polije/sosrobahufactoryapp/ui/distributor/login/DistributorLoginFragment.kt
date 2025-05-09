@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDistributorLoginBinding
+import com.polije.sosrobahufactoryapp.ui.agen.login.AgenLoginFragmentDirections
 import com.polije.sosrobahufactoryapp.utils.LoginState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -51,13 +54,14 @@ class DistributorLoginFragment : Fragment() {
         }
 
 
-        lifecycleScope.launch {
-            viewModel.isAlreadyLoggedIn.collectLatest {
-                if (it) {
-                    findNavController().navigate(R.id.action_distributorLoginFragment_to_dashboardDistributorFragment)
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isAlreadyLoggedIn.collectLatest {
+                    if (it) {
+                        findNavController().navigate(R.id.action_distributorLoginFragment_to_dashboardDistributorFragment)
+                    }
                 }
             }
-
         }
 
 

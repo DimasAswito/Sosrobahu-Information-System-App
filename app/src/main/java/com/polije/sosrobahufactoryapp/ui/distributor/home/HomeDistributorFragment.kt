@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.polije.sosrobahufactoryapp.BuildConfig
@@ -56,11 +57,15 @@ class HomeDistributorFragment : Fragment() {
 
 
 
-        lifecycleScope.launch {
-            homeDistributorViewModel.isLogged.collect {
-                if (!it) {
-                    Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
-                    mainNavHost.navController.navigate(DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToDistributorLoginFragment())
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                homeDistributorViewModel.isLogged.collectLatest {
+
+                    if (!it) {
+                        Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT)
+                            .show()
+                        mainNavHost.navController.navigate(DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToDistributorLoginFragment())
+                    }
                 }
             }
         }
@@ -106,11 +111,12 @@ class HomeDistributorFragment : Fragment() {
                         val imageName = topProduct?.gambar
                         val imageUrl = BuildConfig.PICTURE_BASE_URL + "produk/" + imageName
 
-                        val circularProgressDrawable = CircularProgressDrawable(requireContext()).apply {
-                            strokeWidth = 5f
-                            centerRadius = 30f
-                            start()
-                        }
+                        val circularProgressDrawable =
+                            CircularProgressDrawable(requireContext()).apply {
+                                strokeWidth = 5f
+                                centerRadius = 30f
+                                start()
+                            }
 
                         Glide.with(requireContext())
                             .load(imageUrl)

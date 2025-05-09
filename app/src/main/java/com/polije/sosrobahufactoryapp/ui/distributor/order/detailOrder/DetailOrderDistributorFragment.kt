@@ -21,7 +21,6 @@ class DetailOrderDistributorFragment : Fragment() {
 
     private var _binding: FragmentDetailOrderDistributorBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: DetailOrderDistributorViewModel by viewModel()
     private var isImageVisible = false
     private val args: DetailOrderDistributorFragmentArgs by navArgs()
 

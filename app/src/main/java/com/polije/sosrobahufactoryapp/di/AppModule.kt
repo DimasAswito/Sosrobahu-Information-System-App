@@ -10,7 +10,10 @@ import com.polije.sosrobahufactoryapp.domain.usecase.agen.DashboardAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.DetailPesananMasukUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.LogOutAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.LoginAgenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.OrderAgenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.RiwayatOrderAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.PesananMasukAgenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.PilihBarangDistributorAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.UpdateStatusPesananAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.UserSessionAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DasbhoardDistributorUseCase
@@ -35,6 +38,9 @@ import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UpdatePesananPabrikU
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UserSessionPabrikUseCase
 import com.polije.sosrobahufactoryapp.ui.agen.home.HomeAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.login.AgenLoginViewModel
+import com.polije.sosrobahufactoryapp.ui.agen.order.OrderAgenViewModel
+import com.polije.sosrobahufactoryapp.ui.agen.order.pilihProdukAgen.PilihProdukAgenViewModel
+import com.polije.sosrobahufactoryapp.ui.agen.order.tambahOrder.TambahOrderAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.pesanan.PesananAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.pesanan.detailPesanan.DetailPesananAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.home.HomeDistributorViewModel
@@ -92,6 +98,9 @@ val appModule = module {
     factoryOf(::PesananMasukAgenUseCase)
     factoryOf(::DetailPesananMasukUseCase)
     factoryOf(::UpdateStatusPesananAgenUseCase)
+    factoryOf(::RiwayatOrderAgenUseCase)
+    factoryOf(::PilihBarangDistributorAgenUseCase)
+    factoryOf(::OrderAgenUseCase)
 
     viewModelOf(::HomePabrikViewModel)
     viewModelOf(::FactoryLoginViewModel)
@@ -114,5 +123,8 @@ val appModule = module {
     viewModelOf(::HomeAgenViewModel)
     viewModelOf(::PesananAgenViewModel)
     viewModelOf(::DetailPesananAgenViewModel)
+    viewModelOf(::OrderAgenViewModel)
+    viewModelOf(::PilihProdukAgenViewModel)
+    viewModelOf(::TambahOrderAgenViewModel)
 
 }

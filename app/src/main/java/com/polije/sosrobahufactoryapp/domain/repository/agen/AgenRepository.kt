@@ -1,13 +1,17 @@
 package com.polije.sosrobahufactoryapp.domain.repository.agen
 
+import android.net.Uri
 import androidx.paging.PagingData
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.DashboardAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.DetailPesananMasukAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.PesananMasukAgenDataItem
-import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
-import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorDataItem
+import com.polije.sosrobahufactoryapp.data.model.agen.PilihBarangDistributorAgenResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.RiwayatOrderAgenDataItem
+import com.polije.sosrobahufactoryapp.data.model.distributor.OrderDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusPesananMasukResponse
+import com.polije.sosrobahufactoryapp.ui.agen.order.pilihProdukAgen.SelectedProdukAgen
+import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.SelectedProdukDistributor
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.UserRole
@@ -19,8 +23,20 @@ interface AgenRepository {
 
     fun getPesananMasukAgen(): Flow<PagingData<PesananMasukAgenDataItem>>
     suspend fun getDetailPesananMasukAgen(idOrder: Int): DataResult<DetailPesananMasukAgenResponse, HttpErrorCode>
-    suspend fun updateStatusPesanan(idOrder : Int,status : Int) : DataResult<UpdateStatusPesananMasukResponse, HttpErrorCode>
+    suspend fun updateStatusPesanan(
+        idOrder: Int,
+        status: Int
+    ): DataResult<UpdateStatusPesananMasukResponse, HttpErrorCode>
 
+    fun getRiwayatOrderDistributor(): Flow<PagingData<RiwayatOrderAgenDataItem>>
+    suspend fun pilihBarangDistributor(): DataResult<PilihBarangDistributorAgenResponse, HttpErrorCode>
+
+
+    suspend fun orderBarang(
+        products: List<SelectedProdukAgen>,
+        totalAmount: Int,
+        buktiUri: Uri
+    ): DataResult<OrderDistributorResponse, HttpErrorCode>
 
     fun isUserIsLogged(requiredRole: UserRole): Flow<Boolean>
     suspend fun logout()

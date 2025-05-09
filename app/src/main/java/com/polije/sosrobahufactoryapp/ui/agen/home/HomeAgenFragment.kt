@@ -54,7 +54,6 @@ class HomeAgenFragment : Fragment() {
 //        }
 
         viewLifecycleOwner.lifecycleScope.launch {
-
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeAgenViewModel.isLogged.collectLatest {
                     if (!it) {

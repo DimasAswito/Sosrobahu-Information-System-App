@@ -23,6 +23,8 @@ data class DashboardAgenResponse(
 
 	@SerialName("total_stok_keseluruhan")
 	val totalStokKeseluruhan: Int? = null
+
+
 )
 
 @Serializable

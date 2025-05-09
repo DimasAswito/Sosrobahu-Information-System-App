@@ -1,12 +1,10 @@
 package com.polije.sosrobahufactoryapp.ui.distributor.order.component
 
-import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
 import com.polije.sosrobahufactoryapp.databinding.ItemRiwayatOrderDistributorBinding
 
@@ -27,7 +25,7 @@ class RiwayatOrderDistributorAdapter(val riwayatOrderDistributorAction: RiwayatO
                 riwayatOrderDistributorAction.onRiwayatOrderItemClicked(item)
             }
         }
-    } 
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

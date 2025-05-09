@@ -14,7 +14,11 @@
         android:id="@+id/detailOrderAgenFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.agen.order.detailOrder.DetailOrderAgenFragment"
         android:label="fragment_detail_order_agen"
-        tools:layout="@layout/fragment_detail_order_agen" />
+        tools:layout="@layout/fragment_detail_order_agen" >
+        <argument
+            android:name="detailOrder"
+            app:argType="com.polije.sosrobahufactoryapp.data.model.agen.RiwayatOrderAgenDataItem" />
+    </fragment>
     <fragment
         android:id="@+id/detailPesananAgenFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.agen.pesanan.detailPesanan.DetailPesananAgenFragment"
@@ -34,12 +38,18 @@
         <action
             android:id="@+id/action_pilihProdukAgenFragment_to_tambahOrderAgenFragment"
             app:destination="@id/tambahOrderAgenFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/tambahOrderAgenFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.agen.order.tambahOrder.TambahOrderAgenFragment"
         android:label="fragment_tambah_order_agen"
-        tools:layout="@layout/fragment_tambah_order_agen" />
+        tools:layout="@layout/fragment_tambah_order_agen" >
+
+        <argument
+            android:name="selectedBarang"
+            app:argType="com.polije.sosrobahufactoryapp.ui.agen.order.pilihProdukAgen.ProdukTerpilihAgen" />
+    </fragment>
     <fragment
         android:id="@+id/agenLoginFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.agen.login.AgenLoginFragment"

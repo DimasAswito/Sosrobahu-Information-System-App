@@ -2,7 +2,7 @@ package com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistribut
 
 import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponse
 
-data class PilihProdukDistributorState(
+data class PilihProdukDistributorPabrikState(
     val isLoading: Boolean = false,
     val data: PilihBarangPabrikDistributorResponse? = null,
     val errorMessage: String? = null
