@@ -73,7 +73,7 @@ class HomeSalesFragment : Fragment() {
                     is HomeSalesState.Success -> {
 
 //                        binding.totalStokSales.text = state.dashboardResponse.totalStokKeseluruhan.toString()
-//                        binding.jumlahToko.text = state.dashboardResponse.jumlahToko.toString()
+//                        binding.jumlahToko.text   = state.dashboardResponse.jumlahToko.toString()
 //                        binding.modalSales.text =
 //                            state.dashboardResponse.totalPendapatan?.toRupiah()
 //

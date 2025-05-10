@@ -41,6 +41,7 @@ import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UserSessionPabrikUse
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.DashboardSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.LogOutSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.LoginSalesUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.sales.TokoSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.UserSessionSalesUseCase
 import com.polije.sosrobahufactoryapp.ui.agen.home.HomeAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.login.AgenLoginViewModel
@@ -64,6 +65,7 @@ import com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan.DetailPes
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.RiwayatPabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.ProdukRestokPabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.tambahRestok.TambahRestokPabrikViewModel
+import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.DaftarTokoSalesViewModel
 import com.polije.sosrobahufactoryapp.ui.sales.home.HomeSalesViewModel
 import com.polije.sosrobahufactoryapp.ui.sales.login.SalesLoginViewModel
 import org.koin.core.module.dsl.bind
@@ -115,6 +117,7 @@ val appModule = module {
     factoryOf(::LogOutSalesUseCase)
     factoryOf(::UserSessionSalesUseCase)
     factoryOf(::DashboardSalesUseCase)
+    factoryOf(::TokoSalesUseCase)
 
     viewModelOf(::HomePabrikViewModel)
     viewModelOf(::FactoryLoginViewModel)
@@ -143,5 +146,6 @@ val appModule = module {
 
     viewModelOf(::SalesLoginViewModel)
     viewModelOf(::HomeSalesViewModel)
+    viewModelOf(::DaftarTokoSalesViewModel)
 
 }
