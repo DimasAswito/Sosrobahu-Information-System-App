@@ -56,6 +56,7 @@
         android:layout_marginHorizontal="16dp"
         android:text="Tambah Restok"
         android:textSize="18sp"
+        android:backgroundTint="@color/factory_theme_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

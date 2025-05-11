@@ -44,5 +44,4 @@ data class DashboardResponse(
     @SerialName("totalDistributor") val totalDistributor: Int,
     @SerialName("pesananPerbulan") val pesananPerbulan: Map<String, PesananPerBulan>,
     @SerialName("nama_pabrik") val namaPabrik: String = ""
-
 )

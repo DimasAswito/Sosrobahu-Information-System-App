@@ -22,7 +22,11 @@ data class DashboardAgenResponse(
 	val stokBarang: List<StokBarangAgenItem> = emptyList(),
 
 	@SerialName("total_stok_keseluruhan")
-	val totalStokKeseluruhan: Int? = null
+	val totalStokKeseluruhan: Int? = null,
+
+	@SerialName("nama_agen")
+	val namaAgen: String = ""
+
 
 
 )

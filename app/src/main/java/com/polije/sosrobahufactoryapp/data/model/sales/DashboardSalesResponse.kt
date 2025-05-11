@@ -17,6 +17,7 @@ data class DashboardSalesResponse(
 
     @SerialName("total_stok")
     val totalStok: Int,
+
     @SerialName("nama_sales")
-    val nama: String,
+    val namaSales: String = ""
 )

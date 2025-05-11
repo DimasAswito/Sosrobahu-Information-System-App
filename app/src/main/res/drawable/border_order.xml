@@ -5,7 +5,7 @@
     <item android:state_selected="true">
         <shape android:shape="rectangle">
             <solid android:color="@android:color/transparent" />
-            <stroke android:width="3dp" android:color="@color/distributor_theme" />
+            <stroke android:width="3dp" android:color="@color/green" />
             <corners android:radius="8dp" />
         </shape>
     </item>

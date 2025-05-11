@@ -88,6 +88,9 @@ class HomeAgenFragment : Fragment() {
                     }
 
                     is HomeAgenState.Success -> {
+                        val namaAgen = state.dashboardResponse.namaAgen.split(" ").firstOrNull() ?: ""
+                        binding.headerTextAgen.text = "Selamat datang $namaAgen,"
+
                         binding.jumlahSales.text = state.dashboardResponse.totalSales.toString()
                         binding.omsetBulanAgen.text =
                             state.dashboardResponse.totalPendapatan?.toRupiah()

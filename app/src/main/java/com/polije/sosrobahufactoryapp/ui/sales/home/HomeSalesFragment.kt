@@ -72,6 +72,9 @@ class HomeSalesFragment : Fragment() {
 
                     is HomeSalesState.Success -> {
 
+//                        val namaSales = state.dashboardResponse.namaSales.split(" ").firstOrNull() ?: ""
+//                        binding.headerTextSales.text = "Selamat datang $namaSales,"
+
 //                        binding.totalStokSales.text = state.dashboardResponse.totalStokKeseluruhan.toString()
 //                        binding.jumlahToko.text   = state.dashboardResponse.jumlahToko.toString()
 //                        binding.modalSales.text =

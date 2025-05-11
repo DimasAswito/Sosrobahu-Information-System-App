@@ -84,13 +84,16 @@ class HomeDistributorFragment : Fragment() {
                         binding.progressBar2.visibility = View.GONE
                     }
 
-
                     HomeDistributorState.Loading -> {
                         binding.progressBar2.visibility = View.VISIBLE
                     }
 
                     is HomeDistributorState.Success -> {
                         binding.progressBar2.visibility = View.GONE
+
+                        val namaDistributor = state.dashboardResponse.namaDistributor.split(" ").firstOrNull() ?: ""
+                        binding.headerTextDistributor.text = "Selamat datang $namaDistributor,"
+
                         binding.jumlahAgen.text = state.dashboardResponse.totalAgen.toString()
                         binding.omsetBulanDistributor.text =
                             state.dashboardResponse.totalPendapatan.toInt()
