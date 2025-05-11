@@ -36,6 +36,7 @@ class FactoryLoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnBack.setOnClickListener { findNavController().navigateUp() }
         binding.usernameEditText.doAfterTextChanged { text -> viewModel.onUsernameChanged(text.toString()) }
         binding.passwordEditText.doAfterTextChanged { text -> viewModel.onPasswordChanged(text.toString()) }
 

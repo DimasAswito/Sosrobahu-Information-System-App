@@ -15,14 +15,15 @@
         android:orientation="vertical"
         android:gravity="center"
         android:padding="24dp"
-        android:background="@android:color/white"
+        android:background="#893A3A3A"
         android:elevation="8dp"
         android:layout_margin="32dp">
 
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:indeterminateTint="@android:color/white"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,7 +31,7 @@
             android:text="Loading..."
             android:textSize="13sp"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:layout_marginTop="12dp" />
     </LinearLayout>
 </FrameLayout>

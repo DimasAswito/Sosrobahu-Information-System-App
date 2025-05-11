@@ -11,7 +11,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentSalesLoginBinding
+import com.polije.sosrobahufactoryapp.databinding.LoadingOverlayBinding
 import com.polije.sosrobahufactoryapp.utils.LoginState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -22,6 +24,8 @@ class SalesLoginFragment : Fragment() {
     private var _binding: FragmentSalesLoginBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var loadingBinding: LoadingOverlayBinding
+
     private val viewModel: SalesLoginViewModel by viewModel()
 
     override fun onCreateView(
@@ -29,15 +33,27 @@ class SalesLoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSalesLoginBinding.inflate(inflater, container, false)
+
+        loadingBinding = LoadingOverlayBinding.bind(
+            binding.root.findViewById(R.id.loadingLayout)
+        )
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.usernameEditText.doAfterTextChanged { text -> viewModel.onUsernameChanged(text.toString()) }
-        binding.passwordEditText.doAfterTextChanged { text -> viewModel.onPasswordChanged(text.toString()) }
+        binding.usernameEditText.doAfterTextChanged { text ->
+            viewModel.onUsernameChanged(text.toString())
+        }
+        binding.passwordEditText.doAfterTextChanged { text ->
+            viewModel.onPasswordChanged(text.toString())
+        }
 
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         lifecycleScope.launch {
             viewModel.isValid.collectLatest {
@@ -45,13 +61,12 @@ class SalesLoginFragment : Fragment() {
             }
         }
 
-
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.isAlreadyLoggedIn.collectLatest {
                     if (it) {
-                        val action =
-                            SalesLoginFragmentDirections.actionSalesLoginFragmentToDashboardSalesFragment()
+                        val action = SalesLoginFragmentDirections
+                            .actionSalesLoginFragmentToDashboardSalesFragment()
                         findNavController().navigate(action)
                     }
                 }
@@ -62,27 +77,25 @@ class SalesLoginFragment : Fragment() {
             viewModel.login()
         }
 
-
         lifecycleScope.launch {
             viewModel.loginState.collectLatest { state ->
                 when (state) {
                     is LoginState.Idle -> {
-                        binding.progressBar5.visibility = View.GONE
-
+                        loadingBinding.loadingLayout.visibility = View.GONE
                     }
 
                     is LoginState.Loading -> {
-                        binding.progressBar5.visibility = View.VISIBLE
+                        loadingBinding.loadingLayout.visibility = View.VISIBLE
                         binding.loginButton.isEnabled = false
                     }
 
                     is LoginState.Success -> {
-                        binding.progressBar5.visibility = View.GONE
+                        loadingBinding.loadingLayout.visibility = View.GONE
                         binding.loginButton.isEnabled = false
                     }
 
                     is LoginState.Error -> {
-                        binding.progressBar5.visibility = View.GONE
+                        loadingBinding.loadingLayout.visibility = View.GONE
                         Toast.makeText(
                             requireContext(),
                             "Login Failed: ${state.message}",
