@@ -152,6 +152,6 @@
     <color name="distributor_theme_dark">#386641</color>
     <color name="agen_theme">#a27035</color>
     <color name="agen_theme_dark">#533e2d</color>
-    <color name="sales_theme">#c1121f</color>
-    <color name="sales_theme_dark">#780000</color>
+    <color name="sales_theme">#e01e37</color>
+    <color name="sales_theme_dark">#800e13</color>
 </resources>

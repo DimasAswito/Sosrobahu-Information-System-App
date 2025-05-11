@@ -32,7 +32,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <!-- Header -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,7 +75,6 @@
                     android:orientation="vertical"
                     android:weightSum="100">
 
-                    <!-- Bagian Atas: 50% -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
@@ -103,7 +101,6 @@
                         android:layout_marginTop="4dp"/>
                 </LinearLayout>
 
-                <!-- Bagian Bawah: 50% -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -111,7 +108,6 @@
                     android:orientation="horizontal"
                     android:padding="12dp">
 
-                    <!-- Kiri -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -136,14 +132,12 @@
                             android:layout_marginTop="4dp"/>
                     </LinearLayout>
 
-                    <!-- Garis -->
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="16dp"
                         android:background="#CCCCCC"/>
 
-                    <!-- Kanan -->
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -170,7 +164,6 @@
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
 
     </FrameLayout>
 
