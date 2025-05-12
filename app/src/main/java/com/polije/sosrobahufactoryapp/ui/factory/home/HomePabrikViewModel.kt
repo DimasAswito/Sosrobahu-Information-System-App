@@ -47,7 +47,7 @@ class HomePabrikViewModel(
                             HomePabrikState.Failure(
                                 response.error,
                                 errorMessage = when (response.error) {
-                                    HttpErrorCode.BAD_REQUEST -> "Permintaan tidak valid. Periksa kembali data yang dikirimkan."
+                                    HttpErrorCode.BAD_REQUEST -> "Permintaan tidak valid. Periksa kembali listBarangAgen yang dikirimkan."
                                     HttpErrorCode.UNAUTHORIZED -> "Login gagal. Username atau password salah."
                                     HttpErrorCode.FORBIDDEN -> "Akses ditolak. Anda tidak memiliki izin untuk mengakses."
                                     HttpErrorCode.NOT_FOUND -> "Server tidak ditemukan. Coba lagi nanti."

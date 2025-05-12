@@ -22,7 +22,7 @@ class DetailLaporanFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Tangkap data yang dikirim (misal lewat safe args atau argument manual)
+        // Tangkap listBarangAgen yang dikirim (misal lewat safe args atau argument manual)
         val distributor = arguments?.getString("distributor") ?: "Distributor X"
         val tanggal = arguments?.getString("tanggal") ?: "01/01/2025"
         val jumlah = arguments?.getInt("jumlah") ?: 0

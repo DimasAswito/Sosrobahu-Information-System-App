@@ -5,7 +5,7 @@ import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 
 sealed class HomeDistributorState {
     data class Success(
-        val dashboardResponse: DashboardDistributorResponse// ganti dengan data dari distributor
+        val dashboardResponse: DashboardDistributorResponse// ganti dengan listBarangAgen dari distributor
     ) : HomeDistributorState()
 
     data class Failure(

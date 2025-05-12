@@ -33,7 +33,7 @@ class TambahRestokPabrikAdapter(
                 .error(R.drawable.rokok)
                 .into(binding.imgProduk)
 
-            // Set product data
+            // Set product listBarangAgen
             binding.apply {
                 txtNamaProduk.text = produk.item.namaRokok
 
@@ -114,7 +114,7 @@ class TambahRestokPabrikAdapter(
                             // Simpan posisi kursor sebelum perubahan
                             produk.cursorPosition = binding.edtJumlahProduk.selectionStart
 
-                            // Update data
+                            // Update listBarangAgen
                             onQuantityChangeListener.onQuantityChanged(produk, qty)
                         }
                     } catch (e: Exception) {

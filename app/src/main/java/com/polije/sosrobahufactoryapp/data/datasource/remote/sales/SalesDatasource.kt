@@ -3,6 +3,7 @@ package com.polije.sosrobahufactoryapp.data.datasource.remote.sales
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.DashboardSalesResponse
+import com.polije.sosrobahufactoryapp.data.model.sales.ListBarangAgenSalesResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.ListTokoSalesResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.RiwayatOrderSalesResponse
 import retrofit2.http.Body
@@ -33,5 +34,9 @@ interface SalesDatasource {
 
     @GET("sales/kunjungan/{id}")
     suspend fun getKunjungan(@Path("id") idToko: Int, @Header("Authorization") token: String)
+
+    @GET("sales/listBarangOrder")
+    suspend fun getListBarangOrder(@Header("Authorization") token : String)  : ListBarangAgenSalesResponse
+
 
 }

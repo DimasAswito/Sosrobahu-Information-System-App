@@ -63,7 +63,7 @@ class DetailPesananPabrikFragment : Fragment() {
         binding.rvproduk.layoutManager = LinearLayoutManager(requireContext())
         binding.rvproduk.adapter = produkAdapter
 
-        // Set status awal sesuai data dari Bundle
+        // Set status awal sesuai listBarangAgen dari Bundle
         binding.spinnerStatus.setSelection(
             (args.detailPesanan.statusPemesanan ?: 0)
         )

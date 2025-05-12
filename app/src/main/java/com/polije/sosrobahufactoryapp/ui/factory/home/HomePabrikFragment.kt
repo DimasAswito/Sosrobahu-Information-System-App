@@ -251,7 +251,7 @@ class HomePabrikFragment : Fragment() {
                     parts[1].toIntOrNull()?.minus(1) // Bulan di Java/Kotlin mulai dari 0
                 monthIndex?.let { monthNames[it] to data.totalOmset.toFloat() }
             } else {
-                null // Jika format tidak sesuai, abaikan data
+                null // Jika format tidak sesuai, abaikan listBarangAgen
             }
         }.toMap()
     }

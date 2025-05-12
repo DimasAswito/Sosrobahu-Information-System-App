@@ -2,7 +2,9 @@ package com.polije.sosrobahufactoryapp.domain.repository.sales
 
 import androidx.paging.PagingData
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.PilihBarangDistributorAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.DashboardSalesResponse
+import com.polije.sosrobahufactoryapp.data.model.sales.ListBarangAgenSalesResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.ListSalesDataItem
 import com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesDataItem
 import com.polije.sosrobahufactoryapp.utils.DataResult
@@ -18,6 +20,9 @@ interface SalesRepository {
     fun getListTokoSales(): Flow<PagingData<ListSalesDataItem>>
 
     fun getOrderSales(): Flow<PagingData<OrderSalesDataItem>>
+
+    suspend fun pilihBarangAgen(): DataResult<ListBarangAgenSalesResponse, HttpErrorCode>
+
 
     fun isUserIsLogged(requiredRole: UserRole): Flow<Boolean>
     suspend fun logout()

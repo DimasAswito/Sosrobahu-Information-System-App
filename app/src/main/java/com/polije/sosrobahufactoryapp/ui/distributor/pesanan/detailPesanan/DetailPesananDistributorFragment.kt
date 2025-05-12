@@ -83,7 +83,7 @@ class DetailPesananDistributorFragment : Fragment() {
         )
         binding.spinnerStatus.adapter = adapterstatus
 
-        // Set status awal sesuai data dari Bundle
+        // Set status awal sesuai listBarangAgen dari Bundle
         binding.spinnerStatus.setSelection(
             (args.detailPesananDistributor.statusPemesanan ?: 0)
         )

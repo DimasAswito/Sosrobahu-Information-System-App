@@ -75,7 +75,7 @@ class TambahRestokPabrikFragment : Fragment() {
                             binding.btnTambahRestok.isEnabled = false
                             binding.progressBar3.visibility = View.GONE
                             Snackbar.make(
-                                binding.root, "Berhasil Mengingputkan data",
+                                binding.root, "Berhasil Mengingputkan listBarangAgen",
                                 Snackbar.LENGTH_SHORT
                             ).show()
                             findNavController().navigateUp()

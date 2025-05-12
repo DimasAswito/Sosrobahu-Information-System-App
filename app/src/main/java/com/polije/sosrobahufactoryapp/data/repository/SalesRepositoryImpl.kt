@@ -10,6 +10,7 @@ import com.polije.sosrobahufactoryapp.data.datasource.remote.sales.paging.OrderS
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.DashboardSalesResponse
+import com.polije.sosrobahufactoryapp.data.model.sales.ListBarangAgenSalesResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.ListSalesDataItem
 import com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesDataItem
 import com.polije.sosrobahufactoryapp.domain.repository.sales.SalesRepository
@@ -90,6 +91,25 @@ class SalesRepositoryImpl(
             ), pagingSourceFactory = {
                 OrderSalesPagingSource(salesDataSource, sessionManager)
             }).flow
+    }
+
+    override suspend fun pilihBarangAgen(): DataResult<ListBarangAgenSalesResponse, HttpErrorCode> {
+        return try {
+            val token = sessionManager.sessionFlow.first().token
+            val data = salesDataSource.getListBarangOrder("Bearer $token")
+            DataResult.Success(data)
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (e: Exception) {
+            val error = e.message
+            DataResult.Error(HttpErrorCode.UNKNOWN)
+        }
     }
 
     override fun isUserIsLogged(requiredRole: UserRole): Flow<Boolean> =

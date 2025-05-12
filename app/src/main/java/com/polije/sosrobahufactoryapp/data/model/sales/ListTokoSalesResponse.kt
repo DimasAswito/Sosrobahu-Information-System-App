@@ -21,7 +21,7 @@ data class ListStores(
     @SerialName("per_page")
     val perPage: Int? = null,
 
-    @SerialName("data")
+    @SerialName("listBarangAgen")
     val data: List<ListSalesDataItem> = emptyList(),
 
     @SerialName("last_page")

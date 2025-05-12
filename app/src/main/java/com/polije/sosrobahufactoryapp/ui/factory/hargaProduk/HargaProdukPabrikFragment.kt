@@ -31,7 +31,7 @@ class HargaProdukPabrikFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        // Dummy data produk
+        // Dummy listBarangAgen produk
 
 
 //        val produkPabrikAdapter = ProdukPabrikAdapter(viewModel.produkList.value)

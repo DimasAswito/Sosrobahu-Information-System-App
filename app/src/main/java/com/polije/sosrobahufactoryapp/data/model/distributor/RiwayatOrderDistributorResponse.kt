@@ -11,7 +11,7 @@ data class RiwayatOrderDistributorResponse(
     @SerialName("per_page")
     val perPage: Int? = null,
 
-    @SerialName("data")
+    @SerialName("listBarangAgen")
     val data: List<RiwayatOrderDistributorDataItem> = emptyList(),
 
     @SerialName("last_page")

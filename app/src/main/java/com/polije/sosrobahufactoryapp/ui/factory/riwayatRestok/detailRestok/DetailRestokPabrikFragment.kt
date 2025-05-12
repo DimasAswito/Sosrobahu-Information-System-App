@@ -34,7 +34,7 @@ class DetailRestokPabrikFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        // Ambil data yang dikirim dari RiwayatFragment
+        // Ambil listBarangAgen yang dikirim dari RiwayatFragment
 
         binding.txtJumlah.text = args.restockDetail.jumlah
 

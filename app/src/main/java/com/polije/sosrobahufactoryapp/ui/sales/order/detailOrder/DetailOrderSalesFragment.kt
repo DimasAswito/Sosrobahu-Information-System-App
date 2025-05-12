@@ -32,7 +32,7 @@ class DetailOrderSalesFragment : Fragment() {
 
         val adapter = DetailOrderSalesAdapter(args.listOrderSales.detailProduk)
 
-        binding.rvListProduk.apply {
+        binding.rvProdukOrder.apply {
             layoutManager = LinearLayoutManager(context)
             this.adapter = adapter
         }
@@ -41,8 +41,8 @@ class DetailOrderSalesFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        binding.txtJumlah.text = args.listOrderSales.total?.toRupiah()
-        binding.txtTitle.text = args.listOrderSales.tanggal
+        binding.tvTotal.text = args.listOrderSales.total?.toRupiah()
+        binding.tvTanggalOrder.text = args.listOrderSales.tanggal
 
     }
 }
