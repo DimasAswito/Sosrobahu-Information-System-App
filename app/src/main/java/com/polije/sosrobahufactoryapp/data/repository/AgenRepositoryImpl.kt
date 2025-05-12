@@ -189,7 +189,7 @@ class AgenRepositoryImpl(
 
             val items = products
                 .filter { (it.quantity ?: 0) > 0 }
-                .map { QuantityItem(it.item.idMasterBarang, it.quantity ?: 0) }
+                .map { QuantityItem(it.item.idBarangDistributor, it.quantity ?: 0) }
 
             val partMap = createOrderParts(
                 totalItems = items.sumOf { it.quantity },

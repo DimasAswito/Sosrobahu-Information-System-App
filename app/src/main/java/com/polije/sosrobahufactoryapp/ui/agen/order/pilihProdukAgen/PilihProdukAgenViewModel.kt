@@ -4,11 +4,7 @@ import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.polije.sosrobahufactoryapp.data.model.agen.PilihBarangDistributorAgenItem
-import com.polije.sosrobahufactoryapp.data.model.agen.PilihBarangDistributorAgenResponse
-import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponseItem
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.PilihBarangDistributorAgenUseCase
-import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.PilihProdukDistributorPabrikState
-import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.SelectedProdukDistributor
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -61,7 +57,7 @@ class PilihProdukAgenViewModel(private val pilihProdukDistributorAgenUseCase: Pi
 
     fun toggleProdukSelection(item: PilihBarangDistributorAgenItem) {
         val current = _selectedProducts.value.toMutableList()
-        val existing = current.find { it.item.idMasterBarang == item.idMasterBarang }
+        val existing = current.find { it.item.idBarangDistributor == item.idBarangDistributor }
 
         if (existing != null) {
             current.remove(existing)

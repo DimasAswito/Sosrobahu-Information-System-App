@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,9 +16,6 @@ import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentTambahOrderAgenBinding
 import com.polije.sosrobahufactoryapp.ui.agen.order.component.TambahOrderAgenAdapter
 import com.polije.sosrobahufactoryapp.ui.agen.order.pilihProdukAgen.SelectedProdukAgen
-import com.polije.sosrobahufactoryapp.ui.distributor.order.component.TambahOrderDistributorAdapter
-import com.polije.sosrobahufactoryapp.ui.distributor.order.component.TambahOrderDistributorAdapter.OnQuantityChangeListener
-import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.SelectedProdukDistributor
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -80,7 +75,7 @@ class TambahOrderAgenFragment : Fragment() {
                 item: SelectedProdukAgen,
                 newQty: Int
             ) {
-                viewModel.updateQuantity(item.item.idMasterBarang, newQty)
+                viewModel.updateQuantity(item.item.idBarangDistributor, newQty)
             }
         })
         binding.recyclerViewTambahOrder.layoutManager = LinearLayoutManager(requireContext())

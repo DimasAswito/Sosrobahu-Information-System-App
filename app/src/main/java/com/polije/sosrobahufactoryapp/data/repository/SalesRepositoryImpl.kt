@@ -6,10 +6,12 @@ import androidx.paging.PagingData
 import com.polije.sosrobahufactoryapp.data.datasource.local.SessionManager
 import com.polije.sosrobahufactoryapp.data.datasource.remote.sales.SalesDatasource
 import com.polije.sosrobahufactoryapp.data.datasource.remote.sales.paging.ListTokoSalesPagingSource
+import com.polije.sosrobahufactoryapp.data.datasource.remote.sales.paging.OrderSalesPagingSource
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.DashboardSalesResponse
-import com.polije.sosrobahufactoryapp.data.model.sales.ListTokoSalesDataItem
+import com.polije.sosrobahufactoryapp.data.model.sales.ListSalesDataItem
+import com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesDataItem
 import com.polije.sosrobahufactoryapp.domain.repository.sales.SalesRepository
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
@@ -68,7 +70,7 @@ class SalesRepositoryImpl(
         }
     }
 
-    override fun getListTokoSales(): Flow<PagingData<ListTokoSalesDataItem>> {
+    override fun getListTokoSales(): Flow<PagingData<ListSalesDataItem>> {
         return Pager(
             config = PagingConfig(
                 pageSize = ListTokoSalesPagingSource.LIST_TOKO_SALES_PAGE_SIZE,
@@ -78,6 +80,16 @@ class SalesRepositoryImpl(
                 ListTokoSalesPagingSource(salesDataSource, sessionManager)
             }
         ).flow
+    }
+
+    override fun getOrderSales(): Flow<PagingData<OrderSalesDataItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = OrderSalesPagingSource.ORDER_AGEN_PAGE_SIZE,
+                enablePlaceholders = false
+            ), pagingSourceFactory = {
+                OrderSalesPagingSource(salesDataSource, sessionManager)
+            }).flow
     }
 
     override fun isUserIsLogged(requiredRole: UserRole): Flow<Boolean> =

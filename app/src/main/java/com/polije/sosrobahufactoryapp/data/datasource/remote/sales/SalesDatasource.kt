@@ -4,10 +4,12 @@ import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.DashboardSalesResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.ListTokoSalesResponse
+import com.polije.sosrobahufactoryapp.data.model.sales.RiwayatOrderSalesResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface SalesDatasource {
@@ -22,5 +24,14 @@ interface SalesDatasource {
         @Query("page") page: Int,
         @Header("Authorization") token: String
     ): ListTokoSalesResponse
+
+    @GET("sales/riwayatOrder")
+    suspend fun getOrderSales(
+        @Query("page") page: Int,
+        @Header("Authorization") token: String
+    ): RiwayatOrderSalesResponse
+
+    @GET("sales/kunjungan/{id}")
+    suspend fun getKunjungan(@Path("id") idToko: Int, @Header("Authorization") token: String)
 
 }

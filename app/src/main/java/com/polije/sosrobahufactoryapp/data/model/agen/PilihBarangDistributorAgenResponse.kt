@@ -19,14 +19,11 @@ data class PilihBarangDistributorAgenResponse(
 @Serializable
 data class PilihBarangDistributorAgenItem(
 
-    @SerialName("id_master_barang")
-    val idMasterBarang: Int,
+    @SerialName("id_barang_distributor")
+    val idBarangDistributor: Int,
 
     @SerialName("nama_rokok")
     val namaRokok: String,
-
-    @SerialName("harga_karton_pabrik")
-    val hargaKartonPabrik: Int,
 
     @SerialName("stok_karton")
     val stokKarton: Int,

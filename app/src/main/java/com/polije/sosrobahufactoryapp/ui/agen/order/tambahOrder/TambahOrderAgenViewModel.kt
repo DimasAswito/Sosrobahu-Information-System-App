@@ -5,8 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.OrderAgenUseCase
 import com.polije.sosrobahufactoryapp.ui.agen.order.pilihProdukAgen.SelectedProdukAgen
-import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.SelectedProdukDistributor
-import com.polije.sosrobahufactoryapp.ui.distributor.order.tambahOrder.TambahOrderDistributorState
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -49,12 +47,12 @@ class TambahOrderAgenViewModel(private val orderAgenUseCase: OrderAgenUseCase) :
     )
 
     val totalHarga: StateFlow<Int> = _produkRestock
-        .map { list -> list.sumOf { (it.quantity ?: 0) * it.item.hargaKartonPabrik } }
+        .map { list -> list.sumOf { (it.quantity ?: 0) * it.item.hargaDistributor } }
         .stateIn(viewModelScope, SharingStarted.Eagerly, 0)
 
     fun updateQuantity(productId: Int, quantity: Int) {
         val currentList = _produkRestock.value.toMutableList()
-        val productIndex = currentList.indexOfFirst { it.item.idMasterBarang == productId }
+        val productIndex = currentList.indexOfFirst { it.item.idBarangDistributor == productId }
 
         if (productIndex != -1) {
             // Make sure we create a new object to trigger proper State updates

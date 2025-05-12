@@ -9,7 +9,11 @@
         android:id="@+id/detailOrderSalesFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.sales.order.detailOrder.DetailOrderSalesFragment"
         android:label="fragment_detail_order_sales"
-        tools:layout="@layout/fragment_detail_order_sales" />
+        tools:layout="@layout/fragment_detail_order_sales" >
+        <argument
+            android:name="listOrderSales"
+            app:argType="com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesDataItem" />
+    </fragment>
     <fragment
         android:id="@+id/detailTokoSalesFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.detailDaftarToko.DetailDaftarTokoSalesFragment"
@@ -21,6 +25,9 @@
         <action
             android:id="@+id/action_detailTokoSalesFragment_to_bottomSheetEditDetailTokoFragment"
             app:destination="@id/bottomSheetEditDetailTokoFragment" />
+        <argument
+            android:name="detailToko"
+            app:argType="com.polije.sosrobahufactoryapp.data.model.sales.ListSalesDataItem" />
     </fragment>
     <fragment
         android:id="@+id/pilihProdukSalesFragment"

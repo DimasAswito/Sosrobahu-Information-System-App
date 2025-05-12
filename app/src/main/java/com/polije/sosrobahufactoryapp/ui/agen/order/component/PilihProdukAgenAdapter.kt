@@ -36,7 +36,7 @@ class PilihProdukAgenAdapter(
 
             binding.txtNamaProduk.text = item.namaRokok
 
-            val isSelected = selectedList.any { it.item.idMasterBarang == item.idMasterBarang }
+            val isSelected = selectedList.any { it.item.idBarangDistributor == item.idBarangDistributor }
 
             binding.cardProduk.setCardBackgroundColor(
                 ContextCompat.getColor(
@@ -50,7 +50,7 @@ class PilihProdukAgenAdapter(
                 if (baruDipilih) {
                     selectedList.add(SelectedProdukAgen(item))
                 } else {
-                    selectedList.removeAll { it.item.idMasterBarang == item.idMasterBarang }
+                    selectedList.removeAll { it.item.idBarangDistributor == item.idBarangDistributor }
                 }
 
                 notifyItemChanged(adapterPosition)

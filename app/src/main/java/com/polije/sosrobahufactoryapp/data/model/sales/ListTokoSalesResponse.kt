@@ -1,5 +1,7 @@
 package com.polije.sosrobahufactoryapp.data.model.sales
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -7,61 +9,20 @@ import kotlinx.serialization.Serializable
 data class ListTokoSalesResponse(
 
     @SerialName("stores")
-    val stores: ListTokoSalesStores,
+    val stores: ListStores,
 
     @SerialName("message")
     val message: String? = null
 )
 
 @Serializable
-data class ListTokoSalesDataItem(
-
-    @SerialName("id_daftar_toko")
-    val idDaftarToko: Int? = null,
-
-    @SerialName("nama_pemilik")
-    val namaPemilik: String? = null,
-
-    @SerialName("updated_at")
-    val updatedAt: String? = null,
-
-    @SerialName("id_user_sales")
-    val idUserSales: Int? = null,
-
-    @SerialName("lokasi")
-    val lokasi: String? = null,
-
-    @SerialName("created_at")
-    val createdAt: String? = null,
-
-    @SerialName("no_telp")
-    val noTelp: String? = null,
-
-    @SerialName("nama_toko")
-    val namaToko: String? = null
-)
-
-@Serializable
-data class ListTokoSalesLinksItem(
-
-    @SerialName("active")
-    val active: Boolean? = null,
-
-    @SerialName("label")
-    val label: String? = null,
-
-    @SerialName("url")
-    val url: String? = null
-)
-
-@Serializable
-data class ListTokoSalesStores(
+data class ListStores(
 
     @SerialName("per_page")
     val perPage: Int? = null,
 
     @SerialName("data")
-    val data: List<ListTokoSalesDataItem> = emptyList(),
+    val data: List<ListSalesDataItem> = emptyList(),
 
     @SerialName("last_page")
     val lastPage: Int? = null,
@@ -96,3 +57,77 @@ data class ListTokoSalesStores(
     @SerialName("current_page")
     val currentPage: Int? = null
 )
+
+@Serializable
+data class ListTokoSalesLinksItem(
+
+    @SerialName("active")
+    val active: Boolean? = null,
+
+    @SerialName("label")
+    val label: String? = null,
+
+    @SerialName("url")
+    val url: String? = null
+)
+
+@Parcelize
+@Serializable
+data class KunjunganTokoSalesItem(
+
+    @SerialName("id_daftar_toko")
+    val idDaftarToko: Int? = null,
+
+    @SerialName("updated_at")
+    val updatedAt: String? = null,
+
+    @SerialName("id_user_sales")
+    val idUserSales: Int? = null,
+
+    @SerialName("created_at")
+    val createdAt: String? = null,
+
+    @SerialName("tanggal")
+    val tanggal: String? = null,
+
+    @SerialName("sisa_produk")
+    val sisaProduk: Int? = null,
+
+    @SerialName("gambar")
+    val gambar: String? = null,
+
+    @SerialName("id_kunjungan_toko")
+    val idKunjunganToko: Int? = null
+) : Parcelable
+
+@Parcelize
+@Serializable
+data class ListSalesDataItem(
+
+    @SerialName("id_daftar_toko")
+    val idDaftarToko: Int? = null,
+
+    @SerialName("nama_pemilik")
+    val namaPemilik: String? = null,
+
+    @SerialName("updated_at")
+    val updatedAt: String? = null,
+
+    @SerialName("id_user_sales")
+    val idUserSales: Int? = null,
+
+    @SerialName("lokasi")
+    val lokasi: String? = null,
+
+    @SerialName("created_at")
+    val createdAt: String? = null,
+
+    @SerialName("kunjungan_toko")
+    val kunjunganToko: List<KunjunganTokoSalesItem> = emptyList(),
+
+    @SerialName("no_telp")
+    val noTelp: String? = null,
+
+    @SerialName("nama_toko")
+    val namaToko: String? = null
+) : Parcelable

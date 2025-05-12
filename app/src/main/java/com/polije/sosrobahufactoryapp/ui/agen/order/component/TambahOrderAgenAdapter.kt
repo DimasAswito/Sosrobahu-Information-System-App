@@ -34,7 +34,7 @@ class TambahOrderAgenAdapter(
 
             // Set name
             binding.txtNamaProduk.text = item.item.namaRokok
-            binding.txtHargaSatuan.text = item.item.hargaKartonPabrik.toRupiah()
+            binding.txtHargaSatuan.text = item.item.hargaDistributor.toRupiah()
 
             // Manage TextWatcher
             removeCurrentTextWatcher()
@@ -146,7 +146,7 @@ class TambahOrderAgenAdapter(
         override fun areItemsTheSame(
             oldItem: SelectedProdukAgen,
             newItem: SelectedProdukAgen
-        ): Boolean = oldItem.item.idMasterBarang == newItem.item.idMasterBarang
+        ): Boolean = oldItem.item.idBarangDistributor == newItem.item.idBarangDistributor
 
         override fun areContentsTheSame(
             oldItem: SelectedProdukAgen,
