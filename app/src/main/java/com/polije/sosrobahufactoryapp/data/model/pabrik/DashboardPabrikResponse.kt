@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 data class BarangPabrik(
     @SerialName("created_at") val createdAt: String,
     @SerialName("updated_at") val updatedAt: String,
-    @SerialName("id_master_barang") val idMasterBarang: Int,
+    @SerialName("idBarang") val idMasterBarang: Int,
     @SerialName("nama_rokok") val namaRokok: String,
     @SerialName("harga_karton_pabrik") val hargaKartonPabrik: Int,
     @SerialName("gambar") val gambar: String,

@@ -22,7 +22,7 @@ data class OrderDistributorResponse(
 @Serializable
 data class OrderDetailsItem(
 
-	@SerialName("id_master_barang")
+	@SerialName("idBarang")
 	val idMasterBarang: String? = null,
 
 	@SerialName("id_order")

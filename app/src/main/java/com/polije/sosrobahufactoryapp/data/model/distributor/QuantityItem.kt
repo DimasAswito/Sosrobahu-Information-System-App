@@ -1,4 +1,4 @@
 package com.polije.sosrobahufactoryapp.data.model.distributor
 
-data class QuantityItem(val id_master_barang: Int, val quantity: Int)
+data class QuantityItem(val idBarang: Int, val quantity: Int)
 

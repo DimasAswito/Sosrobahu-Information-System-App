@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.databinding.FragmentPilihProdukSalesBinding
-import com.polije.sosrobahufactoryapp.ui.agen.order.pilihProdukAgen.PilihProdukAgenFragmentDirections
 import com.polije.sosrobahufactoryapp.ui.sales.order.component.PilihProdukSalesAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -59,7 +57,7 @@ class PilihProdukSalesFragment : Fragment() {
                         selectedList = ProdukTerpilihSales(
                             selectedProduk,
 
-                        )
+                            )
                         binding.recyclerViewPilihProduk.adapter = adapter
                         adapter.updateList(it.listBarangAgen)
                         binding.btnPilihProduk.isEnabled = selectedList.data.isNotEmpty()
@@ -73,9 +71,11 @@ class PilihProdukSalesFragment : Fragment() {
         }
 
         binding.btnPilihProduk.setOnClickListener {
-//            val action =
-//                PilihProdukAgenFragmentDirections.actionPilihProdukAgenFragmentToTambahOrderAgenFragment()
-//            findNavController().navigate(action)
+            val action =
+                PilihProdukSalesFragmentDirections.actionPilihProdukSalesFragmentToTambahOrderSalesFragment(
+                    selectedList
+                )
+            findNavController().navigate(action)
         }
     }
 }

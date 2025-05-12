@@ -42,7 +42,11 @@
         android:id="@+id/tambahOrderSalesFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.sales.order.tambahOrder.TambahOrderSalesFragment"
         android:label="fragment_tambah_order_sales"
-        tools:layout="@layout/fragment_tambah_order_sales" />
+        tools:layout="@layout/fragment_tambah_order_sales" >
+        <argument
+            android:name="selectedItemAgenSales"
+            app:argType="com.polije.sosrobahufactoryapp.ui.sales.order.pilihProdukSales.ProdukTerpilihSales" />
+    </fragment>
     <fragment
         android:id="@+id/salesLoginFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.sales.login.SalesLoginFragment"

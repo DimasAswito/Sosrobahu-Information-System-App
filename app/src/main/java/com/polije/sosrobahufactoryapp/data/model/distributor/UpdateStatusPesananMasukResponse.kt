@@ -53,7 +53,7 @@ data class UpdateStatusPesananMasukOrder(
 @Serializable
 data class UpdateStatusPesananMasukOrderDetailsItem(
 
-	@SerialName("id_master_barang")
+	@SerialName("idBarang")
 	val idMasterBarang: String? = null,
 
 	@SerialName("id_order")

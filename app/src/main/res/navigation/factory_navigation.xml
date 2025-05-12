@@ -14,8 +14,7 @@
         <action
             android:id="@+id/action_login_pabrik_to_dashboardFragment"
             app:destination="@id/dashboardFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/login_pabrik"
+            app:popUpTo="@id/chooseRoleFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment

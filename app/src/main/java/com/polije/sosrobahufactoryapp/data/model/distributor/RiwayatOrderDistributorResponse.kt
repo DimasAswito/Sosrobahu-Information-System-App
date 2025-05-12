@@ -52,7 +52,7 @@ data class RiwayatOrderDistributorResponse(
 @Serializable
 data class RiwayatOrderDistributorDetailProdukItem(
 
-    @SerialName("id_master_barang")
+    @SerialName("idBarang")
     val idMasterBarang: Int? = null,
 
     @SerialName("nama_rokok")

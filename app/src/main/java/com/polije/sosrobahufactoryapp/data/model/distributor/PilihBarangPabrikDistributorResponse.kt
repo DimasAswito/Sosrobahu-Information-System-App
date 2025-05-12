@@ -22,7 +22,7 @@ data class PilihBarangPabrikDistributorResponse(
 @Parcelize
 data class PilihBarangPabrikDistributorResponseItem(
 
-    @SerialName("id_master_barang")
+    @SerialName("idBarang")
     val idMasterBarang: Int? = null,
 
     @SerialName("nama_rokok")

@@ -16,7 +16,7 @@ data class ProdukRestok(
 @Serializable
 data class ProdukRestokItem(
 
-	@SerialName("id_master_barang")
+	@SerialName("idBarang")
 	val idMasterBarang: Int,
 
 	@SerialName("nama_rokok")

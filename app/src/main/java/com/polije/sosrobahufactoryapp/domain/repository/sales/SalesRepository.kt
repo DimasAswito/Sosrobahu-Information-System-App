@@ -1,12 +1,14 @@
 package com.polije.sosrobahufactoryapp.domain.repository.sales
 
+import android.net.Uri
 import androidx.paging.PagingData
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
-import com.polije.sosrobahufactoryapp.data.model.agen.PilihBarangDistributorAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.DashboardSalesResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.ListBarangAgenSalesResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.ListSalesDataItem
 import com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesDataItem
+import com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesResponse
+import com.polije.sosrobahufactoryapp.ui.sales.order.pilihProdukSales.SelectedProdukSales
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.UserRole
@@ -23,6 +25,11 @@ interface SalesRepository {
 
     suspend fun pilihBarangAgen(): DataResult<ListBarangAgenSalesResponse, HttpErrorCode>
 
+    suspend fun orderBarang(
+        products: List<SelectedProdukSales>,
+        totalAmount: Int,
+        buktiUri: Uri
+    ): DataResult<OrderSalesResponse, HttpErrorCode>
 
     fun isUserIsLogged(requiredRole: UserRole): Flow<Boolean>
     suspend fun logout()
