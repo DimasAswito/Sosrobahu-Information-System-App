@@ -13,6 +13,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeAgenBinding
+import com.polije.sosrobahufactoryapp.databinding.LoadingOverlayBinding
 import com.polije.sosrobahufactoryapp.ui.agen.dashboard.DashboardAgenFragmentDirections
 import com.polije.sosrobahufactoryapp.ui.agen.home.component.ItemHomeAgenAdapter
 import com.polije.sosrobahufactoryapp.utils.toRupiah
@@ -24,6 +25,9 @@ class HomeAgenFragment : Fragment() {
 
     private var _binding: FragmentHomeAgenBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var loadingBinding: LoadingOverlayBinding
+
     private val homeAgenViewModel: HomeAgenViewModel by viewModel()
 
 
@@ -31,6 +35,9 @@ class HomeAgenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeAgenBinding.inflate(layoutInflater, container, false)
+        loadingBinding = LoadingOverlayBinding.inflate(inflater)
+        (binding.root as ViewGroup).addView(loadingBinding.root)
+
         return binding.root
     }
 
@@ -79,15 +86,16 @@ class HomeAgenFragment : Fragment() {
                     }
 
                     HomeAgenState.Initial -> {
-                        binding.progressBar2.visibility = View.GONE
+                        loadingBinding.loadingLayout.visibility = View.GONE
                     }
 
 
                     HomeAgenState.Loading -> {
-                        binding.progressBar2.visibility = View.VISIBLE
+                        loadingBinding.loadingLayout.visibility = View.VISIBLE
                     }
 
                     is HomeAgenState.Success -> {
+                        loadingBinding.loadingLayout.visibility = View.GONE
                         val namaAgen = state.dashboardResponse.namaAgen.split(" ").firstOrNull() ?: ""
                         binding.headerTextAgen.text = "Selamat datang $namaAgen,"
 

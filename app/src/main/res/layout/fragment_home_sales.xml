@@ -249,7 +249,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Loading overlay, ditampilkan paling depan -->
     <include
         layout="@layout/loading_overlay"
         android:id="@+id/loadingLayout" />

@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeDistributorBinding
+import com.polije.sosrobahufactoryapp.databinding.LoadingOverlayBinding
 import com.polije.sosrobahufactoryapp.ui.distributor.dashboard.DashboardDistributorFragmentDirections
 import com.polije.sosrobahufactoryapp.ui.distributor.home.component.ItemHomeDistributorAdapter
 import com.polije.sosrobahufactoryapp.utils.toRupiah
@@ -27,6 +28,9 @@ class HomeDistributorFragment : Fragment() {
 
     private var _binding: FragmentHomeDistributorBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var loadingBinding: LoadingOverlayBinding
+
     private val homeDistributorViewModel: HomeDistributorViewModel by viewModel()
     private lateinit var adapter: ItemHomeDistributorAdapter
 
@@ -35,6 +39,9 @@ class HomeDistributorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeDistributorBinding.inflate(inflater, container, false)
+        loadingBinding = LoadingOverlayBinding.inflate(inflater)
+        (binding.root as ViewGroup).addView(loadingBinding.root)
+
         return binding.root
     }
 
@@ -75,21 +82,21 @@ class HomeDistributorFragment : Fragment() {
             homeDistributorViewModel.state.collectLatest { state ->
                 when (state) {
                     is HomeDistributorState.Failure -> {
-                        binding.progressBar2.visibility = View.GONE
+                        loadingBinding.loadingLayout.visibility = View.GONE
                         Toast.makeText(requireContext(), state.errorMessage, Toast.LENGTH_LONG)
                             .show()
                     }
 
                     HomeDistributorState.Initial -> {
-                        binding.progressBar2.visibility = View.GONE
+                        loadingBinding.loadingLayout.visibility = View.GONE
                     }
 
                     HomeDistributorState.Loading -> {
-                        binding.progressBar2.visibility = View.VISIBLE
+                        loadingBinding.loadingLayout.visibility = View.VISIBLE
                     }
 
                     is HomeDistributorState.Success -> {
-                        binding.progressBar2.visibility = View.GONE
+                        loadingBinding.loadingLayout.visibility = View.GONE
 
                         val namaDistributor = state.dashboardResponse.namaDistributor.split(" ").firstOrNull() ?: ""
                         binding.headerTextDistributor.text = "Selamat datang $namaDistributor,"

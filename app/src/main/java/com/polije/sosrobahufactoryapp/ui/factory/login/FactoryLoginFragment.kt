@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentFactoryLoginBinding
+import com.polije.sosrobahufactoryapp.databinding.LoadingOverlayBinding
 import com.polije.sosrobahufactoryapp.utils.LoginState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -22,6 +23,8 @@ class FactoryLoginFragment : Fragment() {
     private var _binding: FragmentFactoryLoginBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var loadingBinding: LoadingOverlayBinding
+
     private val viewModel: FactoryLoginViewModel by viewModel()
 
     override fun onCreateView(
@@ -30,6 +33,10 @@ class FactoryLoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentFactoryLoginBinding.inflate(inflater, container, false)
+        loadingBinding = LoadingOverlayBinding.bind(
+            binding.root.findViewById(R.id.loadingLayout)
+        )
+
         return binding.root
     }
 
@@ -50,21 +57,21 @@ class FactoryLoginFragment : Fragment() {
                 viewModel.loginState.collectLatest { state ->
                     when (state) {
                         is LoginState.Idle -> {
-                            binding.progressBar.visibility = View.GONE
+                            loadingBinding.loadingLayout.visibility = View.GONE
                         }
 
                         is LoginState.Loading -> {
-                            binding.progressBar.visibility = View.VISIBLE
+                            loadingBinding.loadingLayout.visibility = View.VISIBLE
                             binding.loginButtonPabrik.isEnabled = false
                         }
 
                         is LoginState.Success -> {
-                            binding.progressBar.visibility = View.GONE
+                            loadingBinding.loadingLayout.visibility = View.GONE
                             binding.loginButtonPabrik.isEnabled = false
                         }
 
                         is LoginState.Error -> {
-                            binding.progressBar.visibility = View.GONE
+                            loadingBinding.loadingLayout.visibility = View.GONE
                             Toast.makeText(
                                 requireContext(),
                                 "Login Failed: ${state.message}",

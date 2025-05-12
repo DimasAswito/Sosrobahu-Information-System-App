@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/loadingLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,17 +20,22 @@
         android:elevation="8dp"
         android:layout_margin="32dp">
 
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:indeterminateTint="@android:color/white"/>
+        <!-- Lottie loader -->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieLoader"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            app:lottie_url="https://lottie.host/008dee01-d7ce-4346-b9a6-2ad1a267538b/mwauPDLzvf.lottie"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_speed="1.5"
+            app:lottie_enableMergePathsForKitKatAndAbove="true" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Loading..."
-            android:textSize="13sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@android:color/white"
             android:layout_marginTop="12dp" />
