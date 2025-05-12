@@ -11,7 +11,7 @@ data class PesananMasukResponse(
 	@SerialName("per_page")
 	val perPage: Int? = null,
 
-	@SerialName("listBarangAgen")
+	@SerialName("data")
 	val data: List<PesananMasukItem> = emptyList(),
 
 	@SerialName("last_page")

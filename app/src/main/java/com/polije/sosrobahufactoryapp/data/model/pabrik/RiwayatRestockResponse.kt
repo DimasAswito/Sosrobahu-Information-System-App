@@ -11,7 +11,7 @@ data class RiwayatRestockResponse(
 	@SerialName("per_page")
 	val perPage: Int? = null,
 
-	@SerialName("listBarangAgen")
+	@SerialName("data")
 	val data: List<RiwayatRestockItem> = emptyList(),
 
 	@SerialName("last_page")

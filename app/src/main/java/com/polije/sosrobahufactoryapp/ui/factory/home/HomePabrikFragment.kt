@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
@@ -133,7 +135,10 @@ class HomePabrikFragment : Fragment() {
                             binding.omsetPabrik.text =
                                 state.dashboardPabrik.totalPendapatan.toRupiah()
                             binding.jumlahDistributor.text =
-                                getString(R.string.distributor, state.dashboardPabrik.totalDistributor)
+                                getString(
+                                    R.string.distributor,
+                                    state.dashboardPabrik.totalDistributor
+                                )
 
                             val topProductName = state.dashboardPabrik.topProductName
                             val namaRokokList = state.dashboardPabrik.namaRokokList
@@ -183,23 +188,27 @@ class HomePabrikFragment : Fragment() {
                                     .error(R.drawable.rokok)
                                     .into(binding.topProductImage)
                             }
-                            val pendapatanBulanan = convertToMonthlyRevenueMap(state.pendapatanBulanan)
+                            val pendapatanBulanan =
+                                convertToMonthlyRevenueMap(state.pendapatanBulanan)
                             setupBarChartPendapatan(pendapatanBulanan)
                         }
                     }
                 }
             }
-            launch {
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homePabrikViewModel.isLogged.collectLatest {
                     if (!it) {
-                        Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Logout berhasil", Toast.LENGTH_SHORT)
+                            .show()
                         val action =
                             DashboardPabrikFragmentDirections.actionDashboardFragmentToLoginPabrik()
                         activity?.findNavController(R.id.fragmentContainerView)?.navigate(action)
                     }
                 }
             }
-
         }
     }
 
