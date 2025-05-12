@@ -11,7 +11,7 @@ data class RiwayatOrderDistributorResponse(
     @SerialName("per_page")
     val perPage: Int? = null,
 
-    @SerialName("listBarangAgen")
+    @SerialName("data")
     val data: List<RiwayatOrderDistributorDataItem> = emptyList(),
 
     @SerialName("last_page")
@@ -52,7 +52,7 @@ data class RiwayatOrderDistributorResponse(
 @Serializable
 data class RiwayatOrderDistributorDetailProdukItem(
 
-    @SerialName("idBarang")
+    @SerialName("id_master_barang")
     val idMasterBarang: Int? = null,
 
     @SerialName("nama_rokok")
