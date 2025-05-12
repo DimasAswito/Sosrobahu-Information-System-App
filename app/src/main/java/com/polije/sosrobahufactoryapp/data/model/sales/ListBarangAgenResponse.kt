@@ -12,7 +12,10 @@ data class ListBarangAgenSalesResponse(
     val listBarangAgen: List<ListBarangAgenSalesDataItem>,
 
     @SerialName("success")
-    val success: Boolean
+    val success: Boolean,
+
+    @SerialName("distributor")
+    val transfer:
 )
 
 
@@ -37,4 +40,17 @@ data class ListBarangAgenSalesDataItem(
 
     @SerialName("gambar")
     val gambar: String
+) : Parcelable
+
+@Serializable
+@Parcelize
+data class ListBarangAgenDistributorInformation(
+
+    @SerialName("nama_lengkap")
+    val namaLengkap: String,
+
+    @SerialName("nama_bank")
+    val namaBank: String,
+    @SerialName("no_rek")
+    val norek: Int
 ) : Parcelable
