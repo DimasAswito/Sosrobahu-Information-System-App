@@ -77,6 +77,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
+    implementation (libs.lottie)
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 
 }

@@ -23,6 +23,7 @@ import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.pabrik.ListTopSellingProduct
 import com.polije.sosrobahufactoryapp.data.model.pabrik.TopSellingProduct
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeBinding
+import com.polije.sosrobahufactoryapp.databinding.LoadingOverlayBinding
 import com.polije.sosrobahufactoryapp.ui.factory.dashboard.DashboardPabrikFragmentDirections
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.toRupiah
@@ -35,6 +36,9 @@ class HomePabrikFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var loadingBinding: LoadingOverlayBinding
+
     private val homePabrikViewModel: HomePabrikViewModel by viewModel()
 
     lateinit var listTopSellingProduct: ListTopSellingProduct
@@ -43,6 +47,9 @@ class HomePabrikFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        loadingBinding = LoadingOverlayBinding.inflate(inflater)
+        (binding.root as ViewGroup).addView(loadingBinding.root)
+
         return binding.root
     }
 
@@ -109,17 +116,17 @@ class HomePabrikFragment : Fragment() {
                         }
 
                         HomePabrikState.Initial -> {
-                            binding.progressBar2.visibility = View.GONE
+                            loadingBinding.loadingLayout.visibility = View.GONE
                         }
 
 
                         HomePabrikState.Loading -> {
-                            binding.progressBar2.visibility = View.VISIBLE
+                            loadingBinding.loadingLayout.visibility = View.VISIBLE
                         }
 
                         is HomePabrikState.Success -> {
 
-                            binding.progressBar2.visibility = View.GONE
+                            loadingBinding.loadingLayout.visibility = View.GONE
                             binding.headerTextPabrik.text = state.dashboardPabrik.namaPabrik
                             binding.stokPabrikTersedia.text =
                                 getString(R.string.karton, state.dashboardPabrik.finalStockKarton)
