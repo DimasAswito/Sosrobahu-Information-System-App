@@ -97,31 +97,16 @@
                 android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Jumlah Produk -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Jumlah Produk"
-            app:boxStrokeWidth="2dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginHorizontal="20dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etJumlahProduk"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Tombol Tambah -->
         <Button
-            android:id="@+id/btnTambahOrder"
+            android:id="@+id/btnTambahToko"
             android:layout_width="match_parent"
             android:layout_height="64dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginVertical="16dp"
             android:layout_marginHorizontal="16dp"
-            android:text="Tambah Order"
+            android:text="Tambah Toko"
             android:backgroundTint="@color/sales_theme_dark"
             android:textSize="18sp"/>
     </LinearLayout>

@@ -127,7 +127,6 @@ class HomePabrikFragment : Fragment() {
                         }
 
                         is HomePabrikState.Success -> {
-
                             loadingBinding.loadingLayout.visibility = View.GONE
                             binding.headerTextPabrik.text = state.dashboardPabrik.namaPabrik
                             binding.stokPabrikTersedia.text =

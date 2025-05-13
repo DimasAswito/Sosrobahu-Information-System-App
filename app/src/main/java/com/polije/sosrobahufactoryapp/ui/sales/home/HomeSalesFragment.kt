@@ -43,7 +43,11 @@ class HomeSalesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewLifecycleOwner.lifecycleScope.launch {
+        binding.logoutSalesButton.setOnClickListener {
+//            homeSalesViewModel.logout()
+        }
+
+            viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.isLogged.collectLatest {
                     if (!it) {

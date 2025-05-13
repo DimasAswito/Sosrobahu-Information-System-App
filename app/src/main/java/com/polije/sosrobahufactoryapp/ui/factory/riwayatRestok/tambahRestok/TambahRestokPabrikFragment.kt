@@ -1,6 +1,8 @@
 package com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.tambahRestok
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.polije.sosrobahufactoryapp.databinding.FragmentTambahRestokBinding
+import com.polije.sosrobahufactoryapp.databinding.LoadingSuccessOverlayBinding
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component.TambahRestokPabrikAdapter
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component.TambahRestokPabrikAdapter.OnQuantityChangeListener
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.SelectedProdukRestokPabrik
@@ -24,6 +27,9 @@ class TambahRestokPabrikFragment : Fragment() {
     private var _binding: FragmentTambahRestokBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var successOverlayBinding: LoadingSuccessOverlayBinding
+
+
     private val tambahRestokPabrikViewModel: TambahRestokPabrikViewModel by viewModel()
 
     private val args: TambahRestokPabrikFragmentArgs by navArgs()
@@ -32,8 +38,9 @@ class TambahRestokPabrikFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentTambahRestokBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
+        successOverlayBinding = LoadingSuccessOverlayBinding.inflate(inflater)
+        (binding.root as ViewGroup).addView(successOverlayBinding.root)
+        return binding.root    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -67,18 +74,17 @@ class TambahRestokPabrikFragment : Fragment() {
 
                         TambahRestokPabrikState.Initial -> {}
                         TambahRestokPabrikState.Loading -> {
-                            binding.progressBar3.visibility = View.VISIBLE
                             binding.btnTambahRestok.isEnabled = true
                         }
 
                         TambahRestokPabrikState.Success -> {
                             binding.btnTambahRestok.isEnabled = false
-                            binding.progressBar3.visibility = View.GONE
-                            Snackbar.make(
-                                binding.root, "Berhasil Mengingputkan listBarangAgen",
-                                Snackbar.LENGTH_SHORT
-                            ).show()
-                            findNavController().navigateUp()
+                            successOverlayBinding.loadingLayoutSuccess.visibility = View.VISIBLE
+
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                successOverlayBinding.loadingLayoutSuccess.visibility = View.GONE
+                                findNavController().navigateUp()
+                            }, 2000)
                         }
                     }
                 }

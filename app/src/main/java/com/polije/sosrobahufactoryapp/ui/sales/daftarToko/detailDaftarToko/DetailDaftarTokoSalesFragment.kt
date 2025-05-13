@@ -10,7 +10,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailDaftarTokoSalesBinding
+import com.polije.sosrobahufactoryapp.ui.agen.dashboard.DashboardAgenFragmentDirections
 import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.ItemRiwayatKunjunganAdapter
+import com.polije.sosrobahufactoryapp.ui.sales.dashboard.DashboardSalesFragmentDirections
 
 class DetailDaftarTokoSalesFragment : Fragment() {
 
@@ -40,6 +42,10 @@ class DetailDaftarTokoSalesFragment : Fragment() {
 
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
+        }
+        binding.tvRiwayatKunjunganAll.setOnClickListener {
+            val action = DetailDaftarTokoSalesFragmentDirections.actionDetailTokoSalesFragmentToListRiwayatKunjunganFragment()
+            findNavController().navigate(action)
         }
 
         val adapter = ItemRiwayatKunjunganAdapter(args.detailToko.kunjunganToko)

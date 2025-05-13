@@ -73,8 +73,6 @@ class HomeAgenFragment : Fragment() {
                     }
                 }
             }
-
-
         }
 
         lifecycleScope.launch {

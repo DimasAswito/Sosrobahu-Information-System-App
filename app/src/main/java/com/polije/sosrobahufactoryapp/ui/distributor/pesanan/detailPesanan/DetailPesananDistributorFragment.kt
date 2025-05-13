@@ -97,11 +97,6 @@ class DetailPesananDistributorFragment : Fragment() {
                 id: Long
             ) {
                 val selectedStatus = statusOptions[position]
-                Toast.makeText(
-                    requireContext(),
-                    "Status diubah ke: $selectedStatus",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
