@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.R
 
 class ListRiwayatKunjunganFragment : Fragment() {
@@ -27,5 +28,9 @@ class ListRiwayatKunjunganFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         return inflater.inflate(R.layout.fragment_list_riwayat_kunjungan, container, false)
+
+//        binding.btnBack.setOnClickListener {
+//            findNavController().navigateUp()
+//        }
     }
 }

@@ -1,64 +1,97 @@
 package com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component
 
+import android.app.AlertDialog
+import android.app.DatePickerDialog
+import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.cardview.widget.CardView
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.textfield.TextInputEditText
 import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.databinding.FragmentBottomSheetTambahKunjunganTokoBinding
+import java.util.Calendar
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class BottomSheetTambahKunjunganTokoFragment : BottomSheetDialogFragment() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [BottomSheetTambahKunjunganTokoFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class BottomSheetTambahKunjunganTokoFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentBottomSheetTambahKunjunganTokoBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private val imagePickerLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let {
+                binding.imageViewKunjungan.setImageURI(it)
+                binding.imageViewKunjungan.visibility = View.VISIBLE
+                binding.uploadText.visibility = View.GONE
+                binding.uploadIcon.visibility = View.GONE
+            }
         }
-    }
+
+    private val cameraLauncher =
+        registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
+            bitmap?.let {
+                binding.imageViewKunjungan.setImageBitmap(it)
+                binding.imageViewKunjungan.visibility = View.VISIBLE
+                binding.uploadText.visibility = View.GONE
+                binding.uploadIcon.visibility = View.GONE
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(
-            R.layout.fragment_bottom_sheet_tambah_kunjungan_toko,
-            container,
-            false
-        )
+    ): View {
+        _binding = FragmentBottomSheetTambahKunjunganTokoBinding.inflate(inflater, container, false)
+
+        binding.etTanggal.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            DatePickerDialog(
+                requireContext(),
+                { _, year, month, day ->
+                    val date = String.format(buildString {append("%02d/%02d/%04d")
+    }, day, month + 1, year)
+                    binding.etTanggal.setText(date)
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
+
+        binding.cardViewUpload.setOnClickListener {
+            showImagePickerDialog()
+        }
+
+        binding.BtnTambahKunjungan.setOnClickListener {
+            dismiss()
+        }
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment BottomSheetTambahKunjunganTokoFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            BottomSheetTambahKunjunganTokoFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun showImagePickerDialog() {
+        val options = arrayOf("Pilih dari Galeri", "Ambil dari Kamera")
+        AlertDialog.Builder(requireContext())
+            .setTitle("Pilih Gambar")
+            .setItems(options) { _, which ->
+                when (which) {
+                    0 -> imagePickerLauncher.launch("image/*")
+                    1 -> cameraLauncher.launch(null)
                 }
             }
+            .show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

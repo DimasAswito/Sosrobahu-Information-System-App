@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailDaftarTokoSalesBinding
 import com.polije.sosrobahufactoryapp.ui.agen.dashboard.DashboardAgenFragmentDirections
+import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.BottomSheetTambahKunjunganTokoFragment
 import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.ItemRiwayatKunjunganAdapter
 import com.polije.sosrobahufactoryapp.ui.sales.dashboard.DashboardSalesFragmentDirections
 
@@ -56,6 +57,11 @@ class DetailDaftarTokoSalesFragment : Fragment() {
         binding.tvAlamat.text = args.detailToko.lokasi
         binding.tvNoTelepon.text = args.detailToko.noTelp
         binding.tvTokoDetail.text = args.detailToko.namaToko
+
+        binding.BtnTambahKunjungan.setOnClickListener {
+            val bottomSheet = BottomSheetTambahKunjunganTokoFragment()
+            bottomSheet.show(parentFragmentManager, "BottomSheetTambahKunjungan")
+        }
 
     }
 }

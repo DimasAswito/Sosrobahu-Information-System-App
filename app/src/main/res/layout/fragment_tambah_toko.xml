@@ -23,18 +23,40 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
-                android:id="@+id/headerPesananMasuk"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/headerTambahToko"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="32dp"
-                android:text="Tambah Toko"
-                android:textColor="@color/md_theme_background_highContrast"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="8dp">
+
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/circle_background"
+                    android:src="@drawable/ic_arrow_back"
+                    android:scaleType="center"
+                    android:contentDescription="Tombol Kembali"
+                    android:padding="8dp" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Tambah Toko"
+                    android:textColor="@color/md_theme_background_highContrast"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
         </LinearLayout>
 
-        <!-- Form Input -->
 
         <!-- Nama Toko -->
         <com.google.android.material.textfield.TextInputLayout

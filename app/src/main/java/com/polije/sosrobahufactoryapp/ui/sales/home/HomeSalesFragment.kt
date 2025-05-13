@@ -44,7 +44,7 @@ class HomeSalesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.logoutSalesButton.setOnClickListener {
-//            homeSalesViewModel.logout()
+//            HomeSalesViewModel.logout()
         }
 
             viewLifecycleOwner.lifecycleScope.launch {

@@ -65,27 +65,61 @@
                 android:inputType="numberDecimal" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Foto Kunjungan -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilFoto"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewUpload"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:boxStrokeWidth="2dp"
-            app:endIconDrawable="@drawable/baseline_add_box_24"
-            app:endIconMode="custom"
-            android:layout_marginBottom="20dp">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etFoto"
+            <LinearLayout
+                android:id="@+id/parentLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:clickable="true"
-                android:inputType="none"
-                android:hint="Pilih gambar" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/border_cardview"
+                android:padding="16dp">
 
-        <!-- Tombol Edit -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/uploadText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Upload Gambar"
+                        android:textSize="16sp"
+                        android:textColor="#626262"
+                        android:layout_marginEnd="8dp" />
+
+                    <ImageView
+                        android:id="@+id/uploadIcon"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/baseline_add_box_24"
+                        android:contentDescription="Icon Upload" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/imageViewKunjungan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:maxHeight="200dp"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
         <Button
             android:id="@+id/BtnTambahKunjungan"
             android:layout_width="match_parent"
