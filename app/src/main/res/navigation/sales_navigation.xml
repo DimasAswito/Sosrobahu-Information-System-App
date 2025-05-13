@@ -28,6 +28,9 @@
         <argument
             android:name="detailToko"
             app:argType="com.polije.sosrobahufactoryapp.data.model.sales.ListSalesDataItem" />
+        <action
+            android:id="@+id/action_detailTokoSalesFragment_to_listRiwayatKunjunganFragment"
+            app:destination="@id/listRiwayatKunjunganFragment" />
     </fragment>
     <fragment
         android:id="@+id/pilihProdukSalesFragment"
@@ -93,4 +96,9 @@
         android:id="@+id/bottomSheetTambahKunjunganTokoFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.BottomSheetTambahKunjunganTokoFragment"
         android:label="BottomSheetTambahKunjunganTokoFragment" />
+    <fragment
+        android:id="@+id/listRiwayatKunjunganFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.listRiwayatKunjungan.ListRiwayatKunjunganFragment"
+        android:label="fragment_list_riwayat_kunjungan"
+        tools:layout="@layout/fragment_list_riwayat_kunjungan" />
 </navigation>
