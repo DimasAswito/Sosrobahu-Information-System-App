@@ -52,23 +52,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="end|center_vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sisa Produk"
-                android:textSize="12sp"
-                android:textColor="@android:color/black" />
-
-            <TextView
-                android:id="@+id/sisaProduk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="5"
-                android:layout_gravity="center"
-                android:textStyle="bold"
-                android:textSize="16sp" />
-        </LinearLayout>
+            android:gravity="end|center_vertical"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -53,6 +53,18 @@
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
+            <ImageButton
+                android:id="@+id/btnDeleteToko"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/circle_background"
+                android:src="@drawable/outline_delete_white"
+                android:scaleType="center"
+                android:contentDescription="Hapus Toko"
+                android:padding="8dp" />
+
         </RelativeLayout>
 
 
@@ -71,99 +83,119 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="32dp"
+                android:paddingVertical="16dp"
                 android:paddingHorizontal="16dp"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:gravity="center_vertical">
 
-                <!-- Gambar bulat -->
-                <!-- Gambar Kiri -->
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    app:cardCornerRadius="100dp"
-                    android:layout_marginEnd="8dp">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/user"
-                        android:scaleType="centerCrop"/>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Nama Distributor dan Detail -->
+                <!-- Baris utama -->
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_marginStart="12dp">
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
-                    <TextView
-                        android:id="@+id/tvTokoDetail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Nama Toko"
-                        android:textStyle="bold"
-                        android:textSize="16sp"/>
+                    <!-- Gambar bulat -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        app:cardCornerRadius="100dp"
+                        android:layout_marginEnd="8dp">
 
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/user"
+                            android:scaleType="centerCrop"/>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Nama dan Detail -->
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="8dp">
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="12dp">
 
-                        <!-- Tanggal Pemesanan -->
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <TextView
+                            android:id="@+id/tvTokoDetail"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:text="Nama Toko"
+                            android:textStyle="bold"
+                            android:textSize="16sp"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="No. Telepon"
-                                android:textStyle="bold"
-                                android:textSize="12sp" />
-
-                            <TextView
-                                android:id="@+id/tvNoTelepon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=" - "
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <!-- Bukti Pembayaran -->
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:gravity="end">
+                            android:orientation="horizontal"
+                            android:layout_marginTop="8dp">
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <!-- No. Telepon -->
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="Alamat"
-                                android:textStyle="bold"
-                                android:textSize="12sp" />
+                                android:layout_weight="1"
+                                android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/tvAlamat"
-                                android:layout_width="wrap_content"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="No. Telepon"
+                                    android:textStyle="bold"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tvNoTelepon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=" - "
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+
+                            <!-- Alamat -->
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="-"
-                                android:textSize="11sp"
-                                android:textStyle="bold"
-                                android:clickable="true"
-                                android:focusable="true" />
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:gravity="end">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Alamat"
+                                    android:textStyle="bold"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tvAlamat"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="-"
+                                    android:textSize="11sp"
+                                    android:textStyle="bold"
+                                    android:clickable="true"
+                                    android:focusable="true" />
+                            </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvEditToko"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Edit Toko"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:padding="10dp"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
 
         <ImageView
             android:id="@+id/imgBuktiPembayaran"

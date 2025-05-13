@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.databinding.FragmentPilihProdukAgenBinding
 import com.polije.sosrobahufactoryapp.ui.agen.order.component.PilihProdukAgenAdapter
@@ -42,7 +43,7 @@ class PilihProdukAgenFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        binding.recyclerViewPilihProduk.layoutManager = LinearLayoutManager(context)
+        binding.recyclerViewPilihProduk.layoutManager = GridLayoutManager(requireContext(), 2)
         lifecycleScope.launch {
             viewModel.state.collectLatest { state ->
                 state.data?.let {

@@ -186,12 +186,12 @@
                             android:id="@+id/btnBuktiPembayaran"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="true"
                             android:text="Lihat Foto"
                             android:textColor="@android:color/holo_blue_dark"
                             android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:clickable="true"
-                            android:focusable="true" />
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

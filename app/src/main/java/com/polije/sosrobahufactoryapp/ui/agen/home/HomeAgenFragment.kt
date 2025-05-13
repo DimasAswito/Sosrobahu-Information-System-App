@@ -10,7 +10,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
+import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeAgenBinding
 import com.polije.sosrobahufactoryapp.databinding.LoadingOverlayBinding
@@ -45,7 +49,7 @@ class HomeAgenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ItemHomeAgenAdapter()
-        binding.recyclerViewDasboardAgen.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewDasboardAgen.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.recyclerViewDasboardAgen.adapter = adapter
 
         binding.logoutAgenButton.setOnClickListener {
@@ -100,9 +104,32 @@ class HomeAgenFragment : Fragment() {
                         binding.jumlahSales.text = state.dashboardResponse.totalSales.toString()
                         binding.omsetBulanAgen.text =
                             state.dashboardResponse.totalPendapatan?.toRupiah()
-                        binding.topProductNameAgen.text = state.dashboardResponse.topProduct
                         binding.totalStokAgen.text =
                             state.dashboardResponse.totalStokKeseluruhan.toString()
+                        binding.topProductNameAgen.text = state.dashboardResponse.topProduct
+
+                        val topName = state.dashboardResponse.topProduct
+                        binding.topProductNameAgen.text = topName
+
+                        val topProduct = state.dashboardResponse.stokBarang.find {
+                            it.namaRokok == topName
+                        }
+
+                        val imageName = topProduct?.gambar
+                        val imageUrl = BuildConfig.PICTURE_BASE_URL + "produk/" + imageName
+
+                        val circularProgressDrawable =
+                            CircularProgressDrawable(requireContext()).apply {
+                                strokeWidth = 5f
+                                centerRadius = 30f
+                                start()
+                            }
+
+                        Glide.with(requireContext())
+                            .load(imageUrl)
+                            .placeholder(circularProgressDrawable)
+                            .error(R.drawable.foto_error)
+                            .into(binding.topProductImageAgen)
                         adapter.submitList(state.dashboardResponse.stokBarang)
                     }
 

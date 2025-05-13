@@ -1,9 +1,11 @@
 package com.polije.sosrobahufactoryapp.ui.sales.daftarToko.detailDaftarToko
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -11,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailDaftarTokoSalesBinding
 import com.polije.sosrobahufactoryapp.ui.agen.dashboard.DashboardAgenFragmentDirections
+import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.BottomSheetEditTokoFragment
 import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.BottomSheetTambahKunjunganTokoFragment
 import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.ItemRiwayatKunjunganAdapter
 import com.polije.sosrobahufactoryapp.ui.sales.dashboard.DashboardSalesFragmentDirections
@@ -44,6 +47,31 @@ class DetailDaftarTokoSalesFragment : Fragment() {
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
+        binding.btnDeleteToko.setOnClickListener {
+            AlertDialog.Builder(requireContext())
+                .setTitle("Konfirmasi")
+                .setMessage("Apakah Anda yakin ingin menghapus toko?")
+                .setPositiveButton("Ya") { dialog, _ ->
+                    Toast.makeText(requireContext(), "Toko dihapus", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                }
+                .setNegativeButton("Tidak") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+        }
+
+        binding.tvEditToko.setOnClickListener {
+            val namaToko = binding.tvTokoDetail.text.toString()
+            val noTelp = binding.tvNoTelepon.text.toString()
+            val alamat = binding.tvAlamat.text.toString()
+
+            val bottomSheet = BottomSheetEditTokoFragment.newInstance(namaToko, noTelp, alamat)
+            bottomSheet.show(parentFragmentManager, "BottomSheetEditToko")
+        }
+
+
         binding.tvRiwayatKunjunganAll.setOnClickListener {
             val action = DetailDaftarTokoSalesFragmentDirections.actionDetailTokoSalesFragmentToListRiwayatKunjunganFragment()
             findNavController().navigate(action)
@@ -62,6 +90,5 @@ class DetailDaftarTokoSalesFragment : Fragment() {
             val bottomSheet = BottomSheetTambahKunjunganTokoFragment()
             bottomSheet.show(parentFragmentManager, "BottomSheetTambahKunjungan")
         }
-
     }
 }

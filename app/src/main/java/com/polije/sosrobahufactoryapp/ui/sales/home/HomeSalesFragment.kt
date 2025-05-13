@@ -85,6 +85,7 @@ class HomeSalesFragment : Fragment() {
                         binding.totalStokSales.text = state.dashboardResponse.totalStok.toString()
                         binding.jumlahToko.text = state.dashboardResponse.jumlahToko.toString()
                         binding.modalSales.text = state.dashboardResponse.totalPrice?.toRupiah()
+                        binding.topProductNameSales.text = state.dashboardResponse.topProduct
                     }
                 }
             }

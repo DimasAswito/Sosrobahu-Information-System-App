@@ -100,6 +100,10 @@ class DetailPesananPabrikFragment : Fragment() {
                 .show()
         }
 
+        binding.SimpanStatusButton.visibility =
+            if ((args.detailPesanan.statusPemesanan ?: 0) == 0)
+                View.VISIBLE else View.GONE
+
         binding.SimpanStatusButton.setOnClickListener {
             val status = binding.spinnerStatus.selectedItemPosition
             detailPesananViewModel.updateDetailPesanan(args.detailPesanan.idOrder ?: 0,status)
@@ -126,7 +130,6 @@ class DetailPesananPabrikFragment : Fragment() {
 
                         UpdateStatusPesananPabrikState.Success -> {
                             binding.SimpanStatusButton.isEnabled = true
-                            showToast("Berhasil Mengubah Status")
                             findNavController().navigateUp()
                         }
                     }
