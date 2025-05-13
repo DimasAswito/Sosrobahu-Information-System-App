@@ -44,6 +44,7 @@ import com.polije.sosrobahufactoryapp.domain.usecase.sales.LoginSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.OrderSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.RiwayatOrderSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.PilihBarangAgenSalesUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.sales.TambahTokoUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.TokoSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.UserSessionSalesUseCase
 import com.polije.sosrobahufactoryapp.ui.agen.home.HomeAgenViewModel
@@ -69,6 +70,7 @@ import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.RiwayatPabrikView
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.ProdukRestokPabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.tambahRestok.TambahRestokPabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.DaftarTokoSalesViewModel
+import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.tambahToko.TambahTokoViewModel
 import com.polije.sosrobahufactoryapp.ui.sales.home.HomeSalesViewModel
 import com.polije.sosrobahufactoryapp.ui.sales.login.SalesLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.sales.order.OrderSalesViewModel
@@ -127,6 +129,7 @@ val appModule = module {
     factoryOf(::RiwayatOrderSalesUseCase)
     factoryOf(::PilihBarangAgenSalesUseCase)
     factoryOf(::OrderSalesUseCase)
+    factoryOf(::TambahTokoUseCase)
 
     viewModelOf(::HomePabrikViewModel)
     viewModelOf(::FactoryLoginViewModel)
@@ -159,5 +162,6 @@ val appModule = module {
     viewModelOf(::OrderSalesViewModel)
     viewModelOf(::PilihProdukSalesViewModel)
     viewModelOf(::TambahOrderSalesViewModel)
+    viewModelOf(::TambahTokoViewModel)
 
 }

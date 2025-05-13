@@ -2,12 +2,13 @@ package com.polije.sosrobahufactoryapp.data.datasource.remote.sales
 
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
-import com.polije.sosrobahufactoryapp.data.model.distributor.OrderDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.DashboardSalesResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.ListBarangAgenSalesResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.ListTokoSalesResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.RiwayatOrderSalesResponse
+import com.polije.sosrobahufactoryapp.data.model.sales.TambahTokoRequest
+import com.polije.sosrobahufactoryapp.data.model.sales.TambahTokoResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -43,7 +44,7 @@ interface SalesDatasource {
     suspend fun getKunjungan(@Path("id") idToko: Int, @Header("Authorization") token: String)
 
     @GET("sales/listBarangOrder")
-    suspend fun getListBarangOrder(@Header("Authorization") token : String)  : ListBarangAgenSalesResponse
+    suspend fun getListBarangOrder(@Header("Authorization") token: String): ListBarangAgenSalesResponse
 
     @Multipart
     @POST("sales/order")
@@ -53,6 +54,12 @@ interface SalesDatasource {
         @Header("Authorization") token: String
 
     ): OrderSalesResponse
+
+    @POST("sales/toko")
+    suspend fun tambahtoko(
+        @Header("Authorization") token: String,
+        @Body request: TambahTokoRequest
+    ): TambahTokoResponse
 
 
 }

@@ -56,5 +56,9 @@ class DaftarTokoSalesFragment : Fragment() {
                 adapter.submitData(it)
             }
         }
+
+        binding.fabTambahTokoSales.setOnClickListener {
+            mainNavHost.navController.navigate(R.id.action_dashboardSalesFragment_to_tambahTokoFragment)
+        }
     }
 }

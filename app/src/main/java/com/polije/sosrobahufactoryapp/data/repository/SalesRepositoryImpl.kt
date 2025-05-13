@@ -17,6 +17,8 @@ import com.polije.sosrobahufactoryapp.data.model.sales.ListBarangAgenSalesRespon
 import com.polije.sosrobahufactoryapp.data.model.sales.ListSalesDataItem
 import com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesDataItem
 import com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesResponse
+import com.polije.sosrobahufactoryapp.data.model.sales.TambahTokoRequest
+import com.polije.sosrobahufactoryapp.data.model.sales.TambahTokoResponse
 import com.polije.sosrobahufactoryapp.domain.repository.sales.SalesRepository
 import com.polije.sosrobahufactoryapp.ui.sales.order.pilihProdukSales.SelectedProdukSales
 import com.polije.sosrobahufactoryapp.utils.DataResult
@@ -153,6 +155,25 @@ class SalesRepositoryImpl(
             DataResult.Error(HttpErrorCode.TIMEOUT)
         } catch (e: Exception) {
             val error = e.message.toString()
+            DataResult.Error(HttpErrorCode.UNKNOWN)
+        }
+    }
+
+    override suspend fun tambahToko(request: TambahTokoRequest): DataResult<TambahTokoResponse, HttpErrorCode> {
+        return try {
+            val token = sessionManager.sessionFlow.first().token
+            val data = salesDataSource.tambahtoko("Bearer $token", request)
+            DataResult.Success(data)
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (e: Exception) {
+            val error = e.message
             DataResult.Error(HttpErrorCode.UNKNOWN)
         }
     }

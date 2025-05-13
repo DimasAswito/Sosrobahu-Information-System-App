@@ -8,6 +8,8 @@ import com.polije.sosrobahufactoryapp.data.model.sales.ListBarangAgenSalesRespon
 import com.polije.sosrobahufactoryapp.data.model.sales.ListSalesDataItem
 import com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesDataItem
 import com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesResponse
+import com.polije.sosrobahufactoryapp.data.model.sales.TambahTokoRequest
+import com.polije.sosrobahufactoryapp.data.model.sales.TambahTokoResponse
 import com.polije.sosrobahufactoryapp.ui.sales.order.pilihProdukSales.SelectedProdukSales
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
@@ -30,6 +32,8 @@ interface SalesRepository {
         totalAmount: Int,
         buktiUri: Uri
     ): DataResult<OrderSalesResponse, HttpErrorCode>
+
+    suspend fun tambahToko(request: TambahTokoRequest): DataResult<TambahTokoResponse, HttpErrorCode>
 
     fun isUserIsLogged(requiredRole: UserRole): Flow<Boolean>
     suspend fun logout()
