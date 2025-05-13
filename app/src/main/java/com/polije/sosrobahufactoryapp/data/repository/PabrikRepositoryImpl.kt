@@ -112,7 +112,8 @@ class PabrikRepositoryImpl(
             DataResult.Error(httpError)
         } catch (_: IOException) {
             DataResult.Error(HttpErrorCode.TIMEOUT)
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            val message = e.message
             DataResult.Error(HttpErrorCode.UNKNOWN)
         }
     }
