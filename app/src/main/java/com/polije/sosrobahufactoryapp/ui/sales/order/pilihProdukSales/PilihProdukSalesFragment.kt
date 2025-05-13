@@ -56,7 +56,9 @@ class PilihProdukSalesFragment : Fragment() {
                         )
                         selectedList = ProdukTerpilihSales(
                             selectedProduk,
-
+                            state.data.transfer.namaLengkap,
+                            state.data.transfer.namaBank,
+                            Integer.getInteger(state.data.transfer.norek,0)
                             )
                         binding.recyclerViewPilihProduk.adapter = adapter
                         adapter.updateList(it.listBarangAgen)
@@ -83,8 +85,8 @@ class PilihProdukSalesFragment : Fragment() {
 @Parcelize
 data class ProdukTerpilihSales(
     val data: List<SelectedProdukSales>,
-//    val namaLengkap: String,
-//    val namaBank: String,
-//    val norek: Int
+    val namaLengkap: String,
+    val namaBank: String,
+    val norek: Int
 ) : Parcelable
 

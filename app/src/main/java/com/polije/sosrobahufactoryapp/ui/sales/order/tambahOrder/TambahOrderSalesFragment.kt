@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentTambahOrderSalesBinding
 import com.polije.sosrobahufactoryapp.ui.sales.order.component.TambahOrderSalesAdapter
 import com.polije.sosrobahufactoryapp.ui.sales.order.pilihProdukSales.SelectedProdukSales
@@ -124,12 +125,12 @@ class TambahOrderSalesFragment : Fragment() {
         binding.btnTambahOrder.setOnClickListener {
             viewModel.submitOrder()
         }
-//        binding.textTransferInfo.text = getString(
-//            R.string.transfer_info_text,
-//            args.selectedBarang.namaBank,
-//            args.selectedBarang.norek.toString(),
-//            args.selectedBarang.namaLengkap
-//        )
+        binding.textTransferInfo.text = getString(
+            R.string.transfer_info_text,
+            args.selectedItemAgenSales.namaBank,
+            args.selectedItemAgenSales.norek.toString(),
+            args.selectedItemAgenSales.namaLengkap
+        )
 
     }
 }

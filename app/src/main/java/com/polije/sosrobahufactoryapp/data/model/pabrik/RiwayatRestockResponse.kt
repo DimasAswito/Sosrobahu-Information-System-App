@@ -69,7 +69,7 @@ data class RiwayatRestockItem(
 @Parcelize
 data class DetailProdukItem(
 
-	@SerialName("idBarang")
+	@SerialName("id_master_barang")
 	val idMasterBarang: Int? = null,
 
 	@SerialName("nama_rokok")
