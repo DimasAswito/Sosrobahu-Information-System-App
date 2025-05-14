@@ -1,36 +1,53 @@
 package com.polije.sosrobahufactoryapp.ui.sales.daftarToko.listRiwayatKunjungan
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.polije.sosrobahufactoryapp.R
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.polije.sosrobahufactoryapp.databinding.FragmentListRiwayatKunjunganBinding
+import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.ItemRiwayatKunjunganAllAdapter
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ListRiwayatKunjunganFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ListRiwayatKunjunganFragment()
-    }
+    private var _binding: FragmentListRiwayatKunjunganBinding? = null
+    private val binding get() = _binding!!
 
-    private val viewModel: ListRiwayatKunjunganViewModel by viewModels()
+    private val viewModel: ListRiwayatKunjunganViewModel by viewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    val args: ListRiwayatKunjunganFragmentArgs by navArgs()
 
-        // TODO: Use the ViewModel
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_list_riwayat_kunjungan, container, false)
+        _binding = FragmentListRiwayatKunjunganBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-//        binding.btnBack.setOnClickListener {
-//            findNavController().navigateUp()
-//        }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        val adapter = ItemRiwayatKunjunganAllAdapter()
+        binding.recyclerViewListRiwayatKunjungan.adapter = adapter
+        binding.recyclerViewListRiwayatKunjungan.layoutManager = LinearLayoutManager(context)
+
+        lifecycleScope.launch {
+            viewModel.getListKunjungan(idToko = args.idToko).collectLatest {
+                adapter.submitData(it)
+            }
+        }
     }
 }

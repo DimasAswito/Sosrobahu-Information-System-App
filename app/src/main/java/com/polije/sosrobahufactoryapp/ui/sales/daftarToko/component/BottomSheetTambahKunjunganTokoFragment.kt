@@ -70,7 +70,7 @@ class BottomSheetTambahKunjunganTokoFragment : BottomSheetDialogFragment() {
             showImagePickerDialog()
         }
 
-        binding.BtnTambahKunjungan.setOnClickListener {
+        binding.btnTambahKunjungan.setOnClickListener {
             dismiss()
         }
 

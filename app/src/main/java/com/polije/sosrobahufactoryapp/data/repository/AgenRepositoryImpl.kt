@@ -9,7 +9,6 @@ import com.polije.sosrobahufactoryapp.data.datasource.local.SessionManager
 import com.polije.sosrobahufactoryapp.data.datasource.remote.agen.AgenDatasource
 import com.polije.sosrobahufactoryapp.data.datasource.remote.agen.paging.PesananMasukAgenPagingDataSource
 import com.polije.sosrobahufactoryapp.data.datasource.remote.agen.paging.RiwayatOrderAgenPagingSource
-import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.paging.RiwayatOrderDistributorPagingSource
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.DashboardAgenResponse
@@ -148,9 +147,9 @@ class AgenRepositoryImpl(
     override fun getRiwayatOrderDistributor(): Flow<PagingData<RiwayatOrderAgenDataItem>> {
         return Pager(
             config = PagingConfig(
-                pageSize = RiwayatOrderDistributorPagingSource.RIWAYAT_ORDER_DISTRIBUTOR_PAGE_SIZE,
+                pageSize = RiwayatOrderAgenPagingSource.RIWAYAT_ORDER_AGEN_PAGE_SIZE,
                 enablePlaceholders = false,
-                initialLoadSize = RiwayatOrderDistributorPagingSource.RIWAYAT_ORDER_DISTRIBUTOR_PAGE_SIZE,
+                initialLoadSize = RiwayatOrderAgenPagingSource.RIWAYAT_ORDER_AGEN_PAGE_SIZE,
             ), pagingSourceFactory = {
                 RiwayatOrderAgenPagingSource(agenDatasource, sessionManager)
             }).flow

@@ -52,5 +52,9 @@ class TambahTokoFragment : Fragment() {
                 }
             }
         }
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 }

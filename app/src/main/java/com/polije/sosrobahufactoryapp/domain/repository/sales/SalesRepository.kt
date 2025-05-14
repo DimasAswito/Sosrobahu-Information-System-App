@@ -4,6 +4,8 @@ import android.net.Uri
 import androidx.paging.PagingData
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.DashboardSalesResponse
+import com.polije.sosrobahufactoryapp.data.model.sales.DeleteTokoResponse
+import com.polije.sosrobahufactoryapp.data.model.sales.KunjunganTokoDataItem
 import com.polije.sosrobahufactoryapp.data.model.sales.ListBarangAgenSalesResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.ListSalesDataItem
 import com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesDataItem
@@ -25,6 +27,8 @@ interface SalesRepository {
 
     fun getOrderSales(): Flow<PagingData<OrderSalesDataItem>>
 
+    fun getKunjunganToko(idToko : Int) : Flow<PagingData<KunjunganTokoDataItem>>
+
     suspend fun pilihBarangAgen(): DataResult<ListBarangAgenSalesResponse, HttpErrorCode>
 
     suspend fun orderBarang(
@@ -34,6 +38,12 @@ interface SalesRepository {
     ): DataResult<OrderSalesResponse, HttpErrorCode>
 
     suspend fun tambahToko(request: TambahTokoRequest): DataResult<TambahTokoResponse, HttpErrorCode>
+    suspend fun updateToko(
+        idToko: Int,
+        request: TambahTokoRequest
+    ): DataResult<TambahTokoResponse, HttpErrorCode>
+
+    suspend fun deleteToko(idToko: Int): DataResult<DeleteTokoResponse, HttpErrorCode>
 
     fun isUserIsLogged(requiredRole: UserRole): Flow<Boolean>
     suspend fun logout()

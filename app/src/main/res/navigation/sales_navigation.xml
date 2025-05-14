@@ -100,5 +100,9 @@
         android:id="@+id/listRiwayatKunjunganFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.listRiwayatKunjungan.ListRiwayatKunjunganFragment"
         android:label="fragment_list_riwayat_kunjungan"
-        tools:layout="@layout/fragment_list_riwayat_kunjungan" />
+        tools:layout="@layout/fragment_list_riwayat_kunjungan" >
+        <argument
+            android:name="idToko"
+            app:argType="integer" />
+    </fragment>
 </navigation>

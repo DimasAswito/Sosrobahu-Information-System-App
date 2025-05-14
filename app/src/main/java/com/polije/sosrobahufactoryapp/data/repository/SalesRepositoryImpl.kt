@@ -7,12 +7,15 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.polije.sosrobahufactoryapp.data.datasource.local.SessionManager
 import com.polije.sosrobahufactoryapp.data.datasource.remote.sales.SalesDatasource
+import com.polije.sosrobahufactoryapp.data.datasource.remote.sales.paging.KunjunganTokoPagingSource
 import com.polije.sosrobahufactoryapp.data.datasource.remote.sales.paging.ListTokoSalesPagingSource
 import com.polije.sosrobahufactoryapp.data.datasource.remote.sales.paging.OrderSalesPagingSource
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.QuantityItem
 import com.polije.sosrobahufactoryapp.data.model.sales.DashboardSalesResponse
+import com.polije.sosrobahufactoryapp.data.model.sales.DeleteTokoResponse
+import com.polije.sosrobahufactoryapp.data.model.sales.KunjunganTokoDataItem
 import com.polije.sosrobahufactoryapp.data.model.sales.ListBarangAgenSalesResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.ListSalesDataItem
 import com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesDataItem
@@ -85,7 +88,8 @@ class SalesRepositoryImpl(
         return Pager(
             config = PagingConfig(
                 pageSize = ListTokoSalesPagingSource.LIST_TOKO_SALES_PAGE_SIZE,
-                enablePlaceholders = false
+                enablePlaceholders = false,
+                initialLoadSize = ListTokoSalesPagingSource.LIST_TOKO_SALES_PAGE_SIZE
             ),
             pagingSourceFactory = {
                 ListTokoSalesPagingSource(salesDataSource, sessionManager)
@@ -97,10 +101,23 @@ class SalesRepositoryImpl(
         return Pager(
             config = PagingConfig(
                 pageSize = OrderSalesPagingSource.ORDER_AGEN_PAGE_SIZE,
-                enablePlaceholders = false
+                enablePlaceholders = false,
+                initialLoadSize = OrderSalesPagingSource.ORDER_AGEN_PAGE_SIZE
             ), pagingSourceFactory = {
                 OrderSalesPagingSource(salesDataSource, sessionManager)
             }).flow
+    }
+
+    override fun getKunjunganToko(idToko: Int): Flow<PagingData<KunjunganTokoDataItem>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = KunjunganTokoPagingSource.LIST_KUNJUNGAN_PAGE_SIZE,
+                enablePlaceholders = false,
+                initialLoadSize = KunjunganTokoPagingSource.LIST_KUNJUNGAN_PAGE_SIZE
+            ), pagingSourceFactory = {
+                KunjunganTokoPagingSource(idToko, salesDataSource, sessionManager)
+            }
+        ).flow
     }
 
     override suspend fun pilihBarangAgen(): DataResult<ListBarangAgenSalesResponse, HttpErrorCode> {
@@ -162,7 +179,48 @@ class SalesRepositoryImpl(
     override suspend fun tambahToko(request: TambahTokoRequest): DataResult<TambahTokoResponse, HttpErrorCode> {
         return try {
             val token = sessionManager.sessionFlow.first().token
-            val data = salesDataSource.tambahtoko("Bearer $token", request)
+            val data = salesDataSource.tambahToko("Bearer $token", request)
+            DataResult.Success(data)
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (e: Exception) {
+            val error = e.message
+            DataResult.Error(HttpErrorCode.UNKNOWN)
+        }
+    }
+
+    override suspend fun updateToko(
+        idToko: Int,
+        request: TambahTokoRequest
+    ): DataResult<TambahTokoResponse, HttpErrorCode> {
+        return try {
+            val token = sessionManager.sessionFlow.first().token
+            val data = salesDataSource.updateToko(idToko, "Bearer $token", request)
+            DataResult.Success(data)
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (e: Exception) {
+            val error = e.message
+            DataResult.Error(HttpErrorCode.UNKNOWN)
+        }
+    }
+
+    override suspend fun deleteToko(idToko: Int): DataResult<DeleteTokoResponse, HttpErrorCode> {
+        return try {
+            val token = sessionManager.sessionFlow.first().token
+            val data = salesDataSource.deleteToko(idToko, "Bearer $token")
             DataResult.Success(data)
         } catch (e: HttpException) {
             val code = e.code()

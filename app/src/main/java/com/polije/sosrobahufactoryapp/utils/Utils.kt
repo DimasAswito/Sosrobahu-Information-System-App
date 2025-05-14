@@ -13,6 +13,9 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 fun Int.toRupiah(): String {
@@ -45,6 +48,22 @@ fun String.toTanggalIndonesia(): String {
     }
 
     return this
+}
+
+fun String.toTanggalIndonesiaInstant(): String {
+    return try {
+        // 1) parse into an Instant
+        val instant = Instant.parse(this)
+        // 2) convert to system time‐zone
+        val zoned   = instant.atZone(ZoneId.systemDefault())
+        // 3) format to "dd MMMM yyyy" in Indonesian
+        val fmt     = DateTimeFormatter
+            .ofPattern("dd MMMM yyyy", Locale("id","ID"))
+        zoned.format(fmt)
+    } catch (e: Exception) {
+        // parsing failed → just return original
+        this
+    }
 }
 
 fun Activity.setStatusBarColorByRole(role: UserRole) {

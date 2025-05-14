@@ -1,14 +1,12 @@
 package com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentBottomSheetEditTokoBinding
-import com.polije.sosrobahufactoryapp.databinding.FragmentBottomSheetTambahKunjunganTokoBinding
 
 class BottomSheetEditTokoFragment : BottomSheetDialogFragment() {
 
@@ -26,24 +24,25 @@ class BottomSheetEditTokoFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val nama = arguments?.getString("namaToko") ?: ""
-        val telp = arguments?.getString("noTelp") ?: ""
-        val alamat = arguments?.getString("alamat") ?: ""
+        // ambil argumen awal
+        val nama   = arguments?.getString("namaToko") ?: ""
+        val telp   = arguments?.getString("noTelp")    ?: ""
+        val alamat = arguments?.getString("alamat")    ?: ""
 
         binding.etNamaToko.setText(nama)
         binding.etNoTelepon.setText(telp)
         binding.etAlamat.setText(alamat)
-    }
 
-    companion object {
-        fun newInstance(nama: String, telp: String, alamat: String): BottomSheetEditTokoFragment {
-            val fragment = BottomSheetEditTokoFragment()
-            val args = Bundle()
-            args.putString("namaToko", nama)
-            args.putString("noTelp", telp)
-            args.putString("alamat", alamat)
-            fragment.arguments = args
-            return fragment
+        binding.btnUpdateToko.setOnClickListener {
+            // prepare hasil
+            val result = bundleOf(
+                "namaToko" to binding.etNamaToko.text.toString(),
+                "noTelp"   to binding.etNoTelepon.text.toString(),
+                "alamat"   to binding.etAlamat.text.toString()
+            )
+            // kirim ke parent
+            parentFragmentManager.setFragmentResult("EDIT_TOKO", result)
+            dismiss()
         }
     }
 
@@ -52,4 +51,15 @@ class BottomSheetEditTokoFragment : BottomSheetDialogFragment() {
         _binding = null
     }
 
+    companion object {
+        fun newInstance(nama: String, telp: String, alamat: String): BottomSheetEditTokoFragment {
+            val fragment = BottomSheetEditTokoFragment()
+            fragment.arguments = bundleOf(
+                "namaToko" to nama,
+                "noTelp"   to telp,
+                "alamat"   to alamat
+            )
+            return fragment
+        }
+    }
 }

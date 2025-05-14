@@ -5,7 +5,6 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.polije.sosrobahufactoryapp.data.datasource.local.SessionManager
 import com.polije.sosrobahufactoryapp.data.datasource.remote.agen.AgenDatasource
-import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.DistributorDatasource
 import com.polije.sosrobahufactoryapp.data.model.agen.RiwayatOrderAgenDataItem
 import kotlinx.coroutines.flow.first
 import retrofit2.HttpException
@@ -44,6 +43,6 @@ class RiwayatOrderAgenPagingSource(
 
     companion object {
         private const val STARTING_PAGE_INDEX = 1
-        const val RIWAYAT_ORDER_DISTRIBUTOR_PAGE_SIZE = 10
+        const val RIWAYAT_ORDER_AGEN_PAGE_SIZE = 10
     }
 }

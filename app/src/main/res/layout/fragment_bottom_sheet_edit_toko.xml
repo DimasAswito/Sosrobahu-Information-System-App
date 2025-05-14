@@ -79,7 +79,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/BtnTambahKunjungan"
+            android:id="@+id/btnUpdateToko"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_marginStart="32dp"
