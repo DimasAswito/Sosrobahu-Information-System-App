@@ -51,7 +51,6 @@ interface DistributorDatasource {
         @PartMap parts: Map<String, @JvmSuppressWildcards RequestBody>,
         @Part paymentProof: MultipartBody.Part,
         @Header("Authorization") token: String
-
     ): OrderDistributorResponse
 
     @GET("distributor/riwayatOrder")

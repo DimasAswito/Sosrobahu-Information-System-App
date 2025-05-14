@@ -87,7 +87,7 @@ fun createOrderParts(
         put("total_items", totalItems.toString().plain())
         put("total_amount", totalAmount.toString().plain())
         quantities.forEachIndexed { i, it ->
-            put("quantities[$i][idBarang]", it.idBarang.toString().plain())
+            put("quantities[$i][id_master_barang]", it.idBarang.toString().plain())
             put("quantities[$i][quantity]", it.quantity.toString().plain())
         }
     }

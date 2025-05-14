@@ -81,7 +81,7 @@ class HomeSalesFragment : Fragment() {
                         loadingBinding.loadingLayout.visibility = View.GONE
 
                         val namaSales =
-                            state.dashboardResponse.namaSales.split(" ").firstOrNull() ?: ""
+                            state.dashboardResponse.namaSales?.split(" ")?.firstOrNull() ?: ""
                         binding.headerTextSales.text = "Selamat datang $namaSales,"
 
                         binding.totalStokSales.text = state.dashboardResponse.totalStok.toString()

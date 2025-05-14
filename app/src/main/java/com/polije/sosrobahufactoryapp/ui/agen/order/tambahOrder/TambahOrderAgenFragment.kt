@@ -113,9 +113,7 @@ class TambahOrderAgenFragment : Fragment() {
             launch {
                 viewModel.tambahOrderDistributorState.collectLatest { state ->
                     if (state.isSubmitted) {
-                        findNavController().navigate(
-                            R.id.action_tambahOrderDistributorFragment_to_dashboardDistributorFragment
-                        )
+                        findNavController().navigateUp()
                     }
                 }
             }

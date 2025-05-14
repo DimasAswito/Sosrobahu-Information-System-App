@@ -59,7 +59,6 @@ class ItemRiwayatKunjunganAllAdapter() :
             ): Boolean {
                 return oldItem == newItem
             }
-
         }
     }
 }
