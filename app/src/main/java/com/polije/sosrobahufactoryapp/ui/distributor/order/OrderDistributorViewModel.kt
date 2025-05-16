@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.RiwayatOrderDistributorUseCase
 
-class OrderDistributorViewModel(riwayatOrderDistributorUseCase: RiwayatOrderDistributorUseCase) :
+class OrderDistributorViewModel(private val riwayatOrderDistributorUseCase: RiwayatOrderDistributorUseCase) :
     ViewModel() {
-    val riwayatOrderDistributor = riwayatOrderDistributorUseCase.invoke().cachedIn(viewModelScope)
+    fun riwayatOrderDistributor() = riwayatOrderDistributorUseCase.invoke().cachedIn(viewModelScope)
 }

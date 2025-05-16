@@ -61,12 +61,14 @@ class DetailPesananAgenFragment : Fragment() {
                     binding.tvHargaTotal.text = state.data.dataDetail.totalHarga.toRupiah()
                     binding.tvSalesDetail.text = state.data.dataDetail.namaSales
                     adapter.submitList(state.data.dataDetail.itemNota)
-
-
                 }
 
                 if (state.isSubmitted) {
                     findNavController().navigateUp()
+                }
+
+                if (state.errorMessage != null) {
+                    Toast.makeText(context, state.errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
         }

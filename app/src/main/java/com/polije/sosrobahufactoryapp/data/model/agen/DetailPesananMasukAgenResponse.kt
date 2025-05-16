@@ -6,7 +6,7 @@ import kotlinx.serialization.SerialName
 @Serializable
 data class DetailPesananMasukAgenResponse(
 
-	@SerialName("listBarangAgen")
+	@SerialName("data")
 	val dataDetail: DetailPesananAgenData,
 
 	@SerialName("success")
@@ -15,6 +15,7 @@ data class DetailPesananMasukAgenResponse(
 	@SerialName("message")
 	val message: String
 )
+
 
 @Serializable
 data class ItemNotaDetailPesananAgenItem(

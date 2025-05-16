@@ -7,9 +7,11 @@ import com.polije.sosrobahufactoryapp.data.model.agen.DetailPesananMasukAgenResp
 import com.polije.sosrobahufactoryapp.data.model.agen.PesananMasukAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.PilihBarangDistributorAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.RiwayatOrderAgenResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.UpdateStatusOrderAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.OrderDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusPesananMasukResponse
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRequest
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.InsertOrderAgenResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -47,7 +49,7 @@ interface AgenDatasource {
         @Header("Authorization") token: String,
         @Path("id") idOrder: Int,
         @Body status: UpdateDetailPesananRequest
-    ): UpdateStatusPesananMasukResponse
+    ): UpdateStatusOrderAgenResponse
 
     @GET("agen/riwayatOrder")
     suspend fun getRiwayatOrder(
@@ -64,9 +66,6 @@ interface AgenDatasource {
         @PartMap parts: Map<String, @JvmSuppressWildcards RequestBody>,
         @Part paymentProof: MultipartBody.Part,
         @Header("Authorization") token: String
-
-    ): OrderDistributorResponse
-
-
+    ): InsertOrderAgenResponse
 
 }

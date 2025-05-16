@@ -16,16 +16,17 @@ import com.polije.sosrobahufactoryapp.data.model.agen.DetailPesananMasukAgenResp
 import com.polije.sosrobahufactoryapp.data.model.agen.PesananMasukAgenDataItem
 import com.polije.sosrobahufactoryapp.data.model.agen.PilihBarangDistributorAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.RiwayatOrderAgenDataItem
-import com.polije.sosrobahufactoryapp.data.model.distributor.OrderDistributorResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.UpdateStatusOrderAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.QuantityItem
 import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusPesananMasukResponse
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRequest
 import com.polije.sosrobahufactoryapp.domain.repository.agen.AgenRepository
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.InsertOrderAgenResponse
 import com.polije.sosrobahufactoryapp.ui.agen.order.pilihProdukAgen.SelectedProdukAgen
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.UserRole
-import com.polije.sosrobahufactoryapp.utils.createOrderParts
+import com.polije.sosrobahufactoryapp.utils.createOrderPartsDistributor
 import com.polije.sosrobahufactoryapp.utils.toMultipartPart
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -100,7 +101,7 @@ class AgenRepositoryImpl(
 
     override suspend fun getDetailPesananMasukAgen(idOrder: Int): DataResult<DetailPesananMasukAgenResponse, HttpErrorCode> {
         return try {
-            val token = sessionManager.sessionFlow.first().token
+            val token = sessionManager.sessionFlow.first().token ?: ""
             val data =
                 agenDatasource.getDetailPesananMasuk("Bearer $token", idOrder = idOrder)
             DataResult.Success(data)
@@ -120,7 +121,7 @@ class AgenRepositoryImpl(
     override suspend fun updateStatusPesanan(
         idOrder: Int,
         status: Int
-    ): DataResult<UpdateStatusPesananMasukResponse, HttpErrorCode> {
+    ): DataResult<UpdateStatusOrderAgenResponse, HttpErrorCode> {
         return try {
             val token = sessionManager.sessionFlow.first().token
             val data =
@@ -182,7 +183,7 @@ class AgenRepositoryImpl(
         products: List<SelectedProdukAgen>,
         totalAmount: Int,
         buktiUri: Uri
-    ): DataResult<OrderDistributorResponse, HttpErrorCode> {
+    ): DataResult<InsertOrderAgenResponse, HttpErrorCode> {
         return try {
             val token = sessionManager.sessionFlow.first().token
 
@@ -190,7 +191,7 @@ class AgenRepositoryImpl(
                 .filter { (it.quantity ?: 0) > 0 }
                 .map { QuantityItem(it.item.idBarangDistributor, it.quantity ?: 0) }
 
-            val partMap = createOrderParts(
+            val partMap = createOrderPartsDistributor(
                 totalItems = items.sumOf { it.quantity },
                 totalAmount = totalAmount,
                 quantities = items

@@ -93,6 +93,22 @@ fun createOrderParts(
     }
 }
 
+fun createOrderPartsDistributor(
+    totalItems: Int,
+    totalAmount: Int,
+    quantities: List<QuantityItem>
+): Map<String, RequestBody> {
+    fun String.plain() = toRequestBody("text/plain".toMediaType())
+    return buildMap {
+        put("total_items", totalItems.toString().plain())
+        put("total_amount", totalAmount.toString().plain())
+        quantities.forEachIndexed { i, it ->
+            put("quantities[$i][id_barang_distributor]", it.idBarang.toString().plain())
+            put("quantities[$i][quantity]", it.quantity.toString().plain())
+        }
+    }
+}
+
 fun createOrderSalesParts(
     totalItems: Int,
     totalAmount: Int,

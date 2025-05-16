@@ -8,8 +8,10 @@ import com.polije.sosrobahufactoryapp.data.model.agen.DetailPesananMasukAgenResp
 import com.polije.sosrobahufactoryapp.data.model.agen.PesananMasukAgenDataItem
 import com.polije.sosrobahufactoryapp.data.model.agen.PilihBarangDistributorAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.RiwayatOrderAgenDataItem
+import com.polije.sosrobahufactoryapp.data.model.agen.UpdateStatusOrderAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.OrderDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusPesananMasukResponse
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.InsertOrderAgenResponse
 import com.polije.sosrobahufactoryapp.ui.agen.order.pilihProdukAgen.SelectedProdukAgen
 import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.SelectedProdukDistributor
 import com.polije.sosrobahufactoryapp.utils.DataResult
@@ -26,7 +28,7 @@ interface AgenRepository {
     suspend fun updateStatusPesanan(
         idOrder: Int,
         status: Int
-    ): DataResult<UpdateStatusPesananMasukResponse, HttpErrorCode>
+    ): DataResult<UpdateStatusOrderAgenResponse, HttpErrorCode>
 
     fun getRiwayatOrderDistributor(): Flow<PagingData<RiwayatOrderAgenDataItem>>
     suspend fun pilihBarangDistributor(): DataResult<PilihBarangDistributorAgenResponse, HttpErrorCode>
@@ -36,7 +38,7 @@ interface AgenRepository {
         products: List<SelectedProdukAgen>,
         totalAmount: Int,
         buktiUri: Uri
-    ): DataResult<OrderDistributorResponse, HttpErrorCode>
+    ): DataResult<InsertOrderAgenResponse, HttpErrorCode>
 
     fun isUserIsLogged(requiredRole: UserRole): Flow<Boolean>
     suspend fun logout()

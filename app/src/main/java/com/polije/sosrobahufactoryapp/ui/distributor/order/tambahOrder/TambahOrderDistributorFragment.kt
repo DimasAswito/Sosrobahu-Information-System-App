@@ -110,7 +110,7 @@ class TambahOrderDistributorFragment : Fragment() {
 
             launch {
                 viewModel.tambahOrderDistributorState.collectLatest { state ->
-                    if (state.isSubmitted) {
+                    if (state.isSubmitted == true) {
                        findNavController().navigateUp()
                     }
                 }

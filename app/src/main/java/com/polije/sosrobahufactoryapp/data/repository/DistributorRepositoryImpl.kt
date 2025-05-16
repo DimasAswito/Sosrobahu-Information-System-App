@@ -18,6 +18,7 @@ import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistrib
 import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.QuantityItem
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
+import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusOrderDistributor
 import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusPesananMasukResponse
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRequest
 import com.polije.sosrobahufactoryapp.domain.repository.distributor.DistributorRepository
@@ -201,7 +202,7 @@ class DistributorRepositoryImpl(
     override suspend fun updateStatusPesanan(
         idOrder: Int,
         status: Int
-    ): DataResult<UpdateStatusPesananMasukResponse, HttpErrorCode> {
+    ): DataResult<UpdateStatusOrderDistributor, HttpErrorCode> {
         return try {
             val token = sessionManager.sessionFlow.first().token
             val data =

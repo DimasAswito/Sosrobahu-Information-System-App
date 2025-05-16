@@ -22,9 +22,6 @@ data class OrderDistributorResponse(
 @Serializable
 data class OrderDetailsItem(
 
-	@SerialName("idBarang")
-	val idMasterBarang: String? = null,
-
 	@SerialName("id_order")
 	val idOrder: Int? = null,
 

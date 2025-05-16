@@ -63,7 +63,7 @@ class OrderDistributorFragment : Fragment() {
 
 
         lifecycleScope.launch {
-            viewModel.riwayatOrderDistributor.collectLatest {
+            viewModel.riwayatOrderDistributor().collectLatest {
                 adapter.submitData(it)
             }
         }

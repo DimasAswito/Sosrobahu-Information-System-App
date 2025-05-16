@@ -63,7 +63,7 @@ class DetailPesananDistributorFragment : Fragment() {
 
                 }
 
-                if (state.isSubmitted) {
+                if (state.isSubmitted  == true) {
                     findNavController().navigateUp()
                 }
             }
