@@ -27,7 +27,7 @@ interface PabrikRepository {
     fun getPesananMasuk(): Flow<PagingData<PesananMasukItem>>
     fun getRiwayatRestockPabrik(query: String): Flow<PagingData<RiwayatRestockItem>>
 
-
+    suspend fun downloadNotaPabrik(idNota : Int) : Long
 
     suspend fun logout()
     fun isUserIsLogged(requiredUser : UserRole) : Flow<Boolean>

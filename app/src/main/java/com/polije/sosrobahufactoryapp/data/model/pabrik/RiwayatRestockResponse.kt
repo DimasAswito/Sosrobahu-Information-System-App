@@ -59,7 +59,7 @@ data class RiwayatRestockItem(
 	val detailProduk: List<DetailProdukItem?> = emptyList(),
 
 	@SerialName("id_restock")
-	val idRestock: String? = null,
+	val idRestock: Int? = null,
 
 	@SerialName("tanggal")
 	val tanggal: String? = null

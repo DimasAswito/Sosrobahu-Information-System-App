@@ -30,6 +30,7 @@ import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UpdateStatusPes
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UserSessionDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DashboardPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DetailPesananMasukPabrikUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DownloadNotaUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.GetItemRestockPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.InsertRestockPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.LoginPabrikUseCase
@@ -44,8 +45,8 @@ import com.polije.sosrobahufactoryapp.domain.usecase.sales.KunjunganTokoUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.LogOutSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.LoginSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.OrderSalesUseCase
-import com.polije.sosrobahufactoryapp.domain.usecase.sales.RiwayatOrderSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.PilihBarangAgenSalesUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.sales.RiwayatOrderSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.TambahTokoUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.TokoSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.UpdateTokoUseCase
@@ -70,6 +71,7 @@ import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.pesanan.PesananPabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan.DetailPesananPabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.RiwayatPabrikViewModel
+import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.detailRestok.DetailRestokPabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.ProdukRestokPabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.tambahRestok.TambahRestokPabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.DaftarTokoSalesViewModel
@@ -103,6 +105,7 @@ val appModule = module {
     factoryOf(::UpdatePesananPabrikUseCase)
     factoryOf(::UserSessionPabrikUseCase)
     factoryOf(::LogoutPabrikUseCase)
+    factoryOf(::DownloadNotaUseCase)
 
     factoryOf(::UserSessionDistributorUseCase)
     factoryOf(::LoginDistributorUseCase)
@@ -147,6 +150,7 @@ val appModule = module {
     viewModelOf(::ProdukRestokPabrikViewModel)
     viewModelOf(::TambahRestokPabrikViewModel)
     viewModelOf(::TopProductPabrikViewModel)
+    viewModelOf(::DetailRestokPabrikViewModel)
 
     viewModelOf(::DistributorLoginViewModel)
     viewModelOf(::HomeDistributorViewModel)

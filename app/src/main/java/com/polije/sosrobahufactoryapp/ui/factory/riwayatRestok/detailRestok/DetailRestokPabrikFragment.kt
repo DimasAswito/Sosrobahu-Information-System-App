@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailRestokBinding
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component.DetailRestockPabrikAdapter
-import kotlin.getValue
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailRestokPabrikFragment : Fragment() {
 
@@ -21,6 +21,8 @@ class DetailRestokPabrikFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: DetailRestokPabrikFragmentArgs by navArgs()
+
+    private val viewModel: DetailRestokPabrikViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,11 +40,16 @@ class DetailRestokPabrikFragment : Fragment() {
 
         binding.txtJumlah.text = args.restockDetail.jumlah
 
-        binding.txtTitle.text = getString(R.string.detail_restock,args.restockDetail.tanggal.toString(),args.restockDetail.idRestock)
+        binding.txtTitle.text = getString(
+            R.string.detail_restock,
+            args.restockDetail.tanggal.toString(),
+            args.restockDetail.idRestock
+        )
 
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
+
 
         val adapter = DetailRestockPabrikAdapter(args.restockDetail.detailProduk)
         binding.rvListProduk.layoutManager = LinearLayoutManager(requireContext())
@@ -50,7 +57,8 @@ class DetailRestokPabrikFragment : Fragment() {
 
         // Aksi tombol cetak (bisa dihubungkan dengan fungsi cetak PDF)
         binding.btnCetak.setOnClickListener {
-            Toast.makeText(requireContext(), "Mencetak riwayat...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Mendownload Nota...", Toast.LENGTH_SHORT).show()
+            viewModel.downloadNota(args.restockDetail.idRestock ?: 0)
         }
     }
 }

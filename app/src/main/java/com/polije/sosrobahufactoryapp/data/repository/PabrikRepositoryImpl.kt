@@ -1,9 +1,14 @@
 package com.polije.sosrobahufactoryapp.data.repository
 
 import DashboardResponse
+import android.app.DownloadManager
+import android.content.Context
+import android.os.Environment
+import androidx.core.net.toUri
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.data.datasource.local.SessionManager
 import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.PabrikDatasource
 import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.paging.PesananMasukPabrikPagingSource
@@ -26,10 +31,14 @@ import retrofit2.HttpException
 import java.io.IOException
 
 class PabrikRepositoryImpl(
-    val pabrikDatasource: PabrikDatasource,
-    val sessionManager: SessionManager
+    private val context: Context,
+    private val pabrikDatasource: PabrikDatasource,
+    private val sessionManager: SessionManager
 ) :
     PabrikRepository {
+
+    private val downloadManager = context.getSystemService(DownloadManager::class.java)
+
     override suspend fun login(
         username: String,
         password: String
@@ -38,7 +47,10 @@ class PabrikRepositoryImpl(
         val request = LoginRequest(username, password)
         return try {
             val data = pabrikDatasource.login(request)
-            sessionManager.saveSession(token = data.token?.plainTextToken ?: "", UserRole.PABRIK, data.token?.accessToken?.expiresAt ?: ""
+            sessionManager.saveSession(
+                token = data.token?.plainTextToken ?: "",
+                UserRole.PABRIK,
+                data.token?.accessToken?.expiresAt ?: ""
             )
             DataResult.Success(data)
         } catch (e: HttpException) {
@@ -150,13 +162,29 @@ class PabrikRepositoryImpl(
 
     }
 
+    override suspend fun downloadNotaPabrik(idNota: Int): Long {
+        val request =
+            DownloadManager.Request((BuildConfig.BASE_URL + "pabrik/nota-pabrik/" + idNota.toString() + "/pdf").toUri())
+                .setTitle("Download Nota Pabrik")
+                .setMimeType("application/pdf")
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                .setTitle("nota.pdf")
+                .addRequestHeader(
+                    "Authorization",
+                    "Bearer ${sessionManager.sessionFlow.first().token}"
+                )
+                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOCUMENTS, "nota.pdf")
+
+        return downloadManager.enqueue(request)
+    }
 
 
     override suspend fun logout() {
         sessionManager.clearSession()
     }
 
-    override fun isUserIsLogged(requiredUser : UserRole): Flow<Boolean> = sessionManager.isLoggedIn(requiredUser)
+    override fun isUserIsLogged(requiredUser: UserRole): Flow<Boolean> =
+        sessionManager.isLoggedIn(requiredUser)
 
     override suspend fun getItemRestock(): DataResult<ProdukRestok, HttpErrorCode> {
         return try {
