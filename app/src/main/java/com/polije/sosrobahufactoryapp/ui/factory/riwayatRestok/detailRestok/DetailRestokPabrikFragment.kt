@@ -11,16 +11,18 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailRestokBinding
+import com.polije.sosrobahufactoryapp.databinding.LoadingOverlayBinding
+import com.polije.sosrobahufactoryapp.databinding.LoadingPrintOverayBinding
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.component.DetailRestockPabrikAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailRestokPabrikFragment : Fragment() {
 
-
     private var _binding: FragmentDetailRestokBinding? = null
     private val binding get() = _binding!!
 
     private val args: DetailRestokPabrikFragmentArgs by navArgs()
+    private lateinit var loadingPrintBinding: LoadingPrintOverayBinding
 
     private val viewModel: DetailRestokPabrikViewModel by viewModel()
 
@@ -29,17 +31,16 @@ class DetailRestokPabrikFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDetailRestokBinding.inflate(layoutInflater, container, false)
+        loadingPrintBinding = LoadingPrintOverayBinding.inflate(inflater)
+        (binding.root as ViewGroup).addView(loadingPrintBinding.root)
+        loadingPrintBinding.root.visibility = View.GONE // awalnya disembunyikan
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        // Ambil listBarangAgen yang dikirim dari RiwayatFragment
-
         binding.txtJumlah.text = args.restockDetail.jumlah
-
         binding.txtTitle.text = getString(
             R.string.detail_restock,
             args.restockDetail.tanggal.toString(),
@@ -50,15 +51,32 @@ class DetailRestokPabrikFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-
         val adapter = DetailRestockPabrikAdapter(args.restockDetail.detailProduk)
         binding.rvListProduk.layoutManager = LinearLayoutManager(requireContext())
         binding.rvListProduk.adapter = adapter
 
-        // Aksi tombol cetak (bisa dihubungkan dengan fungsi cetak PDF)
         binding.btnCetak.setOnClickListener {
-            Toast.makeText(requireContext(), "Mendownload Nota...", Toast.LENGTH_SHORT).show()
+            loadingPrintBinding.root.visibility = View.VISIBLE
             viewModel.downloadNota(args.restockDetail.idRestock ?: 0)
         }
+
+        viewModel.downloadSuccess.observe(viewLifecycleOwner) { success ->
+            if (success) {
+                loadingPrintBinding.root.visibility = View.GONE
+                Toast.makeText(requireContext(), "Nota berhasil diunduh", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        viewModel.downloadError.observe(viewLifecycleOwner) { error ->
+            if (error != null) {
+                loadingPrintBinding.root.visibility = View.GONE
+                Toast.makeText(requireContext(), "Gagal mengunduh nota", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
