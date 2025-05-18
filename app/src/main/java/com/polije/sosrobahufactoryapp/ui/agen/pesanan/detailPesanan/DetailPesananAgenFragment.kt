@@ -1,6 +1,8 @@
 package com.polije.sosrobahufactoryapp.ui.agen.pesanan.detailPesanan
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailPesananAgenBinding
+import com.polije.sosrobahufactoryapp.databinding.LoadingSuccessOverlayBinding
 import com.polije.sosrobahufactoryapp.ui.agen.pesanan.component.ItemDetailPesananAgenAdapter
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 import kotlinx.coroutines.flow.collectLatest
@@ -27,6 +30,7 @@ class DetailPesananAgenFragment : Fragment() {
     private var _binding: FragmentDetailPesananAgenBinding? = null
     private val binding get() = _binding!!
     private var isImageVisible = false
+    private lateinit var successOverlayBinding: LoadingSuccessOverlayBinding
     private val viewModel: DetailPesananAgenViewModel by viewModel()
     private val args: DetailPesananAgenFragmentArgs by navArgs()
 
@@ -35,6 +39,8 @@ class DetailPesananAgenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailPesananAgenBinding.inflate(layoutInflater, container, false)
+        successOverlayBinding = LoadingSuccessOverlayBinding.inflate(inflater)
+        (binding.root as ViewGroup).addView(successOverlayBinding.root)
         return binding.root
     }
 
@@ -64,18 +70,18 @@ class DetailPesananAgenFragment : Fragment() {
                 }
 
                 if (state.isSubmitted) {
-                    findNavController().navigateUp()
+                    successOverlayBinding.loadingLayoutSuccess.visibility = View.VISIBLE
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        successOverlayBinding.loadingLayoutSuccess.visibility = View.GONE
+                        findNavController().navigateUp()
+                    }, 2000)
                 }
 
                 if (state.errorMessage != null) {
                     Toast.makeText(context, state.errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
-        }
-
-        binding.CetakLaporanButton.setOnClickListener {
-            Toast.makeText(requireContext(), "Fitur Cetak Belum Tersedia", Toast.LENGTH_SHORT)
-                .show()
         }
 
         // Setup Spinner (Dropdown)

@@ -1,6 +1,8 @@
 package com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailPesananBinding
+import com.polije.sosrobahufactoryapp.databinding.LoadingSuccessOverlayBinding
 import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.ItemDetailPesananPabrikAdapter
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 import com.polije.sosrobahufactoryapp.utils.toTanggalIndonesia
@@ -29,7 +32,7 @@ class DetailPesananPabrikFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var isImageVisible = false
-
+    private lateinit var successOverlayBinding: LoadingSuccessOverlayBinding
     private val args: DetailPesananPabrikFragmentArgs by navArgs()
 
     private val detailPesananViewModel: DetailPesananPabrikViewModel by viewModel()
@@ -40,6 +43,8 @@ class DetailPesananPabrikFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailPesananBinding.inflate(inflater, container, false)
+        successOverlayBinding = LoadingSuccessOverlayBinding.inflate(inflater)
+        (binding.root as ViewGroup).addView(successOverlayBinding.root)
         return binding.root
     }
 
@@ -95,11 +100,6 @@ class DetailPesananPabrikFragment : Fragment() {
                 if (isImageVisible) View.VISIBLE else View.GONE
         }
 
-        binding.CetakLaporanButton.setOnClickListener {
-            Toast.makeText(requireContext(), "Fitur Cetak Belum Tersedia", Toast.LENGTH_SHORT)
-                .show()
-        }
-
         binding.SimpanStatusButton.visibility =
             if ((args.detailPesanan.statusPemesanan ?: 0) == 0)
                 View.VISIBLE else View.GONE
@@ -130,7 +130,13 @@ class DetailPesananPabrikFragment : Fragment() {
 
                         UpdateStatusPesananPabrikState.Success -> {
                             binding.SimpanStatusButton.isEnabled = true
-                            findNavController().navigateUp()
+
+                            successOverlayBinding.loadingLayoutSuccess.visibility = View.VISIBLE
+
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                successOverlayBinding.loadingLayoutSuccess.visibility = View.GONE
+                                findNavController().navigateUp()
+                            }, 2000)
                         }
                     }
                 }

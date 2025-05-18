@@ -70,6 +70,7 @@ class DetailOrderSalesFragment : Fragment() {
         }
         binding.tvStatusPesanan.text = status
 
+        binding.btnCetakNota.isEnabled = args.listOrderSales.statusPemesanan == 1
 
     }
 }
