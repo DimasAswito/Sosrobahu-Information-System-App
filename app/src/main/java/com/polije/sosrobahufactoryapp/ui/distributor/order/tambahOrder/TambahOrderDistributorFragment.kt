@@ -6,6 +6,7 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -63,7 +64,7 @@ class TambahOrderDistributorFragment : Fragment() {
 
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
-          
+
         }
 
         viewModel.initialProdukRestock(args.listItemTerpilih.data)
@@ -111,7 +112,15 @@ class TambahOrderDistributorFragment : Fragment() {
             launch {
                 viewModel.tambahOrderDistributorState.collectLatest { state ->
                     if (state.isSubmitted == true) {
-                       findNavController().navigateUp()
+                        findNavController().navigateUp()
+                    }
+
+                    if (state.isLoading) {
+
+                    }
+
+                    if (state.errorMessage.isNotBlank()) {
+                        Toast.makeText(context, state.errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

@@ -13,14 +13,16 @@ data class OrderDistributorResponse(
 	val message: String? = null,
 
 	@SerialName("order_details")
-	val orderDetails: List<OrderDetailsItem?>? = null,
+	val orderDetails: List<OrderDistributorDetailsItem> = emptyList(),
 
 	@SerialName("order")
-	val order: Order? = null
+	val order: DistributorOrder? = null
 )
-
 @Serializable
-data class OrderDetailsItem(
+data class OrderDistributorDetailsItem(
+
+	@SerialName("id_master_barang")
+	val idMasterBarang: String? = null,
 
 	@SerialName("id_order")
 	val idOrder: Int? = null,
@@ -45,7 +47,7 @@ data class OrderDetailsItem(
 )
 
 @Serializable
-data class Order(
+data class DistributorOrder(
 
 	@SerialName("status_pemesanan")
 	val statusPemesanan: Int? = null,
@@ -74,18 +76,3 @@ data class Order(
 	@SerialName("tanggal")
 	val tanggal: String? = null
 )
-
-
-@Serializable
-data class OrderDistributorFailureResponse(
-
-	@SerialName("success")
-	val success: Boolean? = null,
-
-	@SerialName("message")
-	val message: String? = null,
-
-	@SerialName("error")
-	val error: String? = null
-)
-
