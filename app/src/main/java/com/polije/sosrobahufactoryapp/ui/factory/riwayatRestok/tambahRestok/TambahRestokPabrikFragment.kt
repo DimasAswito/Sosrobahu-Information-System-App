@@ -29,7 +29,6 @@ class TambahRestokPabrikFragment : Fragment() {
 
     private lateinit var successOverlayBinding: LoadingSuccessOverlayBinding
 
-
     private val tambahRestokPabrikViewModel: TambahRestokPabrikViewModel by viewModel()
 
     private val args: TambahRestokPabrikFragmentArgs by navArgs()
@@ -40,7 +39,8 @@ class TambahRestokPabrikFragment : Fragment() {
         _binding = FragmentTambahRestokBinding.inflate(layoutInflater, container, false)
         successOverlayBinding = LoadingSuccessOverlayBinding.inflate(inflater)
         (binding.root as ViewGroup).addView(successOverlayBinding.root)
-        return binding.root    }
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -2,6 +2,8 @@ package com.polije.sosrobahufactoryapp.ui.agen.order.tambahOrder
 
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentTambahOrderAgenBinding
+import com.polije.sosrobahufactoryapp.databinding.LoadingSuccessOverlayBinding
 import com.polije.sosrobahufactoryapp.ui.agen.order.component.TambahOrderAgenAdapter
 import com.polije.sosrobahufactoryapp.ui.agen.order.pilihProdukAgen.SelectedProdukAgen
 import com.polije.sosrobahufactoryapp.utils.toRupiah
@@ -28,6 +31,7 @@ class TambahOrderAgenFragment : Fragment() {
     private var _binding: FragmentTambahOrderAgenBinding? = null
     private val binding get() = _binding!!
     private val viewModel: TambahOrderAgenViewModel by viewModel()
+    private lateinit var successOverlayBinding: LoadingSuccessOverlayBinding
     private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
     private val args : TambahOrderAgenFragmentArgs by navArgs()
 
@@ -36,6 +40,8 @@ class TambahOrderAgenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTambahOrderAgenBinding.inflate(layoutInflater, container, false)
+        successOverlayBinding = LoadingSuccessOverlayBinding.inflate(inflater)
+        (binding.root as ViewGroup).addView(successOverlayBinding.root)
         return binding.root
     }
 
@@ -113,8 +119,12 @@ class TambahOrderAgenFragment : Fragment() {
             launch {
                 viewModel.tambahOrderDistributorState.collectLatest { state ->
                     if (state.isSubmitted) {
-                        findNavController().navigateUp()
-                    }
+                        successOverlayBinding.loadingLayoutSuccess.visibility = View.VISIBLE
+
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            successOverlayBinding.loadingLayoutSuccess.visibility = View.GONE
+                            findNavController().navigateUp()
+                        }, 2000)                    }
                 }
             }
         }

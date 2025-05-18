@@ -2,6 +2,8 @@ package com.polije.sosrobahufactoryapp.ui.distributor.order.tambahOrder
 
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +19,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentTambahOrderDistributorBinding
+import com.polije.sosrobahufactoryapp.databinding.LoadingSuccessOverlayBinding
 import com.polije.sosrobahufactoryapp.ui.distributor.order.component.TambahOrderDistributorAdapter
 import com.polije.sosrobahufactoryapp.ui.distributor.order.component.TambahOrderDistributorAdapter.OnQuantityChangeListener
 import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.SelectedProdukDistributor
@@ -31,6 +34,7 @@ class TambahOrderDistributorFragment : Fragment() {
     private var _binding: FragmentTambahOrderDistributorBinding? = null
     private val binding get() = _binding!!
     private val viewModel: TambahOrderDistributorViewModel by viewModel()
+    private lateinit var successOverlayBinding: LoadingSuccessOverlayBinding
     private lateinit var imagePickerLauncher: ActivityResultLauncher<String>
     private val args: TambahOrderDistributorFragmentArgs by navArgs()
 
@@ -39,6 +43,8 @@ class TambahOrderDistributorFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTambahOrderDistributorBinding.inflate(layoutInflater, container, false)
+        successOverlayBinding = LoadingSuccessOverlayBinding.inflate(inflater)
+        (binding.root as ViewGroup).addView(successOverlayBinding.root)
         return binding.root
     }
 
@@ -111,8 +117,13 @@ class TambahOrderDistributorFragment : Fragment() {
 
             launch {
                 viewModel.tambahOrderDistributorState.collectLatest { state ->
-                    if (state.isSubmitted == true) {
-                        findNavController().navigateUp()
+                    if (state.isSubmitted) {
+                        successOverlayBinding.loadingLayoutSuccess.visibility = View.VISIBLE
+
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            successOverlayBinding.loadingLayoutSuccess.visibility = View.GONE
+                            findNavController().navigateUp()
+                        }, 2000)
                     }
 
                     if (state.isLoading) {
