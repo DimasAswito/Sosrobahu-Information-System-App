@@ -1,63 +1,44 @@
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    card_view:cardCornerRadius="12dp"
-    card_view:cardElevation="4dp">
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:gravity="center_vertical">
+        android:orientation="vertical">
 
-        <!-- Gambar Produk dengan sudut membulat -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            card_view:cardCornerRadius="12dp"
-            card_view:cardElevation="0dp"
-            android:layout_marginEnd="8dp">
+        <!-- Image cap -->
+        <ImageView
+            android:id="@+id/imagehome"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo"
+            android:contentDescription="Image Produk"/>
 
-            <ImageView
-                android:id="@+id/imgStokProduk"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/rokok" />
-        </androidx.cardview.widget.CardView>
+        <!-- Text below image -->
+        <TextView
+            android:id="@+id/tvNamaProduk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="8dp"
+            android:paddingVertical="4dp"
+            android:text="Nama Produk"
+            android:textStyle="bold"
+            android:textSize="14sp" />
 
-        <!-- Kontainer teks -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <!-- Nama Produk -->
-            <TextView
-                android:id="@+id/namaProduk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nama Produk"
-                android:textStyle="bold"
-                android:textSize="14sp"
-                android:textAlignment="center" />
-
-
-            <!-- Jumlah Stok -->
-            <TextView
-                android:id="@+id/stokProduk"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Stok Produk"
-                android:textSize="12sp"
-                android:textAlignment="center" />
-        </LinearLayout>
-
+        <TextView
+            android:id="@+id/tvHarga"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rp -"
+            android:paddingStart="8dp"
+            android:paddingVertical="4dp"
+            android:textSize="14sp" />
     </LinearLayout>
-
 </androidx.cardview.widget.CardView>

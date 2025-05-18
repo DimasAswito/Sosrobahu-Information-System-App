@@ -1,5 +1,6 @@
 package com.polije.sosrobahufactoryapp.ui.sales.home
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,7 +44,14 @@ class HomeSalesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.logoutSalesButton.setOnClickListener {
-            viewModel.logout()
+            AlertDialog.Builder(requireContext()).setTitle("Konfirmasi Logout")
+                .setMessage("Apakah Anda yakin ingin keluar?")
+                .setPositiveButton("Ya") { dialog, _ ->
+                    viewModel.logout()
+                    dialog.dismiss()
+                }.setNegativeButton("Tidak") { dialog, _ ->
+                    dialog.dismiss()
+                }.show()
         }
 
         viewLifecycleOwner.lifecycleScope.launch {

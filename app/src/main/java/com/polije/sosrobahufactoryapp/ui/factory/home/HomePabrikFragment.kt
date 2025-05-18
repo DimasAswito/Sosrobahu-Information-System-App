@@ -1,6 +1,7 @@
 package com.polije.sosrobahufactoryapp.ui.factory.home
 
 import PesananPerBulan
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -59,8 +60,14 @@ class HomePabrikFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.logoutPabrikButton.setOnClickListener {
-            homePabrikViewModel.logout()
-
+            AlertDialog.Builder(requireContext()).setTitle("Konfirmasi Logout")
+                .setMessage("Apakah Anda yakin ingin keluar?")
+                .setPositiveButton("Ya") { dialog, _ ->
+                    homePabrikViewModel.logout()
+                    dialog.dismiss()
+                }.setNegativeButton("Tidak") { dialog, _ ->
+                    dialog.dismiss()
+                }.show()
         }
 
         binding.tvlihatProdukTerlaris.setOnClickListener {
@@ -88,11 +95,8 @@ class HomePabrikFragment : Fragment() {
                                     activity?.findNavController(R.id.fragmentContainerView)
                                         ?.navigate(R.id.action_dashboardFragment_to_login_pabrik)
                                     Toast.makeText(
-                                        requireContext(),
-                                        state.errorMessage,
-                                        Toast.LENGTH_SHORT
-                                    )
-                                        .show()
+                                        requireContext(), state.errorMessage, Toast.LENGTH_SHORT
+                                    ).show()
                                 }
 
                                 HttpErrorCode.FORBIDDEN -> {
@@ -133,11 +137,9 @@ class HomePabrikFragment : Fragment() {
                                 getString(R.string.karton, state.dashboardPabrik.finalStockKarton)
                             binding.omsetPabrik.text =
                                 state.dashboardPabrik.totalPendapatan.toRupiah()
-                            binding.jumlahDistributor.text =
-                                getString(
-                                    R.string.distributor,
-                                    state.dashboardPabrik.totalDistributor
-                                )
+                            binding.jumlahDistributor.text = getString(
+                                R.string.distributor, state.dashboardPabrik.totalDistributor
+                            )
 
                             val topProductName = state.dashboardPabrik.topProductName
                             val namaRokokList = state.dashboardPabrik.namaRokokList
@@ -181,10 +183,8 @@ class HomePabrikFragment : Fragment() {
                                         start()
                                     }
 
-                                Glide.with(requireContext())
-                                    .load(imageUrl)
-                                    .placeholder(circularProgressDrawable)
-                                    .error(R.drawable.rokok)
+                                Glide.with(requireContext()).load(imageUrl)
+                                    .placeholder(circularProgressDrawable).error(R.drawable.rokok)
                                     .into(binding.topProductImage)
                             }
                             val pendapatanBulanan =

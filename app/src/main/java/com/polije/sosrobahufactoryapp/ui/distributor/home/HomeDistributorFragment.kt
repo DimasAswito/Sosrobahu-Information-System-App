@@ -1,5 +1,6 @@
 package com.polije.sosrobahufactoryapp.ui.distributor.home
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -54,13 +55,18 @@ class HomeDistributorFragment : Fragment() {
 
 
         binding.logoutDistributorButton.setOnClickListener {
-            homeDistributorViewModel.logout()
+            AlertDialog.Builder(requireContext()).setTitle("Konfirmasi Logout")
+                .setMessage("Apakah Anda yakin ingin keluar?")
+                .setPositiveButton("Ya") { dialog, _ ->
+                    homeDistributorViewModel.logout()
+                    dialog.dismiss()
+                }.setNegativeButton("Tidak") { dialog, _ ->
+                    dialog.dismiss()
+                }.show()
         }
 
-        val mainNavHost = requireActivity()
-            .supportFragmentManager
-            .findFragmentById(R.id.fragmentContainerView)
-                as NavHostFragment
+        val mainNavHost =
+            requireActivity().supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
 
 
 
@@ -98,13 +104,13 @@ class HomeDistributorFragment : Fragment() {
                     is HomeDistributorState.Success -> {
                         loadingBinding.loadingLayout.visibility = View.GONE
 
-                        val namaDistributor = state.dashboardResponse.namaDistributor.split(" ").firstOrNull() ?: ""
+                        val namaDistributor =
+                            state.dashboardResponse.namaDistributor.split(" ").firstOrNull() ?: ""
                         binding.headerTextDistributor.text = "Selamat datang $namaDistributor,"
 
                         binding.jumlahAgen.text = state.dashboardResponse.totalAgen.toString()
                         binding.omsetBulanDistributor.text =
-                            state.dashboardResponse.totalPendapatan.toInt()
-                                .toRupiah()
+                            state.dashboardResponse.totalPendapatan.toInt().toRupiah()
                         binding.totalStokDistributor.text =
                             state.dashboardResponse.finalStockKarton.toString()
                         binding.topProductNameDistributor.text =
@@ -128,10 +134,8 @@ class HomeDistributorFragment : Fragment() {
                                 start()
                             }
 
-                        Glide.with(requireContext())
-                            .load(imageUrl)
-                            .placeholder(circularProgressDrawable)
-                            .error(R.drawable.foto_error)
+                        Glide.with(requireContext()).load(imageUrl)
+                            .placeholder(circularProgressDrawable).error(R.drawable.foto_error)
                             .into(binding.topProductImageDistributor)
 
                         adapter.submitList(state.dashboardResponse.produkData)

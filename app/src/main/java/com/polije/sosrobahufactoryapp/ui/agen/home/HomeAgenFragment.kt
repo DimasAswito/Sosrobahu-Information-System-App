@@ -1,5 +1,6 @@
 package com.polije.sosrobahufactoryapp.ui.agen.home
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.polije.sosrobahufactoryapp.BuildConfig
@@ -53,7 +53,14 @@ class HomeAgenFragment : Fragment() {
         binding.recyclerViewDasboardAgen.adapter = adapter
 
         binding.logoutAgenButton.setOnClickListener {
-            homeAgenViewModel.logout()
+            AlertDialog.Builder(requireContext()).setTitle("Konfirmasi Logout")
+                .setMessage("Apakah Anda yakin ingin keluar?")
+                .setPositiveButton("Ya") { dialog, _ ->
+                    homeAgenViewModel.logout()
+                    dialog.dismiss()
+                }.setNegativeButton("Tidak") { dialog, _ ->
+                    dialog.dismiss()
+                }.show()
         }
 
 //        binding.tvlihatProdukTerlaris.setOnClickListener {
@@ -72,8 +79,7 @@ class HomeAgenFragment : Fragment() {
                             .show()
                         val action =
                             DashboardAgenFragmentDirections.actionDashboardAgenFragmentToAgenLoginFragment()
-                        activity?.findNavController(R.id.fragmentContainerView)
-                            ?.navigate(action)
+                        activity?.findNavController(R.id.fragmentContainerView)?.navigate(action)
                     }
                 }
             }
@@ -98,7 +104,8 @@ class HomeAgenFragment : Fragment() {
 
                     is HomeAgenState.Success -> {
                         loadingBinding.loadingLayout.visibility = View.GONE
-                        val namaAgen = state.dashboardResponse.namaAgen.split(" ").firstOrNull() ?: ""
+                        val namaAgen =
+                            state.dashboardResponse.namaAgen.split(" ").firstOrNull() ?: ""
                         binding.headerTextAgen.text = "Selamat datang $namaAgen,"
 
                         binding.jumlahSales.text = state.dashboardResponse.totalSales.toString()
@@ -125,10 +132,8 @@ class HomeAgenFragment : Fragment() {
                                 start()
                             }
 
-                        Glide.with(requireContext())
-                            .load(imageUrl)
-                            .placeholder(circularProgressDrawable)
-                            .error(R.drawable.foto_error)
+                        Glide.with(requireContext()).load(imageUrl)
+                            .placeholder(circularProgressDrawable).error(R.drawable.foto_error)
                             .into(binding.topProductImageAgen)
                         adapter.submitList(state.dashboardResponse.stokBarang)
                     }
