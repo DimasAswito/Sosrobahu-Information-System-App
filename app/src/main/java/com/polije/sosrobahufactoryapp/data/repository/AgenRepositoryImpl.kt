@@ -18,10 +18,9 @@ import com.polije.sosrobahufactoryapp.data.model.agen.PilihBarangDistributorAgen
 import com.polije.sosrobahufactoryapp.data.model.agen.RiwayatOrderAgenDataItem
 import com.polije.sosrobahufactoryapp.data.model.agen.UpdateStatusOrderAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.QuantityItem
-import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusPesananMasukResponse
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRequest
 import com.polije.sosrobahufactoryapp.domain.repository.agen.AgenRepository
-import com.polije.sosrobahufactoryapp.domain.usecase.agen.InsertOrderAgenResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.InsertOrderAgenResponse
 import com.polije.sosrobahufactoryapp.ui.agen.order.pilihProdukAgen.SelectedProdukAgen
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode

@@ -185,7 +185,6 @@ class DistributorRepositoryImpl(
                 distributorDatasource.placeOrder(partMap, paymentProof, "Bearer $token")
             DataResult.Success(data)
         } catch (e: HttpException) {
-
             val code = e.code()
             val httpError = HttpErrorCode.entries
                 .find { it.code == code }

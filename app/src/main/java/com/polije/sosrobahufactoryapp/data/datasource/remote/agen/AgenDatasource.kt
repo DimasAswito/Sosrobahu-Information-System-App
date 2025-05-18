@@ -8,10 +8,8 @@ import com.polije.sosrobahufactoryapp.data.model.agen.PesananMasukAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.PilihBarangDistributorAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.RiwayatOrderAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.UpdateStatusOrderAgenResponse
-import com.polije.sosrobahufactoryapp.data.model.distributor.OrderDistributorResponse
-import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusPesananMasukResponse
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRequest
-import com.polije.sosrobahufactoryapp.domain.usecase.agen.InsertOrderAgenResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.InsertOrderAgenResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
