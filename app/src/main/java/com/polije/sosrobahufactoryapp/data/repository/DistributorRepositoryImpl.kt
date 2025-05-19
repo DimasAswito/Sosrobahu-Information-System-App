@@ -1,11 +1,15 @@
 package com.polije.sosrobahufactoryapp.data.repository
 
 import DashboardDistributorResponse
+import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
+import android.os.Environment
+import androidx.core.net.toUri
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.data.datasource.local.SessionManager
 import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.DistributorDatasource
 import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.paging.PesananMasukDistributorPagingSource
@@ -19,7 +23,6 @@ import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDi
 import com.polije.sosrobahufactoryapp.data.model.distributor.QuantityItem
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
 import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusOrderDistributor
-import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusPesananMasukResponse
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRequest
 import com.polije.sosrobahufactoryapp.domain.repository.distributor.DistributorRepository
 import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.SelectedProdukDistributor
@@ -39,6 +42,8 @@ class DistributorRepositoryImpl(
     val sessionManager: SessionManager
 ) :
     DistributorRepository {
+
+    private val downloadManager = appContext.getSystemService(DownloadManager::class.java)
     override suspend fun login(
         username: String,
         password: String
@@ -223,6 +228,22 @@ class DistributorRepositoryImpl(
             val error = e.message.toString()
             DataResult.Error(HttpErrorCode.UNKNOWN)
         }
+    }
+
+    override suspend fun downloadNota(idNota : Int): Long {
+        val request =
+            DownloadManager.Request((BuildConfig.BASE_URL + "distributor/nota-distributor/" + idNota.toString() + "/pdf").toUri())
+                .setTitle("Download Nota Distributor")
+                .setMimeType("application/pdf")
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                .setTitle("nota.pdf")
+                .addRequestHeader(
+                    "Authorization",
+                    "Bearer ${sessionManager.sessionFlow.first().token}"
+                )
+                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOCUMENTS, "nota.pdf")
+
+        return downloadManager.enqueue(request)
     }
 
 }

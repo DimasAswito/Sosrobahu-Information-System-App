@@ -21,7 +21,11 @@
         <receiver
             android:name=".data.downloader.DownloadCompletedReceiver"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".ui.MainActivity"

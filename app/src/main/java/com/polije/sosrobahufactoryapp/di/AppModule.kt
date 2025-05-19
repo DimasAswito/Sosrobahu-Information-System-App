@@ -20,6 +20,7 @@ import com.polije.sosrobahufactoryapp.domain.usecase.agen.UpdateStatusPesananAge
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.UserSessionAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DasbhoardDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DetailPesananMasukDistributorUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DownloadNotaDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LoginDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LogoutDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.OrderDistributorUseCase
@@ -61,6 +62,7 @@ import com.polije.sosrobahufactoryapp.ui.agen.pesanan.detailPesanan.DetailPesana
 import com.polije.sosrobahufactoryapp.ui.distributor.home.HomeDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.login.DistributorLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.order.OrderDistributorViewModel
+import com.polije.sosrobahufactoryapp.ui.distributor.order.detailOrder.DetailOrderDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.PilihProdukDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.order.tambahOrder.TambahOrderDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.pesanan.PesananDistributorViewModel
@@ -117,6 +119,7 @@ val appModule = module {
     factoryOf(::PilihProdukPabrikDistributorUseCase)
     factoryOf(::OrderDistributorUseCase)
     factoryOf(::UpdateStatusPesananDistributorUseCase)
+    factoryOf(::DownloadNotaDistributorUseCase)
 
     factoryOf(::LoginAgenUseCase)
     factoryOf(::UserSessionAgenUseCase)
@@ -159,6 +162,7 @@ val appModule = module {
     viewModelOf(::DetailPesananDistributorViewModel)
     viewModelOf(::PilihProdukDistributorViewModel)
     viewModelOf(::TambahOrderDistributorViewModel)
+    viewModelOf(::DetailOrderDistributorViewModel)
 
     viewModelOf(::AgenLoginViewModel)
     viewModelOf(::HomeAgenViewModel)

@@ -39,6 +39,8 @@ interface DistributorRepository {
 
     suspend fun updateStatusPesanan(idOrder : Int,status : Int) : DataResult<UpdateStatusOrderDistributor, HttpErrorCode>
 
+    suspend fun downloadNota(idNota : Int) : Long
+
     fun isUserIsLogged(requiredRole : UserRole): Flow<Boolean>
     suspend fun logout()
 

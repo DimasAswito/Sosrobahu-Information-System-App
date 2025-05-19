@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,8 @@ import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailOrderDistributorBinding
 import com.polije.sosrobahufactoryapp.ui.distributor.order.component.DetailOrderDistributorAdapter
 import com.polije.sosrobahufactoryapp.utils.toRupiah
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailOrderDistributorFragment : Fragment() {
@@ -23,6 +26,8 @@ class DetailOrderDistributorFragment : Fragment() {
     private val binding get() = _binding!!
     private var isImageVisible = false
     private val args: DetailOrderDistributorFragmentArgs by navArgs()
+
+    private val viewModel : DetailOrderDistributorViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,6 +72,18 @@ class DetailOrderDistributorFragment : Fragment() {
             isImageVisible = !isImageVisible
             binding.cardBuktiPembayaran.visibility =
                 if (isImageVisible) View.VISIBLE else View.GONE
+        }
+
+        binding.btnCetakNota.setOnClickListener {
+            viewModel.downloadNota(args.detailOrder.idOrder ?: 0)
+        }
+
+        lifecycleScope.launch {
+            viewModel.state.collectLatest { state ->
+                if (state.isLoading){
+
+                }
+            }
         }
     }
 }
