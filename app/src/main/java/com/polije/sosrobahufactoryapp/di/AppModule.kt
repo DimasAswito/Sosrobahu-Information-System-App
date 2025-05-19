@@ -10,6 +10,7 @@ import com.polije.sosrobahufactoryapp.domain.repository.pabrik.PabrikRepository
 import com.polije.sosrobahufactoryapp.domain.repository.sales.SalesRepository
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.DashboardAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.DetailPesananMasukUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.DownloadNotaAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.LogOutAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.LoginAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.OrderAgenUseCase
@@ -42,6 +43,7 @@ import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UpdatePesananPabrikU
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UserSessionPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.DashboardSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.DeleteTokoUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.sales.DownloadNotaSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.KunjunganTokoUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.LogOutSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.LoginSalesUseCase
@@ -55,6 +57,7 @@ import com.polije.sosrobahufactoryapp.domain.usecase.sales.UserSessionSalesUseCa
 import com.polije.sosrobahufactoryapp.ui.agen.home.HomeAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.login.AgenLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.order.OrderAgenViewModel
+import com.polije.sosrobahufactoryapp.ui.agen.order.detailOrder.DetailOrderAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.order.pilihProdukAgen.PilihProdukAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.order.tambahOrder.TambahOrderAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.pesanan.PesananAgenViewModel
@@ -83,6 +86,7 @@ import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.tambahToko.TambahTokoV
 import com.polije.sosrobahufactoryapp.ui.sales.home.HomeSalesViewModel
 import com.polije.sosrobahufactoryapp.ui.sales.login.SalesLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.sales.order.OrderSalesViewModel
+import com.polije.sosrobahufactoryapp.ui.sales.order.detailOrder.DetailOrderSalesViewModel
 import com.polije.sosrobahufactoryapp.ui.sales.order.pilihProdukSales.PilihProdukSalesViewModel
 import com.polije.sosrobahufactoryapp.ui.sales.order.tambahOrder.TambahOrderSalesViewModel
 import org.koin.core.module.dsl.bind
@@ -131,6 +135,7 @@ val appModule = module {
     factoryOf(::RiwayatOrderAgenUseCase)
     factoryOf(::PilihBarangDistributorAgenUseCase)
     factoryOf(::OrderAgenUseCase)
+    factoryOf(::DownloadNotaAgenUseCase)
 
     factoryOf(::LoginSalesUseCase)
     factoryOf(::LogOutSalesUseCase)
@@ -144,6 +149,7 @@ val appModule = module {
     factoryOf(::UpdateTokoUseCase)
     factoryOf(::DeleteTokoUseCase)
     factoryOf(::KunjunganTokoUseCase)
+    factoryOf(::DownloadNotaSalesUseCase)
 
     viewModelOf(::HomePabrikViewModel)
     viewModelOf(::FactoryLoginViewModel)
@@ -171,6 +177,7 @@ val appModule = module {
     viewModelOf(::OrderAgenViewModel)
     viewModelOf(::PilihProdukAgenViewModel)
     viewModelOf(::TambahOrderAgenViewModel)
+    viewModelOf(::DetailOrderAgenViewModel)
 
     viewModelOf(::SalesLoginViewModel)
     viewModelOf(::HomeSalesViewModel)
@@ -181,5 +188,6 @@ val appModule = module {
     viewModelOf(::TambahTokoViewModel)
     viewModelOf(::DetailDaftarTokoSalesViewModel)
     viewModelOf(::ListRiwayatKunjunganViewModel)
+    viewModelOf(::DetailOrderSalesViewModel)
 
 }

@@ -1,7 +1,35 @@
 package com.polije.sosrobahufactoryapp.ui.sales.order.detailOrder
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.polije.sosrobahufactoryapp.domain.usecase.sales.DownloadNotaSalesUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class DetailOrderSalesViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class DetailOrderSalesViewModel(private val downloadNotaSalesUseCase: DownloadNotaSalesUseCase) :
+    ViewModel() {
+
+    private val _state = MutableStateFlow(DetailOrderSalesState())
+    val state = _state.asStateFlow()
+
+    fun downloadNota(idNota: Int) {
+
+        _state.update { it.copy(isLoading = true) }
+        viewModelScope.launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    downloadNotaSalesUseCase.invoke(idNota)
+                }
+                _state.update { it.copy(isSubmitted = true, isLoading = false) }
+            } catch (e: Exception) {
+                _state.update { it.copy(errorMessage = e.message ?: "Terjadi kesalahan") }
+            } finally {
+                _state.update { it.copy(isSubmitted = false, isLoading = false) }
+            }
+        }
+    }
 }

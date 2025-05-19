@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,9 @@ import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailOrderSalesBinding
 import com.polije.sosrobahufactoryapp.ui.sales.order.component.DetailOrderSalesAdapter
 import com.polije.sosrobahufactoryapp.utils.toRupiah
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailOrderSalesFragment : Fragment() {
 
@@ -21,6 +25,8 @@ class DetailOrderSalesFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var isImageVisible = false
+
+    private val viewModel: DetailOrderSalesViewModel by viewModel()
 
     private val args: DetailOrderSalesFragmentArgs by navArgs()
 
@@ -58,7 +64,8 @@ class DetailOrderSalesFragment : Fragment() {
         binding.btnBuktiPembayaran.setOnClickListener {
             isImageVisible = !isImageVisible
             binding.cardBuktiPembayaran.visibility =
-                if (isImageVisible) View.VISIBLE else View.GONE        }
+                if (isImageVisible) View.VISIBLE else View.GONE
+        }
 
         binding.tvJumlahOrder.text = getString(R.string.slop, args.listOrderSales.jumlah)
 
@@ -71,6 +78,16 @@ class DetailOrderSalesFragment : Fragment() {
         binding.tvStatusPesanan.text = status
 
         binding.btnCetakNota.isEnabled = args.listOrderSales.statusPemesanan == 1
+
+        binding.btnCetakNota.setOnClickListener {
+            viewModel.downloadNota(args.listOrderSales.idOrder ?: 0)
+        }
+
+        lifecycleScope.launch {
+            viewModel.state.collectLatest {
+
+            }
+        }
 
     }
 }

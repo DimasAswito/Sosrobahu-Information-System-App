@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,8 +15,9 @@ import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailOrderAgenBinding
 import com.polije.sosrobahufactoryapp.ui.agen.order.component.DetailOrderAgenAdapter
 import com.polije.sosrobahufactoryapp.utils.toRupiah
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.getValue
 
 class DetailOrderAgenFragment : Fragment() {
 
@@ -69,6 +69,16 @@ class DetailOrderAgenFragment : Fragment() {
             isImageVisible = !isImageVisible
             binding.cardBuktiPembayaran.visibility =
                 if (isImageVisible) View.VISIBLE else View.GONE
+        }
+
+        binding.btnCetakNota.setOnClickListener {
+            viewModel.downloadNota(args.detailOrder.idOrder ?: 0)
+        }
+
+        lifecycleScope.launch {
+            viewModel.state.collectLatest {
+
+            }
         }
     }
 }

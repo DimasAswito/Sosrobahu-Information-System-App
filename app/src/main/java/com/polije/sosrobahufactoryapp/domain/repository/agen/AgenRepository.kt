@@ -30,6 +30,8 @@ interface AgenRepository {
     fun getRiwayatOrderDistributor(): Flow<PagingData<RiwayatOrderAgenDataItem>>
     suspend fun pilihBarangDistributor(): DataResult<PilihBarangDistributorAgenResponse, HttpErrorCode>
 
+    suspend fun downloadNota(idNota : Int) : Long
+
 
     suspend fun orderBarang(
         products: List<SelectedProdukAgen>,

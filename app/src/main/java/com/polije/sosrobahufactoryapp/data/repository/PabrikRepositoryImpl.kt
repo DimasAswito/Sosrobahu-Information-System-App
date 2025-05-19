@@ -168,12 +168,12 @@ class PabrikRepositoryImpl(
                 .setTitle("Download Nota Pabrik")
                 .setMimeType("application/pdf")
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                .setTitle("nota.pdf")
+                .setTitle("Nota Pabrik $idNota.pdf")
                 .addRequestHeader(
                     "Authorization",
                     "Bearer ${sessionManager.sessionFlow.first().token}"
                 )
-                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOCUMENTS, "nota.pdf")
+                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOCUMENTS, "Nota Pabrik $idNota.pdf")
 
         return downloadManager.enqueue(request)
     }

@@ -1,10 +1,14 @@
 package com.polije.sosrobahufactoryapp.data.repository
 
+import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
+import android.os.Environment
+import androidx.core.net.toUri
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.data.datasource.local.SessionManager
 import com.polije.sosrobahufactoryapp.data.datasource.remote.sales.SalesDatasource
 import com.polije.sosrobahufactoryapp.data.datasource.remote.sales.paging.KunjunganTokoPagingSource
@@ -39,6 +43,9 @@ class SalesRepositoryImpl(
     private val salesDataSource: SalesDatasource,
     private val sessionManager: SessionManager
 ) : SalesRepository {
+
+    private val downloadManager = appContext.getSystemService(DownloadManager::class.java)
+
     override suspend fun login(
         username: String,
         password: String
@@ -234,6 +241,25 @@ class SalesRepositoryImpl(
             val error = e.message
             DataResult.Error(HttpErrorCode.UNKNOWN)
         }
+    }
+
+    override suspend fun downloadNota(idNota: Int): Long {
+        val request =
+            DownloadManager.Request((BuildConfig.BASE_URL + "sales/nota-sales/" + idNota.toString() + "/pdf").toUri())
+                .setTitle("Download Nota Sales")
+                .setMimeType("application/pdf")
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                .setTitle("Nota Sales $idNota.pdf")
+                .addRequestHeader(
+                    "Authorization",
+                    "Bearer ${sessionManager.sessionFlow.first().token}"
+                )
+                .setDestinationInExternalPublicDir(
+                    Environment.DIRECTORY_DOCUMENTS,
+                    "Nota Sales $idNota.pdf"
+                )
+
+        return downloadManager.enqueue(request)
     }
 
     override fun isUserIsLogged(requiredRole: UserRole): Flow<Boolean> =

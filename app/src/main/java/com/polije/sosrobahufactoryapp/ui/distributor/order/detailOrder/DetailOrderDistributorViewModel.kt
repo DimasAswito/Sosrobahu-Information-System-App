@@ -18,19 +18,18 @@ class DetailOrderDistributorViewModel(private val notaUseCase: DownloadNotaDistr
 
 
     fun downloadNota(idNota: Int) {
-        fun downloadNota(idNota: Int) {
-            _state.update { it.copy(isLoading = true) }
-            viewModelScope.launch {
-                try {
-                    withContext(Dispatchers.IO) {
-                        notaUseCase.invoke(idNota)
-                    }
-                    _state.update { it.copy(isSubmitted = true, isLoading = false) }
-                } catch (e: Exception) {
-                    _state.update { it.copy(errorMessage = e.message ?: "Terjadi kesalahan") }
-                } finally {
-                    _state.update { it.copy(isSubmitted = false, isLoading = false) }
+
+        _state.update { it.copy(isLoading = true) }
+        viewModelScope.launch {
+            try {
+                withContext(Dispatchers.IO) {
+                    notaUseCase.invoke(idNota)
                 }
+                _state.update { it.copy(isSubmitted = true, isLoading = false) }
+            } catch (e: Exception) {
+                _state.update { it.copy(errorMessage = e.message ?: "Terjadi kesalahan") }
+            } finally {
+                _state.update { it.copy(isSubmitted = false, isLoading = false) }
             }
         }
     }

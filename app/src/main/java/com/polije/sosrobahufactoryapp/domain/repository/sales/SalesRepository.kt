@@ -45,6 +45,9 @@ interface SalesRepository {
 
     suspend fun deleteToko(idToko: Int): DataResult<DeleteTokoResponse, HttpErrorCode>
 
+    suspend fun downloadNota(idNota : Int) : Long
+
+
     fun isUserIsLogged(requiredRole: UserRole): Flow<Boolean>
     suspend fun logout()
 
