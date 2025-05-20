@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailOrderAgenBinding
+import com.polije.sosrobahufactoryapp.databinding.LoadingPrintOverayBinding
 import com.polije.sosrobahufactoryapp.ui.agen.order.component.DetailOrderAgenAdapter
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 import kotlinx.coroutines.flow.collectLatest
@@ -25,6 +27,7 @@ class DetailOrderAgenFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: DetailOrderAgenViewModel by viewModel()
     private var isImageVisible = false
+    private lateinit var loadingPrintBinding: LoadingPrintOverayBinding
     private val args: DetailOrderAgenFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -32,6 +35,9 @@ class DetailOrderAgenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailOrderAgenBinding.inflate(layoutInflater, container, false)
+        loadingPrintBinding = LoadingPrintOverayBinding.inflate(inflater)
+        (binding.root as ViewGroup).addView(loadingPrintBinding.root)
+        loadingPrintBinding.root.visibility = View.GONE
         return binding.root
     }
 
@@ -72,12 +78,33 @@ class DetailOrderAgenFragment : Fragment() {
         }
 
         binding.btnCetakNota.setOnClickListener {
+            loadingPrintBinding.root.visibility = View.VISIBLE
             viewModel.downloadNota(args.detailOrder.idOrder ?: 0)
         }
 
         lifecycleScope.launch {
-            viewModel.state.collectLatest {
+            launch {
+                viewModel.downloadSuccess.collectLatest { success ->
+                    if (success) {
+                        loadingPrintBinding.root.visibility = View.GONE
+                        Toast.makeText(
+                            requireContext(),
+                            "Nota berhasil diunduh",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                }
+            }
 
+            launch {
+                viewModel.downloadError.collectLatest { error ->
+                    if (error != null) {
+                        loadingPrintBinding.root.visibility = View.GONE
+                        Toast.makeText(requireContext(), "Gagal mengunduh nota", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
             }
         }
     }

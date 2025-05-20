@@ -5,31 +5,36 @@ import androidx.lifecycle.viewModelScope
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.DownloadNotaAgenUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class DetailOrderAgenViewModel(private val downloadNotaUseCase: DownloadNotaAgenUseCase) :
-    ViewModel() {
+class DetailOrderAgenViewModel(
+    private val downloadNotaUseCase: DownloadNotaAgenUseCase) : ViewModel() {
 
-    private val _state = MutableStateFlow(DetailOrderAgenState())
-    val state = _state.asStateFlow()
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> get() = _isLoading
 
+    private val _downloadSuccess = MutableStateFlow(false)
+    val downloadSuccess: StateFlow<Boolean> get() = _downloadSuccess
+
+    private val _downloadError = MutableStateFlow<String?>(null)
+    val downloadError: StateFlow<String?> get() = _downloadError
 
     fun downloadNota(idNota: Int) {
-
-        _state.update { it.copy(isLoading = true) }
+        _isLoading.value = true
         viewModelScope.launch {
             try {
                 withContext(Dispatchers.IO) {
                     downloadNotaUseCase.invoke(idNota)
                 }
-                _state.update { it.copy(isSubmitted = true, isLoading = false) }
+                _downloadSuccess.value = true
             } catch (e: Exception) {
-                _state.update { it.copy(errorMessage = e.message ?: "Terjadi kesalahan") }
+                _downloadError.value = e.message ?: "Terjadi kesalahan"
             } finally {
-                _state.update { it.copy(isSubmitted = false, isLoading = false) }
+                _isLoading.value = false
             }
         }
     }
