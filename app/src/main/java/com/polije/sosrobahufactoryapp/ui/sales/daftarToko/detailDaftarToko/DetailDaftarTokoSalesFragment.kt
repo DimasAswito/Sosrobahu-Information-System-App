@@ -12,8 +12,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailDaftarTokoSalesBinding
 import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.BottomSheetEditTokoFragment
-import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.BottomSheetTambahKunjunganTokoFragment
 import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.ItemRiwayatKunjunganAdapter
+import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.tambahKunjungan.BottomSheetTambahKunjunganTokoFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailDaftarTokoSalesFragment : Fragment() {
@@ -109,7 +109,10 @@ class DetailDaftarTokoSalesFragment : Fragment() {
         binding.tvTokoDetail.text = args.detailToko.namaToko
 
         binding.btnTambahKunjungan.setOnClickListener {
-            val bottomSheet = BottomSheetTambahKunjunganTokoFragment()
+            val bottomSheet =
+                BottomSheetTambahKunjunganTokoFragment.newInstance(
+                    idToko = args.detailToko.idDaftarToko ?: 0
+                )
             bottomSheet.show(parentFragmentManager, "BottomSheetTambahKunjungan")
         }
     }

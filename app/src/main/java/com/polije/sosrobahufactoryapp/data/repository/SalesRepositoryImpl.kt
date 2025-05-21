@@ -24,6 +24,7 @@ import com.polije.sosrobahufactoryapp.data.model.sales.ListBarangAgenSalesRespon
 import com.polije.sosrobahufactoryapp.data.model.sales.ListSalesDataItem
 import com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesDataItem
 import com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesResponse
+import com.polije.sosrobahufactoryapp.data.model.sales.TambahKunjunganTokoResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.TambahTokoRequest
 import com.polije.sosrobahufactoryapp.data.model.sales.TambahTokoResponse
 import com.polije.sosrobahufactoryapp.domain.repository.sales.SalesRepository
@@ -31,6 +32,7 @@ import com.polije.sosrobahufactoryapp.ui.sales.order.pilihProdukSales.SelectedPr
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import com.polije.sosrobahufactoryapp.utils.UserRole
+import com.polije.sosrobahufactoryapp.utils.createKunjunganParts
 import com.polije.sosrobahufactoryapp.utils.createOrderSalesParts
 import com.polije.sosrobahufactoryapp.utils.toMultipartPart
 import kotlinx.coroutines.flow.Flow
@@ -260,6 +262,34 @@ class SalesRepositoryImpl(
                 )
 
         return downloadManager.enqueue(request)
+    }
+
+    override suspend fun insertKunjunganToko(
+        idToko: Int,
+        tanggal: String,
+        buktiKunjungan: Uri,
+        sisaProduk: Int
+    ): DataResult<TambahKunjunganTokoResponse, HttpErrorCode> {
+        return try {
+            val token = sessionManager.sessionFlow.first().token ?: ""
+            val buktiKunjungan = buktiKunjungan.toMultipartPart(appContext, "gambar")
+
+            val part = createKunjunganParts(tanggal, sisaProduk)
+
+            val data = salesDataSource.insertKunjungan(token, idToko, part, buktiKunjungan)
+            DataResult.Success(data)
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (e: Exception) {
+            val error = e.message
+            DataResult.Error(HttpErrorCode.UNKNOWN)
+        }
     }
 
     override fun isUserIsLogged(requiredRole: UserRole): Flow<Boolean> =

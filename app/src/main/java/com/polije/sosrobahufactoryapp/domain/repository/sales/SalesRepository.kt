@@ -10,6 +10,7 @@ import com.polije.sosrobahufactoryapp.data.model.sales.ListBarangAgenSalesRespon
 import com.polije.sosrobahufactoryapp.data.model.sales.ListSalesDataItem
 import com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesDataItem
 import com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesResponse
+import com.polije.sosrobahufactoryapp.data.model.sales.TambahKunjunganTokoResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.TambahTokoRequest
 import com.polije.sosrobahufactoryapp.data.model.sales.TambahTokoResponse
 import com.polije.sosrobahufactoryapp.ui.sales.order.pilihProdukSales.SelectedProdukSales
@@ -46,6 +47,8 @@ interface SalesRepository {
     suspend fun deleteToko(idToko: Int): DataResult<DeleteTokoResponse, HttpErrorCode>
 
     suspend fun downloadNota(idNota : Int) : Long
+
+    suspend fun insertKunjunganToko(idToko : Int,tanggal : String, buktiKunjungan : Uri,sisaProduk : Int) : DataResult<TambahKunjunganTokoResponse, HttpErrorCode>
 
 
     fun isUserIsLogged(requiredRole: UserRole): Flow<Boolean>

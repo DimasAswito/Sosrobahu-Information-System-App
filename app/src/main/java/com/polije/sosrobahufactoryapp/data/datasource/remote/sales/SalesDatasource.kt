@@ -9,6 +9,7 @@ import com.polije.sosrobahufactoryapp.data.model.sales.ListBarangAgenSalesRespon
 import com.polije.sosrobahufactoryapp.data.model.sales.ListTokoSalesResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.RiwayatOrderSalesResponse
+import com.polije.sosrobahufactoryapp.data.model.sales.TambahKunjunganTokoResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.TambahTokoRequest
 import com.polije.sosrobahufactoryapp.data.model.sales.TambahTokoResponse
 import okhttp3.MultipartBody
@@ -78,6 +79,15 @@ interface SalesDatasource {
         @Path("id") idToko: Int,
         @Header("Authorization") token: String,
     ): DeleteTokoResponse
+
+    @Multipart
+    @POST("sales/kunjungan/{id_toko}")
+    suspend fun insertKunjungan(
+        @Header("Authorization") token: String,
+        @Path("id_toko") idToko: Int,
+        @PartMap parts: Map<String, @JvmSuppressWildcards RequestBody>,
+        @Part photo: MultipartBody.Part? = null
+    ) : TambahKunjunganTokoResponse
 
 
 }

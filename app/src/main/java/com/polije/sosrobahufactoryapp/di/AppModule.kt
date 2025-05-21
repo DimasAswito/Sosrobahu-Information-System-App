@@ -50,6 +50,7 @@ import com.polije.sosrobahufactoryapp.domain.usecase.sales.LoginSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.OrderSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.PilihBarangAgenSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.RiwayatOrderSalesUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.sales.TambahKunjunganTokoUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.TambahTokoUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.TokoSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.UpdateTokoUseCase
@@ -80,6 +81,7 @@ import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.detailRestok.Deta
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.ProdukRestokPabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.tambahRestok.TambahRestokPabrikViewModel
 import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.DaftarTokoSalesViewModel
+import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.tambahKunjungan.BottomSheetTambahKunjunganViewModel
 import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.detailDaftarToko.DetailDaftarTokoSalesViewModel
 import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.listRiwayatKunjungan.ListRiwayatKunjunganViewModel
 import com.polije.sosrobahufactoryapp.ui.sales.daftarToko.tambahToko.TambahTokoViewModel
@@ -150,6 +152,7 @@ val appModule = module {
     factoryOf(::DeleteTokoUseCase)
     factoryOf(::KunjunganTokoUseCase)
     factoryOf(::DownloadNotaSalesUseCase)
+    factoryOf(::TambahKunjunganTokoUseCase)
 
     viewModelOf(::HomePabrikViewModel)
     viewModelOf(::FactoryLoginViewModel)
@@ -189,5 +192,6 @@ val appModule = module {
     viewModelOf(::DetailDaftarTokoSalesViewModel)
     viewModelOf(::ListRiwayatKunjunganViewModel)
     viewModelOf(::DetailOrderSalesViewModel)
+    viewModelOf(::BottomSheetTambahKunjunganViewModel)
 
 }

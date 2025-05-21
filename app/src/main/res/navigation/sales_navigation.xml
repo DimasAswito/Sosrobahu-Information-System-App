@@ -94,7 +94,7 @@
         android:label="BottomSheetEditDetailTokoFragment" />
     <fragment
         android:id="@+id/bottomSheetTambahKunjunganTokoFragment"
-        android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.BottomSheetTambahKunjunganTokoFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.tambahKunjungan.BottomSheetTambahKunjunganTokoFragment"
         android:label="BottomSheetTambahKunjunganTokoFragment" />
     <fragment
         android:id="@+id/listRiwayatKunjunganFragment"

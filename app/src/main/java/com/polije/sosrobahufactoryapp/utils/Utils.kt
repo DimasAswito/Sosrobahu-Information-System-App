@@ -2,7 +2,9 @@ package com.polije.sosrobahufactoryapp.utils
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
+import android.provider.MediaStore
 import android.provider.OpenableColumns
 import androidx.core.content.ContextCompat
 import com.polije.sosrobahufactoryapp.R
@@ -11,12 +13,15 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.ByteArrayOutputStream
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import androidx.core.net.toUri
+
 
 fun Int.toRupiah(): String {
     val formatter = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
@@ -123,6 +128,25 @@ fun createOrderSalesParts(
             put("quantities[$i][quantity]", it.quantity.toString().plain())
         }
     }
+}
+
+fun createKunjunganParts(
+    tanggal: String,
+    sisaProduk: Int
+): Map<String, @JvmSuppressWildcards RequestBody> {
+    fun String.plain() = toRequestBody("text/plain".toMediaType())
+    return buildMap {
+        put("tanggal",     tanggal.plain())
+        put("sisa_produk", sisaProduk.toString().plain())
+    }
+}
+
+fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
+    val bytes = ByteArrayOutputStream()
+    inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+    val path =
+        MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null)
+    return path.toUri()
 }
 
 fun Uri.toMultipartPart(
