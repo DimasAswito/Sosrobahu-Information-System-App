@@ -1,8 +1,10 @@
 package com.polije.sosrobahufactoryapp.di
 
 import com.polije.sosrobahufactoryapp.BuildConfig
+import com.polije.sosrobahufactoryapp.data.datasource.remote.agen.AgenDatasource
 import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.DistributorDatasource
 import com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik.PabrikDatasource
+import com.polije.sosrobahufactoryapp.data.datasource.remote.sales.SalesDatasource
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -39,7 +41,19 @@ val networkModule = module {
 
     single {
         get<Retrofit>().create(PabrikDatasource::class.java)
+
+    }
+
+    single {
         get<Retrofit>().create(DistributorDatasource::class.java)
+    }
+
+    single {
+        get<Retrofit>().create(AgenDatasource::class.java)
+    }
+
+    single {
+        get<Retrofit>().create(SalesDatasource::class.java)
     }
 
 }

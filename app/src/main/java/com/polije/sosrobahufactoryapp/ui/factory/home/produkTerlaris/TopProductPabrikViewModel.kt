@@ -18,7 +18,7 @@ class TopProductPabrikViewModel : ViewModel() {
         val stokList = dashboard.totalProdukList
 
         if (namaList.size != gambarList.size || namaList.size != stokList.size) {
-            Log.e("TopProductVM", "Jumlah data tidak konsisten")
+            Log.e("TopProductVM", "Jumlah listBarangAgen tidak konsisten")
             return
         }
 

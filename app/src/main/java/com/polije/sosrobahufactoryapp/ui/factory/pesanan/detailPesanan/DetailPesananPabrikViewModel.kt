@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DetailPesananMasukPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UpdatePesananPabrikUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
+import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +16,8 @@ class DetailPesananPabrikViewModel(
     private val getDetailPesananMasukPabrikUseCase: DetailPesananMasukPabrikUseCase,
     private val updateDetailPesananMasukUseCase: UpdatePesananPabrikUseCase
 ) : ViewModel() {
-    private val _detailPesanan = MutableStateFlow<DetailPesananPabrikState>(DetailPesananPabrikState.Initial)
+    private val _detailPesanan =
+        MutableStateFlow<DetailPesananPabrikState>(DetailPesananPabrikState.Initial)
     val detailPesanan get() = _detailPesanan.asStateFlow()
 
     private val _updatePesananState = MutableStateFlow<UpdateStatusPesananPabrikState>(
@@ -31,7 +33,17 @@ class DetailPesananPabrikViewModel(
                 val data = getDetailPesananMasukPabrikUseCase.invoke(idOrder)
                 when (data) {
                     is DataResult.Error -> _detailPesanan.value =
-                        DetailPesananPabrikState.Failure(data.message)
+                        DetailPesananPabrikState.Failure(
+                            when (data.error) {
+                                HttpErrorCode.BAD_REQUEST -> "Permintaan tidak valid. Periksa kembali listBarangAgen yang dikirimkan."
+                                HttpErrorCode.UNAUTHORIZED -> "Login gagal. Username atau password salah."
+                                HttpErrorCode.FORBIDDEN -> "Akses ditolak. Anda tidak memiliki izin untuk mengakses."
+                                HttpErrorCode.NOT_FOUND -> "Server tidak ditemukan. Coba lagi nanti."
+                                HttpErrorCode.TIMEOUT -> "Permintaan melebihi batas waktu. Periksa koneksi internet Anda."
+                                HttpErrorCode.INTERNAL_SERVER_ERROR -> "Terjadi kesalahan pada server. Silakan coba beberapa saat lagi."
+                                HttpErrorCode.UNKNOWN -> "Terjadi kesalahan yang tidak diketahui. Silakan coba lagi."
+                            }
+                        )
 
                     is DataResult.Success -> _detailPesanan.value =
                         DetailPesananPabrikState.Success(data.data)
@@ -50,7 +62,18 @@ class DetailPesananPabrikViewModel(
                 val data = updateDetailPesananMasukUseCase.invoke(idOrder, status)
                 when (data) {
                     is DataResult.Error -> {
-                        _updatePesananState.value = UpdateStatusPesananPabrikState.Failure(data.message)
+                        _updatePesananState.value =
+                            UpdateStatusPesananPabrikState.Failure(
+                                when (data.error) {
+                                    HttpErrorCode.BAD_REQUEST -> "Permintaan tidak valid. Periksa kembali listBarangAgen yang dikirimkan."
+                                    HttpErrorCode.UNAUTHORIZED -> "Login gagal. Username atau password salah."
+                                    HttpErrorCode.FORBIDDEN -> "Akses ditolak. Anda tidak memiliki izin untuk mengakses."
+                                    HttpErrorCode.NOT_FOUND -> "Server tidak ditemukan. Coba lagi nanti."
+                                    HttpErrorCode.TIMEOUT -> "Permintaan melebihi batas waktu. Periksa koneksi internet Anda."
+                                    HttpErrorCode.INTERNAL_SERVER_ERROR -> "Terjadi kesalahan pada server. Silakan coba beberapa saat lagi."
+                                    HttpErrorCode.UNKNOWN -> "Terjadi kesalahan yang tidak diketahui. Silakan coba lagi."
+                                }
+                            )
                     }
 
                     is DataResult.Success -> {

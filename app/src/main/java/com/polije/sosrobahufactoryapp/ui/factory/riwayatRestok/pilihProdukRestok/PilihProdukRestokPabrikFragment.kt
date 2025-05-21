@@ -36,7 +36,9 @@ class PilihProdukRestokPabrikFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         lifecycleScope.launch {
             produkRestokViewModel.productsState.collectLatest { state ->
@@ -83,4 +85,4 @@ class PilihProdukRestokPabrikFragment : Fragment() {
 }
 
 @Parcelize
-data class ProdukTerpilih(val data: List<SelectedProdukRestok>) : Parcelable
+data class ProdukTerpilih(val data: List<SelectedProdukRestokPabrik>) : Parcelable

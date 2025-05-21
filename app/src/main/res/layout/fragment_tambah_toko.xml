@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
+    tools:context=".ui.sales.daftarToko.tambahToko.TambahTokoFragment"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- HEADER -->
+        <LinearLayout
+            android:id="@+id/topView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/sales_theme"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <RelativeLayout
+                android:id="@+id/headerTambahToko"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:padding="8dp">
+
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/circle_background"
+                    android:src="@drawable/ic_arrow_back"
+                    android:scaleType="center"
+                    android:contentDescription="Tombol Kembali"
+                    android:padding="8dp" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Tambah Toko"
+                    android:textColor="@color/md_theme_background_highContrast"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <!-- Nama Toko -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nama Toko"
+            app:boxStrokeWidth="2dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="20dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etNamaToko"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Lokasi -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Lokasi"
+            app:boxStrokeWidth="2dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etLokasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Pemilik -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Pemilik"
+            app:boxStrokeWidth="2dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="20dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPemilik"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- No. Telp -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="No. Telp"
+            app:boxStrokeWidth="2dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="20dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTelp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <!-- Tombol Tambah -->
+        <Button
+            android:id="@+id/btnTambahToko"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginVertical="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:text="Tambah Toko"
+            android:backgroundTint="@color/sales_theme_dark"
+            android:textSize="18sp"/>
+    </LinearLayout>
+</ScrollView>

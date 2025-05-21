@@ -35,7 +35,7 @@ class LaporanBulananPabrikAdapter(private val laporanList: List<LaporanBulanan>)
 
         // Tambahkan klik item untuk pindah ke DetailLaporanFragment
         holder.itemView.setOnClickListener {
-            // Siapkan data dalam Bundle
+            // Siapkan listBarangAgen dalam Bundle
             val bundle = Bundle().apply {
                 putString("distributor", laporan.distributor)
                 putString("tanggal", laporan.tanggal)

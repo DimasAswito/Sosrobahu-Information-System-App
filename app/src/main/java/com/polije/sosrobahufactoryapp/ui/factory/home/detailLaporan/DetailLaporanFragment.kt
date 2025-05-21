@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.polije.sosrobahufactoryapp.R
-import com.polije.sosrobahufactoryapp.ui.factory.FactoryActivity
 
 class DetailLaporanFragment : Fragment() {
 
@@ -23,7 +22,7 @@ class DetailLaporanFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Tangkap data yang dikirim (misal lewat safe args atau argument manual)
+        // Tangkap listBarangAgen yang dikirim (misal lewat safe args atau argument manual)
         val distributor = arguments?.getString("distributor") ?: "Distributor X"
         val tanggal = arguments?.getString("tanggal") ?: "01/01/2025"
         val jumlah = arguments?.getInt("jumlah") ?: 0
@@ -45,13 +44,13 @@ class DetailLaporanFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        (activity as? FactoryActivity)?.hideBottomNav()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        (activity as? FactoryActivity)?.showBottomNav()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        (activity as? FactoryActivity)?.hideBottomNav()
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        (activity as? FactoryActivity)?.showBottomNav()
+//    }
 }

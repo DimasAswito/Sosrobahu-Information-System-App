@@ -1,6 +1,6 @@
 package com.polije.sosrobahufactoryapp.utils
 
-sealed class DataResult<out D,out E:String>{
-    data class Success<out D>(val data: D): DataResult<D, Nothing>()
-    data class Error<out E: String>(val error: E,val message: String): DataResult<Nothing, E>()
+sealed class DataResult<out D,out E>{
+    data class Success<D>(val data: D): DataResult<D, Nothing>()
+    data class Error< E>(val error : E): DataResult<Nothing, E>()
 }

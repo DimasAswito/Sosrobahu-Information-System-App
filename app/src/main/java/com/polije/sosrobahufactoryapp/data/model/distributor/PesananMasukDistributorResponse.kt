@@ -1,5 +1,7 @@
 package com.polije.sosrobahufactoryapp.data.model.distributor
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
@@ -10,7 +12,7 @@ data class PesananMasukDistributorResponse(
 	val perPage: Int? = null,
 
 	@SerialName("data")
-	val data: List<RiwayatOrderDistributorDataItem> = emptyList(),
+	val data: List<PesananMasukDistributorDataItem> = emptyList(),
 
 	@SerialName("last_page")
 	val lastPage: Int? = null,
@@ -37,7 +39,7 @@ data class PesananMasukDistributorResponse(
 	val from: Int? = null,
 
 	@SerialName("links")
-	val links: List<RiwayatOrderDistributorLinkItems?>? = null,
+	val links: List<RiwayatOrderDistributorLinksItem?>? = null,
 
 	@SerialName("to")
 	val to: Int? = null,
@@ -46,21 +48,9 @@ data class PesananMasukDistributorResponse(
 	val currentPage: Int? = null
 )
 
+@Parcelize
 @Serializable
-data class LinksItem(
-
-	@SerialName("active")
-	val active: Boolean? = null,
-
-	@SerialName("label")
-	val label: String? = null,
-
-	@SerialName("url")
-	val url: String? = null
-)
-
-@Serializable
-data class DataItem(
+data class PesananMasukDistributorDataItem(
 
 	@SerialName("status_pemesanan")
 	val statusPemesanan: Int? = null,
@@ -94,4 +84,17 @@ data class DataItem(
 
 	@SerialName("tanggal")
 	val tanggal: String? = null
+) : Parcelable
+
+@Serializable
+data class LinksItem(
+
+	@SerialName("active")
+	val active: Boolean? = null,
+
+	@SerialName("label")
+	val label: String? = null,
+
+	@SerialName("url")
+	val url: String? = null
 )

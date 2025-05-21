@@ -13,18 +13,18 @@ import com.bumptech.glide.Glide
 import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.ItemTambahRestokBinding
-import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.SelectedProdukRestok
+import com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.SelectedProdukRestokPabrik
 
 class TambahRestokPabrikAdapter(
     private val onQuantityChangeListener: OnQuantityChangeListener,
-) : ListAdapter<SelectedProdukRestok, TambahRestokPabrikAdapter.ViewHolder>(DiffCallback()) {
+) : ListAdapter<SelectedProdukRestokPabrik, TambahRestokPabrikAdapter.ViewHolder>(DiffCallback()) {
 
     inner class ViewHolder(private val binding: ItemTambahRestokBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private var currentWatcher: TextWatcher? = null
         private var isUpdatingText = false
 
-        fun bind(produk: SelectedProdukRestok) {
+        fun bind(produk: SelectedProdukRestokPabrik) {
 
             val restokGambar = BuildConfig.PICTURE_BASE_URL + "produk/" + produk.item.gambar
             Glide.with(itemView.context)
@@ -33,7 +33,7 @@ class TambahRestokPabrikAdapter(
                 .error(R.drawable.rokok)
                 .into(binding.imgProduk)
 
-            // Set product data
+            // Set product listBarangAgen
             binding.apply {
                 txtNamaProduk.text = produk.item.namaRokok
 
@@ -81,6 +81,18 @@ class TambahRestokPabrikAdapter(
                     binding.edtJumlahProduk.setSelection(produk.cursorPosition)
                 }
             }
+
+
+        }
+
+        fun updateQuantityOnly(newQty: Int) {
+            // programmatically update text without re-attaching watchers or losing focus
+            if (binding.edtJumlahProduk.text.toString() != newQty.toString()) {
+                isUpdatingText = true
+                binding.edtJumlahProduk.setText(newQty.toString())
+                binding.edtJumlahProduk.setSelection(binding.edtJumlahProduk.text.length)
+                isUpdatingText = false
+            }
         }
 
         private fun removeCurrentTextWatcher() {
@@ -90,7 +102,7 @@ class TambahRestokPabrikAdapter(
             }
         }
 
-        private fun attachNewTextWatcher(produk: SelectedProdukRestok) {
+        private fun attachNewTextWatcher(produk: SelectedProdukRestokPabrik) {
             val watcher = object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     // Skip if we're programmatically updating the text
@@ -102,7 +114,7 @@ class TambahRestokPabrikAdapter(
                             // Simpan posisi kursor sebelum perubahan
                             produk.cursorPosition = binding.edtJumlahProduk.selectionStart
 
-                            // Update data
+                            // Update listBarangAgen
                             onQuantityChangeListener.onQuantityChanged(produk, qty)
                         }
                     } catch (e: Exception) {
@@ -125,37 +137,6 @@ class TambahRestokPabrikAdapter(
             binding.edtJumlahProduk.addTextChangedListener(watcher)
         }
 
-//        private fun showDatePicker(produk: SelectedProdukRestok) {
-//            val context = itemView.context
-//            val calendar = Calendar.getInstance()
-//
-//            // Parse existing date if available
-//            if (produk.tanggal.isNotEmpty()) {
-//                try {
-//                    val parts = produk.tanggal.split("/")
-//                    if (parts.size == 3) {
-//                        calendar.set(Calendar.DAY_OF_MONTH, parts[0].toInt())
-//                        calendar.set(Calendar.MONTH, parts[1].toInt() - 1)
-//                        calendar.set(Calendar.YEAR, parts[2].toInt())
-//                    }
-//                } catch (e: Exception) {
-//                    Log.e("TambahRestokAdapter", "Error parsing date", e)
-//                }
-//            }
-//
-//            DatePickerDialog(
-//                context,
-//                { _, year, month, dayOfMonth ->
-//                    val tanggal = "$dayOfMonth/${month + 1}/$year"
-//                    binding.txtPilihTanggal.text = tanggal
-//                    onDateChangeListener?.onDateChanged(produk, tanggal)
-//                },
-//                calendar.get(Calendar.YEAR),
-//                calendar.get(Calendar.MONTH),
-//                calendar.get(Calendar.DAY_OF_MONTH)
-//            ).show()
-//        }
-
         fun onViewRecycled() {
             removeCurrentTextWatcher()
         }
@@ -168,8 +149,23 @@ class TambahRestokPabrikAdapter(
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int
+    ) {
+        val item = getItem(position)
+        holder.bind(item)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any?>) {
+        if (payloads.isEmpty()) {
+            // full re-bind
+            super.onBindViewHolder(holder, position, emptyList<SelectedProdukRestokPabrik>())
+        } else {
+            // partial – only quantity changed
+            val newQty = payloads[0] as Int
+            holder.updateQuantityOnly(newQty)
+        }
     }
 
     override fun onViewRecycled(holder: ViewHolder) {
@@ -177,17 +173,17 @@ class TambahRestokPabrikAdapter(
         holder.onViewRecycled()
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<SelectedProdukRestok>() {
+    class DiffCallback : DiffUtil.ItemCallback<SelectedProdukRestokPabrik>() {
         override fun areItemsTheSame(
-            oldItem: SelectedProdukRestok,
-            newItem: SelectedProdukRestok
+            oldItem: SelectedProdukRestokPabrik,
+            newItem: SelectedProdukRestokPabrik
         ): Boolean {
             return oldItem.item.idMasterBarang == newItem.item.idMasterBarang
         }
 
         override fun areContentsTheSame(
-            oldItem: SelectedProdukRestok,
-            newItem: SelectedProdukRestok
+            oldItem: SelectedProdukRestokPabrik,
+            newItem: SelectedProdukRestokPabrik
         ): Boolean {
             // Jangan bandingkan hasFocus dan cursorPosition di sini
             // untuk mencegah recycling yang tidak perlu
@@ -195,10 +191,17 @@ class TambahRestokPabrikAdapter(
 
                     oldItem.item == newItem.item
         }
+
+        override fun getChangePayload(
+            oldItem: SelectedProdukRestokPabrik,
+            newItem: SelectedProdukRestokPabrik
+        ): Any? {
+            return if (oldItem.quantity != newItem.quantity) newItem.quantity else null
+        }
     }
 
     interface OnQuantityChangeListener {
-        fun onQuantityChanged(produk: SelectedProdukRestok, newQty: Int)
+        fun onQuantityChanged(produk: SelectedProdukRestokPabrik, newQty: Int)
     }
 
 

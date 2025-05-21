@@ -1,59 +1,77 @@
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- Konten Scrollable -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/contentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="32dp">
 
         <View
             android:id="@+id/topView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/md_theme_primary"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:background="@color/factory_theme"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.20"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/headerDetailPesanan"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center_vertical"
-           >
+            android:padding="8dp">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/circle_background"
+                android:src="@drawable/ic_arrow_back"
+                android:scaleType="center"
+                android:contentDescription="Tombol Kembali"
+                android:padding="8dp" />
 
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:text="Detail Pesanan"
-                android:gravity="center"
-                android:textColor="@color/md_theme_tertiaryFixedDim"
-                android:textSize="30sp"
+                android:textColor="@color/md_theme_background_highContrast"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/CetakLaporanButton"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/ic_print_24"
-            android:contentDescription="Cetak" />
-        </LinearLayout>
-
+<!--            <ImageButton-->
+<!--                android:id="@+id/CetakLaporanButton"-->
+<!--                android:layout_width="40dp"-->
+<!--                android:layout_height="40dp"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_centerVertical="true"-->
+<!--                android:background="@drawable/circle_background"-->
+<!--                android:src="@drawable/ic_print_24"-->
+<!--                android:scaleType="center"-->
+<!--                android:contentDescription="Cetak"-->
+<!--                android:padding="8dp" />-->
+        </RelativeLayout>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/container"
@@ -75,8 +93,6 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
-                <!-- Gambar bulat -->
-                <!-- Gambar Kiri -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -165,16 +181,27 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <ImageView
-            android:id="@+id/imgBuktiPembayaran"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardBuktiPembayaran"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
+            android:layout_marginTop="16dp"
             android:visibility="gone"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/container" />
+            app:layout_constraintTop_toBottomOf="@+id/container">
+
+            <ImageView
+                android:id="@+id/imgBuktiPembayaran"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="Bukti Pembayaran" />
+        </androidx.cardview.widget.CardView>
+
 
         <TextView
             android:id="@+id/tvProduk"
@@ -185,7 +212,7 @@
             android:textSize="20sp"
             android:layout_marginHorizontal="16dp"
             android:text="Produk"
-            app:layout_constraintTop_toBottomOf="@+id/imgBuktiPembayaran" />
+            app:layout_constraintTop_toBottomOf="@+id/cardBuktiPembayaran" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvproduk"
@@ -283,14 +310,23 @@
             android:layout_height="64dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
+            android:backgroundTint="@color/factory_theme"
             android:layout_marginEnd="32dp"
             android:text="Simpan"
             android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+            app:layout_constraintTop_toBottomOf="@+id/cardView2"
+            app:layout_constraintVertical_bias="0.9" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
-</androidx.core.widget.NestedScrollView>
+    <!-- Loading Overlay -->
+    <include
+        android:id="@+id/loadingLayoutSuccess"
+        layout="@layout/loading_success_overlay" />
+</FrameLayout>

@@ -18,4 +18,4 @@ class Application: Application() {
             modules(databaseModule, networkModule, appModule)
         }
     }
-}
+} 

@@ -10,7 +10,6 @@ import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.polije.sosrobahufactoryapp.ui.factory.FactoryActivity
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.pabrik.LaporanBulanan
 import com.polije.sosrobahufactoryapp.ui.factory.home.component.LaporanBulananPabrikAdapter
@@ -19,9 +18,9 @@ class LaporanBulananFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var laporanAdapter: LaporanBulananPabrikAdapter
-    // laporanList akan digunakan sebagai data yang ditampilkan saat ini
+    // laporanList akan digunakan sebagai listBarangAgen yang ditampilkan saat ini
     private var laporanList = mutableListOf<LaporanBulanan>()
-    // allLaporanList sebagai data master (seluruh data)
+    // allLaporanList sebagai listBarangAgen master (seluruh listBarangAgen)
     private var allLaporanList = mutableListOf<LaporanBulanan>()
 
     override fun onCreateView(
@@ -33,13 +32,13 @@ class LaporanBulananFragment : Fragment() {
         val searchView = view.findViewById<SearchView>(R.id.searchViewlaporanbulanan)
         val filterButton = view.findViewById<ImageView>(R.id.filterButtonLaporanBulanan)
 
-        // Tambahkan data dummy untuk 12 bulan (2 item per bulan)
+        // Tambahkan listBarangAgen dummy untuk 12 bulan (2 item per bulan)
         for (month in 1..12) {
             val monthStr = if (month < 10) "0$month" else "$month"
             allLaporanList.add(LaporanBulanan("Distributor A", "01/$monthStr/2025", 10, "Rp 5.000.000"))
             allLaporanList.add(LaporanBulanan("Distributor B", "05/$monthStr/2025", 8, "Rp 4.000.000"))
         }
-        // Inisialisasi laporanList dengan semua data
+        // Inisialisasi laporanList dengan semua listBarangAgen
         laporanList.addAll(allLaporanList)
 
         laporanAdapter = LaporanBulananPabrikAdapter(laporanList)
@@ -66,7 +65,7 @@ class LaporanBulananFragment : Fragment() {
         return view
     }
 
-    // Fungsi untuk memfilter data berdasarkan query (nama distributor) dan/atau bulan
+    // Fungsi untuk memfilter listBarangAgen berdasarkan query (nama distributor) dan/atau bulan
     private fun filterData(query: String?, month: String?) {
         val filtered = allLaporanList.filter { laporan ->
             val matchesQuery = query.isNullOrEmpty() || laporan.distributor.contains(query, ignoreCase = true)
@@ -96,14 +95,14 @@ class LaporanBulananFragment : Fragment() {
             .show()
     }
 
-    override fun onResume() {
-        super.onResume()
-        (activity as? FactoryActivity)?.hideBottomNav()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        (activity as? FactoryActivity)?.showBottomNav()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        (activity as? FactoryActivity)?.hideBottomNav()
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//        (activity as? FactoryActivity)?.showBottomNav()
+//    }
 }
 

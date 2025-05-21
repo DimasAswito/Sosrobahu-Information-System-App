@@ -1,6 +1,8 @@
 package com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +18,8 @@ import com.bumptech.glide.Glide
 import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDetailPesananBinding
-import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.DetailPesananItemPabrikAdapter
+import com.polije.sosrobahufactoryapp.databinding.LoadingSuccessOverlayBinding
+import com.polije.sosrobahufactoryapp.ui.factory.pesanan.component.ItemDetailPesananPabrikAdapter
 import com.polije.sosrobahufactoryapp.utils.toRupiah
 import com.polije.sosrobahufactoryapp.utils.toTanggalIndonesia
 import kotlinx.coroutines.flow.collectLatest
@@ -29,7 +32,7 @@ class DetailPesananPabrikFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var isImageVisible = false
-
+    private lateinit var successOverlayBinding: LoadingSuccessOverlayBinding
     private val args: DetailPesananPabrikFragmentArgs by navArgs()
 
     private val detailPesananViewModel: DetailPesananPabrikViewModel by viewModel()
@@ -40,6 +43,8 @@ class DetailPesananPabrikFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailPesananBinding.inflate(inflater, container, false)
+        successOverlayBinding = LoadingSuccessOverlayBinding.inflate(inflater)
+        (binding.root as ViewGroup).addView(successOverlayBinding.root)
         return binding.root
     }
 
@@ -50,7 +55,6 @@ class DetailPesananPabrikFragment : Fragment() {
         binding.tvTanggalDetail.text = args.detailPesanan.tanggal?.toTanggalIndonesia()
         binding.tvHargaTotal.text = args.detailPesanan.total?.toRupiah()
 
-
         // Setup Spinner (Dropdown)
         val statusOptions = arrayOf("Diproses", "Selesai", "Ditolak")
         val adapter = ArrayAdapter(
@@ -60,12 +64,11 @@ class DetailPesananPabrikFragment : Fragment() {
         )
         binding.spinnerStatus.adapter = adapter
 
-        val produkAdapter = DetailPesananItemPabrikAdapter()
+        val produkAdapter = ItemDetailPesananPabrikAdapter()
         binding.rvproduk.layoutManager = LinearLayoutManager(requireContext())
         binding.rvproduk.adapter = produkAdapter
 
-
-        // Set status awal sesuai data dari Bundle
+        // Set status awal sesuai listBarangAgen dari Bundle
         binding.spinnerStatus.setSelection(
             (args.detailPesanan.statusPemesanan ?: 0)
         )
@@ -79,33 +82,27 @@ class DetailPesananPabrikFragment : Fragment() {
                 id: Long
             ) {
                 val selectedStatus = statusOptions[position]
-                Toast.makeText(
-                    requireContext(),
-                    "Status diubah ke: $selectedStatus",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-
         val gambar = BuildConfig.PICTURE_BASE_URL + args.detailPesanan.buktiTransfer
         Glide.with(requireContext())
             .load(gambar)
-            .placeholder(R.drawable.logo) // Gambar sementara
-            .error(R.drawable.logo) // Gambar jika gagal
+            .placeholder(R.drawable.loading_foto)
+            .error(R.drawable.foto_error)
             .into(binding.imgBuktiPembayaran)
 
         binding.btnBuktiPembayaran.setOnClickListener {
             isImageVisible = !isImageVisible
-            binding.imgBuktiPembayaran.visibility = if (isImageVisible) View.VISIBLE else View.GONE
+            binding.cardBuktiPembayaran.visibility =
+                if (isImageVisible) View.VISIBLE else View.GONE
         }
 
-        binding.CetakLaporanButton.setOnClickListener {
-            Toast.makeText(requireContext(), "Fitur Cetak Belum Tersedia", Toast.LENGTH_SHORT)
-                .show()
-        }
+        binding.SimpanStatusButton.visibility =
+            if ((args.detailPesanan.statusPemesanan ?: 0) == 0)
+                View.VISIBLE else View.GONE
 
         binding.SimpanStatusButton.setOnClickListener {
             val status = binding.spinnerStatus.selectedItemPosition
@@ -113,40 +110,51 @@ class DetailPesananPabrikFragment : Fragment() {
 
         }
 
-        lifecycleScope.launch {
-
-            detailPesananViewModel.detailPesanan.collectLatest { state ->
-                when (state) {
-                    is DetailPesananPabrikState.Failure -> {}
-                    DetailPesananPabrikState.Initial -> {}
-                    DetailPesananPabrikState.Loading -> {}
-                    is DetailPesananPabrikState.Success -> {
-                        produkAdapter.submitList(state.data.itemNota)
-                    }
-                }
-            }
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
         }
 
         lifecycleScope.launch {
-            detailPesananViewModel.updatePesananState.collectLatest { state ->
-                when (state) {
-                    is UpdateStatusPesananPabrikState.Failure -> {
-                        showToast(state.errorMessage)
-                        binding.SimpanStatusButton.isEnabled = true
-                    }
+            launch {
+                detailPesananViewModel.updatePesananState.collectLatest { state ->
+                    when (state) {
+                        is UpdateStatusPesananPabrikState.Failure -> {
+                            showToast(state.errorMessage)
+                            binding.SimpanStatusButton.isEnabled = true
+                        }
 
-                    UpdateStatusPesananPabrikState.Initial -> {}
-                    UpdateStatusPesananPabrikState.Loading -> {
-                        binding.SimpanStatusButton.isEnabled = false
-                    }
+                        UpdateStatusPesananPabrikState.Initial -> {}
+                        UpdateStatusPesananPabrikState.Loading -> {
+                            binding.SimpanStatusButton.isEnabled = false
+                        }
 
-                    UpdateStatusPesananPabrikState.Success -> {
-                        binding.SimpanStatusButton.isEnabled = true
-                        showToast("Berhasil Mengubah Status")
-                        findNavController().navigateUp()
+                        UpdateStatusPesananPabrikState.Success -> {
+                            binding.SimpanStatusButton.isEnabled = true
+
+                            successOverlayBinding.loadingLayoutSuccess.visibility = View.VISIBLE
+
+                            Handler(Looper.getMainLooper()).postDelayed({
+                                successOverlayBinding.loadingLayoutSuccess.visibility = View.GONE
+                                findNavController().navigateUp()
+                            }, 2000)
+                        }
                     }
                 }
             }
+
+            launch {
+                detailPesananViewModel.detailPesanan.collectLatest { state ->
+                    when (state) {
+                        is DetailPesananPabrikState.Failure -> {}
+                        DetailPesananPabrikState.Initial -> {}
+                        DetailPesananPabrikState.Loading -> {}
+                        is DetailPesananPabrikState.Success -> {
+                            produkAdapter.submitList(state.data.itemNota)
+                        }
+                    }
+                }
+            }
+
         }
     }
 

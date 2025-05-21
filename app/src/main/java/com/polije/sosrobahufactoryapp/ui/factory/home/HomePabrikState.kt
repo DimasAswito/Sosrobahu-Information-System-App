@@ -2,6 +2,7 @@ package com.polije.sosrobahufactoryapp.ui.factory.home
 
 import DashboardResponse
 import PesananPerBulan
+import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 
 
 sealed class HomePabrikState {
@@ -11,6 +12,7 @@ sealed class HomePabrikState {
     ) : HomePabrikState()
 
     data class Failure(
+        val errorCode: HttpErrorCode,
         val errorMessage: String
     ) : HomePabrikState()
 

@@ -9,9 +9,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.databinding.FragmentDetailHargaBinding
 import com.polije.sosrobahufactoryapp.ui.factory.hargaProduk.component.EditHargaBottomSheet
 
 class DetailHargaPabrikFragment : Fragment(), EditHargaBottomSheet.OnHargaUpdatedListener {
+
+    private var _binding : FragmentDetailHargaBinding? = null
+    private val binding get() = _binding!!
 
     private lateinit var imgProduk: ImageView
     private lateinit var txtNamaProduk: TextView
@@ -22,7 +26,16 @@ class DetailHargaPabrikFragment : Fragment(), EditHargaBottomSheet.OnHargaUpdate
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_detail_harga, container, false)
+        _binding     = FragmentDetailHargaBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onHargaUpdated(hargaBaru: String) {
+        txtHargaProduk.text = hargaBaru
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         imgProduk = view.findViewById(R.id.imgDetailProduk)
         txtNamaProduk = view.findViewById(R.id.txtDetailNamaProduk)
@@ -41,11 +54,5 @@ class DetailHargaPabrikFragment : Fragment(), EditHargaBottomSheet.OnHargaUpdate
             val bottomSheet = EditHargaBottomSheet()
             bottomSheet.show(childFragmentManager, "EditHargaBottomSheet")
         }
-
-        return view
-    }
-
-    override fun onHargaUpdated(hargaBaru: String) {
-        txtHargaProduk.text = hargaBaru
     }
 }

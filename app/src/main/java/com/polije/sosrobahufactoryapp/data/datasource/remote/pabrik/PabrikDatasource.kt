@@ -1,7 +1,7 @@
 package com.polije.sosrobahufactoryapp.data.datasource.remote.pabrik
 
 import DashboardResponse
-import com.polije.sosrobahufactoryapp.data.model.pabrik.DetailOrderResponse
+import com.polije.sosrobahufactoryapp.data.model.pabrik.DetailOrderPabrikResponse
 import com.polije.sosrobahufactoryapp.data.model.pabrik.InsertRestockResponse
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
@@ -41,7 +41,7 @@ interface PabrikDatasource {
     suspend fun getDetailPesananMasuk(
         @Header("Authorization") token: String,
         @Path("id") idOrder: Int,
-    ): DetailOrderResponse
+    ): DetailOrderPabrikResponse
 
     @GET("pabrik/restock")
     suspend fun getRestockItem(@Header("Authorization") token: String): ProdukRestok

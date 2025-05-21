@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentPengaturanBinding
-import com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginActivity
 
 class PengaturanFragment : Fragment() {
 
@@ -35,7 +34,6 @@ class PengaturanFragment : Fragment() {
 
         // Logout Button Click
         binding.logoutButton.setOnClickListener {
-            showLogoutDialog()
         }
 
         // Navigasi ke RekeningFactoryFragment
@@ -54,18 +52,18 @@ class PengaturanFragment : Fragment() {
         }
     }
 
-    private fun showLogoutDialog() {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Konfirmasi Logout")
-            .setMessage("Apakah anda yakin untuk Log out?")
-            .setPositiveButton("Ya") { _, _ ->
-                val intent = Intent(requireContext(), FactoryLoginActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
-            }
-            .setNegativeButton("Batal", null)
-            .show()
-    }
+//    private fun showLogoutDialog() {
+//        AlertDialog.Builder(requireContext())
+//            .setTitle("Konfirmasi Logout")
+//            .setMessage("Apakah anda yakin untuk Log out?")
+//            .setPositiveButton("Ya") { _, _ ->
+//                val intent = Intent(requireContext(), FactoryLoginActivity::class.java)
+//                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//                startActivity(intent)
+//            }
+//            .setNegativeButton("Batal", null)
+//            .show()
+//    }
 
     override fun onDestroyView() {
         super.onDestroyView()

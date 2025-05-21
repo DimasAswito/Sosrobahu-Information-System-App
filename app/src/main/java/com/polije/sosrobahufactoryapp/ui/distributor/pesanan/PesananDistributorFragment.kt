@@ -1,31 +1,65 @@
 package com.polije.sosrobahufactoryapp.ui.distributor.pesanan
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
+import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorDataItem
+import com.polije.sosrobahufactoryapp.databinding.FragmentPesananDistributorBinding
+import com.polije.sosrobahufactoryapp.ui.distributor.dashboard.DashboardDistributorFragmentDirections
+import com.polije.sosrobahufactoryapp.ui.distributor.pesanan.component.PesananDistributorAdapter
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PesananDistributorFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = PesananDistributorFragment()
-    }
+    private var _binding: FragmentPesananDistributorBinding? = null
+    private val binding get() = _binding!!
 
-    private val viewModel: PesananDistributorViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
-    }
+    private val pesananDistributorViewModel: PesananDistributorViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_pesanan_distributor, container, false)
+    ): View? {
+        _binding = FragmentPesananDistributorBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val mainNavHost = requireActivity()
+            .supportFragmentManager
+            .findFragmentById(R.id.fragmentContainerView)
+                as NavHostFragment
+
+        val adapter = PesananDistributorAdapter(object :
+            PesananDistributorAdapter.PesananDistributorAction {
+            override fun onItemClicked(item: PesananMasukDistributorDataItem) {
+                val action =
+                    DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToDetailPesananDistributorFragment(
+                        detailPesananDistributor = item,
+                        idOrder = item.idOrder ?: 0
+                    )
+                mainNavHost.navController.navigate(action)
+            }
+
+        })
+        binding.recyclerViewPesanan.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerViewPesanan.adapter = adapter
+
+
+        lifecycleScope.launch {
+            pesananDistributorViewModel.pesananMasukDistributor().collectLatest { data ->
+                adapter.submitData(data)
+            }
+        }
     }
 }
