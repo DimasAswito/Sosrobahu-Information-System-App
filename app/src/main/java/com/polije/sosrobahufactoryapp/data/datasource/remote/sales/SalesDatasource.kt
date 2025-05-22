@@ -3,6 +3,7 @@ package com.polije.sosrobahufactoryapp.data.datasource.remote.sales
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.DashboardSalesResponse
+import com.polije.sosrobahufactoryapp.data.model.sales.DeleteKunjunganResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.DeleteTokoResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.KunjunganTokoResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.ListBarangAgenSalesResponse
@@ -48,7 +49,7 @@ interface SalesDatasource {
         @Path("id") idToko: Int,
         @Header("Authorization") token: String,
         @Query("page") page: Int,
-    ) : KunjunganTokoResponse
+    ): KunjunganTokoResponse
 
     @GET("sales/listBarangOrder")
     suspend fun getListBarangOrder(@Header("Authorization") token: String): ListBarangAgenSalesResponse
@@ -87,7 +88,13 @@ interface SalesDatasource {
         @Path("id_toko") idToko: Int,
         @PartMap parts: Map<String, @JvmSuppressWildcards RequestBody>,
         @Part photo: MultipartBody.Part? = null
-    ) : TambahKunjunganTokoResponse
+    ): TambahKunjunganTokoResponse
+
+    @DELETE("sales/kunjungan/{id_toko}")
+    suspend fun deleteKunjungan(
+        @Header("Authorization") token: String,
+        @Path("id_toko") idToko: Int,
+    ): DeleteKunjunganResponse
 
 
 }

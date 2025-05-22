@@ -20,8 +20,13 @@ val networkModule = module {
         OkHttpClient
             .Builder()
             .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.HEADERS
+                level = HttpLoggingInterceptor.Level.BODY
             })
+            .addInterceptor { chain ->
+                val req = chain.request().newBuilder().addHeader("Accept", "application/json")
+                    .build()
+                chain.proceed(req)
+            }
             .readTimeout(60, TimeUnit.SECONDS)
             .connectTimeout(60, TimeUnit.SECONDS)
             .build()

@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.paging.PagingData
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.DashboardSalesResponse
+import com.polije.sosrobahufactoryapp.data.model.sales.DeleteKunjunganResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.DeleteTokoResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.KunjunganTokoDataItem
 import com.polije.sosrobahufactoryapp.data.model.sales.ListBarangAgenSalesResponse
@@ -28,7 +29,7 @@ interface SalesRepository {
 
     fun getOrderSales(): Flow<PagingData<OrderSalesDataItem>>
 
-    fun getKunjunganToko(idToko : Int) : Flow<PagingData<KunjunganTokoDataItem>>
+    fun getKunjunganToko(idToko: Int): Flow<PagingData<KunjunganTokoDataItem>>
 
     suspend fun pilihBarangAgen(): DataResult<ListBarangAgenSalesResponse, HttpErrorCode>
 
@@ -46,9 +47,16 @@ interface SalesRepository {
 
     suspend fun deleteToko(idToko: Int): DataResult<DeleteTokoResponse, HttpErrorCode>
 
-    suspend fun downloadNota(idNota : Int) : Long
+    suspend fun downloadNota(idNota: Int): Long
 
-    suspend fun insertKunjunganToko(idToko : Int,tanggal : String, buktiKunjungan : Uri,sisaProduk : Int) : DataResult<TambahKunjunganTokoResponse, HttpErrorCode>
+    suspend fun insertKunjunganToko(
+        idToko: Int,
+        tanggal: String,
+        buktiKunjungan: Uri,
+        sisaProduk: Int
+    ): DataResult<TambahKunjunganTokoResponse, HttpErrorCode>
+
+    suspend fun deleteKunjunganToko(idKunjunganToko: Int): DataResult<DeleteKunjunganResponse, HttpErrorCode>
 
 
     fun isUserIsLogged(requiredRole: UserRole): Flow<Boolean>

@@ -66,9 +66,7 @@ class BottomSheetTambahKunjunganTokoFragment : BottomSheetDialogFragment() {
             DatePickerDialog(
                 requireContext(),
                 { _, year, month, day ->
-                    val date = String.format(buildString {
-                        append("%02d/%02d/%04d")
-                    }, day, month + 1, year)
+                    val date = "%04d-%02d-%02d".format(year, month + 1, day)
                     binding.etTanggal.setText(date)
                     viewModel.updateTanggal(date)
                 },
@@ -86,7 +84,14 @@ class BottomSheetTambahKunjunganTokoFragment : BottomSheetDialogFragment() {
             viewModel.tambahKunjunganToko(idToko)
         }
 
-        binding.etStok.doAfterTextChanged { viewModel.updateSisaProduk(Integer.parseInt(it.toString())) }
+        binding.etStok.doAfterTextChanged {
+
+            viewModel.updateSisaProduk(
+                Integer.parseInt(
+                    if (it.toString() == "") "0" else it.toString()
+                )
+            )
+        }
 
         lifecycleScope.launch {
             launch {
