@@ -153,6 +153,7 @@ val appModule = module {
     factoryOf(::KunjunganTokoUseCase)
     factoryOf(::DownloadNotaSalesUseCase)
     factoryOf(::TambahKunjunganTokoUseCase)
+    factoryOf(::DeleteTokoUseCase)
 
     viewModelOf(::HomePabrikViewModel)
     viewModelOf(::FactoryLoginViewModel)
