@@ -34,7 +34,7 @@ class AgenLoginFragment : Fragment() {
 
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.action_distributorLoginFragment_to_chooseRoleFragment)
+                findNavController().navigate(R.id.action_agenLoginFragment_to_chooseRoleFragment)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
@@ -56,7 +56,7 @@ class AgenLoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnBack.setOnClickListener { findNavController().navigate(R.id.action_distributorLoginFragment_to_chooseRoleFragment) }
+        binding.btnBack.setOnClickListener { findNavController().navigate(R.id.action_agenLoginFragment_to_chooseRoleFragment) }
         binding.usernameEditText.doAfterTextChanged { text -> viewModel.onUsernameChanged(text.toString()) }
         binding.passwordEditText.doAfterTextChanged { text -> viewModel.onPasswordChanged(text.toString()) }
 
