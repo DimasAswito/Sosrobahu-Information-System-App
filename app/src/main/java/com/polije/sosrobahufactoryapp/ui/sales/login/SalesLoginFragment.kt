@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -27,6 +28,18 @@ class SalesLoginFragment : Fragment() {
     private lateinit var loadingBinding: LoadingOverlayBinding
 
     private val viewModel: SalesLoginViewModel by viewModel()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val callBack: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_salesLoginFragment_to_chooseRoleFragment)
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(callBack)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +65,7 @@ class SalesLoginFragment : Fragment() {
         }
 
         binding.btnBack.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().navigate(R.id.action_salesLoginFragment_to_chooseRoleFragment)
         }
 
         lifecycleScope.launch {

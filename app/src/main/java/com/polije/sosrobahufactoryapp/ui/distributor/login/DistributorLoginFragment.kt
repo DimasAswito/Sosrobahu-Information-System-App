@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -14,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDistributorLoginBinding
 import com.polije.sosrobahufactoryapp.databinding.LoadingOverlayBinding
-import com.polije.sosrobahufactoryapp.ui.agen.login.AgenLoginFragmentDirections
 import com.polije.sosrobahufactoryapp.utils.LoginState
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -28,6 +28,18 @@ class DistributorLoginFragment : Fragment() {
     private lateinit var loadingBinding: LoadingOverlayBinding
 
     private val viewModel: DistributorLoginViewModel by viewModel()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_distributorLoginFragment_to_chooseRoleFragment)
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +57,7 @@ class DistributorLoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnBack.setOnClickListener { findNavController().navigateUp()}
+        binding.btnBack.setOnClickListener { findNavController().navigate(R.id.action_distributorLoginFragment_to_chooseRoleFragment) }
         binding.usernameEditText.doAfterTextChanged { text -> viewModel.onUsernameChanged(text.toString()) }
         binding.passwordEditText.doAfterTextChanged { text -> viewModel.onPasswordChanged(text.toString()) }
 

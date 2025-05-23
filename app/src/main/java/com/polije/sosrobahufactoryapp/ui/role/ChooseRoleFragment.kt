@@ -24,23 +24,23 @@ class ChooseRoleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.cvPabrik.setOnClickListener {
-            val action = ChooseRoleFragmentDirections.actionChooseRoleFragmentToMobileNavigation()
+            val action = ChooseRoleFragmentDirections.actionChooseRoleFragmentToLoginPabrik()
             findNavController().navigate(action)
         }
 
         binding.cvDistributor.setOnClickListener {
             val action =
-                ChooseRoleFragmentDirections.actionChooseRoleFragmentToDistributorNavigation()
+                ChooseRoleFragmentDirections.actionChooseRoleFragmentToDistributorLoginFragment()
             findNavController().navigate(action)
         }
 
         binding.cvAgen.setOnClickListener {
-            val action = ChooseRoleFragmentDirections.actionChooseRoleFragmentToAgenNavigation()
+            val action = ChooseRoleFragmentDirections.actionChooseRoleFragmentToAgenLoginFragment()
             findNavController().navigate(action)
         }
 
         binding.cvSales.setOnClickListener {
-            val action = ChooseRoleFragmentDirections.actionChooseRoleFragmentToSalesNavigation()
+            val action = ChooseRoleFragmentDirections.actionChooseRoleFragmentToSalesLoginFragment()
             findNavController().navigate(action)
         }
 

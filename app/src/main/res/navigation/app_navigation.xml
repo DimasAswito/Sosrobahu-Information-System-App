@@ -5,37 +5,495 @@
     android:id="@+id/app_navigation"
     app:startDestination="@id/chooseRoleFragment">
 
+    <action
+        android:id="@+id/action_dashboardSalesFragment_to_salesLoginFragment"
+        app:destination="@id/salesLoginFragment"
+        app:popUpTo="@id/dashboardSalesFragment"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/dashboardSalesFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.dashboard.DashboardSalesFragment"
+        android:label="fragment_dashboard_sales"
+        tools:layout="@layout/fragment_dashboard_sales">
+        <action
+            android:id="@+id/action_dashboardSalesFragment_to_detailPesananSalesFragment"
+            app:destination="@id/detailTokoSalesFragment" />
+        <action
+            android:id="@+id/action_dashboardSalesFragment_to_detailOrderSalesFragment"
+            app:destination="@id/detailOrderSalesFragment" />
+        <action
+            android:id="@+id/action_dashboardSalesFragment_to_pilihProdukSalesFragment"
+            app:destination="@id/pilihProdukSalesFragment" />
+        <action
+            android:id="@+id/action_dashboardSalesFragment_to_salesLoginFragment"
+            app:destination="@id/salesLoginFragment"
+            app:popUpTo="@id/dashboardSalesFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_dashboardSalesFragment_to_tambahTokoFragment"
+            app:destination="@id/tambahTokoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bottomSheetEditDetailTokoFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.BottomSheetEditDetailTokoFragment"
+        android:label="BottomSheetEditDetailTokoFragment" />
+    <action
+        android:id="@+id/action_detailTokoSalesFragment_to_listRiwayatKunjunganFragment"
+        app:destination="@id/listRiwayatKunjunganFragment" />
+    <fragment
+        android:id="@+id/salesLoginFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.login.SalesLoginFragment"
+        android:label="fragment_sales_login"
+        tools:layout="@layout/fragment_sales_login">
+        <action
+            android:id="@+id/action_salesLoginFragment_to_dashboardSalesFragment"
+            app:destination="@id/dashboardSalesFragment"
+            app:popUpTo="@id/salesLoginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_salesLoginFragment_to_chooseRoleFragment"
+            app:destination="@id/chooseRoleFragment"
+            app:popUpTo="@id/salesLoginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_dashboardSalesFragment_to_tambahTokoFragment"
+        app:destination="@id/tambahTokoFragment" />
+    <fragment
+        android:id="@+id/detailTokoSalesFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.detailDaftarToko.DetailDaftarTokoSalesFragment"
+        android:label="fragment_detail_daftar_toko_sales"
+        tools:layout="@layout/fragment_detail_daftar_toko_sales">
+        <action
+            android:id="@+id/action_detailTokoSalesFragment_to_bottomSheetTambahKunjunganTokoFragment"
+            app:destination="@id/bottomSheetTambahKunjunganTokoFragment" />
+        <action
+            android:id="@+id/action_detailTokoSalesFragment_to_bottomSheetEditDetailTokoFragment"
+            app:destination="@id/bottomSheetEditDetailTokoFragment" />
+        <argument
+            android:name="detailToko"
+            app:argType="com.polije.sosrobahufactoryapp.data.model.sales.ListSalesDataItem" />
+        <action
+            android:id="@+id/action_detailTokoSalesFragment_to_listRiwayatKunjunganFragment"
+            app:destination="@id/listRiwayatKunjunganFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailOrderSalesFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.order.detailOrder.DetailOrderSalesFragment"
+        android:label="fragment_detail_order_sales"
+        tools:layout="@layout/fragment_detail_order_sales">
+        <argument
+            android:name="listOrderSales"
+            app:argType="com.polije.sosrobahufactoryapp.data.model.sales.OrderSalesDataItem" />
+    </fragment>
+    <action
+        android:id="@+id/action_detailTokoSalesFragment_to_bottomSheetEditDetailTokoFragment"
+        app:destination="@id/bottomSheetEditDetailTokoFragment" />
+    <action
+        android:id="@+id/action_dashboardSalesFragment_to_pilihProdukSalesFragment"
+        app:destination="@id/pilihProdukSalesFragment" />
+    <fragment
+        android:id="@+id/listRiwayatKunjunganFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.listRiwayatKunjungan.ListRiwayatKunjunganFragment"
+        android:label="fragment_list_riwayat_kunjungan"
+        tools:layout="@layout/fragment_list_riwayat_kunjungan">
+        <argument
+            android:name="idToko"
+            app:argType="integer" />
+    </fragment>
+    <action
+        android:id="@+id/action_dashboardSalesFragment_to_detailPesananSalesFragment"
+        app:destination="@id/detailTokoSalesFragment" />
+    <fragment
+        android:id="@+id/pilihProdukSalesFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.order.pilihProdukSales.PilihProdukSalesFragment"
+        android:label="fragment_pilih_produk_sales"
+        tools:layout="@layout/fragment_pilih_produk_sales">
+        <action
+            android:id="@+id/action_pilihProdukSalesFragment_to_tambahOrderSalesFragment"
+            app:destination="@id/tambahOrderSalesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tambahTokoFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.tambahToko.TambahTokoFragment"
+        android:label="TambahTokoFragment" />
+    <action
+        android:id="@+id/action_detailTokoSalesFragment_to_bottomSheetTambahKunjunganTokoFragment"
+        app:destination="@id/bottomSheetTambahKunjunganTokoFragment" />
+    <action
+        android:id="@+id/action_dashboardSalesFragment_to_detailOrderSalesFragment"
+        app:destination="@id/detailOrderSalesFragment" />
+    <fragment
+        android:id="@+id/bottomSheetTambahKunjunganTokoFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.daftarToko.component.tambahKunjungan.BottomSheetTambahKunjunganTokoFragment"
+        android:label="BottomSheetTambahKunjunganTokoFragment" />
+    <fragment
+        android:id="@+id/tambahOrderSalesFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.sales.order.tambahOrder.TambahOrderSalesFragment"
+        android:label="fragment_tambah_order_sales"
+        tools:layout="@layout/fragment_tambah_order_sales">
+        <argument
+            android:name="selectedItemAgenSales"
+            app:argType="com.polije.sosrobahufactoryapp.ui.sales.order.pilihProdukSales.ProdukTerpilihSales" />
+    </fragment>
+    <fragment
+        android:id="@+id/tambahOrderAgenFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.agen.order.tambahOrder.TambahOrderAgenFragment"
+        android:label="fragment_tambah_order_agen"
+        tools:layout="@layout/fragment_tambah_order_agen">
+
+        <argument
+            android:name="selectedBarang"
+            app:argType="com.polije.sosrobahufactoryapp.ui.agen.order.pilihProdukAgen.ProdukTerpilihAgen" />
+    </fragment>
+    <action
+        android:id="@+id/action_dashboardAgenFragment_to_detailOrderAgenFragment"
+        app:destination="@id/detailOrderAgenFragment" />
+    <fragment
+        android:id="@+id/detailPesananAgenFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.agen.pesanan.detailPesanan.DetailPesananAgenFragment"
+        android:label="fragment_detail_pesanan_agen"
+        tools:layout="@layout/fragment_detail_pesanan_agen">
+        <argument
+            android:name="idOrder"
+            app:argType="integer" />
+        <argument
+            android:name="pesananAgenItem"
+            app:argType="com.polije.sosrobahufactoryapp.data.model.agen.PesananMasukAgenDataItem" />
+    </fragment>
+    <action
+        android:id="@+id/action_pilihProdukAgenFragment_to_tambahOrderAgenFragment"
+        app:destination="@id/tambahOrderAgenFragment" />
+    <fragment
+        android:id="@+id/detailOrderAgenFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.agen.order.detailOrder.DetailOrderAgenFragment"
+        android:label="fragment_detail_order_agen"
+        tools:layout="@layout/fragment_detail_order_agen">
+        <argument
+            android:name="detailOrder"
+            app:argType="com.polije.sosrobahufactoryapp.data.model.agen.RiwayatOrderAgenDataItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/agenLoginFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.agen.login.AgenLoginFragment"
+        android:label="fragment_agen_login"
+        tools:layout="@layout/fragment_agen_login">
+        <action
+            android:id="@+id/action_agenLoginFragment_to_dashboardAgenFragment"
+            app:destination="@id/dashboardAgenFragment" />
+        <action
+            android:id="@+id/action_agenLoginFragment_to_chooseRoleFragment"
+            app:destination="@id/chooseRoleFragment"
+            app:popUpTo="@id/agenLoginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_dashboardAgenFragment_to_pilihProdukAgenFragment"
+        app:destination="@id/pilihProdukAgenFragment" />
+    <action
+        android:id="@+id/action_dashboardAgenFragment_to_agenLoginFragment"
+        app:destination="@id/agenLoginFragment"
+        app:popUpTo="@id/dashboardAgenFragment"
+        app:popUpToInclusive="true" />
+    <action
+        android:id="@+id/action_agenLoginFragment_to_dashboardAgenFragment"
+        app:destination="@id/dashboardAgenFragment" />
+    <fragment
+        android:id="@+id/dashboardAgenFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.agen.dashboard.DashboardAgenFragment"
+        android:label="fragment_dashboard_agen"
+        tools:layout="@layout/fragment_dashboard_agen">
+        <action
+            android:id="@+id/action_dashboardAgenFragment_to_detailPesananAgenFragment"
+            app:destination="@id/detailPesananAgenFragment" />
+        <action
+            android:id="@+id/action_dashboardAgenFragment_to_detailOrderAgenFragment"
+            app:destination="@id/detailOrderAgenFragment" />
+        <action
+            android:id="@+id/action_dashboardAgenFragment_to_pilihProdukAgenFragment"
+            app:destination="@id/pilihProdukAgenFragment" />
+        <!--        <action-->
+        <!--            android:id="@+id/action_dashboardAgenFragment_to_stockAgenRankFragment"-->
+        <!--            app:destination="@id/stockAgenRankFragment" />-->
+        <action
+            android:id="@+id/action_dashboardAgenFragment_to_agenLoginFragment"
+            app:destination="@id/agenLoginFragment"
+            app:popUpTo="@id/dashboardAgenFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_dashboardAgenFragment_to_detailPesananAgenFragment"
+        app:destination="@id/detailPesananAgenFragment" />
+    <fragment
+        android:id="@+id/pilihProdukAgenFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.agen.order.pilihProdukAgen.PilihProdukAgenFragment"
+        android:label="fragment_pilih_produk_agen"
+        tools:layout="@layout/fragment_pilih_produk_agen">
+        <action
+            android:id="@+id/action_pilihProdukAgenFragment_to_tambahOrderAgenFragment"
+            app:destination="@id/tambahOrderAgenFragment" />
+
+    </fragment>
+    <action
+        android:id="@+id/action_distributorLoginFragment_to_dashboardDistributorFragment"
+        app:destination="@id/dashboardDistributorFragment"
+        app:popUpTo="@id/distributorLoginFragment"
+        app:popUpToInclusive="true" />
+    <action
+        android:id="@+id/action_dashboardDistributorFragment_to_distributorLoginFragment"
+        app:destination="@id/distributorLoginFragment"
+        app:popUpTo="@id/dashboardDistributorFragment"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/stockDistributorRankFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.home.peringkatStok.StockDistributorRankFragment"
+        android:label="fragment_stock_distributor_rank"
+        tools:layout="@layout/fragment_stock_distributor_rank" />
+    <fragment
+        android:id="@+id/detailPesananDistributorFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.pesanan.detailPesanan.DetailPesananDistributorFragment"
+        android:label="fragment_detail_pesanan_distributor"
+        tools:layout="@layout/fragment_detail_pesanan_distributor">
+        <argument
+            android:name="idOrder"
+            app:argType="integer" />
+        <argument
+            android:name="detailPesananDistributor"
+            app:argType="com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorDataItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/pilihProdukDistributorFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.PilihProdukDistributorFragment"
+        android:label="fragment_pilih_produk_distributor"
+        tools:layout="@layout/fragment_pilih_produk_distributor">
+        <action
+            android:id="@+id/action_pilihProdukDistributorFragment_to_tambahOrderDistributorFragment"
+            app:destination="@id/tambahOrderDistributorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dashboardDistributorFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.dashboard.DashboardDistributorFragment"
+        android:label="fragment_dashboard_distributor"
+        tools:layout="@layout/fragment_dashboard_distributor">
+        <action
+            android:id="@+id/action_dashboardDistributorFragment_to_detailPesananDistributorFragment"
+            app:destination="@id/detailPesananDistributorFragment">
+            <argument
+                android:name="idOrder"
+                android:defaultValue="0" />
+        </action>
+        <action
+            android:id="@+id/action_dashboardDistributorFragment_to_detailOrderDistributorFragment"
+            app:destination="@id/detailOrderDistributorFragment" />
+        <action
+            android:id="@+id/action_dashboardDistributorFragment_to_pilihProdukDistributorFragment"
+            app:destination="@id/pilihProdukDistributorFragment" />
+        <action
+            android:id="@+id/action_dashboardDistributorFragment_to_stockDistributorRankFragment"
+            app:destination="@id/stockDistributorRankFragment" />
+        <action
+            android:id="@+id/action_dashboardDistributorFragment_to_distributorLoginFragment"
+            app:destination="@id/distributorLoginFragment"
+            app:popUpTo="@id/dashboardDistributorFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailOrderDistributorFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.order.detailOrder.DetailOrderDistributorFragment"
+        android:label="fragment_detail_order_distributor"
+        tools:layout="@layout/fragment_detail_order_distributor">
+        <argument
+            android:name="detailOrder"
+            app:argType="com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem" />
+    </fragment>
+    <action
+        android:id="@+id/action_dashboardDistributorFragment_to_detailPesananDistributorFragment"
+        app:destination="@id/detailPesananDistributorFragment">
+        <argument
+            android:name="idOrder"
+            android:defaultValue="0" />
+    </action>
+    <action
+        android:id="@+id/action_pilihProdukDistributorFragment_to_tambahOrderDistributorFragment"
+        app:destination="@id/tambahOrderDistributorFragment" />
+    <action
+        android:id="@+id/action_dashboardDistributorFragment_to_stockDistributorRankFragment"
+        app:destination="@id/stockDistributorRankFragment" />
+    <action
+        android:id="@+id/action_dashboardDistributorFragment_to_pilihProdukDistributorFragment"
+        app:destination="@id/pilihProdukDistributorFragment" />
+    <fragment
+        android:id="@+id/distributorLoginFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.login.DistributorLoginFragment"
+        android:label="fragment_distributor_login"
+        tools:layout="@layout/fragment_distributor_login">
+        <action
+            android:id="@+id/action_distributorLoginFragment_to_dashboardDistributorFragment"
+            app:destination="@id/dashboardDistributorFragment"
+            app:popUpTo="@id/distributorLoginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_distributorLoginFragment_to_chooseRoleFragment"
+            app:destination="@id/chooseRoleFragment"
+            app:popUpTo="@id/distributorLoginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <action
+        android:id="@+id/action_dashboardDistributorFragment_to_detailOrderDistributorFragment"
+        app:destination="@id/detailOrderDistributorFragment" />
+    <action
+        android:id="@+id/action_tambahOrderDistributorFragment_to_dashboardDistributorFragment"
+        app:destination="@id/dashboardDistributorFragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/dashboardDistributorFragment"
+        app:popUpToInclusive="false" />
+    <fragment
+        android:id="@+id/tambahOrderDistributorFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.order.tambahOrder.TambahOrderDistributorFragment"
+        android:label="fragment_tambah_order_distributor"
+        tools:layout="@layout/fragment_tambah_order_distributor">
+        <argument
+            android:name="listItemTerpilih"
+            app:argType="com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.ProdukTerpilihDistributor" />
+        <action
+            android:id="@+id/action_tambahOrderDistributorFragment_to_dashboardDistributorFragment"
+            app:destination="@id/dashboardDistributorFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/dashboardDistributorFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <action
+        android:id="@+id/action_dashboardFragment_to_pilihProdukRestokFragment"
+        app:destination="@id/pilihProdukRestokFragment" />
+    <action
+        android:id="@+id/action_dashboardFragment_to_detailPesananFragment"
+        app:destination="@id/detailPesananFragment" />
+    <fragment
+        android:id="@+id/login_pabrik"
+        android:name="com.polije.sosrobahufactoryapp.ui.factory.login.FactoryLoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_factory_login">
+        <action
+            android:id="@+id/action_login_pabrik_to_dashboardFragment"
+            app:destination="@id/dashboardFragment"
+            app:popUpTo="@id/chooseRoleFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_login_pabrik_to_chooseRoleFragment"
+            app:destination="@id/chooseRoleFragment"
+            app:popUpTo="@id/login_pabrik"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/pilihProdukRestokFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.PilihProdukRestokPabrikFragment"
+        android:label="fragment_pilih_produk_restok"
+        tools:layout="@layout/fragment_pilih_produk_restok">
+        <action
+            android:id="@+id/action_pilihProdukRestokFragment_to_tambahRestokFragment"
+            app:destination="@id/tambahRestokFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_login_pabrik_to_dashboardFragment"
+        app:destination="@id/dashboardFragment"
+        app:popUpTo="@id/chooseRoleFragment"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/detailPesananFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.factory.pesanan.detailPesanan.DetailPesananPabrikFragment"
+        android:label="fragment_detail_pesanan"
+        tools:layout="@layout/fragment_detail_pesanan">
+        <argument
+            android:name="detailPesanan"
+            app:argType="com.polije.sosrobahufactoryapp.data.model.pabrik.PesananMasukItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/tambahRestokFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.tambahRestok.TambahRestokPabrikFragment"
+        android:label="fragment_tambah_restok"
+        tools:layout="@layout/fragment_tambah_restok">
+        <argument
+            android:name="listProdukTerpilih"
+            app:argType="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.pilihProdukRestok.ProdukTerpilih" />
+    </fragment>
+    <action
+        android:id="@+id/action_dashboardFragment_to_detailRestokFragment"
+        app:destination="@id/detailRestokFragment" />
+    <fragment
+        android:id="@+id/detailRestokFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.factory.riwayatRestok.detailRestok.DetailRestokPabrikFragment"
+        android:label="DetailRestokFragment">
+        <argument
+            android:name="restockDetail"
+            app:argType="com.polije.sosrobahufactoryapp.data.model.pabrik.RiwayatRestockItem" />
+    </fragment>
+    <action
+        android:id="@+id/action_dashboardFragment_to_login_pabrik"
+        app:destination="@id/login_pabrik"
+        app:popUpTo="@id/dashboardFragment"
+        app:popUpToInclusive="true" />
+    <action
+        android:id="@+id/action_dashboardFragment_to_topProductFragment"
+        app:destination="@id/topProductFragment" />
+    <fragment
+        android:id="@+id/topProductFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.factory.home.produkTerlaris.TopProductPabrikFragment"
+        android:label="fragment_top_product"
+        tools:layout="@layout/fragment_top_product">
+        <argument
+            android:name="listTopProduct"
+            app:argType="com.polije.sosrobahufactoryapp.data.model.pabrik.ListTopSellingProduct" />
+    </fragment>
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.factory.dashboard.DashboardPabrikFragment"
+        android:label="fragment_dashboard"
+        tools:layout="@layout/fragment_dashboard_pabrik">
+        <action
+            android:id="@+id/action_dashboardFragment_to_detailPesananFragment"
+            app:destination="@id/detailPesananFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_pilihProdukRestokFragment"
+            app:destination="@id/pilihProdukRestokFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_detailRestokFragment"
+            app:destination="@id/detailRestokFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_topProductFragment"
+            app:destination="@id/topProductFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_login_pabrik"
+            app:destination="@id/login_pabrik"
+            app:popUpTo="@id/dashboardFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/chooseRoleFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.role.ChooseRoleFragment"
         android:label="fragment_choose_role"
         tools:layout="@layout/fragment_choose_role">
         <action
-            android:id="@+id/action_chooseRoleFragment_to_mobile_navigation"
-            app:destination="@id/mobile_navigation"
+            android:id="@+id/action_chooseRoleFragment_to_login_pabrik"
+            app:destination="@id/login_pabrik"
             app:popUpTo="@id/chooseRoleFragment"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_chooseRoleFragment_to_distributor_navigation"
-            app:destination="@id/distributor_navigation"
+            android:id="@+id/action_chooseRoleFragment_to_distributorLoginFragment"
+            app:destination="@id/distributorLoginFragment"
             app:popUpTo="@id/chooseRoleFragment"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_chooseRoleFragment_to_agen_navigation"
-            app:destination="@id/agen_navigation"
+            android:id="@+id/action_chooseRoleFragment_to_agenLoginFragment"
+            app:destination="@id/agenLoginFragment"
             app:popUpTo="@id/chooseRoleFragment"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_chooseRoleFragment_to_sales_navigation"
-            app:destination="@id/sales_navigation"
+            android:id="@+id/action_chooseRoleFragment_to_salesLoginFragment"
+            app:destination="@id/salesLoginFragment"
             app:popUpTo="@id/chooseRoleFragment"
             app:popUpToInclusive="true" />
 
 
     </fragment>
-    <include app:graph="@navigation/factory_navigation" />
-    <include app:graph="@navigation/distributor_navigation" />
-    <include app:graph="@navigation/agen_navigation" />
-    <include app:graph="@navigation/sales_navigation" />
 
 </navigation>

@@ -38,9 +38,9 @@ class HargaProdukPabrikFragment : Fragment() {
 //        binding.recyclerViewHarga.layoutManager = GridLayoutManager(requireContext(), 2)
 //        binding.recyclerViewHarga.adapter = produkPabrikAdapter
 
-        binding.fabTambahProduk.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_harga_to_tambahProdukFragment)
-        }
+//        binding.fabTambahProduk.setOnClickListener {
+//            findNavController().navigate(R.id.action_navigation_harga_to_tambahProdukFragment)
+//        }
 
         binding.searchViewProduk.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
