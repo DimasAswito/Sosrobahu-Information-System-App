@@ -42,6 +42,7 @@ import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.RiwayatRestokPabrikU
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UpdatePesananPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UserSessionPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.DashboardSalesUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.sales.DeleteKunjunganTokoUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.DeleteTokoUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.DownloadNotaSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.KunjunganTokoUseCase
@@ -153,6 +154,7 @@ val appModule = module {
     factoryOf(::KunjunganTokoUseCase)
     factoryOf(::DownloadNotaSalesUseCase)
     factoryOf(::TambahKunjunganTokoUseCase)
+    factoryOf(::DeleteKunjunganTokoUseCase)
     factoryOf(::DeleteTokoUseCase)
 
     viewModelOf(::HomePabrikViewModel)
