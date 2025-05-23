@@ -19,15 +19,18 @@ import com.polije.sosrobahufactoryapp.domain.usecase.agen.PilihBarangDistributor
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.RiwayatOrderAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.UpdateStatusPesananAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.UserSessionAgenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.distributor.BarangTerbaruPabrikDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DasbhoardDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DetailPesananMasukDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DownloadNotaDistributorUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.distributor.ListBarangPengaturanHargaUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LoginDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LogoutDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.OrderDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.PesananMasukDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.PilihProdukPabrikDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.RiwayatOrderDistributorUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UpdateBarangHargaDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UpdateStatusPesananDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UserSessionDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DashboardPabrikUseCase
@@ -127,6 +130,9 @@ val appModule = module {
     factoryOf(::OrderDistributorUseCase)
     factoryOf(::UpdateStatusPesananDistributorUseCase)
     factoryOf(::DownloadNotaDistributorUseCase)
+    factoryOf(::BarangTerbaruPabrikDistributorUseCase)
+    factoryOf(::ListBarangPengaturanHargaUseCase)
+    factoryOf(::UpdateBarangHargaDistributorUseCase)
 
     factoryOf(::LoginAgenUseCase)
     factoryOf(::UserSessionAgenUseCase)

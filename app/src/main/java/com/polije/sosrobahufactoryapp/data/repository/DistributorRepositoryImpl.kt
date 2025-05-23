@@ -17,11 +17,15 @@ import com.polije.sosrobahufactoryapp.data.datasource.remote.distributor.paging.
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
+import com.polije.sosrobahufactoryapp.data.model.distributor.GetBarangTerbaruPabrikDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.OrderDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorDataItem
 import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponse
+import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPengaturanHargaResponse
+import com.polije.sosrobahufactoryapp.data.model.distributor.PriceUpdateRequest
 import com.polije.sosrobahufactoryapp.data.model.distributor.QuantityItem
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
+import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateBarangPengaturanHargaDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusOrderDistributor
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRequest
 import com.polije.sosrobahufactoryapp.domain.repository.distributor.DistributorRepository
@@ -230,7 +234,79 @@ class DistributorRepositoryImpl(
         }
     }
 
-    override suspend fun downloadNota(idNota : Int): Long {
+    override suspend fun getBarangPengaturanHarga(): DataResult<PilihBarangPengaturanHargaResponse, HttpErrorCode> {
+        return try {
+            val token = sessionManager.sessionFlow.first().token
+            val data =
+                distributorDatasource.getBarangPengaturanHarga(
+                    "Bearer $token"
+                )
+            DataResult.Success(data)
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (e: Exception) {
+            val error = e.message.toString()
+            DataResult.Error(HttpErrorCode.UNKNOWN)
+        }
+    }
+
+    override suspend fun getBarangTerbaru(): DataResult<GetBarangTerbaruPabrikDistributorResponse, HttpErrorCode> {
+        return try {
+            val token = sessionManager.sessionFlow.first().token
+            val data =
+                distributorDatasource.getBarangTerbaru(
+                    "Bearer $token"
+                )
+            DataResult.Success(data)
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (e: Exception) {
+            val error = e.message.toString()
+            DataResult.Error(HttpErrorCode.UNKNOWN)
+        }
+    }
+
+    override suspend fun updateBarangHarga(
+        id: Int,
+        newPrice: Int
+    ): DataResult<UpdateBarangPengaturanHargaDistributorResponse, HttpErrorCode> {
+        return try {
+            val token = sessionManager.sessionFlow.first().token
+            val data =
+                distributorDatasource.updateBarangPengaturanHarga(
+                    id = id,
+                    PriceUpdateRequest(newPrice),
+                    "Bearer $token"
+                )
+            DataResult.Success(data)
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (e: Exception) {
+            val error = e.message.toString()
+            DataResult.Error(HttpErrorCode.UNKNOWN)
+        }
+    }
+
+
+    override suspend fun downloadNota(idNota: Int): Long {
         val request =
             DownloadManager.Request((BuildConfig.BASE_URL + "distributor/nota-distributor/" + idNota.toString() + "/pdf").toUri())
                 .setTitle("Download Nota Distributor")
@@ -241,7 +317,10 @@ class DistributorRepositoryImpl(
                     "Authorization",
                     "Bearer ${sessionManager.sessionFlow.first().token}"
                 )
-                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOCUMENTS, "Nota Distributor $idNota.pdf")
+                .setDestinationInExternalPublicDir(
+                    Environment.DIRECTORY_DOCUMENTS,
+                    "Nota Distributor $idNota.pdf"
+                )
 
         return downloadManager.enqueue(request)
     }
