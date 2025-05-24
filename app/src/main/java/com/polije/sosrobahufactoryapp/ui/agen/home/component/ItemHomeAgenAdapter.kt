@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.polije.sosrobahufactoryapp.BuildConfig
 import com.polije.sosrobahufactoryapp.data.model.agen.StokBarangAgenItem
 import com.polije.sosrobahufactoryapp.databinding.ItemHomeAgenBinding
 
@@ -30,8 +32,11 @@ class ItemHomeAgenAdapter :
     inner class ViewHolder(val binding: ItemHomeAgenBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: StokBarangAgenItem) {
+            Glide.with(binding.root)
+                .load(BuildConfig.PICTURE_BASE_URL + "produk/" + item.gambar)
+                .into(binding.imagehome)
             binding.namaProduk.text = item.namaRokok
-            binding.nominalSisaStok.text = item.stok.toString()
+            binding.nominalSisaStok.text = item.stok.toString() + " Slop"
         }
     }
 

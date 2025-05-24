@@ -55,7 +55,7 @@
                 android:id="@+id/tvHargaPabrik"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Harga Pabrik : Rp -"
+                android:text="Harga Distributor : Rp -"
                 android:textSize="14sp"
                 android:textColor="@android:color/black"
                 android:layout_marginTop="2dp"/>
@@ -64,7 +64,7 @@
                 android:id="@+id/tvHargaDistributor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Harga Distributor : Rp -"
+                android:text="Harga Agen : Rp -"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black"/>

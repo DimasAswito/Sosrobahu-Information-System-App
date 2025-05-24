@@ -42,7 +42,7 @@
             android:layout_height="64dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:backgroundTint="@color/distributor_theme_dark"
+            android:backgroundTint="@color/agen_theme_dark"
             android:text="Tambah Produk"
             android:textSize="18sp"
             android:textColor="@drawable/btn_text_color"
