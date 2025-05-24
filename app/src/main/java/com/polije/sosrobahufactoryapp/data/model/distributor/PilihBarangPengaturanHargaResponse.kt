@@ -22,6 +22,9 @@ data class DistributorBarangItems(
     @SerialName("nama_rokok")
     val namaRokok: String,
 
+    @SerialName("gambar")
+    val gambar: String,
+
     @SerialName("harga")
     val harga: Int,
 
