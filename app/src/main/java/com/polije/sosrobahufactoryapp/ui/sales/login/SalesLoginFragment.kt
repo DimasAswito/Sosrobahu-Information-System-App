@@ -34,13 +34,7 @@ class SalesLoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val callBack: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.action_salesLoginFragment_to_chooseRoleFragment)
-            }
-        }
 
-        requireActivity().onBackPressedDispatcher.addCallback(callBack)
     }
 
     override fun onCreateView(
@@ -58,6 +52,14 @@ class SalesLoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val callBack: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_salesLoginFragment_to_chooseRoleFragment)
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callBack)
 
         activity?.setStatusBarColorByRole(UserRole.SALES)
 

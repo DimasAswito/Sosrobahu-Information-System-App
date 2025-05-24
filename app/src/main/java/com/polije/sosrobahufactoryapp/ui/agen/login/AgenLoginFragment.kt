@@ -34,12 +34,7 @@ class AgenLoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.action_agenLoginFragment_to_chooseRoleFragment)
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
+
     }
 
     override fun onCreateView(
@@ -57,6 +52,13 @@ class AgenLoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_agenLoginFragment_to_chooseRoleFragment)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
 
         activity?.setStatusBarColorByRole(UserRole.AGEN)
 
