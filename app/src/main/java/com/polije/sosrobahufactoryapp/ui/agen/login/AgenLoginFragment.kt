@@ -16,6 +16,8 @@ import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentAgenLoginBinding
 import com.polije.sosrobahufactoryapp.databinding.LoadingOverlayBinding
 import com.polije.sosrobahufactoryapp.utils.LoginState
+import com.polije.sosrobahufactoryapp.utils.UserRole
+import com.polije.sosrobahufactoryapp.utils.setStatusBarColorByRole
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -55,6 +57,8 @@ class AgenLoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        activity?.setStatusBarColorByRole(UserRole.AGEN)
 
         binding.btnBack.setOnClickListener { findNavController().navigate(R.id.action_agenLoginFragment_to_chooseRoleFragment) }
         binding.usernameEditText.doAfterTextChanged { text -> viewModel.onUsernameChanged(text.toString()) }

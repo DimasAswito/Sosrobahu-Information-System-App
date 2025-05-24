@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.databinding.FragmentChooseRoleBinding
+import com.polije.sosrobahufactoryapp.utils.UserRole
+import com.polije.sosrobahufactoryapp.utils.setStatusBarColorByRole
 
 class ChooseRoleFragment : Fragment() {
     private var _binding: FragmentChooseRoleBinding? = null
@@ -22,6 +24,8 @@ class ChooseRoleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        activity?.setStatusBarColorByRole(UserRole.DEFAULT)
 
         binding.cvPabrik.setOnClickListener {
             val action = ChooseRoleFragmentDirections.actionChooseRoleFragmentToLoginPabrik()

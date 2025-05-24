@@ -295,6 +295,9 @@
             android:id="@+id/action_dashboardDistributorFragment_to_stockDistributorRankFragment"
             app:destination="@id/stockDistributorRankFragment" />
         <action
+            android:id="@+id/action_dashboardDistributorFragment_to_pengaturanHargaDistributorFragment"
+            app:destination="@id/pengaturanHargaDistributorFragment" />
+        <action
             android:id="@+id/action_dashboardDistributorFragment_to_distributorLoginFragment"
             app:destination="@id/distributorLoginFragment"
             app:popUpTo="@id/dashboardDistributorFragment"

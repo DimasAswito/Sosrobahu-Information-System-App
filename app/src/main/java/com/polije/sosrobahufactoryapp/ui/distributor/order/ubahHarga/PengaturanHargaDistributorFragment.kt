@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.data.model.distributor.DistributorBarangItems
 import com.polije.sosrobahufactoryapp.databinding.FragmentPengaturanHargaDistributorBinding
@@ -49,9 +50,17 @@ class PengaturanHargaDistributorFragment : Fragment() {
             }
         })
 
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         binding.rvHarga.apply {
             this.adapter = adapter
             layoutManager = LinearLayoutManager(context)
+        }
+
+        binding.fabTambahProdukEditHarga.setOnClickListener {
+
         }
 
         lifecycleScope.launch {

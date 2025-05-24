@@ -45,16 +45,16 @@ class PengaturanHargaAdapter(val action: PengaturanHargaAction) :
         }
 
         fun bind(item: DistributorBarangItems) {
-            binding.tvProductName.text = item.namaRokok
+            binding.tvNamaProduk.text = item.namaRokok
 
             Glide.with(binding.root.context)
                 .load(BuildConfig.PICTURE_BASE_URL + "produk/" + item.gambar)
                 .placeholder(progressDrawable)
                 .error(R.drawable.logo)
-                .into(binding.ivProduct)
+                .into(binding.imgProduk)
 
-            binding.tvFactoryPrice.text = item.hargaPabrik.toRupiah()
-            binding.tvSellingPrice.text = item.harga.toRupiah()
+            binding.tvHargaPabrik.text = "Harga Pabrik : " + item.hargaPabrik.toRupiah()
+            binding.tvHargaDistributor.text = "Harga Distributor : " + item.harga.toRupiah()
 
 
             binding.root.setOnClickListener {

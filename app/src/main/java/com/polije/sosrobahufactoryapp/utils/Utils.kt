@@ -77,6 +77,8 @@ fun Activity.setStatusBarColorByRole(role: UserRole) {
         UserRole.DISTRIBUTOR -> R.color.distributor_theme
         UserRole.AGEN -> R.color.agen_theme
         UserRole.SALES -> R.color.sales_theme
+        UserRole.DEFAULT -> R.color.md_theme_onPrimaryFixedVariant
+
     }
 
     window.statusBarColor = ContextCompat.getColor(this, colorRes)
