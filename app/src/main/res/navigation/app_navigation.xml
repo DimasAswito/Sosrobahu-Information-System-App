@@ -506,10 +506,21 @@
         <action
             android:id="@+id/action_pengaturanHargaDistributorFragment_to_bottomSheetTambahEditHargaProdukDistributorFragment"
             app:destination="@id/bottomSheetTambahEditHargaProdukDistributorFragment" />
+        <action
+            android:id="@+id/action_pengaturanHargaDistributorFragment_to_bottomsheetEditHargaDistributorFragment"
+            app:destination="@id/bottomsheetEditHargaDistributorFragment" />
     </fragment>
     <dialog
         android:id="@+id/bottomSheetTambahEditHargaProdukDistributorFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.distributor.order.component.tambahBarang.BottomSheetTambahEditHargaProdukDistributorFragment"
         android:label="BottomSheetTambahEditHargaProdukDistributorFragment" />
+    <dialog
+        android:id="@+id/bottomsheetEditHargaDistributorFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.order.component.BottomsheetEditHargaDistributorFragment"
+        android:label="BottomsheetEditHargaDistributorFragment" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </dialog>
 
 </navigation>
