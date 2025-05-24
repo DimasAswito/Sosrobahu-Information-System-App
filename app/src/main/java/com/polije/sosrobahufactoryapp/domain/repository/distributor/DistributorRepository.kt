@@ -11,6 +11,7 @@ import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistrib
 import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPengaturanHargaResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
+import com.polije.sosrobahufactoryapp.data.model.distributor.TambahBarangTerbaruDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateBarangPengaturanHargaDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusOrderDistributor
 import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.SelectedProdukDistributor
@@ -46,6 +47,8 @@ interface DistributorRepository {
     suspend fun getBarangPengaturanHarga(): DataResult<PilihBarangPengaturanHargaResponse, HttpErrorCode>
 
     suspend fun getBarangTerbaru(): DataResult<GetBarangTerbaruPabrikDistributorResponse, HttpErrorCode>
+
+    suspend fun uploadBarangTerbaru(ids: List<Int>): DataResult<TambahBarangTerbaruDistributorResponse, HttpErrorCode>
 
     suspend fun updateBarangHarga(
         id: Int,

@@ -5,15 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.data.model.distributor.DistributorBarangItems
 import com.polije.sosrobahufactoryapp.databinding.FragmentPengaturanHargaDistributorBinding
-import com.polije.sosrobahufactoryapp.ui.distributor.order.component.PengaturanHargaAdapter
+import com.polije.sosrobahufactoryapp.ui.distributor.order.component.PilihProdukEditHargaAdapter
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,11 +48,12 @@ class PengaturanHargaDistributorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = PengaturanHargaAdapter(object : PengaturanHargaAdapter.PengaturanHargaAction {
-            override fun onPengaturanHargaItemClicked(item: DistributorBarangItems) {
+        val adapter =
+            PilihProdukEditHargaAdapter(object : PilihProdukEditHargaAdapter.PengaturanHargaAction {
+                override fun onPengaturanHargaItemClicked(item: DistributorBarangItems) {
 
-            }
-        })
+                }
+            })
 
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
@@ -60,27 +65,40 @@ class PengaturanHargaDistributorFragment : Fragment() {
         }
 
         binding.fabTambahProdukEditHarga.setOnClickListener {
-
+            findNavController().navigate(R.id.action_pengaturanHargaDistributorFragment_to_bottomSheetTambahEditHargaProdukDistributorFragment)
         }
+
+
+
+
 
         lifecycleScope.launch {
-            viewModel.state.collectLatest { state ->
-                if (state.data.isNotEmpty()) {
-                    adapter.submitList(state.data)
+            launch {
+                viewModel.state.collectLatest { state ->
+                    if (state.data.isNotEmpty()) {
+                        adapter.submitList(state.data)
+                    }
                 }
             }
+
         }
+
+
+        findNavController().currentBackStackEntry
+            ?.savedStateHandle
+            ?.getLiveData<Boolean>("refresh")
+            ?.observe(viewLifecycleOwner) { needsRefresh ->
+                if (needsRefresh == true) {
+                    viewModel.initialLoad()
+                    findNavController().currentBackStackEntry
+                        ?.savedStateHandle
+                        ?.remove<Boolean>("refresh")
+                }
+            }
     }
 
+
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PengaturanHargaDistributorFragment.
-         */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =

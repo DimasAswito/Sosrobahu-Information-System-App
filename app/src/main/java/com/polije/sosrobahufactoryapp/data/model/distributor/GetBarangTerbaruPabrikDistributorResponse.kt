@@ -26,5 +26,8 @@ data class GetBarangTerbaruPabrikDistributorDataItem(
     val namaRokok: String,
 
     @SerialName("harga_karton_pabrik")
-    val hargaKartonPabrik: Int
+    val hargaKartonPabrik: Int,
+
+    @SerialName("gambar")
+    val gambar: String
 )

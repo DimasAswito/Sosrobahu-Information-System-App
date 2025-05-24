@@ -18,6 +18,7 @@ import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.GetBarangTerbaruPabrikDistributorResponse
+import com.polije.sosrobahufactoryapp.data.model.distributor.NewBarangRequest
 import com.polije.sosrobahufactoryapp.data.model.distributor.OrderDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorDataItem
 import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponse
@@ -25,6 +26,7 @@ import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPengatur
 import com.polije.sosrobahufactoryapp.data.model.distributor.PriceUpdateRequest
 import com.polije.sosrobahufactoryapp.data.model.distributor.QuantityItem
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
+import com.polije.sosrobahufactoryapp.data.model.distributor.TambahBarangTerbaruDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateBarangPengaturanHargaDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusOrderDistributor
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRequest
@@ -262,6 +264,30 @@ class DistributorRepositoryImpl(
             val data =
                 distributorDatasource.getBarangTerbaru(
                     "Bearer $token"
+                )
+            DataResult.Success(data)
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (e: Exception) {
+            val error = e.message.toString()
+            DataResult.Error(HttpErrorCode.UNKNOWN)
+        }
+    }
+
+    override suspend fun uploadBarangTerbaru(ids: List<Int>): DataResult<TambahBarangTerbaruDistributorResponse, HttpErrorCode> {
+        return try {
+            val token = sessionManager.sessionFlow.first().token
+            val data =
+                distributorDatasource.uploadProducts(
+                    "Bearer $token",
+                    NewBarangRequest(ids)
+
                 )
             DataResult.Success(data)
         } catch (e: HttpException) {

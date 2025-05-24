@@ -32,6 +32,7 @@ import com.polije.sosrobahufactoryapp.domain.usecase.distributor.PilihProdukPabr
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.RiwayatOrderDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UpdateBarangHargaDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UpdateStatusPesananDistributorUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UploadNewBarangDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UserSessionDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DashboardPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DetailPesananMasukPabrikUseCase
@@ -70,6 +71,7 @@ import com.polije.sosrobahufactoryapp.ui.agen.pesanan.detailPesanan.DetailPesana
 import com.polije.sosrobahufactoryapp.ui.distributor.home.HomeDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.login.DistributorLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.order.OrderDistributorViewModel
+import com.polije.sosrobahufactoryapp.ui.distributor.order.component.tambahBarang.BottomSheetTambahProdukViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.order.detailOrder.DetailOrderDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.PilihProdukDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.order.tambahOrder.TambahOrderDistributorViewModel
@@ -134,6 +136,7 @@ val appModule = module {
     factoryOf(::BarangTerbaruPabrikDistributorUseCase)
     factoryOf(::ListBarangPengaturanHargaUseCase)
     factoryOf(::UpdateBarangHargaDistributorUseCase)
+    factoryOf(::UploadNewBarangDistributorUseCase)
 
     factoryOf(::LoginAgenUseCase)
     factoryOf(::UserSessionAgenUseCase)
@@ -183,6 +186,7 @@ val appModule = module {
     viewModelOf(::TambahOrderDistributorViewModel)
     viewModelOf(::DetailOrderDistributorViewModel)
     viewModelOf(::PengaturanHargaDistributorViewModel)
+    viewModelOf(::BottomSheetTambahProdukViewModel)
 
     viewModelOf(::AgenLoginViewModel)
     viewModelOf(::HomeAgenViewModel)
