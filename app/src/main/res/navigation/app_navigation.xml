@@ -535,19 +535,23 @@
         android:label="fragment_pengaturan_harga_agen"
         tools:layout="@layout/fragment_pengaturan_harga_agen" >
         <action
-            android:id="@+id/action_pengaturanHargaAgenFragment_to_bottomSheetEditHargaAgenFragment"
-            app:destination="@id/bottomSheetEditHargaAgenFragment" />
-        <action
             android:id="@+id/action_pengaturanHargaAgenFragment_to_bottomSheetTambahEditHargaProdukAgenFragment"
             app:destination="@id/bottomSheetTambahEditHargaProdukAgenFragment" />
+        <action
+            android:id="@+id/action_pengaturanHargaAgenFragment_to_bottomSheetEditHargaAgenFragment"
+            app:destination="@id/bottomSheetEditHargaAgenFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/bottomSheetEditHargaAgenFragment"
-        android:name="com.polije.sosrobahufactoryapp.ui.agen.order.component.editHarga.bottomSheetEditHargaAgenFragment"
-        android:label="bottomSheetEditHargaAgenFragment" />
-    <fragment
+    <dialog
         android:id="@+id/bottomSheetTambahEditHargaProdukAgenFragment"
         android:name="com.polije.sosrobahufactoryapp.ui.agen.order.component.tambahBarang.BottomSheetTambahEditHargaProdukAgenFragment"
         android:label="BottomSheetTambahEditHargaProdukAgenFragment" />
+    <dialog
+        android:id="@+id/bottomSheetEditHargaAgenFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.agen.order.component.editHarga.BottomSheetEditHargaAgenFragment"
+        android:label="BottomSheetEditHargaAgenFragment" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </dialog>
 
 </navigation>

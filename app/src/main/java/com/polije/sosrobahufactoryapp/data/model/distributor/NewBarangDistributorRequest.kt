@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class NewBarangRequest(
+data class NewBarangDistributorRequest(
     @SerialName("products")
     val products: List<Int>
 )

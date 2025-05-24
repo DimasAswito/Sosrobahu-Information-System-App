@@ -2,7 +2,7 @@ package com.polije.sosrobahufactoryapp.ui.distributor.order.ubahHarga
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.polije.sosrobahufactoryapp.domain.usecase.distributor.ListBarangPengaturanHargaUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.distributor.ListBarangPengaturanHargaDistributorUseCase
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class PengaturanHargaDistributorViewModel(private val listBarangUseCase: ListBarangPengaturanHargaUseCase) :
+class PengaturanHargaDistributorViewModel(private val listBarangUseCase: ListBarangPengaturanHargaDistributorUseCase) :
     ViewModel() {
     private val _state = MutableStateFlow(PengaturanHargaDistributorState())
 

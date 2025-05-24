@@ -18,12 +18,12 @@ import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.GetBarangTerbaruPabrikDistributorResponse
-import com.polije.sosrobahufactoryapp.data.model.distributor.NewBarangRequest
+import com.polije.sosrobahufactoryapp.data.model.distributor.NewBarangDistributorRequest
 import com.polije.sosrobahufactoryapp.data.model.distributor.OrderDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorDataItem
 import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPengaturanHargaResponse
-import com.polije.sosrobahufactoryapp.data.model.distributor.PriceUpdateRequest
+import com.polije.sosrobahufactoryapp.data.model.distributor.PriceUpdateDistributorRequest
 import com.polije.sosrobahufactoryapp.data.model.distributor.QuantityItem
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorDataItem
 import com.polije.sosrobahufactoryapp.data.model.distributor.TambahBarangTerbaruDistributorResponse
@@ -286,7 +286,7 @@ class DistributorRepositoryImpl(
             val data =
                 distributorDatasource.uploadProducts(
                     "Bearer $token",
-                    NewBarangRequest(ids)
+                    NewBarangDistributorRequest(ids)
 
                 )
             DataResult.Success(data)
@@ -313,7 +313,7 @@ class DistributorRepositoryImpl(
             val data =
                 distributorDatasource.updateBarangPengaturanHarga(
                     id = id,
-                    PriceUpdateRequest(newPrice),
+                    PriceUpdateDistributorRequest(newPrice),
                     "Bearer $token"
                 )
             DataResult.Success(data)

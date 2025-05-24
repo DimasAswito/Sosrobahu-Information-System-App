@@ -4,12 +4,18 @@ import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.DashboardAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.DetailPesananMasukAgenResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.GetBarangTerbaruDistributorAgenResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.InsertOrderAgenResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.NewBarangAgenRequest
 import com.polije.sosrobahufactoryapp.data.model.agen.PesananMasukAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.PilihBarangDistributorAgenResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.PilihBarangPengaturanHargaAgenResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.PriceUpdateAgenRequest
 import com.polije.sosrobahufactoryapp.data.model.agen.RiwayatOrderAgenResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.TambahBarangTerbaruAgenResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.UpdateBarangPengaturanHargaAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.UpdateStatusOrderAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRequest
-import com.polije.sosrobahufactoryapp.data.model.agen.InsertOrderAgenResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -17,6 +23,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.PartMap
 import retrofit2.http.Path
@@ -56,7 +63,7 @@ interface AgenDatasource {
     ): RiwayatOrderAgenResponse
 
     @GET("agen/pilihBarang")
-    suspend fun getListBarangDistributor(@Header("Authorization") token: String): PilihBarangDistributorAgenResponse
+    suspend fun getListBarangAgen(@Header("Authorization") token: String): PilihBarangDistributorAgenResponse
 
     @Multipart
     @POST("agen/order")
@@ -65,5 +72,24 @@ interface AgenDatasource {
         @Part paymentProof: MultipartBody.Part,
         @Header("Authorization") token: String
     ): InsertOrderAgenResponse
+
+
+    @GET("agen/pengaturan-harga")
+    suspend fun getBarangPengaturanHarga(@Header("Authorization") token: String): PilihBarangPengaturanHargaAgenResponse
+
+    @GET("agen/barang-baru")
+    suspend fun getBarangTerbaru(@Header("Authorization") token: String): GetBarangTerbaruDistributorAgenResponse
+
+    @PUT("agen/pengaturan-harga/{id}")
+    suspend fun updateBarangPengaturanHarga(
+        @Path("id") id: Int,
+        @Body body: PriceUpdateAgenRequest, @Header("Authorization") token: String
+    ): UpdateBarangPengaturanHargaAgenResponse
+
+    @POST("agen/barang-baru")
+    suspend fun uploadProducts(
+        @Header("Authorization") token: String,
+        @Body body: NewBarangAgenRequest
+    ): TambahBarangTerbaruAgenResponse
 
 }

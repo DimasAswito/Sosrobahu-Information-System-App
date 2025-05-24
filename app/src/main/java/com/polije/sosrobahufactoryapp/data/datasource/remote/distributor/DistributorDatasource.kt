@@ -5,12 +5,12 @@ import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.GetBarangTerbaruPabrikDistributorResponse
-import com.polije.sosrobahufactoryapp.data.model.distributor.NewBarangRequest
+import com.polije.sosrobahufactoryapp.data.model.distributor.NewBarangDistributorRequest
 import com.polije.sosrobahufactoryapp.data.model.distributor.OrderDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPengaturanHargaResponse
-import com.polije.sosrobahufactoryapp.data.model.distributor.PriceUpdateRequest
+import com.polije.sosrobahufactoryapp.data.model.distributor.PriceUpdateDistributorRequest
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.TambahBarangTerbaruDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateBarangPengaturanHargaDistributorResponse
@@ -83,12 +83,12 @@ interface DistributorDatasource {
     @PUT("distributor/pengaturan-harga/{id}")
     suspend fun updateBarangPengaturanHarga(
         @Path("id") id: Int,
-        @Body body: PriceUpdateRequest, @Header("Authorization") token: String
+        @Body body: PriceUpdateDistributorRequest, @Header("Authorization") token: String
     ): UpdateBarangPengaturanHargaDistributorResponse
 
     @POST("distributor/barang-baru")
     suspend fun uploadProducts(
         @Header("Authorization") token: String,
-        @Body body: NewBarangRequest
+        @Body body: NewBarangDistributorRequest
     ): TambahBarangTerbaruDistributorResponse
 }

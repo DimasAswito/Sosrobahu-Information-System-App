@@ -100,7 +100,7 @@ fun createOrderParts(
     }
 }
 
-fun createOrderPartsDistributor(
+fun createOrderPartsAgen(
     totalItems: Int,
     totalAmount: Int,
     quantities: List<QuantityItem>
