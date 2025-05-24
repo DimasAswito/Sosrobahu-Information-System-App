@@ -269,6 +269,9 @@
         <action
             android:id="@+id/action_pilihProdukDistributorFragment_to_tambahOrderDistributorFragment"
             app:destination="@id/tambahOrderDistributorFragment" />
+        <action
+            android:id="@+id/action_pilihProdukDistributorFragment_to_pengaturanHargaDistributorFragment"
+            app:destination="@id/pengaturanHargaDistributorFragment" />
     </fragment>
     <fragment
         android:id="@+id/dashboardDistributorFragment"
@@ -495,5 +498,10 @@
 
 
     </fragment>
+    <fragment
+        android:id="@+id/pengaturanHargaDistributorFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.order.ubahHarga.PengaturanHargaDistributorFragment"
+        android:label="fragment_pengaturan_harga_distributor"
+        tools:layout="@layout/fragment_pengaturan_harga_distributor" />
 
 </navigation>
