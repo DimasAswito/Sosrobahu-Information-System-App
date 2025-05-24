@@ -220,6 +220,9 @@
             app:destination="@id/agenLoginFragment"
             app:popUpTo="@id/dashboardAgenFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_dashboardAgenFragment_to_pengaturanHargaAgenFragment"
+            app:destination="@id/pengaturanHargaAgenFragment" />
     </fragment>
     <action
         android:id="@+id/action_dashboardAgenFragment_to_detailPesananAgenFragment"
@@ -469,6 +472,9 @@
             app:destination="@id/login_pabrik"
             app:popUpTo="@id/dashboardFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_dashboardFragment_self"
+            app:destination="@id/dashboardFragment" />
     </fragment>
     <fragment
         android:id="@+id/chooseRoleFragment"
@@ -523,5 +529,25 @@
             android:name="barang"
             app:argType="com.polije.sosrobahufactoryapp.data.model.distributor.DistributorBarangItems" />
     </dialog>
+    <fragment
+        android:id="@+id/pengaturanHargaAgenFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.agen.order.ubahHarga.PengaturanHargaAgenFragment"
+        android:label="fragment_pengaturan_harga_agen"
+        tools:layout="@layout/fragment_pengaturan_harga_agen" >
+        <action
+            android:id="@+id/action_pengaturanHargaAgenFragment_to_bottomSheetEditHargaAgenFragment"
+            app:destination="@id/bottomSheetEditHargaAgenFragment" />
+        <action
+            android:id="@+id/action_pengaturanHargaAgenFragment_to_bottomSheetTambahEditHargaProdukAgenFragment"
+            app:destination="@id/bottomSheetTambahEditHargaProdukAgenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bottomSheetEditHargaAgenFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.agen.order.component.editHarga.bottomSheetEditHargaAgenFragment"
+        android:label="bottomSheetEditHargaAgenFragment" />
+    <fragment
+        android:id="@+id/bottomSheetTambahEditHargaProdukAgenFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.agen.order.component.tambahBarang.BottomSheetTambahEditHargaProdukAgenFragment"
+        android:label="BottomSheetTambahEditHargaProdukAgenFragment" />
 
 </navigation>

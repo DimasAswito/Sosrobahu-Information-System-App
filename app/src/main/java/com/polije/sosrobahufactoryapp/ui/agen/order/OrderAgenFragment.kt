@@ -45,6 +45,12 @@ class OrderAgenFragment : Fragment() {
             mainNavHost.navController.navigate(action)
         }
 
+        binding.btnEditHarga.setOnClickListener {
+            val action =
+                DashboardAgenFragmentDirections.actionDashboardAgenFragmentToPengaturanHargaAgenFragment()
+            mainNavHost.navController.navigate(action)
+        }
+
         val adapter = RiwayatOrderAgenAdapter(object :
             RiwayatOrderAgenAdapter.RiwayatOrderAgenAction {
             override fun onRiwayatOrderItemClicked(order: RiwayatOrderAgenDataItem) {

@@ -6,9 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.polije.sosrobahufactoryapp.R
 
-class BottomSheetTambahEditHargaProdukAgenFragment : Fragment() {
+class BottomSheetTambahEditHargaProdukAgenFragment : BottomSheetDialogFragment() {
 
     companion object {
         fun newInstance() = BottomSheetTambahEditHargaProdukAgenFragment()
