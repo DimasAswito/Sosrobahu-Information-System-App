@@ -1,5 +1,8 @@
 package com.polije.sosrobahufactoryapp.data.model.distributor
 
+import android.os.Parcelable
+import androidx.navigation.NavType
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -13,6 +16,7 @@ data class PilihBarangPengaturanHargaResponse(
     val newProductsCount: Int
 )
 
+@Parcelize
 @Serializable
 data class DistributorBarangItems(
 
@@ -33,4 +37,4 @@ data class DistributorBarangItems(
 
     @SerialName("id")
     val id: Int
-)
+) : Parcelable

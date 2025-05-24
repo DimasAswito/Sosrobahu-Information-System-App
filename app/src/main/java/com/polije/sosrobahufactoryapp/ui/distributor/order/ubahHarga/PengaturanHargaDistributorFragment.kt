@@ -5,9 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
@@ -51,7 +49,11 @@ class PengaturanHargaDistributorFragment : Fragment() {
         val adapter =
             PilihProdukEditHargaAdapter(object : PilihProdukEditHargaAdapter.PengaturanHargaAction {
                 override fun onPengaturanHargaItemClicked(item: DistributorBarangItems) {
-
+                    val action =
+                        PengaturanHargaDistributorFragmentDirections.actionPengaturanHargaDistributorFragmentToBottomsheetEditHargaDistributorFragment(
+                            item
+                        )
+                    findNavController().navigate(action)
                 }
             })
 

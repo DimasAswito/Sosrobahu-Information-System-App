@@ -516,11 +516,12 @@
         android:label="BottomSheetTambahEditHargaProdukDistributorFragment" />
     <dialog
         android:id="@+id/bottomsheetEditHargaDistributorFragment"
-        android:name="com.polije.sosrobahufactoryapp.ui.distributor.order.component.BottomsheetEditHargaDistributorFragment"
+        android:name="com.polije.sosrobahufactoryapp.ui.distributor.order.component.editHarga.BottomSheetEditHargaDistributorFragment"
         android:label="BottomsheetEditHargaDistributorFragment" >
+
         <argument
-            android:name="id"
-            app:argType="integer" />
+            android:name="barang"
+            app:argType="com.polije.sosrobahufactoryapp.data.model.distributor.DistributorBarangItems" />
     </dialog>
 
 </navigation>

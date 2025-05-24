@@ -71,6 +71,7 @@ import com.polije.sosrobahufactoryapp.ui.agen.pesanan.detailPesanan.DetailPesana
 import com.polije.sosrobahufactoryapp.ui.distributor.home.HomeDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.login.DistributorLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.order.OrderDistributorViewModel
+import com.polije.sosrobahufactoryapp.ui.distributor.order.component.editHarga.BottomSheetEditHargaDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.order.component.tambahBarang.BottomSheetTambahProdukViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.order.detailOrder.DetailOrderDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.PilihProdukDistributorViewModel
@@ -187,6 +188,7 @@ val appModule = module {
     viewModelOf(::DetailOrderDistributorViewModel)
     viewModelOf(::PengaturanHargaDistributorViewModel)
     viewModelOf(::BottomSheetTambahProdukViewModel)
+    viewModelOf(::BottomSheetEditHargaDistributorViewModel)
 
     viewModelOf(::AgenLoginViewModel)
     viewModelOf(::HomeAgenViewModel)
