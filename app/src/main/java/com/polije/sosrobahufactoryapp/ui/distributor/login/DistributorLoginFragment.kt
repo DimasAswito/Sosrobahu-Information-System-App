@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDistributorLoginBinding
@@ -34,14 +35,23 @@ class DistributorLoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val mainNavHost =
+            requireActivity().supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+
+
         val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.action_distributorLoginFragment_to_chooseRoleFragment)
+                mainNavHost.childFragmentManager.primaryNavigationFragment?.let { fragment ->
+                    if (fragment is DistributorLoginFragment) {
+                        findNavController().navigate(R.id.action_distributorLoginFragment_to_chooseRoleFragment)
+                    }
+                }
             }
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
