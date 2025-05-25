@@ -22,7 +22,7 @@ data class DashboardDistributorResponse(
      * Key is the month string (e.g. "2025-03")
      */
     @SerialName("pesananPerBulan")
-    val pesananPerBulan: List<Map<String, PesananDistributorPerBulan>> = emptyList(),
+    val pesananPerBulan: Map<String, PesananDistributorPerBulan> = emptyMap(),
 
     @SerialName("availableYears")
     val availableYears: List<Int> = emptyList(),
