@@ -47,13 +47,5 @@
         </LinearLayout>
 
         <!-- Tombol Delete -->
-        <ImageView
-            android:id="@+id/btnDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_delete"
-            android:contentDescription="Hapus stok"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

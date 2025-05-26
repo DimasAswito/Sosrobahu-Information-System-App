@@ -35,9 +35,6 @@ class ItemRiwayatKunjunganAdapter(
         fun bind(item: KunjunganTokoSalesItem) {
             binding.tvTanggal.text = item.tanggal
             binding.tvProdukTerjual.text = item.sisaProduk.toString()
-            binding.btnDelete.setOnClickListener {
-                action.onItemRiwayatKunjunganClicked(item.idKunjunganToko ?: 0)
-            }
         }
     }
 
