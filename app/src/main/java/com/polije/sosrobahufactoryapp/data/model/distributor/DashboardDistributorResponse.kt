@@ -34,10 +34,10 @@ data class DashboardDistributorResponse(
 @Serializable
 data class ProdukDataItem(
     @SerialName("nama_rokok")
-    val namaRokok: String = "",
+    val namaRokok: String? = "",
 
     @SerialName("gambar")
-    val gambar: String = "",
+    val gambar: String? = "",
 
     @SerialName("total_produk")
     val totalProduk: Int = 0

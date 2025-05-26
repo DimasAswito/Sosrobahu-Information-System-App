@@ -43,13 +43,19 @@ class DetailRestokPabrikFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.txtJumlah.text = args.restockDetail.jumlah
-        binding.txtTitle.text = getString(
-            R.string.detail_restock,
-            args.restockDetail.tanggal.toString(),
-            "RST1234${args.restockDetail.idRestock}"
-        )
+        binding.txtJumlahKeseluruhan.text = args.restockDetail.jumlah
+        binding.tvTanggalRestok.text = args.restockDetail.tanggal
+//        binding.txtTitle.text = getString(
+//            R.string.detail_restock,
+//            args.restockDetail.tanggal.toString(),
+//            "RST1234${args.restockDetail.idRestock}"
+//        )
 
         binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        binding.btnKembali.setOnClickListener {
             findNavController().navigateUp()
         }
 

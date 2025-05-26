@@ -8,27 +8,35 @@ import com.polije.sosrobahufactoryapp.domain.repository.agen.AgenRepository
 import com.polije.sosrobahufactoryapp.domain.repository.distributor.DistributorRepository
 import com.polije.sosrobahufactoryapp.domain.repository.pabrik.PabrikRepository
 import com.polije.sosrobahufactoryapp.domain.repository.sales.SalesRepository
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.BarangTerbaruDistributorAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.DashboardAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.DetailPesananMasukUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.DownloadNotaAgenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.ListBarangPengaturanHargaAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.LogOutAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.LoginAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.OrderAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.PesananMasukAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.PilihBarangDistributorAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.RiwayatOrderAgenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.UpdateBarangHargaAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.UpdateStatusPesananAgenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.agen.UploadNewBarangAgenUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.agen.UserSessionAgenUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.distributor.BarangTerbaruPabrikDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DasbhoardDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DetailPesananMasukDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.DownloadNotaDistributorUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.distributor.ListBarangPengaturanHargaDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LoginDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.LogoutDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.OrderDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.PesananMasukDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.PilihProdukPabrikDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.RiwayatOrderDistributorUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UpdateBarangHargaDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UpdateStatusPesananDistributorUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UploadNewBarangDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.distributor.UserSessionDistributorUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DashboardPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.DetailPesananMasukPabrikUseCase
@@ -42,6 +50,7 @@ import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.RiwayatRestokPabrikU
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UpdatePesananPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.pabrik.UserSessionPabrikUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.DashboardSalesUseCase
+import com.polije.sosrobahufactoryapp.domain.usecase.sales.DeleteKunjunganTokoUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.DeleteTokoUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.DownloadNotaSalesUseCase
 import com.polije.sosrobahufactoryapp.domain.usecase.sales.KunjunganTokoUseCase
@@ -58,17 +67,23 @@ import com.polije.sosrobahufactoryapp.domain.usecase.sales.UserSessionSalesUseCa
 import com.polije.sosrobahufactoryapp.ui.agen.home.HomeAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.login.AgenLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.order.OrderAgenViewModel
+import com.polije.sosrobahufactoryapp.ui.agen.order.component.editHarga.BottomSheetEditHargaAgenViewModel
+import com.polije.sosrobahufactoryapp.ui.agen.order.component.tambahBarang.BottomSheetTambahEditHargaProdukAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.order.detailOrder.DetailOrderAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.order.pilihProdukAgen.PilihProdukAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.order.tambahOrder.TambahOrderAgenViewModel
+import com.polije.sosrobahufactoryapp.ui.agen.order.ubahHarga.PengaturanHargaAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.pesanan.PesananAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.agen.pesanan.detailPesanan.DetailPesananAgenViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.home.HomeDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.login.DistributorLoginViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.order.OrderDistributorViewModel
+import com.polije.sosrobahufactoryapp.ui.distributor.order.component.editHarga.BottomSheetEditHargaDistributorViewModel
+import com.polije.sosrobahufactoryapp.ui.distributor.order.component.tambahBarang.BottomSheetTambahProdukViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.order.detailOrder.DetailOrderDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.order.pilihProdukDistributor.PilihProdukDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.order.tambahOrder.TambahOrderDistributorViewModel
+import com.polije.sosrobahufactoryapp.ui.distributor.order.ubahHarga.PengaturanHargaDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.pesanan.PesananDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.distributor.pesanan.detailPesanan.DetailPesananDistributorViewModel
 import com.polije.sosrobahufactoryapp.ui.factory.home.HomePabrikViewModel
@@ -126,6 +141,10 @@ val appModule = module {
     factoryOf(::OrderDistributorUseCase)
     factoryOf(::UpdateStatusPesananDistributorUseCase)
     factoryOf(::DownloadNotaDistributorUseCase)
+    factoryOf(::BarangTerbaruPabrikDistributorUseCase)
+    factoryOf(::ListBarangPengaturanHargaDistributorUseCase)
+    factoryOf(::UpdateBarangHargaDistributorUseCase)
+    factoryOf(::UploadNewBarangDistributorUseCase)
 
     factoryOf(::LoginAgenUseCase)
     factoryOf(::UserSessionAgenUseCase)
@@ -138,6 +157,10 @@ val appModule = module {
     factoryOf(::PilihBarangDistributorAgenUseCase)
     factoryOf(::OrderAgenUseCase)
     factoryOf(::DownloadNotaAgenUseCase)
+    factoryOf(::BarangTerbaruDistributorAgenUseCase)
+    factoryOf(::ListBarangPengaturanHargaAgenUseCase)
+    factoryOf(::UpdateBarangHargaAgenUseCase)
+    factoryOf(::UploadNewBarangAgenUseCase)
 
     factoryOf(::LoginSalesUseCase)
     factoryOf(::LogOutSalesUseCase)
@@ -153,6 +176,8 @@ val appModule = module {
     factoryOf(::KunjunganTokoUseCase)
     factoryOf(::DownloadNotaSalesUseCase)
     factoryOf(::TambahKunjunganTokoUseCase)
+    factoryOf(::DeleteKunjunganTokoUseCase)
+    factoryOf(::DeleteTokoUseCase)
 
     viewModelOf(::HomePabrikViewModel)
     viewModelOf(::FactoryLoginViewModel)
@@ -172,6 +197,9 @@ val appModule = module {
     viewModelOf(::PilihProdukDistributorViewModel)
     viewModelOf(::TambahOrderDistributorViewModel)
     viewModelOf(::DetailOrderDistributorViewModel)
+    viewModelOf(::PengaturanHargaDistributorViewModel)
+    viewModelOf(::BottomSheetTambahProdukViewModel)
+    viewModelOf(::BottomSheetEditHargaDistributorViewModel)
 
     viewModelOf(::AgenLoginViewModel)
     viewModelOf(::HomeAgenViewModel)
@@ -181,6 +209,9 @@ val appModule = module {
     viewModelOf(::PilihProdukAgenViewModel)
     viewModelOf(::TambahOrderAgenViewModel)
     viewModelOf(::DetailOrderAgenViewModel)
+    viewModelOf(::PengaturanHargaAgenViewModel)
+    viewModelOf(::BottomSheetEditHargaAgenViewModel)
+    viewModelOf(::BottomSheetTambahEditHargaProdukAgenViewModel)
 
     viewModelOf(::SalesLoginViewModel)
     viewModelOf(::HomeSalesViewModel)

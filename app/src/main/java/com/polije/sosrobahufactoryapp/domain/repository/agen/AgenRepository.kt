@@ -5,11 +5,15 @@ import androidx.paging.PagingData
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.DashboardAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.DetailPesananMasukAgenResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.GetBarangTerbaruDistributorAgenResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.InsertOrderAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.PesananMasukAgenDataItem
 import com.polije.sosrobahufactoryapp.data.model.agen.PilihBarangDistributorAgenResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.PilihBarangPengaturanHargaAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.RiwayatOrderAgenDataItem
+import com.polije.sosrobahufactoryapp.data.model.agen.TambahBarangTerbaruAgenResponse
+import com.polije.sosrobahufactoryapp.data.model.agen.UpdateBarangPengaturanHargaAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.agen.UpdateStatusOrderAgenResponse
-import com.polije.sosrobahufactoryapp.data.model.agen.InsertOrderAgenResponse
 import com.polije.sosrobahufactoryapp.ui.agen.order.pilihProdukAgen.SelectedProdukAgen
 import com.polije.sosrobahufactoryapp.utils.DataResult
 import com.polije.sosrobahufactoryapp.utils.HttpErrorCode
@@ -27,11 +31,22 @@ interface AgenRepository {
         status: Int
     ): DataResult<UpdateStatusOrderAgenResponse, HttpErrorCode>
 
-    fun getRiwayatOrderDistributor(): Flow<PagingData<RiwayatOrderAgenDataItem>>
-    suspend fun pilihBarangDistributor(): DataResult<PilihBarangDistributorAgenResponse, HttpErrorCode>
+    fun getRiwayatOrderAgen(): Flow<PagingData<RiwayatOrderAgenDataItem>>
+    suspend fun pilihBarangAgen(): DataResult<PilihBarangDistributorAgenResponse, HttpErrorCode>
 
-    suspend fun downloadNota(idNota : Int) : Long
 
+    suspend fun downloadNota(idNota: Int): Long
+
+    suspend fun getBarangPengaturanHarga(): DataResult<PilihBarangPengaturanHargaAgenResponse, HttpErrorCode>
+
+    suspend fun getBarangTerbaru(): DataResult<GetBarangTerbaruDistributorAgenResponse, HttpErrorCode>
+
+    suspend fun uploadBarangTerbaru(ids: List<Int>): DataResult<TambahBarangTerbaruAgenResponse, HttpErrorCode>
+
+    suspend fun updateBarangHarga(
+        id: Int,
+        newPrice: Int
+    ): DataResult<UpdateBarangPengaturanHargaAgenResponse, HttpErrorCode>
 
     suspend fun orderBarang(
         products: List<SelectedProdukAgen>,

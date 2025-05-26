@@ -36,20 +36,20 @@ class PengaturanFragment : Fragment() {
         binding.logoutButton.setOnClickListener {
         }
 
-        // Navigasi ke RekeningFactoryFragment
-        binding.containerRekeningBank.setOnClickListener {
-            navController.navigate(R.id.action_navigation_pengaturan_to_rekeningFactoryFragment)
-        }
-
-        // Navigasi ke ListDistributorFragment
-        binding.containerListDistributor.setOnClickListener {
-            navController.navigate(R.id.action_navigation_pengaturan_to_listDistributorFragment)
-        }
-
-        // Navigasi ke AddDistributorFragment
-        binding.containerAddDistributor.setOnClickListener {
-            navController.navigate(R.id.action_navigation_pengaturan_to_addDistributorFragment)
-        }
+//        // Navigasi ke RekeningFactoryFragment
+//        binding.containerRekeningBank.setOnClickListener {
+//            navController.navigate(R.id.action_navigation_pengaturan_to_rekeningFactoryFragment)
+//        }
+//
+//        // Navigasi ke ListDistributorFragment
+//        binding.containerListDistributor.setOnClickListener {
+//            navController.navigate(R.id.action_navigation_pengaturan_to_listDistributorFragment)
+//        }
+//
+//        // Navigasi ke AddDistributorFragment
+//        binding.containerAddDistributor.setOnClickListener {
+//            navController.navigate(R.id.action_navigation_pengaturan_to_addDistributorFragment)
+//        }
     }
 
 //    private fun showLogoutDialog() {

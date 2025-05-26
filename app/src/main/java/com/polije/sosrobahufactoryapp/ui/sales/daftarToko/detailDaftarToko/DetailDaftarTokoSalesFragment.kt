@@ -99,7 +99,13 @@ class DetailDaftarTokoSalesFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        val adapter = ItemRiwayatKunjunganAdapter(args.detailToko.kunjunganToko)
+        val adapter = ItemRiwayatKunjunganAdapter(
+            args.detailToko.kunjunganToko,
+            object : ItemRiwayatKunjunganAdapter.OnItemRiwayatKunjunganAction {
+                override fun onItemRiwayatKunjunganClicked(idKunjungan: Int) {
+                    viewModel.deleteKunjungan(idKunjungan)
+                }
+            })
         binding.rvRiwayatKunjungan.layoutManager = LinearLayoutManager(context)
         binding.rvRiwayatKunjungan.adapter = adapter
 

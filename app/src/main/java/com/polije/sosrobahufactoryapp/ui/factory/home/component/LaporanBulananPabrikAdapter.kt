@@ -43,10 +43,10 @@ class LaporanBulananPabrikAdapter(private val laporanList: List<LaporanBulanan>)
                 putString("totalHarga", laporan.totalHarga)
             }
             // Arahkan ke DetailLaporanFragment (pastikan action di nav_graph sudah ada)
-            it.findNavController().navigate(
-                R.id.action_laporanBulananFragment_to_detailLaporanFragment,
-                bundle
-            )
+//            it.findNavController().navigate(
+//                R.id.action_laporanBulananFragment_to_detailLaporanFragment,
+//                bundle
+//            )
         }
     }
 

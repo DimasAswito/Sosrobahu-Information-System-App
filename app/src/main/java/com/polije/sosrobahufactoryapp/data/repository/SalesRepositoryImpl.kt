@@ -18,6 +18,7 @@ import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.QuantityItem
 import com.polije.sosrobahufactoryapp.data.model.sales.DashboardSalesResponse
+import com.polije.sosrobahufactoryapp.data.model.sales.DeleteKunjunganResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.DeleteTokoResponse
 import com.polije.sosrobahufactoryapp.data.model.sales.KunjunganTokoDataItem
 import com.polije.sosrobahufactoryapp.data.model.sales.ListBarangAgenSalesResponse
@@ -276,7 +277,35 @@ class SalesRepositoryImpl(
 
             val part = createKunjunganParts(tanggal, sisaProduk)
 
-            val data = salesDataSource.insertKunjungan(token, idToko, part, buktiKunjungan)
+            val data = salesDataSource.insertKunjungan(
+                token = "Bearer $token",
+                idToko = idToko,
+                parts = part,
+                photo = buktiKunjungan
+            )
+            DataResult.Success(data)
+        } catch (e: HttpException) {
+            val code = e.code()
+            val httpError = HttpErrorCode.entries
+                .find { it.code == code }
+                ?: HttpErrorCode.UNKNOWN
+            DataResult.Error(httpError)
+        } catch (_: IOException) {
+            DataResult.Error(HttpErrorCode.TIMEOUT)
+        } catch (e: Exception) {
+            val error = e.message
+            DataResult.Error(HttpErrorCode.UNKNOWN)
+        }
+    }
+
+    override suspend fun deleteKunjunganToko(idKunjunganToko: Int): DataResult<DeleteKunjunganResponse, HttpErrorCode> {
+        return try {
+            val token = sessionManager.sessionFlow.first().token ?: ""
+
+            val data = salesDataSource.deleteKunjungan(
+                token = "Bearer $token",
+                idToko = idKunjunganToko,
+            )
             DataResult.Success(data)
         } catch (e: HttpException) {
             val code = e.code()

@@ -1,60 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:background="@android:color/white"
+app:cardCornerRadius="16dp"
+app:cardElevation="8dp">
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/white"
+    android:orientation="vertical"
     android:padding="16dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    android:gravity="center_horizontal">
 
-    <LinearLayout
+    <!-- Handle -->
+    <View
+        android:layout_width="100dp"
+        android:layout_height="6dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/handle_background"
+        android:layout_gravity="center_horizontal" />
+
+    <!-- Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Harga"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp" />
+
+
+    <!-- Jumlah/Stok -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilHargaProduk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:padding="16dp">
+        app:boxStrokeWidth="2dp"
+        app:startIconDrawable="@drawable/rupiah"
+        android:layout_marginBottom="12dp">
 
-        <!-- Handle -->
-        <View
-            android:layout_width="100dp"
-            android:layout_height="5dp"
-            android:background="@drawable/handle_background"
-            android:layout_marginBottom="8dp"
-            android:layout_gravity="center_horizontal"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit Harga"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginBottom="12dp"/>
-
-        <!-- Input Harga Baru -->
-        <com.google.android.material.textfield.TextInputLayout
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etHargaBaru"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Harga Baru"
-            app:boxStrokeWidth="2dp">
+            android:ems="10"
+            android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/etHargaBaru"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"/>
-        </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Tombol Simpan -->
-        <Button
-            android:id="@+id/btnSimpanHarga"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Simpan"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@color/md_theme_primary"
-            android:layout_marginTop="16dp"/>
-    </LinearLayout>
+    <Button
+        android:id="@+id/btnSimpanHarga"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:textColor="@drawable/btn_text_color"
+        android:backgroundTint="@color/distributor_theme_dark"
+        android:text="Perbarui Harga"
+        android:textSize="18sp"/>
+
+</LinearLayout>
 </androidx.cardview.widget.CardView>

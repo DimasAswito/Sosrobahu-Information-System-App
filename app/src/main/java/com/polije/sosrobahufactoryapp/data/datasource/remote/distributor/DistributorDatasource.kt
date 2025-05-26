@@ -3,16 +3,19 @@ package com.polije.sosrobahufactoryapp.data.datasource.remote.distributor
 import DashboardDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.LoginRequest
 import com.polije.sosrobahufactoryapp.data.model.LoginResponse
-import com.polije.sosrobahufactoryapp.data.model.agen.RiwayatOrderAgenResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.DetailPesananMasukDistributorResponse
+import com.polije.sosrobahufactoryapp.data.model.distributor.GetBarangTerbaruPabrikDistributorResponse
+import com.polije.sosrobahufactoryapp.data.model.distributor.NewBarangDistributorRequest
 import com.polije.sosrobahufactoryapp.data.model.distributor.OrderDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PesananMasukDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPabrikDistributorResponse
+import com.polije.sosrobahufactoryapp.data.model.distributor.PilihBarangPengaturanHargaResponse
+import com.polije.sosrobahufactoryapp.data.model.distributor.PriceUpdateDistributorRequest
 import com.polije.sosrobahufactoryapp.data.model.distributor.RiwayatOrderDistributorResponse
+import com.polije.sosrobahufactoryapp.data.model.distributor.TambahBarangTerbaruDistributorResponse
+import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateBarangPengaturanHargaDistributorResponse
 import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusOrderDistributor
-import com.polije.sosrobahufactoryapp.data.model.distributor.UpdateStatusPesananMasukResponse
 import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananRequest
-import com.polije.sosrobahufactoryapp.data.model.pabrik.UpdateDetailPesananResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.Body
@@ -20,6 +23,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.PartMap
 import retrofit2.http.Path
@@ -70,4 +74,21 @@ interface DistributorDatasource {
         @Body status: UpdateDetailPesananRequest
     ): UpdateStatusOrderDistributor
 
+    @GET("distributor/pengaturan-harga")
+    suspend fun getBarangPengaturanHarga(@Header("Authorization") token: String): PilihBarangPengaturanHargaResponse
+
+    @GET("distributor/barang-baru")
+    suspend fun getBarangTerbaru(@Header("Authorization") token: String): GetBarangTerbaruPabrikDistributorResponse
+
+    @PUT("distributor/pengaturan-harga/{id}")
+    suspend fun updateBarangPengaturanHarga(
+        @Path("id") id: Int,
+        @Body body: PriceUpdateDistributorRequest, @Header("Authorization") token: String
+    ): UpdateBarangPengaturanHargaDistributorResponse
+
+    @POST("distributor/barang-baru")
+    suspend fun uploadProducts(
+        @Header("Authorization") token: String,
+        @Body body: NewBarangDistributorRequest
+    ): TambahBarangTerbaruDistributorResponse
 }
