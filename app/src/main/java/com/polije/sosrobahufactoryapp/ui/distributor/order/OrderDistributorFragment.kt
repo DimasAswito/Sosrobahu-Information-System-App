@@ -1,5 +1,6 @@
 package com.polije.sosrobahufactoryapp.ui.distributor.order
 
+import android.R.attr.action
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +43,12 @@ class OrderDistributorFragment : Fragment() {
         binding.fabTambahOrderDistributor.setOnClickListener {
             val action =
                 DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToPilihProdukDistributorFragment()
+            mainNavHost.navController.navigate(action)
+        }
+
+        binding.btnEditHarga.setOnClickListener {
+            val action =
+                DashboardDistributorFragmentDirections.actionDashboardDistributorFragmentToPengaturanHargaDistributorFragment()
             mainNavHost.navController.navigate(action)
         }
 

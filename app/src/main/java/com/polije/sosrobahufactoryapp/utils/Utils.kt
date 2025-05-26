@@ -21,6 +21,8 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import androidx.core.net.toUri
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 
 
 fun Int.toRupiah(): String {
@@ -55,6 +57,20 @@ fun String.toTanggalIndonesia(): String {
     return this
 }
 
+fun uangFormat(value: Long): String {
+    val localeID = Locale("id", "ID")
+    val symbols = DecimalFormatSymbols(localeID).apply {
+        groupingSeparator = '.'
+        decimalSeparator = ','
+    }
+    val formatter = DecimalFormat("#,###", symbols)
+    return formatter.format(value)
+}
+
+fun uangUnformat(formatted: String): Long {
+    return formatted.replace("[^\\d]".toRegex(), "").toLongOrNull() ?: 0L
+}
+
 fun String.toTanggalIndonesiaInstant(): String {
     return try {
         // 1) parse into an Instant
@@ -77,6 +93,8 @@ fun Activity.setStatusBarColorByRole(role: UserRole) {
         UserRole.DISTRIBUTOR -> R.color.distributor_theme
         UserRole.AGEN -> R.color.agen_theme
         UserRole.SALES -> R.color.sales_theme
+        UserRole.DEFAULT -> R.color.md_theme_onPrimaryFixedVariant
+
     }
 
     window.statusBarColor = ContextCompat.getColor(this, colorRes)
@@ -98,7 +116,7 @@ fun createOrderParts(
     }
 }
 
-fun createOrderPartsDistributor(
+fun createOrderPartsAgen(
     totalItems: Int,
     totalAmount: Int,
     quantities: List<QuantityItem>

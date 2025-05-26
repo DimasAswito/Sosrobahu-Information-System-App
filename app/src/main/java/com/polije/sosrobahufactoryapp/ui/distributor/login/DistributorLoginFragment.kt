@@ -16,6 +16,8 @@ import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentDistributorLoginBinding
 import com.polije.sosrobahufactoryapp.databinding.LoadingOverlayBinding
 import com.polije.sosrobahufactoryapp.utils.LoginState
+import com.polije.sosrobahufactoryapp.utils.UserRole
+import com.polije.sosrobahufactoryapp.utils.setStatusBarColorByRole
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -29,17 +31,6 @@ class DistributorLoginFragment : Fragment() {
 
     private val viewModel: DistributorLoginViewModel by viewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().navigate(R.id.action_distributorLoginFragment_to_chooseRoleFragment)
-            }
-        }
-
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +47,17 @@ class DistributorLoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_distributorLoginFragment_to_chooseRoleFragment)
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
+
+        activity?.setStatusBarColorByRole(UserRole.DISTRIBUTOR)
 
         binding.btnBack.setOnClickListener { findNavController().navigate(R.id.action_distributorLoginFragment_to_chooseRoleFragment) }
         binding.usernameEditText.doAfterTextChanged { text -> viewModel.onUsernameChanged(text.toString()) }

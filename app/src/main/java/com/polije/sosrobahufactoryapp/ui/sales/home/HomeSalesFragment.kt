@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.polije.sosrobahufactoryapp.R
 import com.polije.sosrobahufactoryapp.databinding.FragmentHomeSalesBinding
@@ -46,7 +47,7 @@ class HomeSalesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ItemHomeSalesAdapter()
-        binding.recyclerViewDasboardSales.layoutManager = LinearLayoutManager(context)
+        binding.recyclerViewDasboardSales.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.recyclerViewDasboardSales.adapter = adapter
 
         binding.logoutSalesButton.setOnClickListener {

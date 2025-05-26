@@ -203,7 +203,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/rokok" />
+                        android:src="@drawable/logo" />
                 </com.google.android.material.card.MaterialCardView>
 
                 <!-- Nama Produk -->

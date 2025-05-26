@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_orderDistributorFragment_to_pilihProdukDistributorFragment"
             app:destination="@id/pilihProdukDistributorFragment" />
+        <action
+            android:id="@+id/action_dashboardDistributorFragment_to_pengaturanHargaDistributorFragment"
+            app:destination="@id/pengaturanHargaDistributorFragment" />
     </fragment>
     <fragment
         android:id="@+id/pesananDistributorFragment"
