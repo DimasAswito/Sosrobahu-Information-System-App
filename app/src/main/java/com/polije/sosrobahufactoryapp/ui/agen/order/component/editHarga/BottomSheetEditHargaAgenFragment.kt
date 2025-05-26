@@ -13,6 +13,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.polije.sosrobahufactoryapp.databinding.FragmentBottomSheetEditHargaAgenBinding
+import com.polije.sosrobahufactoryapp.utils.uangFormat
+import com.polije.sosrobahufactoryapp.utils.uangUnformat
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -49,7 +51,6 @@ class BottomSheetEditHargaAgenFragment : BottomSheetDialogFragment() {
         }
         val formatter = DecimalFormat("#,###", dfs)
 
-        // 2) Keep track of the last formatted text to avoid recursion
         var lastFormatted = ""
 
         val hargaWatcher = object : TextWatcher {
@@ -58,30 +59,24 @@ class BottomSheetEditHargaAgenFragment : BottomSheetDialogFragment() {
 
             override fun afterTextChanged(s: Editable?) {
                 val input = s?.toString() ?: return
-                // if no change (or already formatted), bail out
                 if (input == lastFormatted) return
 
-                // strip non-digits
-                val digitsOnly = input.replace("[^0-9]".toRegex(), "")
-                if (digitsOnly.isEmpty()) {
+                val digitsOnly = uangUnformat(input)
+                if (digitsOnly == 0L) {
                     lastFormatted = ""
                     return
                 }
 
-                // parse & re-format
-                val parsed = digitsOnly.toLong()
-                val formatted = formatter.format(parsed)
+                val formatted = uangFormat(digitsOnly)
+                lastFormatted = formatted
 
-                // remember & apply without re-triggering watcher
                 lastFormatted = formatted
                 binding.etHargaProduk.removeTextChangedListener(this)
                 binding.etHargaProduk.setText(formatted)
                 binding.etHargaProduk.setSelection(formatted.length)
                 binding.etHargaProduk.addTextChangedListener(this)
 
-
-                // update your VM with the raw Int
-                viewModel.updateHargaField(parsed.toInt())
+                viewModel.updateHargaField(digitsOnly.toInt())
             }
         }
 

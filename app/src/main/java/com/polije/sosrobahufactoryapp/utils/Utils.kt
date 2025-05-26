@@ -21,6 +21,8 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import androidx.core.net.toUri
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 
 
 fun Int.toRupiah(): String {
@@ -53,6 +55,20 @@ fun String.toTanggalIndonesia(): String {
     }
 
     return this
+}
+
+fun uangFormat(value: Long): String {
+    val localeID = Locale("id", "ID")
+    val symbols = DecimalFormatSymbols(localeID).apply {
+        groupingSeparator = '.'
+        decimalSeparator = ','
+    }
+    val formatter = DecimalFormat("#,###", symbols)
+    return formatter.format(value)
+}
+
+fun uangUnformat(formatted: String): Long {
+    return formatted.replace("[^\\d]".toRegex(), "").toLongOrNull() ?: 0L
 }
 
 fun String.toTanggalIndonesiaInstant(): String {
