@@ -550,8 +550,8 @@
         android:name="com.polije.sosrobahufactoryapp.ui.agen.order.component.editHarga.BottomSheetEditHargaAgenFragment"
         android:label="BottomSheetEditHargaAgenFragment" >
         <argument
-            android:name="id"
-            app:argType="integer" />
+            android:name="rokokitem"
+            app:argType="com.polije.sosrobahufactoryapp.data.model.agen.RokokAgensItem" />
     </dialog>
 
 </navigation>

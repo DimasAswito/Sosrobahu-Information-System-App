@@ -1,11 +1,12 @@
 package com.polije.sosrobahufactoryapp.ui.distributor.order.component.editHarga
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -14,7 +15,9 @@ import com.polije.sosrobahufactoryapp.databinding.BottomSheetEditHargaBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.lang.Integer.parseInt
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.Locale
 
 class BottomSheetEditHargaDistributorFragment : BottomSheetDialogFragment() {
 
@@ -37,11 +40,56 @@ class BottomSheetEditHargaDistributorFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.etHargaBaru.doAfterTextChanged { viewModel.updateHargaField(parseInt(it.toString())) }
+        val localeID = Locale("id", "ID")
+        val dfs = DecimalFormatSymbols(localeID).apply {
+            groupingSeparator = '.'
+            decimalSeparator = ','
+        }
+        val formatter = DecimalFormat("#,###", dfs)
+
+        // 2) Keep track of the last formatted text to avoid recursion
+        var lastFormatted = ""
+
+        val hargaWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                val input = s?.toString() ?: return
+                // if no change (or already formatted), bail out
+                if (input == lastFormatted) return
+
+                // strip non-digits
+                val digitsOnly = input.replace("[^0-9]".toRegex(), "")
+                if (digitsOnly.isEmpty()) {
+                    lastFormatted = ""
+                    return
+                }
+
+                // parse & re-format
+                val parsed = digitsOnly.toLong()
+                val formatted = formatter.format(parsed)
+
+                // remember & apply without re-triggering watcher
+                lastFormatted = formatted
+                binding.etHargaBaru.removeTextChangedListener(this)
+                binding.etHargaBaru.setText(formatted)
+                binding.etHargaBaru.setSelection(formatted.length)
+                binding.etHargaBaru.addTextChangedListener(this)
+
+
+                // update your VM with the raw Int
+                viewModel.updateHargaField(parsed.toInt())
+            }
+        }
+
+        binding.etHargaBaru.addTextChangedListener(hargaWatcher)
 
         binding.btnSimpanHarga.setOnClickListener {
             viewModel.updateHarga(args.barang.id)
         }
+
+        binding.etHargaBaru.setText(args.barang.harga.toString())
 
         lifecycleScope.launch {
             launch {

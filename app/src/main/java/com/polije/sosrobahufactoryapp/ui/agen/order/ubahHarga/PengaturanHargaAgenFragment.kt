@@ -40,7 +40,7 @@ class PengaturanHargaAgenFragment : Fragment() {
                 override fun onPengaturanHargaItemClicked(item: RokokAgensItem) {
                     val action =
                         PengaturanHargaAgenFragmentDirections.actionPengaturanHargaAgenFragmentToBottomSheetEditHargaAgenFragment(
-                            item.id
+                            item
                         )
                     findNavController().navigate(action)
                 }

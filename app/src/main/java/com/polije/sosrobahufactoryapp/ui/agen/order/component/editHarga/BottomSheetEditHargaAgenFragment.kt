@@ -1,6 +1,8 @@
 package com.polije.sosrobahufactoryapp.ui.agen.order.component.editHarga
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +17,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Integer.parseInt
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.Locale
 
 class BottomSheetEditHargaAgenFragment : BottomSheetDialogFragment() {
 
@@ -36,10 +41,56 @@ class BottomSheetEditHargaAgenFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.etHargaProduk.doAfterTextChanged { viewModel.updateHargaField(parseInt(it.toString())) }
+
+        val localeID = Locale("id", "ID")
+        val dfs = DecimalFormatSymbols(localeID).apply {
+            groupingSeparator = '.'
+            decimalSeparator = ','
+        }
+        val formatter = DecimalFormat("#,###", dfs)
+
+        // 2) Keep track of the last formatted text to avoid recursion
+        var lastFormatted = ""
+
+        val hargaWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                val input = s?.toString() ?: return
+                // if no change (or already formatted), bail out
+                if (input == lastFormatted) return
+
+                // strip non-digits
+                val digitsOnly = input.replace("[^0-9]".toRegex(), "")
+                if (digitsOnly.isEmpty()) {
+                    lastFormatted = ""
+                    return
+                }
+
+                // parse & re-format
+                val parsed = digitsOnly.toLong()
+                val formatted = formatter.format(parsed)
+
+                // remember & apply without re-triggering watcher
+                lastFormatted = formatted
+                binding.etHargaProduk.removeTextChangedListener(this)
+                binding.etHargaProduk.setText(formatted)
+                binding.etHargaProduk.setSelection(formatted.length)
+                binding.etHargaProduk.addTextChangedListener(this)
+
+
+                // update your VM with the raw Int
+                viewModel.updateHargaField(parsed.toInt())
+            }
+        }
+
+        binding.etHargaProduk.addTextChangedListener(hargaWatcher)
+
+        binding.etHargaProduk.setText(args.rokokitem.harga.toString())
 
         binding.btnEditHarga.setOnClickListener {
-            viewModel.updateHarga(args.id)
+            viewModel.updateHarga(args.rokokitem.id)
         }
 
         lifecycleScope.launch {

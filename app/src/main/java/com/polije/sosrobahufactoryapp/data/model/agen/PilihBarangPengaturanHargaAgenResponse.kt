@@ -1,5 +1,7 @@
 package com.polije.sosrobahufactoryapp.data.model.agen
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -13,6 +15,7 @@ data class PilihBarangPengaturanHargaAgenResponse(
     val newProductsCount: Int
 )
 
+@Parcelize
 @Serializable
 data class RokokAgensItem(
 
@@ -33,4 +36,4 @@ data class RokokAgensItem(
 
     @SerialName("id")
     val id: Int
-)
+) : Parcelable
