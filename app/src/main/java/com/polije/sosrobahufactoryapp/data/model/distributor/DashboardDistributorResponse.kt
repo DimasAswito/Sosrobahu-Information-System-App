@@ -28,7 +28,10 @@ data class DashboardDistributorResponse(
     val availableYears: List<Int> = emptyList(),
 
     @SerialName("nama_distributor")
-    val namaDistributor: String = ""
+    val namaDistributor: String = "",
+
+    @SerialName("totalSales")
+    val totalSales : Int = 0
 )
 
 @Serializable
