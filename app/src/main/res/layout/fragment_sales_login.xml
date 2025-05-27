@@ -160,7 +160,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:text="@string/login"
-            android:backgroundTint="@color/sales_theme_dark"
+            android:backgroundTint="@color/sales_theme"
             android:textSize="18sp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,11 +1,13 @@
 package com.polije.sosrobahufactoryapp.ui.factory.login
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -110,8 +112,17 @@ class FactoryLoginFragment : Fragment() {
                 }
             }
 
-            launch {
-                viewModel.isValid.collectLatest { binding.loginButtonPabrik.isEnabled = it }
+            lifecycleScope.launch {
+                viewModel.isValid.collectLatest { isValid ->
+                    binding.loginButtonPabrik.isEnabled = isValid
+                    val context = binding.loginButtonPabrik.context
+                    val color = if (isValid) {
+                        ContextCompat.getColor(context, R.color.factory_theme_dark)
+                    } else {
+                        ContextCompat.getColor(context, android.R.color.darker_gray)
+                    }
+                    binding.loginButtonPabrik.backgroundTintList = ColorStateList.valueOf(color)
+                }
             }
         }
     }
