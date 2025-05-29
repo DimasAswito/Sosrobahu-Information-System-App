@@ -1,11 +1,13 @@
 package com.polije.sosrobahufactoryapp.ui.sales.login
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -75,8 +77,15 @@ class SalesLoginFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            viewModel.isValid.collectLatest {
-                binding.loginButton.isEnabled = it
+            viewModel.isValid.collectLatest { isValid ->
+                binding.loginButton.isEnabled = isValid
+                val context = binding.loginButton.context
+                val color = if (isValid) {
+                    ContextCompat.getColor(context, R.color.sales_theme)
+                } else {
+                    ContextCompat.getColor(context, android.R.color.darker_gray)
+                }
+                binding.loginButton.backgroundTintList = ColorStateList.valueOf(color)
             }
         }
 

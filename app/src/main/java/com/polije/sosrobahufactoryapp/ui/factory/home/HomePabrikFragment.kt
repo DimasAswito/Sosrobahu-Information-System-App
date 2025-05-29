@@ -33,7 +33,11 @@ import com.polije.sosrobahufactoryapp.utils.toRupiah
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.NumberFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Calendar
+import java.util.Locale
 
 class HomePabrikFragment : Fragment() {
 
@@ -133,13 +137,24 @@ class HomePabrikFragment : Fragment() {
                         is HomePabrikState.Success -> {
                             loadingBinding.loadingLayout.visibility = View.GONE
                             binding.headerTextPabrik.text = state.dashboardPabrik.namaPabrik
-                            binding.stokPabrikTersedia.text =
-                                getString(R.string.karton, state.dashboardPabrik.finalStockKarton)
+                            val numberFormat = NumberFormat.getInstance(Locale("in", "ID"))
+                            val formattedStock = numberFormat.format(state.dashboardPabrik.finalStockKarton)
+                            binding.stokPabrikTersedia.text = getString(R.string.karton, formattedStock)
                             binding.omsetPabrik.text =
                                 state.dashboardPabrik.totalPendapatan.toRupiah()
                             binding.jumlahDistributor.text = getString(
                                 R.string.distributor, state.dashboardPabrik.totalDistributor
                             )
+                            binding.jumlahAgen.text = getString(
+                                R.string.distributor, state.dashboardPabrik.totalAgen.toInt()
+                            )
+                            binding.jumlahSales.text = getString(
+                                R.string.distributor, state.dashboardPabrik.totalSales.toInt()
+                            )
+                            val currentDate = LocalDate.now()
+                            val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale("id", "ID"))
+                            val formattedDate = currentDate.format(formatter)
+                            binding.tanggalHariIni.text = formattedDate
 
                             val topProductName = state.dashboardPabrik.topProductName
                             val namaRokokList = state.dashboardPabrik.namaRokokList

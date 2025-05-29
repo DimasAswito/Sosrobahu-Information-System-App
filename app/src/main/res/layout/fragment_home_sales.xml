@@ -71,7 +71,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="55"
+                            android:layout_weight="60"
                             android:background="@color/sales_theme_dark"
                             android:orientation="vertical"
                             android:padding="16dp">
@@ -79,7 +79,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Omset Keseluruhan"
+                                android:text="Omset Keseluruhan Sales"
                                 android:textColor="@android:color/white"
                                 android:textSize="14sp" />
 
@@ -92,6 +92,23 @@
                                 android:textColor="@android:color/white"
                                 android:textSize="20sp"
                                 android:textStyle="bold" />
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Fee Marketing : "
+                                    android:textColor="@android:color/white"/>
+                                <TextView
+                                    android:id="@+id/feeMarketingSales"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:textColor="@android:color/white"
+                                    android:text="Rp 0 "/>
+                            </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout

@@ -24,6 +24,9 @@ import com.polije.sosrobahufactoryapp.utils.toRupiah
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class HomeDistributorFragment : Fragment() {
 
@@ -115,7 +118,14 @@ class HomeDistributorFragment : Fragment() {
                             state.dashboardResponse.finalStockKarton.toString()
                         binding.topProductNameDistributor.text =
                             state.dashboardResponse.topProductName
+                        binding.jumlahSales.text =
+                            state.dashboardResponse.totalSales.toString()
                         adapter.submitList(state.dashboardResponse.produkData)
+
+                        val currentDate = LocalDate.now()
+                        val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale("id", "ID"))
+                        val formattedDate = currentDate.format(formatter)
+                        binding.tanggalHariIni.text = formattedDate
 
                         val topName = state.dashboardResponse.topProductName
                         binding.topProductNameDistributor.text = topName

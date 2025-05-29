@@ -38,6 +38,17 @@
                     android:textColor="@color/md_theme_background_highContrast"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tanggalHariIni"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/headerTextAgen"
+                    android:layout_marginTop="4dp"
+                    android:text="- - -"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp"
+                    android:textColor="@color/md_theme_background_highContrast" />
+
 
                 <ImageButton
                     android:id="@+id/logoutAgenButton"
@@ -71,7 +82,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="55"
+                        android:layout_weight="60"
                         android:orientation="vertical"
                         android:background="@color/agen_theme_dark"
                         android:padding="16dp">
@@ -79,7 +90,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Omset Keseluruhan"
+                            android:text="Omset Keseluruhan Sales"
                             android:textColor="@android:color/white"
                             android:textSize="14sp" />
 
@@ -92,6 +103,23 @@
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:layout_marginTop="4dp"/>
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Biaya Operasional : "
+                                android:textColor="@android:color/white"/>
+                            <TextView
+                                android:id="@+id/biayaOperasionalAgen"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:textColor="@android:color/white"
+                                android:text="Rp 0 "/>
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
