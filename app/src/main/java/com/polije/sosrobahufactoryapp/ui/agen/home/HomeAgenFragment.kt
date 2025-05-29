@@ -24,6 +24,9 @@ import com.polije.sosrobahufactoryapp.utils.toRupiah
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class HomeAgenFragment : Fragment() {
 
@@ -113,7 +116,16 @@ class HomeAgenFragment : Fragment() {
                             state.dashboardResponse.totalPendapatan?.toRupiah()
                         binding.totalStokAgen.text =
                             state.dashboardResponse.totalStokKeseluruhan.toString()
+                        val modalSales = state.dashboardResponse?.totalPendapatan ?: 0
+                        val biayaOperasional = (modalSales * 0.25).toLong()
+                        binding.biayaOperasionalAgen.text = biayaOperasional.toInt().toRupiah()
                         binding.topProductNameAgen.text = state.dashboardResponse.topProduct
+
+                        val currentDate = LocalDate.now()
+                        val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale("id", "ID"))
+                        val formattedDate = currentDate.format(formatter)
+                        binding.tanggalHariIni.text = formattedDate
+
 
                         val topName = state.dashboardResponse.topProduct
                         binding.topProductNameAgen.text = topName

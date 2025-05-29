@@ -98,6 +98,9 @@ class HomeSalesFragment : Fragment() {
                     binding.jumlahToko.text = state.dashboard?.jumlahToko.toString()
                     binding.modalSales.text = state.dashboard?.totalPrice?.toRupiah()
                     binding.topProductNameSales.text = state.dashboard?.topProduct
+                    val modalSales = state.dashboard?.totalPrice ?: 0
+                    val feeMarketing = (modalSales * 0.1).toLong()
+                    binding.feeMarketingSales.text = feeMarketing.toInt().toRupiah()
                 }
  
                 state.barangReponse.let { listBarang ->
